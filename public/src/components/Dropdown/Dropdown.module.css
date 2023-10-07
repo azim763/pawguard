@@ -1,0 +1,27 @@
+.dropdown {
+    box-sizing: border-box;
+    height: 54px;
+    padding-left: 13px;
+    padding-right: 8px;
+    border-radius: 8px;
+}
+
+.small {
+    width: 95px;
+}
+
+.sm {
+    width: 210px;
+}
+
+.md {
+    width: 325px;
+}
+
+.ml {
+    width: 470px;
+}
+
+.large {
+    width: 555px;
+}
