@@ -1,0 +1,53 @@
+.button {
+  border-radius: 20px;
+  border: 2px solid black;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.yellow {
+  background-color: var(--yellow);
+  color: var(--almost-black);
+}
+
+.light-blue {
+  background-color: var(--light-blue);
+  color: var(--almost-black);
+}
+
+.dark-blue {
+  background-color: var(--dark-blue);
+  color: var(--off-white);
+}
+
+.dk-xs {
+  font-size: 16px;
+  height: 50px;
+  width: 95px;
+}
+
+.dk-sm {
+  font-size: 16px;
+  height: 40px;
+  width: 160px;
+}
+
+.dk-md {
+  font-size: 18px;
+  height: 50px;
+  width: 300px;
+}
+
+.dk-md-s {
+  font-size: 18px;
+  height: 50px;
+  width: 210px;
+}
+
+.dk-lg {
+  font-size: 18px;
+  width: 440px;
+  height: 50px;
+}
