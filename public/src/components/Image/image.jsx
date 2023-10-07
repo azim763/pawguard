@@ -1,8 +1,8 @@
 import React from 'react'
 
-const image = (link,alt) => {
+const image = (src,alt) => {
   return (
-    <img src={link} alt={alt} />
+    <img src={src} alt={alt} />
   )
 }
 
