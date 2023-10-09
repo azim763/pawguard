@@ -1,10 +1,9 @@
 import React from 'react'
-import Image from '../Image/image'
 
 const AboutUsContent = (src,alt,title,description) => {
   return (
     <div>
-        <Image src={src} alt={alt}></Image>
+        <img src={src} alt={alt}></img>
         <h3>{title}</h3>
         <p>{description}</p>
     </div>

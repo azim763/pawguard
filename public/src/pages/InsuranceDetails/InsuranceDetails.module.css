@@ -1,0 +1,29 @@
+.InsuranceDetails{
+   height: 80vh;
+
+
+
+}
+
+.InsuranceDetailsSimilarPlans{
+    background-color: var(--light-blue);
+    height: 20vh;
+    overflow: scroll;
+}
+
+.InsuranceCoverageStyle{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+
+}
+.InsuranceCoverageCenterDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media only screen and (max-width:360px ) {
+    .InsuranceCoverageStyle{
+        grid-template-columns: 1fr;
+    }
+}
