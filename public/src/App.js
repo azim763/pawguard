@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<DashBoard />} />
-        <Route path="/insurance-details" element={<InsuranceDetails/>}/>
+        <Route path="/insurance/details" element={<InsuranceDetails/>}/>
       </Routes>
     </BrowserRouter>
   );
