@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "../Typography/Typography";
-import styles from "./planDetailCard.css";
+import styles from "./planDetailCard.module.css";
+import Button from "../Button/Button";
 const PlanDetailCard = ({
   source,
   alt,
@@ -20,7 +21,7 @@ const PlanDetailCard = ({
           Annual Deductible per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {deductibleNum}
+          ${deductibleNum}
         </Typography>
       </div>
 
@@ -38,21 +39,25 @@ const PlanDetailCard = ({
           Annual Coverage per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {coverageNum}
+          {coverageNum}%
         </Typography>
       </div>
-
 
       <div className={`${styles["detail-card-price"]}`}>
-        <Typography variant="user-greeting-poppins-semibold" color="almost-black">
-          {price}
+        <Typography
+          variant="user-greeting-poppins-semibold"
+          color="almost-black"
+        ></Typography>
+        <Typography variant="h2-poppins-semibold" color="almost-black">
+          <sup>{price}</sup>
         </Typography>
-
         <Typography variant="textfield-poppins-regular" color="almost-black">
-          {coverageNum}
+          per month
         </Typography>
       </div>
-
+      <div className={`${styles["button-container"]}`}>
+        <Button variant="light-blue" label="View Detail" size="dk-sm" />
+      </div>
     </div>
   );
 };
