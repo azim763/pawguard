@@ -3,51 +3,56 @@ import Typography from "../Typography/Typography";
 import styles from "./planDetailCard.css";
 const PlanDetailCard = ({
   source,
-  itemName,
-  dateApproved,
-  quantity,
-  price,
-  label,
   alt,
+  deductibleNum,
+  reimbursementNum,
+  coverageNum,
+  price,
   ...props
 }) => {
   return (
     <div className={`${styles["plan-detail-card-wrapper"]}`}>
-         <div className={`${styles["image-container"]}`}>
-          <img src={source} alt={alt} />
-        </div>
-        <div className={`${styles["detail-card-deductible"]}`}>
-          <Typography variant="h4-graphik-bold" color="dark-blue">
-            {itemName}
-          </Typography>
-
-      <Typography
-        variant="h2-graphik-bold"
-        style={{ margin: "16px 16px 12px" }}
-      >
-       {label}
-      </Typography>
-      <div className={`${styles["selling-item-card"]}`}>
-        <div className={`${styles["image-container"]}`}>
-          <img src={source} alt={alt} />
-        </div>
-        
-          <Typography variant="body-1-medium">Date approved: </Typography>
-          <Typography variant="body-2-regular" color="gray">
-            {dateApproved}
-          </Typography>
-          <div className={`${styles["quantity-container"]}`}>
-            <Typography
-              variant="body-1-medium"
-              style={{ marginRight: "0.3rem" }}
-            >
-              Quantity:
-            </Typography>
-            <Typography variant="body-1-medium">{quantity}</Typography>
-          </div>
-          <Typography variant="h3-graphik-bold">${price}</Typography>
-        </div>
+      <div className={`${styles["image-container"]}`}>
+        <img src={source} alt={alt} />
       </div>
+      <div className={`${styles["detail-card-deductible"]}`}>
+        <Typography variant="textfield-poppins-regular" color="small-text-gray">
+          Annual Deductible per year
+        </Typography>
+        <Typography variant="h2-poppins-semibold" color="almost-black">
+          {deductibleNum}
+        </Typography>
+      </div>
+
+      <div className={`${styles["detail-card-reimbursement"]}`}>
+        <Typography variant="textfield-poppins-regular" color="small-text-gray">
+          Reimbursement per year
+        </Typography>
+        <Typography variant="h2-poppins-semibold" color="almost-black">
+          {reimbursementNum}
+        </Typography>
+      </div>
+
+      <div className={`${styles["detail-card-coverage"]}`}>
+        <Typography variant="textfield-poppins-regular" color="small-text-gray">
+          Annual Coverage per year
+        </Typography>
+        <Typography variant="h2-poppins-semibold" color="almost-black">
+          {coverageNum}
+        </Typography>
+      </div>
+
+
+      <div className={`${styles["detail-card-price"]}`}>
+        <Typography variant="user-greeting-poppins-semibold" color="almost-black">
+          {price}
+        </Typography>
+
+        <Typography variant="textfield-poppins-regular" color="almost-black">
+          {coverageNum}
+        </Typography>
+      </div>
+
     </div>
   );
 };
