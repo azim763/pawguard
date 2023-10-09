@@ -106,4 +106,12 @@
   line-height: 12.1px;
 }
 
+/* color */
+.small-text-gray {
+  color: var(--small-text-gray);
+}
+
+.almost-black {
+  color: var(--almost-black);
+}
 /* mobile size */
