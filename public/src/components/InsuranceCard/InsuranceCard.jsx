@@ -15,6 +15,7 @@ function InsuranceCard({title,text,subtitle,body}){
         </div>
     )
 }
+export default React.memo(InsuranceCard);
 
 // to use the card component :-
 
