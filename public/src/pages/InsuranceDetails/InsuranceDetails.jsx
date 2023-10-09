@@ -3,7 +3,7 @@ import Header from "../../components/Header/header";
 import styles from "../InsuranceDetails/InsuranceDetails.module.css"
 import InsuranceCoverage from '../../components/InsuranceCoverage/InsuranceCoverage';
 import InsuranceNotCovered from '../../components/InsuranceNotCovered/InsuranceNotCovered';
-
+import InsuranceCard from "../../components/InsuranceCard/InsuranceCard"
 
 
 const InsuranceDetails = () => {
@@ -18,6 +18,7 @@ const InsuranceDetails = () => {
             {/*  PUT The Insurance card here  of the particular Card */}
           </div>
           <div>
+            <InsuranceCard title="Why Recommended" text="" subtitle="Highlight of plan" body=""></InsuranceCard>
 
             {/* Put Why recommend component here  */}
           </div>
