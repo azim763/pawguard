@@ -17,49 +17,55 @@ const SmPlanDetailCard = ({
       <div className={`${styles["image-container"]}`}>
         <img src={smSource} alt={smAlt} />
       </div>
-      <div className={`${styles["detail-card-deductible"]}`}>
-        <Typography variant="textfield-poppins-regular" color="small-text-gray">
-          Annual Deductible per year
+
+      <div className={`${styles["detail-card-price"]}`}>
+        <Typography variant="h1-poppins-semibold" color="almost-black">
+          ${smPrice}{" "}
+          <sup style={{ fontSize: "30px", fontWeight: "500" }}>{smPrice}</sup>
         </Typography>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          ${smDeductibleNum}
+        <Typography variant="detailtext1-poppins-medium" color="almost-black">
+          per month
         </Typography>
       </div>
 
       <div className={`${styles["detail-card-reimbursement"]}`}>
-        <Typography variant="textfield-poppins-regular" color="small-text-gray">
+        <Typography
+          variant="detailtext1-poppins-medium"
+          color="small-text-gray"
+        >
           Reimbursement per year
         </Typography>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          {smReimbursementNum}
+        <Typography variant="sub-h2-poppins-medium" color="almost-black">
+          {smReimbursementNum}%
         </Typography>
       </div>
 
       <div className={`${styles["detail-card-coverage"]}`}>
-        <Typography variant="textfield-poppins-regular" color="small-text-gray">
+        <Typography
+          variant="detailtext1-poppins-medium"
+          color="small-text-gray"
+        >
           Annual Coverage per year
         </Typography>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          {smCoverageNum}%
+        <Typography variant="sub-h2-poppins-medium" color="almost-black">
+          {smCoverageNum}
         </Typography>
       </div>
 
-      <div className={`${styles["detail-card-price"]}`}>
+      <div className={`${styles["detail-card-deductible"]}`}>
         <Typography
-          variant="user-greeting-poppins-semibold"
-          color="almost-black"
+          variant="detailtext1-poppins-medium"
+          color="small-text-gray"
         >
-          {smPrice}
+          Annual Deductible per year
         </Typography>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          <sup>{smPrice}</sup>
-        </Typography>
-        <Typography variant="textfield-poppins-regular" color="almost-black">
-          per month
+        <Typography variant="sub-h2-poppins-medium" color="almost-black">
+          ${smDeductibleNum}
         </Typography>
       </div>
+
       <div className={`${styles["button-container"]}`}>
-        <Button variant="light-blue" label="View Detail" size="dk-sm" />
+        <Button variant="light-blue" label="View Detail" size="dk-md" />
       </div>
     </div>
   );
