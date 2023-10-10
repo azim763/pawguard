@@ -10,7 +10,7 @@ function InsuranceCard({title,text,subtitle,body}){
             </div>
             <div className="card-body">
                 <h4>{subtitle}</h4>
-                <p>{body}</p>   
+                <p>{body}</p>
             </div> 
         </div>
     )

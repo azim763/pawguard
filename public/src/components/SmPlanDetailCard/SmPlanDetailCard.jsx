@@ -1,27 +1,28 @@
 import React from "react";
 import Typography from "../Typography/Typography";
-import styles from "./planDetailCard.module.css";
+import styles from "./smPlanDetailCard.module.css";
 import Button from "../Button/Button";
-const PlanDetailCard = ({
-  source,
-  alt,
-  deductibleNum,
-  reimbursementNum,
-  coverageNum,
-  price,
+
+const SmPlanDetailCard = ({
+  smSource,
+  smAlt,
+  smDeductibleNum,
+  smReimbursementNum,
+  smCoverageNum,
+  smPrice,
   ...props
 }) => {
   return (
     <div className={`${styles["plan-detail-card-wrapper"]}`}>
       <div className={`${styles["image-container"]}`}>
-        <img src={source} alt={alt} />
+        <img src={smSource} alt={smAlt} />
       </div>
       <div className={`${styles["detail-card-deductible"]}`}>
         <Typography variant="textfield-poppins-regular" color="small-text-gray">
           Annual Deductible per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          ${deductibleNum}
+          ${smDeductibleNum}
         </Typography>
       </div>
 
@@ -30,7 +31,7 @@ const PlanDetailCard = ({
           Reimbursement per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {reimbursementNum}
+          {smReimbursementNum}
         </Typography>
       </div>
 
@@ -39,7 +40,7 @@ const PlanDetailCard = ({
           Annual Coverage per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {coverageNum}%
+          {smCoverageNum}%
         </Typography>
       </div>
 
@@ -48,9 +49,11 @@ const PlanDetailCard = ({
           variant="user-greeting-poppins-semibold"
           color="almost-black"
         >
-          {price} <sup>{price}</sup>
+          {smPrice}
         </Typography>
-
+        <Typography variant="h2-poppins-semibold" color="almost-black">
+          <sup>{smPrice}</sup>
+        </Typography>
         <Typography variant="textfield-poppins-regular" color="almost-black">
           per month
         </Typography>
@@ -61,4 +64,5 @@ const PlanDetailCard = ({
     </div>
   );
 };
-export default React.memo(PlanDetailCard);
+
+export default React.memo(SmPlanDetailCard);
