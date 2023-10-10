@@ -1,7 +1,8 @@
+
 .InsuranceDetails{
    height: 100vh;
    display: grid;
-   padding: 5%;
+   padding: 30px;
    row-gap: 30px;
 }
 
@@ -9,6 +10,10 @@
     background-color: var(--light-blue);
     box-sizing: border-box;
     overflow: scroll;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr);
+    column-gap: 20px;
 }
 
 .InsuranceCoverageStyle{
@@ -16,8 +21,8 @@
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     overflow: scroll;
-
 }
+
 .InsuranceCoverageCenterDiv{
     display: flex;
     justify-content: center;
