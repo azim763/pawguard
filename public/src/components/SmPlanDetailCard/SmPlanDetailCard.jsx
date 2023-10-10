@@ -65,7 +65,7 @@ const SmPlanDetailCard = ({
       </div>
 
       <div className={`${styles["button-container"]}`}>
-        <Button variant="light-blue" label="View Detail" size="dk-md" />
+        <Button variant="light-blue" label="View Details" size="dk-md" />
       </div>
     </div>
   );
