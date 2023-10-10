@@ -1,0 +1,26 @@
+.petSelection img{
+    width: 10vw;
+}
+.petSelection{
+    width:10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Default style for the pet selection container */
+.petSelection {
+    /* Define your default styles here */
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Style for the pet selection container when selected */
+  .selected {
+    background-color: #D4EAEE; /* Change this to your desired background color */
+    color: black; /* You can adjust the text color when selected */
+  }
+  

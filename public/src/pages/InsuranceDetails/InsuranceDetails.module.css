@@ -1,0 +1,37 @@
+
+.InsuranceDetails{
+   height: 100vh;
+   display: grid;
+   padding: 5%;
+   row-gap: 30px;
+   background-color: var(--off-white);
+}
+
+.InsuranceDetailsSimilarPlans{
+    background-color: var(--pearl-blue);
+    box-sizing: border-box;
+    overflow: scroll;
+    padding: 5%;
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr);
+    column-gap: 20px;
+}
+
+.InsuranceCoverageStyle{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    overflow: scroll;
+}
+
+.InsuranceCoverageCenterDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width:360px ) {
+    .InsuranceCoverageStyle{
+        grid-template-columns: 1fr;
+    }
+}

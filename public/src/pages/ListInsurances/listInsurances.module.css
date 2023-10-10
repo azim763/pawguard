@@ -1,0 +1,10 @@
+.ListInsurances{
+    padding: 5%;
+    background-color: var(--off-white);
+}
+
+.ListInsurancesBody{
+    display: grid;
+    row-gap: 3%;
+    margin-top: 5%;
+}

@@ -1,0 +1,71 @@
+.plan-detail-card-wrapper {
+  border: 1px solid var(--border-grey);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 2fr 1fr;
+  column-gap: 15px;
+  row-gap: 13px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--white-white);
+}
+
+.image-container {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  align-self: center;
+}
+
+.image-container,
+.detail-card-deductible,
+.detail-card-reimbursement,
+.detail-card-coverage {
+  grid-row: 1/3;
+  margin-top: 20px;
+}
+
+.button-container {
+  grid-column: -2;
+}
+
+@media screen and (max-width: 360px) {
+  .plan-detail-card-wrapper {
+    width: 319px;
+    height: 330px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 2fr 2fr 1fr;
+  }
+
+  .image-container {
+    grid-row: 1;
+    grid-column: 1/4;
+  }
+
+  .detail-card-price {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .detail-card-reimbursement {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  .detail-card-coverage {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .detail-card-deductible {
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+  .button-container {
+    grid-column: 1/4;
+    grid-row: 4;
+    text-align: center;
+  }
+}
