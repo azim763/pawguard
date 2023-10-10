@@ -1,5 +1,5 @@
 .plan-detail-card-wrapper {
-  border: 1px solid var(--almost-black);
+  border: 1px solid var(--border-grey);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 2fr 1fr;

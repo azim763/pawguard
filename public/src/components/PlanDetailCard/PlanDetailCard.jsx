@@ -56,7 +56,7 @@ const PlanDetailCard = ({
         </Typography>
       </div>
       <div className={`${styles["button-container"]}`}>
-        <Button variant="light-blue" label="View Detail" size="dk-sm" />
+        <Button variant="light-blue" label="View Details" size="dk-sm" />
       </div>
     </div>
   );
