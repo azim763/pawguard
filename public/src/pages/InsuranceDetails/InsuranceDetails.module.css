@@ -2,15 +2,16 @@
 .InsuranceDetails{
    height: 100vh;
    display: grid;
-   padding: 30px;
+   padding: 5%;
    row-gap: 30px;
+   background-color: var(--off-white);
 }
 
 .InsuranceDetailsSimilarPlans{
     background-color: var(--light-blue);
     box-sizing: border-box;
     overflow: scroll;
-    padding: 30px;
+    padding: 5%;
     display: grid;
     grid-template-columns: repeat( 3, 1fr);
     column-gap: 20px;

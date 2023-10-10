@@ -77,6 +77,17 @@ const InsuranceDetails = () => {
               smPrice="50"
             />
           </div>
+
+          <div style={{ marginTop: "30px" }}>
+            <SmPlanDetailCard
+              smSource="https://picsum.photos/250/100"
+              smAlt="logo"
+              smDeductibleNum="50"
+              smReimbursementNum="50"
+              smCoverageNum="Unlimited"
+              smPrice="50"
+            />
+          </div>
         </div>
       </div>
     </div>
