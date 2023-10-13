@@ -102,8 +102,8 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
-  font-size: 10px;
-  line-height: 12.1px;
+  font-size: 12px;
+  line-height: 18px;
 }
 
 /* color */
@@ -114,4 +114,101 @@
 .almost-black {
   color: var(--almost-black);
 }
+
 /* mobile size */
+
+.mb-user-greeting-poppins-semibold {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+}
+
+.mb-large-h1-poppins-bold {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.mb-h1-poppins-semibold {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.mb-h2-poppins-semibold {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 33px;
+}
+
+.mb-sub-h1-poppins-semibold {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.sub-h2-poppins-medium {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.sub-h3-poppins-regular {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.mb-body1-poppins-semibold {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.mb-body2-poppins-medium {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.mb-body3-poppins-regular {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.mb-detailtext1-poppins-regular {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.mb-detailtext2-poppins-regular {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+}

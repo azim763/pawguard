@@ -6,6 +6,7 @@ import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../utils/APIRoutes";
+import Button from "../components/Button";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -83,6 +84,11 @@ export default function Login() {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit">Log In</button>
+          <Button
+          color={'red'}
+          text={'Add'}
+          onClick={'onAdd'}
+        />
           <span>
             Don't have an account ? <Link to="/register">Create One.</Link>
           </span>

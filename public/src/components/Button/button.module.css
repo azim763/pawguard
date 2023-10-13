@@ -16,14 +16,41 @@
   color: var(--yellow);
 }
 
+.yellow:hover {
+  background-color: var(--pearl-yellow);
+}
+
+.yellow:active {
+  border: 1px solid var(--almost-black);
+}
+
 .light-blue {
   background-color: var(--light-blue);
   color: var(--almost-black);
 }
 
+.light-blue:hover {
+  background-color: var(--pearl-blue);
+}
+
+.light-blue:active {
+  border: 1px solid var(--almost-black);
+}
+
 .dark-blue {
   background-color: var(--dark-blue);
   color: var(--off-white);
+}
+
+.dark-blue:hover {
+  background-color: var(--pearl-blue);
+  color: var(--almost-black);
+}
+
+.dark-blue:active {
+  background-color: var(--pearl-blue);
+  color: var(--almost-black);
+  border: 1px solid var(--almost-black);
 }
 
 .pet-profile-btn {
@@ -32,12 +59,6 @@
   border-radius: 0 0 8px 8px;
   height: 50px;
   width: 100%;
-}
-
-.dk-xs {
-  font-size: 16px;
-  height: 50px;
-  width: 95px;
 }
 
 .dk-sm {
@@ -49,7 +70,7 @@
 .dk-md {
   font-size: 18px;
   height: 50px;
-  width: 300px;
+  width: 100%;
 }
 
 .dk-md-s {
@@ -62,4 +83,36 @@
   font-size: 18px;
   width: 440px;
   height: 50px;
+}
+
+.dk-insuranceBtn {
+  border-radius: 8px;
+  width: 230px;
+  height: 54px;
+  background-color: var(--white-white);
+  color: var(--almost-black);
+  border: 1px solid var(--almost-black);
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.dk-insuranceBtn:active {
+  background-color: var(--pearl-blue);
+}
+
+/* mobile button */
+
+.mb-insuranceBtn {
+  border-radius: 8px;
+  width: 150px;
+  height: 48px;
+  background-color: var(--white-white);
+  color: var(--almost-black);
+  border: 1px solid var(--almost-black);
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.mb-insuranceBtn:active {
+  background-color: var(--pearl-blue);
 }

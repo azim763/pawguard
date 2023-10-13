@@ -30,7 +30,7 @@ const PlanDetailCard = ({
           Reimbursement per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {reimbursementNum}
+          {reimbursementNum}%
         </Typography>
       </div>
 
@@ -39,7 +39,7 @@ const PlanDetailCard = ({
           Annual Coverage per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {coverageNum}%
+          {coverageNum}
         </Typography>
       </div>
 
@@ -48,7 +48,7 @@ const PlanDetailCard = ({
           variant="user-greeting-poppins-semibold"
           color="almost-black"
         >
-          {price} <sup>{price}</sup>
+          {price} <sup style = {{fontSize: "30px", fontWeight: "500"}}>{price}</sup>
         </Typography>
 
         <Typography variant="textfield-poppins-regular" color="almost-black">
@@ -56,7 +56,7 @@ const PlanDetailCard = ({
         </Typography>
       </div>
       <div className={`${styles["button-container"]}`}>
-        <Button variant="light-blue" label="View Detail" size="dk-sm" />
+        <Button variant="light-blue" label="View Details" size="dk-sm" />
       </div>
     </div>
   );

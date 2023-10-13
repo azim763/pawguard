@@ -24,7 +24,7 @@ const InsuranceDetails = () => {
               alt="logo"
               deductibleNum="50"
               reimbursementNum="50"
-              coverageNum="50"
+              coverageNum="Unlimited"
               price="50"
             />
           </div>
@@ -49,17 +49,42 @@ const InsuranceDetails = () => {
         </div>
 
         <div className={styles.InsuranceDetailsSimilarPlans}>
-          <Typography variant="h2-poppins-semibold">
+          <Typography
+            variant="h2-poppins-semibold"
+            style={{ gridColumn: "1/-1" }}
+          >
             Compare to Similar Plans
           </Typography>
 
-          <div>
+          <div style={{ marginTop: "30px" }}>
             <SmPlanDetailCard
-              smSource="https://picsum.photos/200/100"
+              smSource="https://picsum.photos/250/100"
               smAlt="logo"
               smDeductibleNum="50"
               smReimbursementNum="50"
-              smRcoverageNum="50"
+              smCoverageNum="Unlimited"
+              smPrice="50"
+            />
+          </div>
+
+          <div style={{ marginTop: "30px" }}>
+            <SmPlanDetailCard
+              smSource="https://picsum.photos/250/100"
+              smAlt="logo"
+              smDeductibleNum="50"
+              smReimbursementNum="50"
+              smCoverageNum="Unlimited"
+              smPrice="50"
+            />
+          </div>
+
+          <div style={{ marginTop: "30px" }}>
+            <SmPlanDetailCard
+              smSource="https://picsum.photos/250/100"
+              smAlt="logo"
+              smDeductibleNum="50"
+              smReimbursementNum="50"
+              smCoverageNum="Unlimited"
               smPrice="50"
             />
           </div>
