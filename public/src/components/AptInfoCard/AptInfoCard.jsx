@@ -19,7 +19,7 @@ const AptInfoCard = ({ aptReason, aptDate, aptTime, aptAddress, petName, clinicN
         <FaPoop></FaPoop>
         <p>{aptAddress}</p>
       </div>
-        <Button text="See details" />
+        <Button label="See details" />
     </div>
   );
 };

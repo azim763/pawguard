@@ -8,6 +8,7 @@ import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
 import ListClinics from "./pages/ListClinics/ListClinics";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/insurances" element={<ListInsurances />} />
         <Route path="/insurance/details" element={<InsuranceDetails/>}/>
         <Route path="/clinics" element={<ListClinics/>}/>
+        <Route path="/aboutUs" element={<AboutUs/>}/>
       </Routes>
     </BrowserRouter>
   );

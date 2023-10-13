@@ -1,0 +1,75 @@
+.coverPhoto{
+   background-image: url("../../assets/logo.svg");
+   height: 80vh;
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+.coverPhotoDescription{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 40vw;
+    height: 80vh;
+    margin-left: 5rem;
+}
+.featureStyles{
+    display: flex;
+    flex-direction: row;
+    gap:2rem;
+
+}
+.title1{
+
+    text-align: center;
+}
+
+.aboutUsBody{
+    display: flex;
+    flex-flow:  column nowrap;
+    gap:2rem;
+    
+}
+.aboutUsInformation{
+    display: flex;
+    flex-flow:  column nowrap;
+    gap:5rem;
+    width:80vw;
+  
+    margin: 0 auto;
+}
+.aboutusProfile{
+    display: flex;
+    flex-flow: column;
+    gap:5rem;
+}
+.aboutUsProfileFirstFour{
+    display: flex;
+    flex-flow: row;
+
+}
+
+.aboutUsProfileremaining{
+    display:flex;
+    flex-flow: row nowrap;
+    
+}
+.aboutUsProfile h3{
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21.8px;
+}
+
+.aboutUsProfile p{
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.8px;
+}
+.AboutUsFooter{
+    background-color: var(--light-blue);
+}
