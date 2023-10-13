@@ -11,6 +11,10 @@
   background-color: var(--yellow);
   color: var(--almost-black);
 }
+.blue-yellow{
+  background-color: var(--dark-blue);
+  color: var(--yellow);
+}
 
 .light-blue {
   background-color: var(--light-blue);
