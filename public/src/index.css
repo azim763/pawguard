@@ -44,8 +44,9 @@ a {
 html,
 body,
 button,
-input {
+input{
   font-family: "Poppins", sans-serif;
+  color: var(--almost-black);
 }
 
 body {

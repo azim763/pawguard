@@ -9,8 +9,8 @@ const Dropdown = ({
   size,
   selectedOption,
   setSelectedOption,
+  defaultValue
 }) => {
-
   const handleOnChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -24,6 +24,11 @@ const Dropdown = ({
         value={value}
         onChange={onChange}
       >
+        {defaultValue && (
+          <option value="defaultValue" disabled selected>
+            {defaultValue}
+          </option>
+        )}
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.label}

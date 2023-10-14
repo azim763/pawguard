@@ -81,34 +81,3 @@
   height: 50px;
 }
 
-.dk-insuranceBtn {
-  border-radius: 8px;
-  width: 230px;
-  height: 54px;
-  background-color: var(--white-white);
-  color: var(--almost-black);
-  border: 1px solid var(--almost-black);
-  font-weight: 500;
-  font-size: 24px;
-}
-
-.dk-insuranceBtn:active {
-  background-color: var(--pearl-blue);
-}
-
-/* mobile button */
-
-.mb-insuranceBtn {
-  border-radius: 8px;
-  width: 150px;
-  height: 48px;
-  background-color: var(--white-white);
-  color: var(--almost-black);
-  border: 1px solid var(--almost-black);
-  font-weight: 500;
-  font-size: 20px;
-}
-
-.mb-insuranceBtn:active {
-  background-color: var(--pearl-blue);
-}

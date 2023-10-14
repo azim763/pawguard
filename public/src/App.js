@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
+import InsuranceSearch from "./pages/InsuranceSearch/InsuranceSearch";
 
 export default function App() {
   return (
@@ -16,8 +17,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<DashBoard />} />
+        <Route path="/getinsurances" element={<InsuranceSearch />} />
         <Route path="/insurances" element={<ListInsurances />} />
-        <Route path="/insurance/details" element={<InsuranceDetails/>}/>
+        <Route path="/insurance/details" element={<InsuranceDetails />} />
       </Routes>
     </BrowserRouter>
   );
