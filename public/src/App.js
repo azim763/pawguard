@@ -11,6 +11,7 @@ import ListInsurances from "./pages/ListInsurances/ListInsurances";
 import ListClinics from "./pages/ListClinics/ListClinics";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import InsuranceSearch from "./pages/InsuranceSearch/InsuranceSearch";
+import Home from "./pages/Home/Home"
 
 export default function App() {
   return (
@@ -23,6 +24,11 @@ export default function App() {
         <Route path="/getinsurances" element={<InsuranceSearch />} />
         <Route path="/insurances" element={<ListInsurances />} />
         <Route path="/insurance/details" element={<InsuranceDetails/>}/>
+        <Route path="/home" element={<Home/>}/>
+        <Route path="/clinics" element={<ListClinics/>}/>
+        <Route path="/aboutUs" element={<AboutUs/>}/>
+        <Route path="/Home" element={<Home />}/>
+
       </Routes>
     </BrowserRouter>
   );
