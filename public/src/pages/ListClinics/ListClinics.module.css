@@ -1,3 +1,57 @@
 main {
     padding: 0 154px;
+    border: 1px solid var(--off-white);
+
+    border-radius: 50px 50px 0 0;
+    background-color: var(--off-white);
+    margin:auto;
+    margin-top:-5%;
+
+  
+}
+.coverBackground{
+    background-image: url("../../assets/images/clinicImage.jpeg");
+    background-size:cover;
+    background-blend-mode:multiply;
+    height:50vh;
+    background-position: fixed;
+    overflow: hidden;
+
+}
+.opaqueStyle{
+    height: 50vh;
+    background-color: rgba(0,0,0,0.6);
+}
+.title1{
+    text-align: left;
+    color: #FDFDFD;
+}
+.titleCenter{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items:flex-start;
+    justify-content: center;
+    margin-left:5rem; 
+    height: 50vh;
+    align-content: center;
+}
+.clinicTag{
+    color: #FDFDFD;
+}
+.dropDownClinics{
+    display:flex;
+    gap:1rem;
+    justify-content: center;
+    flex-grow: 1;
+}
+.clincSearch{
+    display: flex;
+    flex-flow: column nowrap;
+    gap:2rem;
+}
+.multiplePetSelection{
+    display: flex;
+    flex-flow: row;
+    gap:1rem;
+
 }
