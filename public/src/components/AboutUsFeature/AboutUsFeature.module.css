@@ -1,8 +1,12 @@
-.AboutUsContent{
+.AboutUsFeature{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 30vw;
+}
+
+.AboutUsFeature img {
+    width: 217px;
+    height: 217px;
 }

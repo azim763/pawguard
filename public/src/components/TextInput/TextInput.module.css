@@ -4,23 +4,3 @@
     border-radius: 8px;
     box-sizing: border-box;
 }
-
-.small {
-    width: 95px;
-}
-
-.sm {
-    width: 210px;
-}
-
-.md {
-    width: 325px;
-}
-
-.ml {
-    width: 470px;
-}
-
-.large {
-    width: 555px;
-}
