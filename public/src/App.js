@@ -7,8 +7,10 @@ import Register from "./pages/Register";
 import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
+
 import ListClinics from "./pages/ListClinics/ListClinics";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import InsuranceSearch from "./pages/InsuranceSearch/InsuranceSearch";
 
 export default function App() {
   return (
@@ -18,10 +20,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<DashBoard />} />
+        <Route path="/getinsurances" element={<InsuranceSearch />} />
         <Route path="/insurances" element={<ListInsurances />} />
         <Route path="/insurance/details" element={<InsuranceDetails/>}/>
-        <Route path="/clinics" element={<ListClinics/>}/>
-        <Route path="/aboutUs" element={<AboutUs/>}/>
       </Routes>
     </BrowserRouter>
   );
