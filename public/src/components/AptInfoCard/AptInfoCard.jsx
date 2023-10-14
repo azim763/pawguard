@@ -1,5 +1,6 @@
 import styles from "./AptInfoCard.module.css";
 import { FaPoop } from "react-icons/fa";
+
 import Button from "../Button";
 
 const AptInfoCard = ({ aptReason, aptDate, aptTime, aptAddress, petName, clinicName }) => {
@@ -18,7 +19,7 @@ const AptInfoCard = ({ aptReason, aptDate, aptTime, aptAddress, petName, clinicN
         <FaPoop></FaPoop>
         <p>{aptAddress}</p>
       </div>
-        <Button text="See details" />
+        <Button label="See details" />
     </div>
   );
 };
