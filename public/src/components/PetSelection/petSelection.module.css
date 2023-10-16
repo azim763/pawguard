@@ -1,8 +1,9 @@
-.petSelection img{
-    width: 10vw;
+.petCard img{
+    width: 175px;
 }
-.petSelection{
-    width:10vw;
+
+.petCard {
+    padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,7 +11,7 @@
 }
 
 /* Default style for the pet selection container */
-.petSelection {
+.petCard {
     /* Define your default styles here */
     padding: 10px;
     border: 1px solid #ccc;
