@@ -4,6 +4,7 @@ import PageTabs from '../../components/PageTabs/PageTabs';
 import styles from './petPage.module.css';
 import PetCard from '../../components/PetCard/PetCard';
 import PetLogForm from '../../components/PetLogForm/PetLogform'; // Import your form components for each tab
+import VaccinationForm from '../../components/VaccinationForm/VaccinationForm';
 // import AppointmentForm from './AppointmentForm';
 
 
@@ -16,6 +17,7 @@ const PetPage = () => {
     // appointment: <AppointmentForm />,
     // medication: <MedicationForm />,
     // vaccination: <VaccinationForm />,
+    vaccination: <VaccinationForm />
   };
 
   const handleLinkClick = (link) => {
@@ -25,7 +27,7 @@ const PetPage = () => {
   console.log("Active Tab:", activeLink);
 
   return (
-    <div>
+    <div className={styles.petPage}>
       <Header> </Header>
       <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
@@ -33,7 +35,9 @@ const PetPage = () => {
         </div>
         <div className={styles.petPageTab}>
           <PageTabs tabs={Object.keys(tabContents)} activeTab={activeLink} onTabChange={handleLinkClick} />
+          <div className={styles.tabContent} >
           {tabContents[activeLink]}
+          </div>
         </div>
       </div>
     </div>
