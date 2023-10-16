@@ -1,26 +1,28 @@
 import React from 'react'
 import Logo from '../../assets/logo.svg';
-const PetCard = ({  petBreed, petAge, petHeight, petWeight }) => {
+import styles from './PetCard.module.css'
+const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
     return (
+        // Logos are a hard coded dont need it dynamically
         <div className='petCard'>
-            <img src={Logo} alt={petBreed+ "image"} style={{height:"3rem"}}/>
+            <img src={src} alt={petBreed+ "image"} className={styles.image} />
             <div>
-                <img src={Logo} alt="breed Logo"  style={{height:"1rem"}} />
+                <img src={Logo} alt="breed Logo" className={styles.logo}  />
                 <p>Breed</p>
                 <h3>{petBreed}</h3>
             </div>
             <div>
-                <img src={Logo} alt="breed Logo"  style={{height:"1rem"}}/>
+                <img src={Logo} alt="breed Logo"  className={styles.logo}/>
                 <p>Age</p>
                 <h3>{petAge}</h3>
             </div>
             <div>
-                <img src={Logo} alt="breed Logo"  style={{height:"1rem"}} />
+                <img src={Logo} alt="breed Logo" className={styles.logo}/>
                 <p>Height</p>
                 <h3>{petHeight}</h3>
             </div>
             <div>
-                <img src={Logo} alt="breed Logo"   style={{height:"1rem"}}/>
+                <img src={Logo} alt="breed Logo" className={styles.logo}/>
                 <p>Weight</p>
                 <h3>{petWeight}</h3>
             </div>
