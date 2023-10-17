@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
-import styles from './VaccinationForm.module.css'
 import DatePicker from '../DatePicker/DatePicker';
 
-const Vaccination = () => {
-  const [formData, setFormData] = useState({
+   const AppointmentForm = () => {
+     const [formData, setFormData] = useState({
     name: '',
     date: '',
   });
@@ -26,8 +25,8 @@ const Vaccination = () => {
   return (
 
     
-    <div className={styles.vaccinationForm}>
-    <h2>Add Vaccnination</h2>
+    <div>
+    <h2>Add Appointment</h2>
     <form onSubmit={handleSubmit}>
       <div>       
         <TextInput label  = "Name of Vaccination" type ="text" onChange={handleInputChange} value={formData.name} />
@@ -39,8 +38,10 @@ const Vaccination = () => {
 
      
     </form>
-  </div>
-  )
-}
-
-export default Vaccination
+         
+       </div>
+     )
+   }
+   
+   export default AppointmentForm
+   

@@ -16,6 +16,7 @@ import PetPage from "./pages/petPage/petPage"
 
 export default function App() {
   return (
+  
     <BrowserRouter>
       <Routes>
         <Route path="/register" element={<Register />} />
