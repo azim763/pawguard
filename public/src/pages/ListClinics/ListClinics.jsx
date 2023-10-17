@@ -7,6 +7,7 @@ import PetSelection from "../../components/PetSelection/PetSelection";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 
 const ListClinics = () => {
   const specialties = ["allergies", "cancer"];
@@ -70,20 +71,12 @@ const ListClinics = () => {
               ]}
               size="large"
             />
-            <Dropdown
-              // key="locationDropDown"
-              // onChange={handleDropdownChange}
-              defaultValue="Vancouver"
-              options={[
-                { value: "1", label: "Vancouver" },
-                { value: "Surrey", label: "Surrey" },
-              ]}
-              size="large"
-            />
+            <TextInputIcon label="Zip Code"/>
           </div>
 
           <Checkbox key="urgCare" label="Urgent Care" value="urgCare"/>
           <Checkbox key="urgCare" label="Urgent Care" value="urgCare"/>
+          
           <Button variant="yellow" label="Search" size="dk-md-s" />
         </div>
 
