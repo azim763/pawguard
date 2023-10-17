@@ -1,0 +1,16 @@
+.contact-card-wrapper {
+  width: 100%;
+  height: 148px;
+  display: grid;
+}
+
+.heading-wrapper {
+  background-color: var(--pearl-blue);
+}
+
+.phone-wrapper,
+.clinic-url-wrapper {
+  display: grid;
+  grid-template-columns: 0.1fr 2fr;
+  align-items: center;
+}
