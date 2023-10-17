@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import styles from './petSelection.module.css';
 
-const PetSelectionPage = ({ imgUrl, petName }) => {
-    const [isSelected, setIsSelected] = useState(false);
-
-    const handleImageClick = () => {
-      setIsSelected(!isSelected);
-    };
- 
-    const containerClassName = isSelected
+const PetSelection = ({ imgUrl, petName, isSelected, onClick }) => {
+  const containerClassName = isSelected
     ? `${styles.petSelection} ${styles.selected}`
     : styles.petSelection;
 
-    return (
+  const handleImageClick = () => {
+    onClick();
+  };
+
+  return (
     <div className={containerClassName} onClick={handleImageClick}>
       <img src={imgUrl} alt={petName + ' image'} />
       <p>{petName}</p>
@@ -20,4 +18,4 @@ const PetSelectionPage = ({ imgUrl, petName }) => {
   );
 };
 
-export default PetSelectionPage;
+export default PetSelection;

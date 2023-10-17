@@ -1,0 +1,12 @@
+.AboutUsFeature{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.AboutUsFeature img {
+    width: 217px;
+    height: 217px;
+}

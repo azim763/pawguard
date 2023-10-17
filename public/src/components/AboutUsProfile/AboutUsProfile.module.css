@@ -1,0 +1,12 @@
+.AboutUsProfile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.AboutUsProfile img {
+    width: 150px;
+    height: 150px;
+}

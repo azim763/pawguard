@@ -1,0 +1,28 @@
+.petPage{
+    display: grid;
+    gap: 2rem;
+}
+.petPageTabs{
+    width:40vw;
+    text-align: center;
+}
+.petPageGrid{
+    width: 80vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.petPagePetCard{
+    text-align: center;
+    align-items: center;
+}
+.tabContent{
+    background-color: white;
+    padding: 1rem;
+    border: 1px solid var(--border-grey);
+    border-radius: 8px;
+}
+/* .petPageTab{
+    display: grid;
+    gap:2rem;
+} */

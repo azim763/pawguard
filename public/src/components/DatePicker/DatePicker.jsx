@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./date-picker.module.css";
 
-const DatePicker = ({ date, setDate, ...props }) => {
+const DatePicker = ({label,  date, setDate, ...props }) => {
   const handleOnChange = (event) => {
     const today = new Date();
     const todayDate = new Date(
@@ -37,6 +37,7 @@ const DatePicker = ({ date, setDate, ...props }) => {
 
   return (
     <div className={`${styles["wrapper"]}`}>
+      <label htmlFor={label}> {label}</label>
       <input
         className={`${styles["input"]}`}
         type="date"

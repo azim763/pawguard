@@ -1,0 +1,10 @@
+.vaccinationForm form{
+    display: flex;
+    flex-flow: column;
+    gap:2rem;
+
+}
+
+.vaccinationForm button{
+    align-self: flex-end;
+}

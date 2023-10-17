@@ -1,0 +1,54 @@
+.clinicCard {
+  background-color: var(--pearl-blue);
+  border: 1px solid var(--border-grey);
+  max-width: 900px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 24px 16px;
+  margin: auto;
+  margin-top: 8px;
+  gap: 24px;
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-flow: column;
+  }
+}
+
+.clinicRating {
+  align-self: flex-start;
+}
+
+.clinicRating,
+.clinicAddress,
+.clinicOpen,
+.clinicSpecialties,
+.clinicSpecialties ul,
+.clinicSpecialties div {
+  display: flex;
+  align-items: center;
+  grid-column: 1/2;
+  gap: 12px;
+}
+
+.clinicInfo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+}
+
+.clinicInfo > div:first-child {
+  grid-column: 1 / -1;
+}
+
+.clinicInfo button {
+  grid-row: 4 / 6;
+  grid-column: 2/3;
+  justify-self: end;
+  align-self: end;
+}
+
+.clinicSpecialties ul {
+  list-style: none;
+}

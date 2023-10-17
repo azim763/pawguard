@@ -1,0 +1,10 @@
+.specialty-card-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+}
+
+.heading-container {
+  background-color: var(--pearl-blue);
+  grid-column: 1/-1;
+}

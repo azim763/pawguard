@@ -44,15 +44,16 @@ a {
 html,
 body,
 button,
-input {
+input{
   font-family: "Poppins", sans-serif;
+  color: var(--almost-black);
 }
 
 body {
   /* max-height: 100vh; */
   max-width: 100vw;
   overflow: hidden auto;
-}
+  background-color:var(--off-white);}
 
 .Toastify__toast-theme--dark {
   background-color: #00000076 !important;

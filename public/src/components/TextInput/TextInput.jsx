@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./TextInput.module.css";
+import Typography from "../Typography/Typography";
 
 const TextInput = ({
   label,
@@ -12,17 +13,21 @@ const TextInput = ({
   required,
   propHandleInputChange,
   variant,
-  size
+  size,
 }) => {
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
   return (
-    <>
-      <label htmlFor={key}>{label}</label>
+    <div>
+      <Typography variant="body2-poppins-medium" color="almost-black">
+        <label htmlFor={key}>{label}</label>
+      </Typography>
+      
+      <Typography variant="textfield-poppins-regular" color="small-text-gray">
       <input
-      className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
+        className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
         type={type}
         id={key}
         name={key}
@@ -32,7 +37,8 @@ const TextInput = ({
         required={required}
         onChange={propHandleInputChange}
       ></input>
-    </>
+      </Typography>
+    </div>
   );
 };
 
