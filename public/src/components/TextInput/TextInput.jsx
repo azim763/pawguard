@@ -28,7 +28,7 @@ const TextInput = ({
       <Typography variant="textfield-poppins-regular" color="small-text-gray">
       <input
         className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
-        type={type}
+        type="text"
         id={key}
         name={key}
         value={propInputValue}
