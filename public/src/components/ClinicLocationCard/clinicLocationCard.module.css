@@ -1,0 +1,19 @@
+.heading-container {
+  background-color: var(--pearl-blue);
+  grid-column: 1/-1;
+}
+
+.location-card-container {
+  display: grid;
+  grid-template-columns: 0.1fr 2fr;
+  row-gap: 12px;
+}
+
+.address-container,
+.hours-container,
+.alert-container {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 0.1fr 2fr;
+  align-items: center;
+}
