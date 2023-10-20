@@ -19,6 +19,16 @@ const AddPet = () => {
     { value: "F", label: "Female" },
   ];
 
+  const bloodType = [
+    { value: "M", label: "Male" },
+    { value: "F", label: "Female" },
+  ];
+
+  const petConditions = [
+    { value: "M", label: "Male" },
+    { value: "F", label: "Female" },
+  ];
+
   return (
     <div>
       <Typography variant="large-h1-poppins-bold" color="almost-black">
@@ -27,17 +37,22 @@ const AddPet = () => {
       <div className={styles.addPetForm}>
         <form action="/submit" method="post">
           <TextInput id="petName" label="Name" />
-          <Typography>
-            <label>Type of pet</label>
-          </Typography>
-          <Dropdown id="petType" options={petType} />
-          {/* <Dropdown id="petName" label="Name" /> */}
+          <Dropdown label={"Type of pet"} id="petType" options={petType} />
+          <Dropdown label="Gender" id="Gender" options={gender} />
+          <Typography variant="body2-poppins-medium">Birthday</Typography>
           <DatePicker />
-          <TextInput id="petName" label="Name" />
-          <TextInput id="petHeight" label="Height" />
-          <TextInput id="petWeight" label="Weight" />
-          <TextInput id="petName" label="Name" />
-          <TextInput id="petName" label="Name" />
+          <Dropdown label="Blood type" id="bloodType" options={bloodType} />
+          <div className={styles.petHeight}>
+            <TextInput id="petHeight" label="Pet Height" placeholder="Eg: 11"/>
+            <Typography variant="body2-poppins-medium">in</Typography>
+          </div>
+          <div className={styles.petWeight}>
+            <TextInput id="petWeight" label="Pet Weight" placeholder="Eg: 30"/>
+            <Typography variant="body2-poppins-medium">lbs</Typography>
+          </div>
+          <Dropdown label="Pre-existing medical conditions" id="petConditions" options={petConditions} />
+          <TextInput id="petNotes" label="petNotes" />
+          <Button variant="yellow" label="Save" size="dk-md-s"/>
         </form>
       </div>
     </div>
