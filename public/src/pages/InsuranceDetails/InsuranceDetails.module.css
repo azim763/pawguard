@@ -1,7 +1,7 @@
-
 .InsuranceDetails{
-   height: 100vh;
+   min-height: 100vh;
    display: grid;
+   /* grid-template-rows: auto 1fr; */
    padding: 5%;
    row-gap: 30px;
    background-color: var(--off-white);
@@ -15,13 +15,18 @@
     display: grid;
     grid-template-columns: repeat( 3, 1fr);
     column-gap: 20px;
+    /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+
 }
 
 .InsuranceCoverageStyle{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
-    overflow: scroll;
+    /* overflow: scroll; */
+    gap: 320px;
+    /* padding: 20px; */
 }
 
 .InsuranceCoverageCenterDiv{
@@ -33,5 +38,8 @@
 @media only screen and (max-width:360px ) {
     .InsuranceCoverageStyle{
         grid-template-columns: 1fr;
+    }
+    .InsuranceDetails {
+        padding: 2%;
     }
 }

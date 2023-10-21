@@ -1,0 +1,19 @@
+.IndividualClinicContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.OpenHrs{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.ClinicContact{
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.ClinicSpeciality{
+    grid-column: 1;
+    grid-row: 3;
+}

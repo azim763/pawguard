@@ -4,20 +4,14 @@ import Typography from "../Typography/Typography";
 
 const TextInput = ({
   label,
-  type,
   key,
   propInputValue,
-  setInputValue,
   placeholder,
-  disabled,
-  required,
-  propHandleInputChange,
+  onChange,
   variant,
   size,
 }) => {
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
+
 
   return (
     <div>
@@ -28,14 +22,12 @@ const TextInput = ({
       <Typography variant="textfield-poppins-regular" color="small-text-gray">
       <input
         className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
-        type={type}
+        type="text"
         id={key}
         name={key}
         value={propInputValue}
         placeholder={placeholder}
-        disabled={disabled}
-        required={required}
-        onChange={propHandleInputChange}
+        onChange={onChange}
       ></input>
       </Typography>
     </div>
