@@ -1,6 +1,8 @@
+import Typography from "../Typography/Typography";
 import styles from "./Dropdown.module.css";
 
 const Dropdown = ({
+  label,
   key,
   value,
   onChange,
@@ -9,7 +11,7 @@ const Dropdown = ({
   size,
   selectedOption,
   setSelectedOption,
-  defaultValue
+  defaultValue,
 }) => {
   const handleOnChange = (event) => {
     setSelectedOption(event.target.value);
@@ -17,6 +19,7 @@ const Dropdown = ({
 
   return (
     <>
+      <Typography variant="body2-poppins-medium"><label htmlFor={key}>{label}</label></Typography>
       <select
         className={`${styles[variant]} ${styles[size]} ${styles["dropdown"]}`}
         id={key}
