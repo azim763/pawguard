@@ -9,7 +9,7 @@ const {
 
 const router = require("express").Router();
 
-router.post("/allclinics", getAllClinics);
+router.get("/allclinics", getAllClinics);
 router.post("/create", createClinic);
 router.get("/searchclinicsbyspecies/:species", searchClinicsBySpecies);
 router.post("/getclinicbyid/:id", getClinicById);

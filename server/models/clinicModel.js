@@ -9,7 +9,7 @@ const clinicSchema = new mongoose.Schema({
     PhoneNumber: { type: String, required: true },
     Specialty: { type: String, required: true },
     OpeningHours: { type: String, required: true },
-    Rating: { type: Number, required: true },
+    Rating: { type: Number, required: false },
     City:{ type: String, required: true },
     Address: { type: String, required: true },
     UrgentCare: { type: Boolean, required: true },

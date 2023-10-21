@@ -2,12 +2,23 @@ const Clinic = require("../models/clinicModel");
 
 module.exports.getAllClinics = async (req, res, next) => {
   try {
-    const clinics = await Clinic.find();
+    const clinics = await Clinic.find().select([
+      "Name",
+      "ClinicUrl",
+"PhoneNumber",
+"Specialty",
+"OpeningHours",
+"Latitude",
+"Longitude",
+      "_id",
+    ]);
     return res.json(clinics);
   } catch (ex) {
     next(ex);
   }
 };
+
+
 
 module.exports.createClinic = async (req, res, next) => {
   try {

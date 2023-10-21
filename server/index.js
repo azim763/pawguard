@@ -2,6 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
+const clinicRoutes = require("./routes/clinics");
+const insuranceplansRoutes = require("./routes/insuranceplans");
+const insurancecompanysRoutes = require("./routes/insurancecompanys");
+const petsRoutes = require("./routes/pets");
+const petappointmentsRoutes = require("./routes/petappointments");
+const petfoodsRoutes = require("./routes/petfoods");
+const petlogsRoutes = require("./routes/petlogs");
 
 const app = express();
 const socket = require("socket.io");
@@ -23,6 +30,13 @@ mongoose
   });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/clinics", clinicRoutes);
+app.use("/api/insuranceplans", insuranceplansRoutes);
+app.use("/api/insurancecompanys", insurancecompanysRoutes);
+app.use("/api/pets", petsRoutes);
+app.use("/api/petappointments", petappointmentsRoutes);
+app.use("/api/petfoods", petfoodsRoutes);
+app.use("/api/petlogs", petlogsRoutes);
 
 const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)

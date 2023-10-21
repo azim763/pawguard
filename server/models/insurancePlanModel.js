@@ -11,6 +11,8 @@ const insurancePlanSchema = new mongoose.Schema({
     InsurancePrice: { type: Number, required: true }
 });
 
-const InsurancePlan = mongoose.model('InsurancePlan', insurancePlanSchema);
+// const InsurancePlan = mongoose.model('InsurancePlan', insurancePlanSchema);
 
-module.exports = InsurancePlan;
+// module.exports = InsurancePlan;
+
+module.exports = mongoose.model("InsurancePlans", insurancePlanSchema);

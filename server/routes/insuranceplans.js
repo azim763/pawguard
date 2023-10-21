@@ -1,6 +1,4 @@
 
-const router = require("express").Router();
-
 const {
   getAllInsurancePlans,
   createInsurancePlan,
@@ -9,6 +7,8 @@ const {
   updateInsurancePlanById,
   deleteInsurancePlanById,
 } = require('../controllers/insurancePlanController');
+
+const router = require("express").Router();
 
 // Define routes for Insurance Plans
 router.get('/allinsuranceplans', getAllInsurancePlans);
