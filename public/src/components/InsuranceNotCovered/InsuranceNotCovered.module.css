@@ -1,3 +1,9 @@
 .InsuranceNotCoveredheader{
     color:var(--some-red)
 }
+
+
+ul{
+    list-style-type: none;
+    line-height: 2.5;
+}

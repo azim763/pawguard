@@ -10,7 +10,11 @@ const InsuranceCoverage = ({descriptions, ...props}) => {
       </div>
       <div>
         <Typography variant="body2-poppins-medium" color="almost-black">
-          {descriptions}
+        <ul>
+            {descriptions.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
         </Typography>
       </div>
     </div>
