@@ -1,16 +1,29 @@
 import React  from "react";
-import './insuranceCard.module.css';
+import styles from './insuranceCard.module.css';
+import Typography from "../Typography/Typography";
 
 function InsuranceCard({title,text,subtitle,body}){
     return(
-        <div className="card-container">
+        <div className={styles.cardContainer}>
             <div className="card-title">
-                <h3>{title}</h3>
-                <h5>{text}</h5>
+            <Typography variant="sub-h1-poppins-semibold" color="almost-black">
+                {title}
+            </Typography>
+            <Typography variant="body2-poppins-regular" color="almost-black">
+                {text}
+            </Typography>
             </div>
-            <div className="card-body">
-                <h4>{subtitle}</h4>
-                <p>{body}</p>
+            <div className={styles.cardBody}>
+                <Typography variant="sub-h1-poppins-semibold" color="almost-black">
+                    {subtitle}
+                </Typography>
+                
+                    <Typography variant="body3-poppins-regular" color="almost-black">
+                    <div className={styles.bodyText}>
+                        {body}
+                    </div>
+                    </Typography>
+                
             </div> 
         </div>
     )

@@ -41,8 +41,19 @@ const InsuranceDetails = () => {
           </div>
           <div className={styles.InsuranceCoverageCenterDiv}>
             <div className={styles.InsuranceCoverageStyle}>
-              <InsuranceCoverage descriptions="Unidentified issues" />
-              <InsuranceNotCovered descriptions="Unidentified issues" />
+              <InsuranceCoverage descriptions={[
+                  "Covered Item 1",
+                  "Covered Item 2",
+                  "Covered Item 3",
+                  "Covered Item 4",
+                  "Covered Item 5",
+                ]} />
+              <InsuranceNotCovered descriptions={[
+                  "Not Covered Item 1",
+                  "Not Covered Item 2",
+                  "Not Covered Item 3",
+                  
+                ]}/>
               {/* Put whats covered and whats not covered component here */}
             </div>
           </div>

@@ -10,9 +10,13 @@ const InsuranceNotCovered = ({ descriptions, ...props }) => {
           What's Not Covered
         </Typography>
       </div>
-      <div>
+      <div >
         <Typography variant="body2-poppins-medium" color="almost-black">
-          {descriptions}
+        <ul className={styles.liststyling}>
+            {descriptions.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
         </Typography>
       </div>
     </div>
