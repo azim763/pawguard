@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Typography from "../Typography/Typography";
 import styles from "./Dropdown.module.css";
 
@@ -6,16 +7,19 @@ const Dropdown = ({
   key,
   value,
   onChange,
-  options,
   variant,
   size,
   selectedOption,
   setSelectedOption,
   defaultValue,
 }) => {
+  
   const handleOnChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  const [options, setOptions] = useState([]);
+
 
   return (
     <>
