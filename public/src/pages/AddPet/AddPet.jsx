@@ -31,38 +31,38 @@ const AddPet = () => {
     { value: "F", label: "Female" },
   ];
 
-  const [petData, setPetData] = useState({
-    petName = "",
-    gender="",
-    species="",
-    breed="", 
-    birthday="", 
-    bloodType="", 
-    height="", 
-    weight="", 
-    preExistingMedical="",
-    petImageName="", 
-    description=""
-  });
+//   const [petData, setPetData] = useState({
+//     petName = "",
+//     gender="",
+//     species="",
+//     breed="", 
+//     birthday="", 
+//     bloodType="", 
+//     height="", 
+//     weight="", 
+//     preExistingMedical="",
+//     petImageName="", 
+//     description=""
+//   });
 
-  const handleInputChange = (event) => {
-    setPetData({ ...petData, [event.target.name]: event.target.value });
-  };
+//   const handleInputChange = (event) => {
+//     setPetData({ ...petData, [event.target.name]: event.target.value });
+//   };
 
-  const onClickHandler = async (event) => {
-    event.preventDefault();
-    if (handleValidation()) {
-      const { PetName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description } = values;
-      const { data } = await axios.post(createPetRoute, {
-        petName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description 
-      });
+//   const onClickHandler = async (event) => {
+//     event.preventDefault();
+//     if (handleValidation()) {
+//       const { PetName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description } = values;
+//       const { data } = await axios.post(createPetRoute, {
+//         petName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description 
+//       });
 
 
-  useEffect(() => {
-    if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-      navigate("/");
-    }
-  }, []);
+//   useEffect(() => {
+//     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+//       navigate("/");
+//     }
+//   }, []);
 
   return (
     <div>
@@ -104,4 +104,3 @@ const AddPet = () => {
 };
 
 export default AddPet;
-
