@@ -95,7 +95,7 @@ const AddPet = () => {
             variant="yellow"
             label="Save"
             size="dk-md-s"
-            onClickHandler={onClickHandler}
+            // onClickHandler={onClickHandler}
           />
         </form>
       </div>
