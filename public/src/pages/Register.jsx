@@ -34,7 +34,7 @@ export default function Register() {
   };
 
   const handleValidation = () => {
-    const { password, confirmPassword, username, email } = values;
+    const {firstname, lastname,  password, confirmPassword, username, email } = values;
     if (password !== confirmPassword) {
       toast.error(
         "Password and confirm password should be same.",
@@ -57,15 +57,24 @@ export default function Register() {
       toast.error("Email is required.", toastOptions);
       return false;
     }
-
+    else if (firstname === "") {
+      toast.error("First name is required.", toastOptions);
+      return false;
+    }
+    else if (lastname === "") {
+      toast.error("Last name is required.", toastOptions);
+      return false;
+    }
     return true;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      const { email, username, password } = values;
+      const { firstname, lastname, email, username, password } = values;
       const { data } = await axios.post(registerRoute, {
+        firstname,
+        lastname,
         username,
         email,
         password,
@@ -93,6 +102,18 @@ export default function Register() {
             <h1>PawGuard!</h1>
           </div>
           <input
+            type="text"
+            placeholder="Firstname"
+            name="firstname"
+            onChange={(e) => handleChange(e)}
+          />
+         <input
+            type="text"
+            placeholder="Lastname"
+            name="lastname"
+            onChange={(e) => handleChange(e)}
+          />
+         <input
             type="text"
             placeholder="Username"
             name="username"

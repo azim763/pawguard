@@ -1,46 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
-import { loginRoute } from "../../utils/APIRoutes";
+import React from "react";
+import Header from "../../components/Header/header";
+import Typography from "../../components/Typography/Typography";
+import PlanDetailCard from "../../components/PlanDetailCard/PlanDetailCard";
+import styles from "./listInsurances.module.css";
 
-const InsurancePlanList = () => {
-  const [insurancePlans, setInsurancePlans] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Define the API route
-  //  const apiUrl = 'YOUR_API_URL_HERE'; // Replace with your actual API URL
-
-    // Make an HTTP GET request to fetch all insurance plans
-    axios.get(getAllInsurancePlansRoute)
-      .then(response => {
-        setInsurancePlans(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      });
-  }, []);
-
+const ListInsurances = () => {
   return (
     <div>
-      <h1>Insurance Plans</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {insurancePlans.map(plan => (
-            <li key={plan._id}>
-              <strong>Plan Name:</strong> {plan.planName} <br />
-              <strong>Company Name:</strong> {plan.companyName} <br />
-              {/* Include other plan details as needed */}
-            </li>
-          ))}
-        </ul>
-      )}
+      <Header></Header>
+      <div className={styles.ListInsurances}>
+        <Typography variant="h1-poppins-semibold" color="almost-black">
+          Plans Recommend for you
+        </Typography>
+
+        <div className={styles.ListInsurancesBody}>
+          <PlanDetailCard
+            source="https://picsum.photos/200/200"
+            alt="logo"
+            deductibleNum="50"
+            reimbursementNum="50"
+            coverageNum="Unlimited"
+            price="50"
+          />
+
+          <PlanDetailCard
+            source="https://picsum.photos/200/200"
+            alt="logo"
+            deductibleNum="50"
+            reimbursementNum="50"
+            coverageNum="Unlimited"
+            price="50"
+          />
+
+          <PlanDetailCard
+            source="https://picsum.photos/200/200"
+            alt="logo"
+            deductibleNum="50"
+            reimbursementNum="50"
+            coverageNum="Unlimited"
+            price="50"
+          />
+
+          <PlanDetailCard
+            source="https://picsum.photos/200/200"
+            alt="logo"
+            deductibleNum="50"
+            reimbursementNum="50"
+            coverageNum="Unlimited"
+            price="50"
+          />
+
+          <PlanDetailCard
+            source="https://picsum.photos/200/200"
+            alt="logo"
+            deductibleNum="50"
+            reimbursementNum="50"
+            coverageNum="Unlimited"
+            price="50"
+          />
+
+        </div>
+      </div>
     </div>
   );
 };
 
-export default InsurancePlanList;
+export default ListInsurances;
