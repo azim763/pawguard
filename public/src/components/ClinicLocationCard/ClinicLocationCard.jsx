@@ -14,32 +14,35 @@ const ClinicLocationCard = ({
   latitude,
   longitude,
   markerlat,
-  markerlong
+  markerlong,
 }) => {
   useEffect(() => {
     const map = tt.map({
       key: "2TseK96GRlPI1NdG2lpm0nMvDK4fwDWv",
       container: "map-container",
-      center: [longitude, latitude], 
+      center: [longitude, latitude],
       zoom: 10,
     });
 
-    // const customMarkerElement = document.createElement("div");
-    // ReactDOM.render(<LocationSVG width="23" height="34" />, customMarkerElement);
+    const customMarkerElement = document.createElement("div");
+    ReactDOM.render(
+      <LocationSVG width="23" height="34" />,
+      customMarkerElement
+    );
 
-    // const marker = new tt.Marker({
-    //   element: customMarkerElement,
-    //   anchor: [0, 0], 
-    // })
-    //   .setLngLat([markerlong, markerlat])
-    //   .addTo(map);
+    const marker = new tt.Marker({
+      element: customMarkerElement,
+      anchor: "center",
+    })
+      .setLngLat([markerlong, markerlat])
+      .addTo(map);
 
-    // console.log(markerlong);
+    console.log(markerlong);
 
     return () => {
       map.remove();
     };
-  }, [latitude, longitude, markerlat, markerlong]); 
+  }, [latitude, longitude, markerlat, markerlong]);
 
   return (
     <div className={`${styles["location-card-container"]}`}>
