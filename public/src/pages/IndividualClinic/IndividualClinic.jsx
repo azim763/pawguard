@@ -27,8 +27,8 @@ const IndividualClinic = () => {
             urgentCare="urgent care clinic"
             latitude={49.246292}
             longitude={-123.116226}
-            markerlong={-123.116226}
-            markerlat={49.246292}
+            markerlong={-123.10879467319003}
+            markerlat={49.22460225241459}
           />
         </div>
         <div className={styles.ClinicContact}>

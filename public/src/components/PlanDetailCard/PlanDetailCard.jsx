@@ -9,6 +9,7 @@ const PlanDetailCard = ({
   reimbursementNum,
   coverageNum,
   price,
+  onClick,
   ...props
 }) => {
   return (
@@ -56,7 +57,7 @@ const PlanDetailCard = ({
         </Typography>
       </div>
       <div className={`${styles["button-container"]}`}>
-        <Button variant="light-blue" label="View Details" size="dk-sm" />
+        <Button variant="light-blue" label="View Details" size="dk-sm" onClick={onClick} />
       </div>
     </div>
   );
