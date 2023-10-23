@@ -1,24 +1,21 @@
-import { useState } from 'react';
 import Typography from "../Typography/Typography";
 import styles from "./Dropdown.module.css";
 
 const Dropdown = ({
   label,
   key,
-  value,
   onChange,
+  value,
   variant,
   size,
-  selectedOption,
   setSelectedOption,
   defaultValue,
+  options
 }) => {
   
   const handleOnChange = (event) => {
-    setSelectedOption(event.target.value);
+    onChange(event.target.value);
   };
-
-  const [options, setOptions] = useState([]);
 
 
   return (
@@ -29,7 +26,7 @@ const Dropdown = ({
         id={key}
         name={key}
         value={value}
-        onChange={onChange}
+        onChange={handleOnChange}
       >
         {defaultValue && (
           <option value="defaultValue" disabled selected>
