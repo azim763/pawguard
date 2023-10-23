@@ -19,37 +19,37 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 8,
   },
-  FirstName: { 
+  firstname: { 
     type: String, 
     required: true 
   },
-  LastName: { 
+  lastname: { 
     type: String, 
     required: true 
   },
-  Address: { 
+  address: { 
     type: String, 
-    required: true ,
+    required: false ,
     default: "",
   },
-  passRecovery: { 
+  passrecovery: { 
     type: Boolean, 
-    required: true ,
+    required: false ,
     default: false,
   },
   PasswordRecoveryLink: { 
     type: String, 
-    required: true ,
+    required: false ,
     default: "",
   },
   MedicationNotification: { 
     type: Boolean, 
-    required: true ,
+    required: false ,
     default: false,
   },
   AppointmentNotification: { 
     type: Boolean,
-     required: true ,
+     required: false ,
      default: false
   },
   isAvatarImageSet: {

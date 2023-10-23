@@ -1,46 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, {useState, useEffect} from "react";
+import Header from "../../components/Header/header";
+import Typography from "../../components/Typography/Typography";
+import PlanDetailCard from "../../components/PlanDetailCard/PlanDetailCard";
+import styles from "./listInsurances.module.css";
+//for fetching details from db
 import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
-import { loginRoute } from "../../utils/APIRoutes";
+import axios from "axios";
+//for functioning of the button
+import { useNavigate } from "react-router-dom";
 
-const InsurancePlanList = () => {
+//to make get request to fetch data 
+const ListInsurances = () => {
   const [insurancePlans, setInsurancePlans] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Define the API route
-  //  const apiUrl = 'YOUR_API_URL_HERE'; // Replace with your actual API URL
-
-    // Make an HTTP GET request to fetch all insurance plans
-    axios.get(getAllInsurancePlansRoute)
-      .then(response => {
+  
+  useEffect( () => {
+    // Make a GET request to fetch insurance plans
+    axios.get(getAllInsurancePlansRoute) 
+      .then((response) => {
         setInsurancePlans(response.data);
-        setLoading(false);
+        console.log(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
+      .catch((error) => {
+        console.error("Error fetching insurance plans:", error);
       });
   }, []);
 
+  const handleViewDetailsClick = (companyId) => {
+    //method to navigate to the details page
+    navigate(`/insurance/details/${companyId}`);
+  };
+
   return (
     <div>
-      <h1>Insurance Plans</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {insurancePlans.map(plan => (
-            <li key={plan._id}>
-              <strong>Plan Name:</strong> {plan.planName} <br />
-              <strong>Company Name:</strong> {plan.companyName} <br />
-              {/* Include other plan details as needed */}
-            </li>
+      <Header></Header>
+      <div className={styles.ListInsurances}>
+        <Typography variant="h1-poppins-semibold" color="almost-black">
+          Plans Recommend for you
+        </Typography>
+
+        <div className={styles.ListInsurancesBody}>
+        {insurancePlans.map((plan) => (
+            <PlanDetailCard
+            source="https://picsum.photos/200/200"
+            alt="logo"
+            key={plan.CompanyID}//this key will be used button is clicked to view details
+              // source={plan.source}
+              // alt={plan.alt}
+            deductibleNum={plan.AnnualDeductable}
+            reimbursementNum={plan.Reimbursement}
+            coverageNum={plan.AnnualCoverage}
+            price={plan.InsurancePrice}
+            companyId={plan.CompanyID} 
+            onClick={() => handleViewDetailsClick(plan.CompanyID)}
+            />
           ))}
-        </ul>
-      )}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default InsurancePlanList;
+export default ListInsurances;

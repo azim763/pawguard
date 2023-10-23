@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "@tomtom-international/web-sdk-maps": "^6.25.0"
+    "@tomtom-international/web-sdk-maps": "^6.25.0",
+    "multiselect-react-dropdown": "^2.0.25",
+    "react-multi-select-component": "^4.3.4",
+    "react-router-dom": "^6.17.0"
   }
 }

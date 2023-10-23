@@ -19,7 +19,7 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.register = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const {firstname,lastname, username, email, password } = req.body;
     const usernameCheck = await User.findOne({ username });
     if (usernameCheck)
       return res.json({ msg: "Username already used", status: false });
@@ -28,6 +28,8 @@ module.exports.register = async (req, res, next) => {
       return res.json({ msg: "Email already used", status: false });
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
+      firstname,
+      lastname,
       email,
       username,
       password: hashedPassword,
@@ -42,6 +44,8 @@ module.exports.register = async (req, res, next) => {
 module.exports.getAllcnUsers = async (req, res, next) => {
   try {
     const users = await User.find({ _id: { $ne: req.params.id } }).select([
+      "firstname",
+      "lastname",
       "email",
       "username",
       "avatarImage",
@@ -57,6 +61,8 @@ module.exports.getAllcnUsers = async (req, res, next) => {
 module.exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find().select([
+      "firstname",
+      "lastname",
       "email",
       "username",
       "avatarImage",
