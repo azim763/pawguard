@@ -7,6 +7,8 @@ import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import { useNavigate, Link } from "react-router-dom";
 
+import axios from "axios";
+
 const AddPet = () => {
   const navigate = useNavigate();
   const petType = [
@@ -49,21 +51,21 @@ const AddPet = () => {
 //     setPetData({ ...petData, [event.target.name]: event.target.value });
 //   };
 
-//   const onClickHandler = async (event) => {
-//     event.preventDefault();
-//     if (handleValidation()) {
-//       const { PetName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description } = values;
-//       const { data } = await axios.post(createPetRoute, {
-//         petName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description 
-//       });
+  // const onClickHandler = async (event) => {
+  //   event.preventDefault();
+  //   if (handleValidation()) {
+  //     const { PetName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description } = values;
+  //     const { data } = await axios.post(createPetRoute, {
+  //       PetName, Gender, Species, Breed, Birthday, BloodType, Height, Weight, PreExistingMedical,PetImageName, Description 
+  //     });
+  //   }
 
-
-//   useEffect(() => {
-//     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-//       navigate("/");
-//     }
-//   }, []);
-
+  // useEffect(() => {
+  //   if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+  //     navigate("/");
+  //   }
+  // }, []);
+  // }
   return (
     <div>
       <Typography variant="large-h1-poppins-bold" color="almost-black">
@@ -95,7 +97,7 @@ const AddPet = () => {
             variant="yellow"
             label="Save"
             size="dk-md-s"
-            // onClickHandler={onClickHandler}
+         //   onClickHandler={onClickHandler}
           />
         </form>
       </div>

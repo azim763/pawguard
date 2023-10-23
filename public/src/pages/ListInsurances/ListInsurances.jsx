@@ -32,6 +32,8 @@ const ListInsurances = () => {
     navigate(`/insurance/details/${companyId}`);
   };
 
+
+const ListInsurances = () => {
   return (
     <div>
       <Header></Header>
@@ -56,7 +58,6 @@ const ListInsurances = () => {
             onClick={() => handleViewDetailsClick(plan.CompanyID)}
             />
           ))}
-        
         </div>
       </div>
     </div>
