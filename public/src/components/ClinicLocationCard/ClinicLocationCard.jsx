@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
-import tt from "@tomtom-international/web-sdk-maps";
+import * as ReactDOM from 'react-dom';
+import mapSDK  from '@tomtom-international/web-sdk-maps'
+import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import styles from "./clinicLocationCard.module.css";
 import Typography from "../Typography/Typography";
 import AlertSVG from "../SVG/AlertSVG";
@@ -17,29 +18,30 @@ const ClinicLocationCard = ({
   markerlong
 }) => {
   useEffect(() => {
-    const map = tt.map({
+    const map = mapSDK.map({
       key: "2TseK96GRlPI1NdG2lpm0nMvDK4fwDWv",
       container: "map-container",
-      center: [longitude, latitude], 
+      center: [markerlong, markerlat], 
       zoom: 10,
     });
 
+//     var element = document.createElement("div")
+// element.id = "marker"
     // const customMarkerElement = document.createElement("div");
     // ReactDOM.render(<LocationSVG width="23" height="34" />, customMarkerElement);
 
-    // const marker = new tt.Marker({
-    //   element: customMarkerElement,
-    //   anchor: [0, 0], 
-    // })
-    //   .setLngLat([markerlong, markerlat])
-    //   .addTo(map);
-
-    // console.log(markerlong);
+    const marker = new mapSDK.Marker({
+      draggable: false
+    })
+      .setLngLat([markerlong, markerlat])
+      .addTo(map);
+    console.log(markerlong);
+    map.scrollZoom.disable();
 
     return () => {
       map.remove();
     };
-  }, [latitude, longitude, markerlat, markerlong]); 
+  }, []); 
 
   return (
     <div className={`${styles["location-card-container"]}`}>
