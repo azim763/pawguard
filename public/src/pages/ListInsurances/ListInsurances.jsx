@@ -28,12 +28,10 @@ const ListInsurances = () => {
   }, []);
 
   const handleViewDetailsClick = (companyId) => {
-    // Use the history.push method to navigate to the details page
+    //method to navigate to the details page
     navigate(`/insurance/details/${companyId}`);
   };
 
-
-const ListInsurances = () => {
   return (
     <div>
       <Header></Header>
