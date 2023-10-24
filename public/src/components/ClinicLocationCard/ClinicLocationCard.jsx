@@ -21,7 +21,7 @@ const ClinicLocationCard = ({
     const map = mapSDK.map({
       key: "2TseK96GRlPI1NdG2lpm0nMvDK4fwDWv",
       container: "map-container",
-      center: [markerlong, markerlat], 
+      center: [longitude, latitude], 
       zoom: 10,
     });
 
@@ -36,7 +36,7 @@ const ClinicLocationCard = ({
       .setLngLat([markerlong, markerlat])
       .addTo(map);
     console.log(markerlong);
-    map.scrollZoom.disable();
+    map.scrollZoom.enable();
 
     return () => {
       map.remove();

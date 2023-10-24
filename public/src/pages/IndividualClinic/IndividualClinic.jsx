@@ -11,12 +11,11 @@ import ClinicLocationCard from "../../components/ClinicLocationCard/ClinicLocati
 import Aws from "../../components/ClinicOperationsHours/OperHrsCard";
 
 const IndividualClinic = () => {
-  const specialties = ["Dentistry", "Allergy"];
-  const [clinicDetails, setClinicDetails] = useState([]);
-  const [hoursOfOperation, setHoursOfOperation] = useState([]);
-
   const { clinicId } = useParams(); // Get the clinic ID from the URL
   console.log(clinicId);
+  // const specialties = ["Dentistry", "Allergy"];
+  const [clinicDetails, setClinicDetails] = useState({});
+  const [hoursOfOperation, setHoursOfOperation] = useState([]);
 
   useEffect(() => {
     axios
@@ -24,49 +23,67 @@ const IndividualClinic = () => {
       .then((response) => {
         console.log(response.data);
         setClinicDetails(response.data);
+        console.log(response.data.Address);
+        console.log(clinicDetails);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
       });
   }, [clinicId]);
 
+  useEffect(() => {
+    if (clinicDetails) {
+      console.log(clinicDetails.Address);
+      console.log(clinicDetails.Latitude);
+    }
+  }, [clinicDetails]);
+
+  console.log(clinicDetails.latitude); // This might not print the updated value immediately.
+
   return (
     <div>
       <div>
         <Header></Header>
       </div>
-      <div className={styles.IndividualClinicContainer}>
-        <div>
-          <ClinicLocationCard
-            address={clinicDetails.Address}
-            hours={clinicDetails.Open24 ? "Open 24" : "Not open 24"}
-            urgentCare={
-              clinicDetails.UrgentCare
-                ? "Urgent Care Clinic"
-                : "Not Urgent Care Clinic"
-            }
-            latitude={clinicDetails.latitude}
-            longitude={clinicDetails.longitude}
-            markerlong={clinicDetails.longitude}
-            markerlat={clinicDetails.latitude}
-          />
+      
+      <div style={{padding: "5%"}}>
+        <div style={{marginBottom: "20px"}}>
+          <Typography variant="h1-poppins-semibold">{clinicDetails.Name}</Typography>
         </div>
-        <div className={styles.ClinicContact}>
-          <ClinicContactCard
-            clinicTel={clinicDetails.PhoneNumber}
-            clinicUrl={clinicDetails.ClinicUrl}
-          />
-        </div>
-        <div className={styles.ClinicSpeciality}>
-          <ClinicSpecialtiesCard
-            key="1"
-            specialties={clinicDetails.specialities}
-          />
-        </div>
-
-        <div className={styles.OpenHrs}>
-          <Aws hoursOfOperation={clinicDetails.OpeningHours} />
-        </div>
+        {clinicDetails._id && (
+          <div className={styles.IndividualClinicContainer}>
+            <div>
+              <ClinicLocationCard
+                address={clinicDetails.Address}
+                hours={clinicDetails.Open24 ? "Open 24" : "Not open 24"}
+                urgentCare={
+                  clinicDetails.UrgentCare
+                    ? "Urgent Care Clinic"
+                    : "Not Urgent Care Clinic"
+                }
+                latitude={clinicDetails.Latitude}
+                longitude={clinicDetails.Longitude}
+                markerlong={clinicDetails.Longitude}
+                markerlat={clinicDetails.Latitude}
+              />
+            </div>
+            <div className={styles.ClinicContact}>
+              <ClinicContactCard
+                clinicTel={clinicDetails.PhoneNumber}
+                clinicUrl={clinicDetails.ClinicUrl}
+              />
+            </div>
+            <div className={styles.ClinicSpeciality}>
+              <ClinicSpecialtiesCard
+                key="1"
+                specialtiesCardString={clinicDetails.Specialty}
+              />
+            </div>
+            <div className={styles.OpenHrs}>
+              <Aws operationHrsString={clinicDetails.OpeningHours} />
+            </div>
+      </div>
+      )}
       </div>
     </div>
   );
