@@ -41,7 +41,7 @@ const ClinicLocationCard = ({
     return () => {
       map.remove();
     };
-  }, []); 
+  }, [latitude, longitude, markerlat, markerlong]); 
 
   return (
     <div className={`${styles["location-card-container"]}`}>

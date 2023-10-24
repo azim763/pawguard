@@ -13,18 +13,19 @@ import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 
 const ListClinics = () => {
-  const specialties = ["allergies", "cancer"];
+  // const specialties = ["allergies", "cancer"];
   const [selectedPet, setSelectedPet] = useState(null);
+  const [clinicData, setClinicData] = useState([]);
+
+  const navigate = useNavigate();
   const petData = [
     { imgUrl: "https://picsum.photos/200", petName: "Pet 1", index: 1 },
     { imgUrl: "https://picsum.photos/200", petName: "Pet 2", index: 2 },
     // Add more pet data as needed
   ];
 
-  const [clinicData, setClinicData] = useState([]);
-
-  useEffect(async () => {
-    await axios
+  useEffect(() => {
+    axios
       .get(getAllClinicsRoute)
       .then((response) => {
         console.log(response.data);
@@ -38,6 +39,10 @@ const ListClinics = () => {
   const handlePetClick = (index) => {
     setSelectedPet(index);
   };
+
+  const handleClickDetails =(clinicId) =>{
+    navigate(`/clinic/details/${clinicId}`);
+  }
 
   return (
     <div>
@@ -76,7 +81,7 @@ const ListClinics = () => {
             />
           ))}
         </div>
-        <div className={styles.clincSearch}>
+        <div className={styles.clinicSearch}>
           <div className={styles.dropDownClinics}>
             <Dropdown
               key="specialityDropDown"
@@ -99,13 +104,15 @@ const ListClinics = () => {
 
         {clinicData.map((clinic) => (
           <ClinicDetailCard
-            key={clinic._id} // Make sure to provide a unique key
-            clinicName={clinic.name}
-            clinicRating={clinic.rating}
-            numberOfRatings={clinic.numberOfRatings}
-            clinicAddress={clinic.address}
-            specialties={clinic.specialties}
-            source={clinic.imageUrl}
+            key={clinic._id}
+            clinicName={clinic.Name}
+            clinicRating={clinic.Rating}
+            // numberOfRatings={clinic.numberOfRatings}`
+            clinicAddress={clinic.Address}
+            specialtiesString={clinic.Specialty}
+            source={clinic.ImageUrl}
+            open24={clinic.Open24 ? "Open 24" : "Not open 24"}
+            handleClickDetails={handleClickDetails}
           />
         ))}
       </main>
