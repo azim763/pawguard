@@ -1,0 +1,13 @@
+.petLogRadioButtons{
+    display: flex;
+    flex-flow: column nowrap;
+}
+.petLogRadioButtons div{
+    display: flex;
+    flex-flow: column;
+}
+.petLogRadioButtons div div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
