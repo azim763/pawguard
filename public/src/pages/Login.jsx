@@ -57,7 +57,7 @@ export default function Login() {
           JSON.stringify(data.user)
         );
 
-        navigate("/");
+        navigate("/addPet");
       }
     }
   };
@@ -84,11 +84,7 @@ export default function Login() {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit">Log In</button>
-          <Button
-          color={'red'}
-          text={'Add'}
-          onClick={'onAdd'}
-        />
+          <Button color={"red"} text={"Add"} onClick={"onAdd"} />
           <span>
             Don't have an account ? <Link to="/register">Create One.</Link>
           </span>
@@ -107,7 +103,7 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #dedfdc;;
+  background-color: #dedfdc;
   .brand {
     display: flex;
     align-items: center;

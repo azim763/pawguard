@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from '../../assets/logo.svg';
 import styles from './PetCard.module.css'
+import Typography from '../Typography/Typography';
 const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
     return (
         // Logos are a hard coded dont need it dynamically
