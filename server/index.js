@@ -9,6 +9,7 @@ const petsRoutes = require("./routes/pets");
 const petappointmentsRoutes = require("./routes/petappointments");
 const petfoodsRoutes = require("./routes/petfoods");
 const petlogsRoutes = require("./routes/petlogs");
+const petmedicationRoutes = require("./routes/petmedications");
 
 const app = express();
 const socket = require("socket.io");
@@ -38,6 +39,7 @@ app.use("/api/pets", petsRoutes);
 app.use("/api/petappointments", petappointmentsRoutes);
 app.use("/api/petfoods", petfoodsRoutes);
 app.use("/api/petlogs", petlogsRoutes);
+app.use("/api/petmedications", petmedicationRoutes);
 
 const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)

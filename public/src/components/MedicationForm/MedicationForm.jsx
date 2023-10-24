@@ -3,11 +3,16 @@ import Button from "../Button/Button";
 import Typography from "../Typography/Typography";
 import TextInput from "../TextInput/TextInput";
 import DatePicker from "../DatePicker/DatePicker";
+import {createPetMedicationRoute} from "../../utils/APIRoutes.js"
+import axios from "axios";
+
 
 const MedicationForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    date: "",
+    PetID: null,
+    MedicineName: "",
+    DosageAmount: "",
+    MedicationPeriod: ""
   });
 
   const handleInputChange = (e) => {
@@ -20,6 +25,8 @@ const MedicationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const response = axios.post( createPetMedicationRoute, formData);
+    console.log(formData)
     // You can perform actions with the form data here, such as sending it to a server or processing it in some way.
     console.log("Form submitted with data:", formData);
   };
@@ -54,7 +61,7 @@ const MedicationForm = () => {
           <label>Medication Start Date</label>
         </Typography>
         <DatePicker />
-        <Button variant="yellow" label="Add New Vaccination" size="dk-md-s" />
+        <Button variant="yellow" label="Add New Medication" size="dk-md-s" />
       </form>
     </div>
   );

@@ -54,7 +54,7 @@ const PetLogForm = () => {
     // Handle food form submission
     console.log('Food data:', foodData);
     const response = axios.post(createPetFoodRoute, foodData);
-
+    console.log(response)
     console.log('data submitted');
   };
 
