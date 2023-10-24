@@ -40,9 +40,9 @@ const ListClinics = () => {
     setSelectedPet(index);
   };
 
-  const handleClickDetails =(clinicId) =>{
+  const handleClickDetails = (clinicId) => {
     navigate(`/clinic/details/${clinicId}`);
-  }
+  };
 
   return (
     <div>
@@ -112,7 +112,7 @@ const ListClinics = () => {
             specialtiesString={clinic.Specialty}
             source={clinic.ImageUrl}
             open24={clinic.Open24 ? "Open 24" : "Not open 24"}
-            handleClickDetails={handleClickDetails}
+            handleClickDetails={() => handleClickDetails(clinic._id)}
           />
         ))}
       </main>
