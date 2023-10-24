@@ -11,13 +11,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { createPetRoute } from "../../utils/APIRoutes";
 
 const AddPet = ( ) => {
-  // const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  // const handleImageSelect = (image) => {
-  //   setSelectedImage(image);
-  // };
-  
-  // const navigate = useNavigate();
+ 
+  const navigate = useNavigate();
   const petType = [
     { value: "dog", label: "Dog" },
     { value: "cat", label: "Cat" },
@@ -92,7 +89,19 @@ const AddPet = ( ) => {
       [name]: value,
     });
   };
-
+ 
+  
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPetData({
+        ...petData,
+        PetImageName: imageUrl, // Set the selected image as PetImageName
+      });
+    }
+  };
+  
   const onClickHandler = async (event) => {
     event.preventDefault();
     try {
@@ -111,12 +120,13 @@ const AddPet = ( ) => {
       <Typography variant="large-h1-poppins-bold" color="almost-black">
         Add Pet
       </Typography>
-      <SingleImageUpload
-        // onImageSelect={handleImageSelect}
-      />
+
       {/* <img src={selectedImage} alt="Selected" width="200" height="200" /> */}
       <div className={styles.addPetForm}>
+        
         <form action="/submit" method="post" onSubmit={onClickHandler}>
+        <SingleImageUpload onChange={handleImageChange} />
+
           <TextInput id="PetName" label="Name" onChange={handleInputChange} />
           <Dropdown
             label="Type of pet"

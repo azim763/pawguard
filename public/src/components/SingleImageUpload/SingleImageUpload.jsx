@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 
-function SingleImageUpload({ handleImageChange }) {
-  const [image, setImage] = useState(null);
+function SingleImageUpload({onChange}) {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+
 
   return (
     <div>
-      <h2>Single Image Upload</h2>
       <input
         type="file"
         accept="image/*"
-        onChange={handleImageChange}
+        onChange={onChange}
       />
-      {image && (
+      {selectedImage && (
         <div>
           <h3>Selected Image Preview</h3>
-          <img src={image} alt="Selected" width="200" height="200" />
+          <img src={selectedImage} alt="Selected" width="200" height="200" />
         </div>
       )}
     </div>
