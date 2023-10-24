@@ -1,21 +1,28 @@
-nav div
-{
-    display: flex;
-    flex-direction: row;
-    gap:1rem;
-justify-content: center;
-height:10vh;
-background-color:var(--dark-blue);
-color:var(--off-white);
+nav div {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  height: 10vh;
+  background-color: var(--dark-blue);
+  color: var(--off-white);
 }
 
-nav div ul{
-    display: flex;
-    justify-content: space-between;
-    gap:2rem;
-    align-items: center;
+nav div ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
 }
-nav div ul li{
-    list-style: none;
-    align-items: center;
+nav div ul li {
+  list-style: none;
+  align-items: center;
+}
+
+nav li a {
+  color: var(--pearl-blue);
+}
+
+nav li a.active {
+  color: var(--yellow);
 }
