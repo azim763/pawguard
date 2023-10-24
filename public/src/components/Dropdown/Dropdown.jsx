@@ -3,7 +3,7 @@ import styles from "./Dropdown.module.css";
 
 const Dropdown = ({
   label,
-  key,
+  id,
   onChange,
   value,
   variant,
@@ -20,11 +20,11 @@ const Dropdown = ({
 
   return (
     <>
-      <Typography variant="body2-poppins-medium"><label htmlFor={key}>{label}</label></Typography>
+      <Typography variant="body2-poppins-medium"><label htmlFor={id}>{label}</label></Typography>
       <select
         className={`${styles[variant]} ${styles[size]} ${styles["dropdown"]}`}
-        id={key}
-        name={key}
+        id={id}
+        name={id}
         value={value}
         onChange={handleOnChange}
       >
