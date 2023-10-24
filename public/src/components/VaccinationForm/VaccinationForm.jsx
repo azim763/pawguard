@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import TextInput from '../TextInput/TextInput';
-import Button from '../Button/Button';
-import styles from './VaccinationForm.module.css'
-import DatePicker from '../DatePicker/DatePicker';
+import React, { useState } from "react";
+import TextInput from "../TextInput/TextInput";
+import Button from "../Button/Button";
+import styles from "./VaccinationForm.module.css";
+import DatePicker from "../DatePicker/DatePicker";
+import Typography from "../Typography/Typography";
 
 const Vaccination = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    date: '',
+    name: "",
+    date: "",
   });
 
   const handleInputChange = (e) => {
@@ -21,26 +22,28 @@ const Vaccination = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can perform actions with the form data here, such as sending it to a server or processing it in some way.
-    console.log('Form submitted with data:', formData);
+    console.log("Form submitted with data:", formData);
   };
   return (
-
-    
     <div className={styles.vaccinationForm}>
-    <h2>Add Vaccnination</h2>
-    <form onSubmit={handleSubmit}>
-      <div>       
-        <TextInput label  = "Name of Vaccination" type ="text" onChange={handleInputChange} value={formData.name} />
-      </div>
-      <div>     
-        <DatePicker label="Date of Vaccination" ></DatePicker>  
-      </div>  
-      <Button variant="yellow" label="Add New Vaccination" size="dk-md-s"/>
+      <Typography variant="h2-poppins-semibold">Add Vaccination</Typography>
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          label="Name of Vaccination"
+          type="text"
+          onChange={handleInputChange}
+          value={formData.name}
+        />
+        <div>
+          <Typography variant="body2-poppins-medium">
+            <label htmlFor="">Date</label>
+          </Typography>
+          <DatePicker label="Date of Vaccination"></DatePicker>
+        </div>
+        <Button variant="yellow" label="Add New Vaccination" size="dk-md-s" />
+      </form>
+    </div>
+  );
+};
 
-     
-    </form>
-  </div>
-  )
-}
-
-export default Vaccination
+export default Vaccination;
