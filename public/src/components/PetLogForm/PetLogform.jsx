@@ -7,7 +7,7 @@ import DatePicker from '../DatePicker/DatePicker';
 import Button from '../Button/Button';
 import RadioButton from '../RadioButton/RadioButton';
 import Checkbox from '../Checkbox/Checkbox';
-import { createPetFoodRoute } from '../../utils/APIRoutes';
+import { createPetFoodRoute,createPetLogRoute } from '../../utils/APIRoutes';
 import axios from 'axios';
 
 const PetLogForm = () => {
@@ -61,6 +61,9 @@ const PetLogForm = () => {
   const handleAdditionalInfoSubmit = () => {
     // Handle additional information form submission
     console.log('Additional information:', formData);
+    const response = axios.post(createPetLogRoute, formData);
+    console.log(response);
+
   };
 
   const [formData, setFormData] = useState({
