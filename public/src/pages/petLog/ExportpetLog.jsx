@@ -5,14 +5,19 @@ const ExportpetLog = () => {
   const [petLogs, setPetLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(async () => {
-        setLoading(false);
-  const data = await axios.get(`${getAllPetLogsRoute}}`);
-       console.log(data.data);
-       setPetLogs(data.data);
-      });
+  // useEffect(async () => {
+  // const data = await axios.get(`${getAllPetLogsRoute}`);
+  //      console.log(data.data);
+  //      setPetLogs(data.data);
+  //       setLoading(false);  });
 
 // under construction !
+useEffect(async () => {
+
+      const data = await axios.get(`${getAllPetLogsRoute}`);
+      setPetLogs(data.data);
+      setLoading(false); 
+});
 
   return (
     <div>
@@ -23,10 +28,15 @@ const ExportpetLog = () => {
         <ul>
           {petLogs.map(log => (
             <li key={log._id}>
-              <strong>Log Date:</strong> {log.logDate} <br />
-              <strong>Log Type:</strong> {log.logType} <br />
-              <strong>Description:</strong> {log.description} <br />
-            
+              <strong>Log Date:</strong> {log.LogDate} <br />
+              <strong>Log UrineAmount:</strong> {log.UrineAmount} <br />
+              <strong>StoolAmount:</strong> {log.StoolAmount} <br />         
+                   <strong>StoolAppearance:</strong> {log.StoolAppearance} <br />
+                   <strong>Notes:</strong> {log.Notes} <br />
+                   <strong>Wheight:</strong> {log.Wheight} <br />
+                                 <strong>StoolAmount:</strong> {log.StoolAmount} <br />
+                                 <strong>StoolAmount:</strong> {log.StoolAmount} <br />
+
             </li>
           ))}
         </ul>

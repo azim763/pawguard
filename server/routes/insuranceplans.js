@@ -14,7 +14,7 @@ const router = require("express").Router();
 router.get('/allinsuranceplans', getAllInsurancePlans);
 router.post('/create', createInsurancePlan);
 router.get('/searchplansbycompany', searchInsurancePlansByCompany);
-router.get('/getplanbyid/:id', getInsurancePlanById);
+router.get('/getinsuranceplanbyid/:id', getInsurancePlanById);
 router.put('/update/:id', updateInsurancePlanById);
 router.delete('/delete/:id', deleteInsurancePlanById);
 
