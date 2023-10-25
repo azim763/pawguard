@@ -26,10 +26,10 @@ const PetPage = () => {
 ,[]);
 
   const tabToButtonLabel = {
-    petLog: 'PetLog',
-    medication: 'Medication',
-    appointment: 'Appointment',
-    vaccination: 'Vaccination',
+    petLog: "PetLog",
+    medication: "Medication",
+    appointment: "Appointment",
+    vaccination: "Vaccination",
     // Add more tabs and labels as needed
   };
 
@@ -37,19 +37,55 @@ const PetPage = () => {
   const [activeLink, setActiveLink] = useState("petLog");
   const [buttonLabel, setButtonLabel] = useState(tabToButtonLabel[activeLink]);
 
-
   // Define the content for each tab, in this case, the content is a form component
-  const tabContents = { 
-    petLog:<PetLogform />,
-     appointment: <AppointmentForm />,
-     medication: <MedicationForm/>,
-    vaccination: <VaccinationForm />,
+  const tabContents = {
+    petLog: (
+      <div>
+        <div className={styles.getPetPage}>
+          <PetLogCard />
+        </div>
+        <div className={styles.postPetPage}>
+          <PetLogform />
+        </div>
+      </div>
+    ),
+    appointment: (
+      <div>
+        <div className={styles.getPetPage}>
+          <AppointmentCard />
+        </div>
+        <div className={styles.postPetPage}>
+          <AppointmentForm />
+        </div>
+      </div>
+    ),
+
+    medication: (
+      <div>
+        <div className={styles.getPetPage}>
+          <MedicineCard />
+        </div>
+        <div className={styles.postPetPage}>
+          <MedicationForm />
+        </div>
+      </div>
+    ),
+
+    vaccination: (
+      <div>
+        <div className={styles.getPetPage}>
+          <VaccinationCard />
+        </div>
+        <div className={styles.postPetPage}>
+          <VaccinationForm />
+        </div>
+      </div>
+    ),
   };
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
     setButtonLabel(tabToButtonLabel[link]);
-
   };
 
   console.log("Active Tab:", activeLink);
@@ -64,11 +100,13 @@ const PetPage = () => {
         
         </div>
         <div className={styles.petPageTab}>
-        <Button variant="yellow" label={buttonLabel} size="dk-md-s"/> 
-          <PageTabs tabs={Object.keys(tabContents)} activeTab={activeLink} onTabChange={handleLinkClick} />
-          <div className={styles.tabContent} >
-          {tabContents[activeLink]}
-          </div>
+          <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
+          <PageTabs
+            tabs={Object.keys(tabContents)}
+            activeTab={activeLink}
+            onTabChange={handleLinkClick}
+          />
+          <div className={styles.tabContent}>{tabContents[activeLink]}</div>
         </div>
       </div>
     </div>
