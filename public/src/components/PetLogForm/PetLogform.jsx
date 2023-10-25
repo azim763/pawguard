@@ -9,8 +9,6 @@ import RadioButton from '../RadioButton/RadioButton';
 import Checkbox from '../Checkbox/Checkbox';
 import { createPetFoodRoute,createPetLogRoute } from '../../utils/APIRoutes';
 import axios from 'axios';
-import { createPetFoodRoute,createPetLogRoute } from '../../utils/APIRoutes';
-import axios from 'axios';
 
 const PetLogForm = () => {
   const MealPerDay = [
