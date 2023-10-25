@@ -11,8 +11,20 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
+import { searchPetsByUserIDRoute } from '../../utils/APIRoutes.js'
 
 const ListClinics = () => {
+  const [pets,setPets] =useState([]);
+  
+  useEffect(async() => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
+  setPets(response.data);
+}
+,[]);
+
   // const specialties = ["allergies", "cancer"];
   const [selectedPet, setSelectedPet] = useState(null);
   const [clinicData, setClinicData] = useState([]);

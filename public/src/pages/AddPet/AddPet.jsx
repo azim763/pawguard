@@ -37,6 +37,7 @@ const AddPet = () => {
   ];
 
   const [petData, setPetData] = useState({
+    UserID: "",
     PetName: "",
     Gender: "",
     Species: "",
@@ -88,6 +89,8 @@ const AddPet = () => {
       { value: "DEA7", label: "DEA 7" },
     ];
 
+ 
+  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -98,10 +101,16 @@ const AddPet = () => {
       });
     }
   };
-
+  
   const onClickHandler = async (event) => {
     event.preventDefault();
+
     try {
+      const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        setPetData({
+          ...petData,
+          UserID: storedData._id,
+        });
       // Send data to the server using Axios or fetch
       const response = await axios.post(createPetRoute, petData);
 
@@ -121,6 +130,7 @@ const AddPet = () => {
       </Typography>
       {/* <img src={selectedImage} alt="Selected" width="200" height="200" /> */}
       <div className={styles.addPetForm}>
+        
         <form action="/submit" method="post" onSubmit={onClickHandler}>
           <SingleImageUpload onChange={handleImageChange} />
 

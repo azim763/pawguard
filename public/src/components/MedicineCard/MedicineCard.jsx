@@ -1,10 +1,18 @@
 import React from "react";
 import Typography from "../Typography/Typography";
+import styles from "./MedicineCard.module.css";
+import DeleteSVG from "../SVG/DeleteSVG";
 
-const MedicineCard = ({ medicineName }) => {
+const MedicineCard = ({
+  medicineName,
+  dosage,
+  startDate,
+  Period,
+  medicationTime,
+}) => {
   return (
-    <div>
-      <div className="firstRow">
+    <div className={styles.medicineCardContainer}>
+      <div className={styles.firstRow}>
         <div>
           <Typography variant="body1-poppins-semibold">
             Medicine Name
@@ -13,9 +21,11 @@ const MedicineCard = ({ medicineName }) => {
             {medicineName}
           </Typography>
         </div>
-        <div className="icon"></div>
+        <div>
+          <DeleteSVG width="30" height="30" />
+        </div>
       </div>
-      <div className="otherRow">
+      <div className={styles.otherRow}>
         <div>
           <Typography variant="body1-poppins-semibold">Dosage</Typography>
           <Typography variant="body3-poppins-regular">{dosage}</Typography>

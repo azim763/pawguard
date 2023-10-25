@@ -1,10 +1,12 @@
 import React from "react";
 import Typography from "../Typography/Typography";
+import styles from "./AppointmentCard.module.css";
+import DeleteSVG from "../SVG/DeleteSVG";
 
 const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, AppointmentDateTime }) => {
   return (
-    <div>
-      <div className="firstRow">
+    <div className={styles.appointmentCardContainer}>
+      <div className={styles.firstRow}>
         <div>
           <Typography variant="body1-poppins-semibold">Clinic Name</Typography>
           <Typography variant="body3-poppins-regular">{ClinicName}</Typography>
@@ -15,9 +17,11 @@ const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, Appoi
             {AppointmentTime}
           </Typography>
         </div>
-        <div className="icon"></div>
+        <div>
+          <DeleteSVG width="30px" height="30px"/>
+        </div>
       </div>
-      <div className="secondRow">
+      <div className={styles.secondRow}>
         <div>
           <Typography variant="body1-poppins-semibold">Purpose</Typography>
           <Typography variant="body3-poppins-regular">{AppointmentReason}</Typography>

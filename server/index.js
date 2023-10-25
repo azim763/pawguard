@@ -9,6 +9,8 @@ const petsRoutes = require("./routes/pets");
 const petappointmentsRoutes = require("./routes/petappointments");
 const petfoodsRoutes = require("./routes/petfoods");
 const petlogsRoutes = require("./routes/petlogs");
+const petMedicationsRoutes = require("./routes/petmedications");
+const petVaccinationsRoutes = require("./routes/petvaccination");
 
 const app = express();
 const socket = require("socket.io");
@@ -23,7 +25,6 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log(process.env.MONGO_URL);
     console.log("DB Connection Successfull");
   })
   .catch((err) => {
@@ -38,6 +39,8 @@ app.use("/api/pets", petsRoutes);
 app.use("/api/petappointments", petappointmentsRoutes);
 app.use("/api/petfoods", petfoodsRoutes);
 app.use("/api/petlogs", petlogsRoutes);
+app.use("/api/petmedications", petMedicationsRoutes);
+app.use("/api/petvaccination", petVaccinationsRoutes);
 
 const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)

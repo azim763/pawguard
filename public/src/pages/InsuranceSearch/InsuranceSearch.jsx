@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState, useEffect}from "react";
 import Header from "../../components/Header/header";
 import Typography from "../../components/Typography/Typography";
 import ButtonGroup from "../../components/ButtonGroup/ButtonGroup";
@@ -7,8 +7,21 @@ import styles from "./insuranceSearch.module.css";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
+import axios from "axios";
+import {searchPetsByUserIDRoute} from "../../utils/APIRoutes"
 
 const InsuranceSearch = () => {
+  const [pets,setPets] =useState([]);
+  
+  useEffect(async() => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
+  setPets(response.data);
+}
+,[]);
+
   return (
     <div>
       <div>

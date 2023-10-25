@@ -15,6 +15,7 @@ import Home from "./pages/Home/Home";
 import PetPage from "./pages/petPage/petPage";
 import IndividualClinic from "./pages/IndividualClinic/IndividualClinic";
 import AddPet from "./pages/AddPet/AddPet";
+import ExportpetLog from "./pages/petLog/ExportpetLog";
 
 export default function App() {
   return (
@@ -33,6 +34,8 @@ export default function App() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/petPage" element={<PetPage />} />
         <Route path="/addPet" element={<AddPet />} />
+        <Route path="/petLog" element={<ExportpetLog />} />
+        
       </Routes>
     </BrowserRouter>
   );

@@ -9,6 +9,7 @@ import SmPlanDetailCard from "../../components/SmPlanDetailCard/SmPlanDetailCard
 import Typography from "../../components/Typography/Typography";
 
 const InsuranceDetails = () => {
+
   return (
     <div>
       <Header />
