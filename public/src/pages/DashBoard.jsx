@@ -5,10 +5,25 @@ import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../utils/APIRoutes";
 import Logout from "../components/Logout";
+import Header from "../components/Header/header"
 
  import Background from "../assets/background2.gif";
+import Graph from "../components/Graph/Graph";
+
+import { searchPetsByUserIDRoute } from '../utils/APIRoutes.js'
+
 
 export default function Chat() {
+  const [pets,setPets] =useState([]);
+  
+  useEffect(async() => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
+  setPets(response.data);
+}
+,[]);
   
   const navigate = useNavigate();
   const socket = useRef();
@@ -43,12 +58,18 @@ export default function Chat() {
   }, [currentUser]);
 
   return (
+
     <>
+            <Header></Header>
       <Container>
         <div className="container">
         <Logout />
+        <Graph/>
+        <Graph/>
+
         </div>
       </Container>
+      
     </>
   );
 }

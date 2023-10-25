@@ -5,7 +5,7 @@ const petFoodSchema = new mongoose.Schema({
   MealPerDay: { type: Number, required: false },
   QuantityPerMeal: { type: Number, required: false },
   FoodName: { type: String, required: false },
-  FoodDate: { type: Date, required: false },
+  FoodDate: { type: Date, default:Date.now, required: false },
   KibbleDry: { type: Boolean, required: false },
   Canned: { type: Boolean, required: false },
   SemiMoist: { type: Boolean, required: false },

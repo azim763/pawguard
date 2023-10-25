@@ -14,6 +14,7 @@ import VaccinationCard from '../../components/VaccinationCard/VaccinationCard';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import PetLogCard from '../../components/PetLogCard/PetLogCard';
 import MedicineCard from '../../components/MedicineCard/MedicineCard';
+import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
 
 const PetPage = () => {
 
@@ -25,6 +26,7 @@ const PetPage = () => {
     );
   const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
   setPets(response.data);
+  console.log(pets);
 }
 ,[]);
 
@@ -100,6 +102,7 @@ const PetPage = () => {
       <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
           <PetCard> </PetCard>
+{pets[0].PetImageName && <ImageDisplay blobUrl={pets[0].PetImageName} />}
         
         </div>
         <div className={styles.petPageTab}>
