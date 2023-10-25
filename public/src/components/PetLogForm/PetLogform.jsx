@@ -1,5 +1,5 @@
-import React, { useState } from 'react';;
-import styles from '../PetLogForm/PetLogForm.module.css';;
+import React, { useState } from 'react';
+import styles from '../PetLogForm/PetLogForm.module.css';
 import TextInput from '../TextInput/TextInput';
 import Dropdown from '../Dropdown/Dropdown';
 import Typography from '../Typography/Typography';
@@ -92,12 +92,7 @@ const PetLogForm = () => {
       [category]: option,
     }));
   };
-  const handleRadioChange = (option, category) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [category]: option,
-    }));
-  };
+
   const options = [
     { label: "High ", value: "High" },
     { label: "Normal", value: "Normal" },
