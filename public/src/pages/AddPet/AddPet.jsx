@@ -9,6 +9,7 @@ import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import { useNavigate, Link } from "react-router-dom";
 import { createPetRoute } from "../../utils/APIRoutes";
+import header from "../../components/Header/header";
 
 const AddPet = ( ) => {
   // const [selectedImage, setSelectedImage] = useState(null);
