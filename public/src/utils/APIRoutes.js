@@ -60,3 +60,11 @@ export const searchPetMedicationsByPetIDRoute = `${host}/api/petmedications/sear
 export const getPetMedicationByIdRoute = `${host}/api/petmedications/getpetmedicationbyid`;
 export const updatePetMedicationByIdRoute = `${host}/api/petmedications/update`;
 export const deletePetMedicationByIdRoute = `${host}/api/petmedications/delete`;
+
+export const getAllPetVaccinationsRoute = `${host}/api/petvaccinations/allpetvaccinations`;
+export const createPetVaccinationRoute = `${host}/api/petvaccinations/create`;
+export const searchPetVaccinationsByPetIDRoute = `${host}/api/petvaccinations/searchpetvaccinationsbypetid`;
+export const getPetVaccinationByIdRoute = `${host}/api/petvaccinations/getpetvaccinationbyid`;
+export const updatePetVaccinationByIdRoute = `${host}/api/petvaccinations/update`;
+export const deletePetVaccinationByIdRoute = `${host}/api/petvaccinations/delete`;
+

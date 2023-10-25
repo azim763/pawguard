@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import styles from "../PetLogForm/PetLogForm.module.css";
-import TextInput from "../TextInput/TextInput";
-import Dropdown from "../Dropdown/Dropdown";
-import Typography from "../Typography/Typography";
-import DatePicker from "../DatePicker/DatePicker";
-import Button from "../Button/Button";
-import RadioButton from "../RadioButton/RadioButton";
-import Checkbox from "../Checkbox/Checkbox";
-import { createPetFoodRoute } from "../../utils/APIRoutes";
-import axios from "axios";
-import PetLogCard from "../PetLogCard/PetLogCard";
+import React, { useState } from 'react';
+import styles from '../PetLogForm/PetLogForm.module.css';
+import TextInput from '../TextInput/TextInput';
+import Dropdown from '../Dropdown/Dropdown';
+import Typography from '../Typography/Typography';
+import DatePicker from '../DatePicker/DatePicker';
+import Button from '../Button/Button';
+import RadioButton from '../RadioButton/RadioButton';
+import Checkbox from '../Checkbox/Checkbox';
+import { createPetFoodRoute,createPetLogRoute } from '../../utils/APIRoutes';
+import axios from 'axios';
 
 const PetLogForm = () => {
   const MealPerDay = [
@@ -55,13 +54,16 @@ const PetLogForm = () => {
     // Handle food form submission
     console.log("Food data:", foodData);
     const response = axios.post(createPetFoodRoute, foodData);
-
-    console.log("data submitted");
+    console.log(response)
+    console.log('data submitted');
   };
 
   const handleAdditionalInfoSubmit = () => {
     // Handle additional information form submission
-    console.log("Additional information:", formData);
+    console.log('Additional information:', formData);
+    const response = axios.post(createPetLogRoute, formData);
+    console.log(response);
+
   };
 
   const [formData, setFormData] = useState({

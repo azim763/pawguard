@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const petAppointmentSchema = new mongoose.Schema({
-    PetID: { type: mongoose.Schema.Types.ObjectId, ref: 'Pet', required: true },
-    ClinicName: { type: String, required: true },
-    AppointmentReason: { type: String, required: true },
-    AppointmentDateTime: { type: Date, required: true }
+    PetID: { type: mongoose.Schema.Types.ObjectId, ref: 'Pet', required: false },
+    ClinicName: { type: String, required: false },
+    AppointmentReason: { type: String, required: false },
+    AppointmentDateTime: { type: Date, required: false }
 });
 
 const PetAppointment = mongoose.model('PetAppointment', petAppointmentSchema);

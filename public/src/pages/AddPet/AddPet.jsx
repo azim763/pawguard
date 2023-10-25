@@ -120,7 +120,6 @@ const AddPet = ( ) => {
       <Typography variant="large-h1-poppins-bold" color="almost-black">
         Add Pet
       </Typography>
-
       {/* <img src={selectedImage} alt="Selected" width="200" height="200" /> */}
       <div className={styles.addPetForm}>
         
