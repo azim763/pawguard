@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header/header';
 import PageTabs from '../../components/PageTabs/PageTabs';
 import styles from './petPage.module.css';
@@ -8,9 +8,23 @@ import Button from '../../components/Button/Button';
 import MedicationForm from '../../components/MedicationForm/MedicationForm';
 import VaccinationForm from '../../components/VaccinationForm/VaccinationForm';
 import AppointmentForm from '../../components/AppointmentForm/AppointmentForm';
+import axios from 'axios';
+import { searchPetsByUserIDRoute } from '../../utils/APIRoutes.js'
 
 
 const PetPage = () => {
+
+  const [pets,setPets] =useState([]);
+  
+  useEffect(async() => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
+  setPets(response.data);
+}
+,[]);
+
   const tabToButtonLabel = {
     petLog: 'PetLog',
     medication: 'Medication',
@@ -18,6 +32,8 @@ const PetPage = () => {
     vaccination: 'Vaccination',
     // Add more tabs and labels as needed
   };
+
+
   const [activeLink, setActiveLink] = useState("petLog");
   const [buttonLabel, setButtonLabel] = useState(tabToButtonLabel[activeLink]);
 
@@ -37,6 +53,7 @@ const PetPage = () => {
   };
 
   console.log("Active Tab:", activeLink);
+  
 
   return (
     <div className={styles.petPage}>
@@ -44,6 +61,7 @@ const PetPage = () => {
       <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
           <PetCard> </PetCard>
+        
         </div>
         <div className={styles.petPageTab}>
         <Button variant="yellow" label={buttonLabel} size="dk-md-s"/> 

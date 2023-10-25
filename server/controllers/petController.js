@@ -23,7 +23,7 @@ module.exports.createPet = async (req, res, next) => {
 module.exports.searchPetsByUserID = async (req, res, next) => {
     try {
       const userID = req.query.userID;
-      const pets = await tblPet.find({ UserID: userID });
+      const pets = await Pet.find({ UserID: userID });
       return res.json(pets);
     } catch (ex) {
       next(ex);
@@ -34,7 +34,7 @@ module.exports.searchPetsByUserID = async (req, res, next) => {
 module.exports.getPetById = async (req, res, next) => {
     try {
       const petId = req.params.id;
-      const pet = await tblPet.findById(petId);
+      const pet = await Pet.findById(petId);
       if (!pet) {
         return res.status(404).json({ msg: 'Pet not found' });
       }
@@ -49,7 +49,7 @@ module.exports.updatePetById = async (req, res, next) => {
     try {
       const petId = req.params.id;
       const updatedPetData = req.body;
-      const updatedPet = await tblPet.findByIdAndUpdate(petId, updatedPetData, { new: true });
+      const updatedPet = await Pet.findByIdAndUpdate(petId, updatedPetData, { new: true });
       if (!updatedPet) {
         return res.status(404).json({ msg: 'Pet not found' });
       }
@@ -63,7 +63,7 @@ module.exports.updatePetById = async (req, res, next) => {
 module.exports.deletePetById = async (req, res, next) => {
     try {
       const petId = req.params.id;
-      const deletedPet = await tblPet.findByIdAndRemove(petId);
+      const deletedPet = await Pet.findByIdAndRemove(petId);
       if (!deletedPet) {
         return res.status(404).json({ msg: 'Pet not found' });
       }

@@ -11,10 +11,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { createPetRoute } from "../../utils/APIRoutes";
 
 const AddPet = ( ) => {
-  const [selectedImage, setSelectedImage] = useState(null);
-
- 
-  const navigate = useNavigate();
   const petType = [
     { value: "dog", label: "Dog" },
     { value: "cat", label: "Cat" },
@@ -38,6 +34,7 @@ const AddPet = ( ) => {
   ];
 
   const [petData, setPetData] = useState({
+    UserID: "",
     PetName: "",
     Gender: "",
     Species: "",
@@ -104,7 +101,13 @@ const AddPet = ( ) => {
   
   const onClickHandler = async (event) => {
     event.preventDefault();
+
     try {
+      const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        setPetData({
+          ...petData,
+          UserID: storedData._id,
+        });
       // Send data to the server using Axios or fetch
       const response = await axios.post(createPetRoute, petData);
 
