@@ -17,23 +17,26 @@ import {getInsurancePlanByIdRoute} from "../../utils/APIRoutes";
 const InsuranceDetails = () => {
 
   const { companyId } = useParams();
-  console.log("First Console "+companyId);
-  const [companyData, setCompanyData] = useState({});
+  const [companyData, setCompanyData] = useState({ CoveredItems: '',NotCoveredItems: '', });
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(null);
   // For small cards 
-  console.log("Second Console "+companyData);
   useEffect(() => {
     axios
       .get(`${getInsurancePlanByIdRoute}/${companyId}`)
       .then((response) => {
-        console.log("Nothing here"+companyId);
-        console.log("This is response"+response);
-        console.log("What is this??"+response.data);
-        setCompanyData(response.data);
-        console.log("this is the annual adata"+response.data.AnnualCoverage);
+        // setCompanyData(response.data);
         // setLoading(false);
-        console.log("Data "+companyData);
+        console.log("Data "+companyData.CoveredItems);
+        const coveredItemsString = response.data.CoveredItems || '';
+        const notCoveredItemsString = response.data.NotCoveredItems || '';
+        const coveredItemsArray = coveredItemsString.split(',');
+        const notCoveredItemsArray = notCoveredItemsString.split(',');
+        setCompanyData({
+          ...response.data,
+          CoveredItems: coveredItemsArray,
+          NotCoveredItems: notCoveredItemsArray,
+        });
       })
       .catch((error) => {
         console.error("Error fetching company data:", error);
@@ -97,21 +100,25 @@ const InsuranceDetails = () => {
 
             {/* Put Why recommend component here  */}
           </div>
+
           <div className={styles.InsuranceCoverageCenterDiv}>
             <div className={styles.InsuranceCoverageStyle}>
-              <InsuranceCoverage descriptions={[
+              {/* <InsuranceCoverage descriptions={[
                   "Covered Item 1",
                   "Covered Item 2",
                   "Covered Item 3",
                   "Covered Item 4",
                   "Covered Item 5",
-                ]} />
-              <InsuranceNotCovered descriptions={[
+                ]} /> */}
+          <InsuranceCoverage descriptions={companyData.CoveredItems || []} />
+              {/* <InsuranceNotCovered descriptions={[
                   "Not Covered Item 1",
                   "Not Covered Item 2",
                   "Not Covered Item 3",
                   
-                ]}/>
+                ]}/> */}
+              <InsuranceNotCovered descriptions={companyData.NotCoveredItems || []} />
+
               {/* Put whats covered and whats not covered component here */}
             </div>
           </div>
