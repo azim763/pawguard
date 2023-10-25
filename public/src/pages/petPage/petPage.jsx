@@ -10,7 +10,10 @@ import VaccinationForm from '../../components/VaccinationForm/VaccinationForm';
 import AppointmentForm from '../../components/AppointmentForm/AppointmentForm';
 import axios from 'axios';
 import { searchPetsByUserIDRoute } from '../../utils/APIRoutes.js'
-
+import VaccinationCard from '../../components/VaccinationCard/VaccinationCard';
+import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
+import PetLogCard from '../../components/PetLogCard/PetLogCard';
+import MedicineCard from '../../components/MedicineCard/MedicineCard';
 
 const PetPage = () => {
 
