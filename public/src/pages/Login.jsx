@@ -84,7 +84,7 @@ export default function Login() {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit">Log In</button>
-          <Button color={"red"} text={"Add"} onClick={"onAdd"} />
+          {/* <Button color={"red"} text={"Add"} onClick={"onAdd"} /> */}
           <span>
             Don't have an account ? <Link to="/register">Create One.</Link>
           </span>
