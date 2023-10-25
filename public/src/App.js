@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/petPage" element={<PetPage />} />
         <Route path="/addPet" element={<AddPet />} />
-        <Route path="/petLog" element={<ExportpetLog />} />
+        <Route path="/exportpetLog" element={<ExportpetLog />} />
         
       </Routes>
     </BrowserRouter>
