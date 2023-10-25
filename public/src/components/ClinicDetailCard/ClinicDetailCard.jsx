@@ -1,71 +1,89 @@
 import { useState, useEffect } from "react";
 import styles from "./ClinicDetailCard.module.css";
-import { FaPoop } from "react-icons/fa";
 import Button from "../Button/Button";
 import Typography from "../Typography/Typography";
+import LocationSVG from "../../components/SVG/LocationSVG";
+import ClockSVG from "../../components/SVG/ClockSVG";
+import SpecialtySVG from "../../components/SVG/SpecialtySVG";
 
 const ClinicDetailCard = ({
   clinicName,
   clinicRating,
-  numberOfRatings,
+  // numberOfRatings,
   clinicAddress,
-  specialties,
+  specialtiesString,
+  handleClickDetails,
   source,
+  open24,
 }) => {
-  const [isOpen, setIsOpen] = useState(null);
+  const [specialtiesArray, setspecialtiesArray] = useState([]);
 
   useEffect(() => {
-    // something something
-    //  .then(response => {
-    //    setIsOpen(response.data.isOpen); // Assuming the API response has an "isOpen" property
-    //  })
-    //  .catch(error => {
-    //    console.error('Error fetching clinic status:', error);
-    //  });
-    setIsOpen(true);
-  }, []);
+    const specialtiesArray = specialtiesString.split(",");
+    setspecialtiesArray(specialtiesArray);
+  }, [specialtiesString]);
+
+  // const [isOpen, setIsOpen] = useState(null);
+
+  // useEffect(() => {
+  //   // something something
+  //   //  .then(response => {
+  //   //    setIsOpen(response.data.isOpen); // Assuming the API response has an "isOpen" property
+  //   //  })
+  //   //  .catch(error => {
+  //   //    console.error('Error fetching clinic status:', error);
+  //   //  });
+  //   setIsOpen(true);
+  // }, []);
 
   return (
     <div className={styles.clinicCard}>
-      <img src={source} alt="" />
+      <div className={styles.imageContainer}>
+        {" "}
+        <img src={source} alt="clinic" />
+      </div>
       <div className={styles.clinicInfo}>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           {clinicName}
         </Typography>
         <div className={styles.clinicRating}>
-        <Typography variant="body3-poppins-regular" color="almost-black">
-          {clinicRating}
-        </Typography>
-          {/* <img src="" alt="" /> */}
           <Typography variant="body3-poppins-regular" color="almost-black">
-          {numberOfRatings}
+            {clinicRating}
           </Typography>
+          {/* <img src={imgUrl} alt="clinic"/> */}
+          {/* <Typography variant="body3-poppins-regular" color="almost-black">
+          {numberOfRatings}
+          </Typography> */}
         </div>
         <div className={styles.clinicAddress}>
-          <FaPoop />
-          <Typography variant="body3-poppins-regular" color="almost-black">
-          {clinicAddress}
-          </Typography>
+          <LocationSVG width="25" height="34" />
+          <div className="add-description">
+            <Typography variant="body3-poppins-regular" color="almost-black">
+              {clinicAddress}
+            </Typography>
+          </div>
         </div>
 
         <div className={styles.clinicOpen}>
-          <FaPoop />
-          <Typography variant="body3-poppins-regular" color="almost-black">
-            {isOpen ? "Open Now" : "Closed"}
+          <ClockSVG width="26" height="27" />
+          <div className="open-description">
+            <Typography variant="body3-poppins-regular" color="almost-black">
+              {open24}
             </Typography>
+          </div>
         </div>
 
         <div className={styles.clinicSpecialties}>
-          <FaPoop />
+          <SpecialtySVG width="26" height="26" />
           <ul>
-            {specialties.map((item, index) => (
+            {specialtiesArray.map((item, index) => (
               <Typography variant="body3-poppins-regular" color="almost-black">
                 <li key={index}>{item}</li>
-                </Typography>
+              </Typography>
             ))}
           </ul>
         </div>
-        <Button variant="dark-blue" label="View details" size="dk-sm" />
+        <Button variant="dark-blue" label="View details" size="dk-sm" onClick={handleClickDetails}/>
       </div>
     </div>
   );

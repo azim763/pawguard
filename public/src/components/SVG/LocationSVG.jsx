@@ -1,6 +1,11 @@
 import React from "react";
 
-const LocationSVG = ({ width, height, fill, ...props }) => {
+const LocationSVG = ({
+  width,
+  height,
+  fill,
+  ...props
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

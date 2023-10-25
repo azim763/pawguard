@@ -3,7 +3,7 @@ import { FaPoop } from "react-icons/fa";
 
 import Button from "../Button";
 
-const AptInfoCard = ({ aptReason, aptDate, aptTime, aptAddress, petName, clinicName }) => {
+const AptInfoCard = ({ aptDate, aptTime, aptAddress, petName, clinicName }) => {
   return (
     <div className={`${styles["AptInfoCard"]}`}>
       <h2>

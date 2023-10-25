@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { getAllClinicsRoute } from "../../utils/APIRoutes";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "../../components/Header/header";
 import Typography from "../../components/Typography/Typography";
 import ClinicDetailCard from "../../components/ClinicDetailCard/ClinicDetailCard";
@@ -10,16 +13,35 @@ import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 
 const ListClinics = () => {
-  const specialties = ["allergies", "cancer"];
+  // const specialties = ["allergies", "cancer"];
   const [selectedPet, setSelectedPet] = useState(null);
+  const [clinicData, setClinicData] = useState([]);
+
+  const navigate = useNavigate();
   const petData = [
     { imgUrl: "https://picsum.photos/200", petName: "Pet 1", index: 1 },
     { imgUrl: "https://picsum.photos/200", petName: "Pet 2", index: 2 },
     // Add more pet data as needed
   ];
 
+  useEffect(() => {
+    axios
+      .get(getAllClinicsRoute)
+      .then((response) => {
+        console.log(response.data);
+        setClinicData(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
+  }, []);
+
   const handlePetClick = (index) => {
     setSelectedPet(index);
+  };
+
+  const handleClickDetails = (clinicId) => {
+    navigate(`/clinic/details/${clinicId}`);
   };
 
   return (
@@ -55,14 +77,14 @@ const ListClinics = () => {
               imgUrl={pet.imgUrl}
               petName={pet.petName}
               isSelected={index === selectedPet}
-              onClick={() => handlePetClick(index)}
+              // onClick={() => handlePetClick(index)}
             />
           ))}
         </div>
-        <div className={styles.clincSearch}>
+        <div className={styles.clinicSearch}>
           <div className={styles.dropDownClinics}>
             <Dropdown
-              // key="specialityDropDown"
+              key="specialityDropDown"
               // onChange={handleDropdownChange}
               defaultValue="Allergies"
               options={[
@@ -71,67 +93,28 @@ const ListClinics = () => {
               ]}
               size="large"
             />
-            <TextInputIcon label="Zip Code"/>
+            <TextInputIcon label="Zip Code" />
           </div>
 
-          <Checkbox key="urgCare" label="Urgent Care" value="urgCare"/>
-          <Checkbox key="urgCare" label="Urgent Care" value="urgCare"/>
-          
+          <Checkbox id="urgCare" label="Urgent Care" value="urgCare" />
+          <Checkbox id="24hrs" label="Open 24 hours" value="24hrs" />
+
           <Button variant="yellow" label="Search" size="dk-md-s" />
         </div>
 
-        <ClinicDetailCard
-          clinicName="Vancouver Veterinary Clinic"
-          clinicRating="4.6"
-          numberOfRatings="32"
-          clinicAddress="5790 Sophia St"
-          specialties={specialties}
-          source="https://picsum.photos/200"
-        />
-        <ClinicDetailCard
-          clinicName="Vancouver Veterinary Clinic"
-          clinicRating="4.6"
-          numberOfRatings="32"
-          clinicAddress="5790 Sophia St"
-          specialties={specialties}
-          source="https://picsum.photos/200"
-        />
-
-        <ClinicDetailCard
-          clinicName="Vancouver Veterinary Clinic"
-          clinicRating="4.6"
-          numberOfRatings="32"
-          clinicAddress="5790 Sophia St"
-          specialties={specialties}
-          source="https://picsum.photos/200"
-        />
-
-        <ClinicDetailCard
-          clinicName="Vancouver Veterinary Clinic"
-          clinicRating="4.6"
-          numberOfRatings="32"
-          clinicAddress="5790 Sophia St"
-          specialties={specialties}
-          source="https://picsum.photos/200"
-        />
-
-        <ClinicDetailCard
-          clinicName="Vancouver Veterinary Clinic"
-          clinicRating="4.6"
-          numberOfRatings="32"
-          clinicAddress="5790 Sophia St"
-          specialties={specialties}
-          source="https://picsum.photos/200"
-        />
-
-        <ClinicDetailCard
-          clinicName="Vancouver Veterinary Clinic"
-          clinicRating="4.6"
-          numberOfRatings="32"
-          clinicAddress="5790 Sophia St"
-          specialties={specialties}
-          source="https://picsum.photos/200"
-        />
+        {clinicData.map((clinic) => (
+          <ClinicDetailCard
+            key={clinic._id}
+            clinicName={clinic.Name}
+            clinicRating={clinic.Rating}
+            // numberOfRatings={clinic.numberOfRatings}`
+            clinicAddress={clinic.Address}
+            specialtiesString={clinic.Specialty}
+            source={clinic.ImageUrl}
+            open24={clinic.Open24 ? "Open 24" : "Not open 24"}
+            handleClickDetails={() => handleClickDetails(clinic._id)}
+          />
+        ))}
       </main>
     </div>
   );

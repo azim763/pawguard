@@ -1,14 +1,22 @@
 .container {
     width:279px;
-    border: 3px solid rgb(157, 153, 153);
-    border-radius: 5%;
+    border: 1.5px solid var(--border-grey);
+    border-radius: 8px;
     padding: 10px;
     margin: 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
   }
+
+.OperationTitle{
+  grid-column: 1/-1;
+  margin-bottom: 24px;
+}
 
 .list {
   list-style: none;
   padding: 0;
+  grid-column: 1/-1;
 }
 
 .entry {

@@ -27,12 +27,11 @@ export default function App() {
         <Route path="/" element={<DashBoard />} />
         <Route path="/getinsurances" element={<InsuranceSearch />} />
         <Route path="/insurances" element={<ListInsurances />} />
-        <Route path="/insurance/details" element={<InsuranceDetails />} />
-        <Route path="/clinic/details" element={<IndividualClinic />} />
+        <Route path="/insurance/details/:companyId" element={<InsuranceDetails />} />
+        <Route path="/clinic/details/:clinicId" element={<IndividualClinic />} />
         <Route path="/home" element={<Home />} />
         <Route path="/clinics" element={<ListClinics />} />
         <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/petPage" element={<PetPage />} />
         <Route path="/addPet" element={<AddPet />} />
         <Route path="/petLog" element={<ExportpetLog />} />
