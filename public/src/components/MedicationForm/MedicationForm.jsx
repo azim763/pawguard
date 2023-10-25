@@ -3,7 +3,6 @@ import Button from "../Button/Button";
 import Typography from "../Typography/Typography";
 import TextInput from "../TextInput/TextInput";
 import DatePicker from "../DatePicker/DatePicker";
-import { Dropdown } from "react-multi-select-component";
 
 const MedicationForm = () => {
   const [formData, setFormData] = useState({

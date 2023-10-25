@@ -4,8 +4,6 @@ const LocationSVG = ({
   width,
   height,
   fill,
-  backgroundImage,
-  backgroundsize,
   ...props
 }) => {
   return (
@@ -17,8 +15,6 @@ const LocationSVG = ({
       height={height}
       //   34
       fill={fill}
-      backgroundImage={backgroundImage}
-      backgroundsize={backgroundsize}
       {...props}
     >
       <path
