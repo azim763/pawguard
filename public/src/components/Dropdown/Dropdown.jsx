@@ -10,7 +10,8 @@ const Dropdown = ({
   size,
   setSelectedOption,
   defaultValue,
-  options
+  options,
+  required
 }) => {
   
   const handleOnChange = (event) => {
@@ -19,7 +20,7 @@ const Dropdown = ({
 
 
   return (
-    <>
+    <div>
       <Typography variant="body2-poppins-medium"><label htmlFor={id}>{label}</label></Typography>
       <select
         className={`${styles[variant]} ${styles[size]} ${styles["dropdown"]}`}
@@ -27,6 +28,7 @@ const Dropdown = ({
         name={id}
         value={value}
         onChange={handleOnChange}
+        required={required}
       >
         {defaultValue && (
           <option value="defaultValue" disabled selected>
@@ -39,7 +41,7 @@ const Dropdown = ({
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
