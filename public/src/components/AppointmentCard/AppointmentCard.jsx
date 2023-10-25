@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "../Typography/Typography";
-import styles from "./appointmentCard.module.css";
+import styles from "./AppointmentCard.module.css";
 import DeleteSVG from "../SVG/DeleteSVG";
 
 const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, AppointmentDateTime }) => {
