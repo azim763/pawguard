@@ -1,0 +1,14 @@
+.vaccinationCardContainer {
+    display: grid;
+    grid-template-rows: 1.5fr 1fr;
+    border: 1px solid var(--border-grey);
+    border-radius: 8px;
+    column-gap: 10px;
+    padding: 3%;
+    margin-bottom: 30px;
+  }
+  
+  .firstRow{
+      display: grid;
+      grid-template-columns: 1fr .5fr;
+  }
