@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "../Typography/Typography";
 import DeleteSVG from "../SVG/DeleteSVG";
-import styles from "./vaccinationCard.module.css";
+import styles from "./VaccinationCard.module.css";
 
 const VaccinationCard = ({ VaccineName, VaccineDate }) => {
   return (
