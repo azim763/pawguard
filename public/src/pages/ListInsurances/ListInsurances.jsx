@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 const ListInsurances = () => {
   const [insurancePlans, setInsurancePlans] = useState([]);
   const navigate = useNavigate();
-
+  
   
   useEffect( () => {
     // Make a GET request to fetch insurance plans
@@ -32,6 +32,9 @@ const ListInsurances = () => {
     navigate(`/insurance/details/${companyId}`);
   };
 
+ 
+  
+
   return (
     <div>
       <Header></Header>
@@ -39,13 +42,15 @@ const ListInsurances = () => {
         <Typography variant="h1-poppins-semibold" color="almost-black">
           Plans Recommend for you
         </Typography>
+        {/* <Asd options={specialities} /> */}
+
 
         <div className={styles.ListInsurancesBody}>
         {insurancePlans.map((plan) => (
             <PlanDetailCard
             source="https://picsum.photos/200/200"
             alt="logo"
-            key={plan.CompanyID}//this key will be used button is clicked to view details
+            key={plan._id}//this key will be used button is clicked to view details
               // source={plan.source}
               // alt={plan.alt}
             deductibleNum={plan.AnnualDeductable}
@@ -53,7 +58,7 @@ const ListInsurances = () => {
             coverageNum={plan.AnnualCoverage}
             price={plan.InsurancePrice}
             companyId={plan.CompanyID} 
-            onClick={() => handleViewDetailsClick(plan.CompanyID)}
+            onClick={() => handleViewDetailsClick(plan._id)}
             />
           ))}
         </div>
