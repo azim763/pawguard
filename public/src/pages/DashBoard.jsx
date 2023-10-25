@@ -9,6 +9,7 @@ import Logout from "../components/Logout";
  import Background from "../assets/background2.gif";
 
 export default function Chat() {
+  
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
