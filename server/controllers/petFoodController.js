@@ -12,6 +12,7 @@ module.exports.getAllPetFoods = async (req, res, next) => {
 module.exports.createPetFood = async (req, res, next) => {
   try {
     const foodData = req.body;
+    foodData.timestamp = new Date();
     const food = await PetFood.create(foodData);
     return res.json(food);
   } catch (ex) {

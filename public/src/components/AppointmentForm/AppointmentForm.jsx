@@ -5,14 +5,17 @@ import Button from "../Button/Button";
 import DatePicker from "../DatePicker/DatePicker";
 import TimePicker from "../TimePicker/TimePicker";
 import axios from "axios";
-import {createPetAppointmentRoute} from "../../utils/APIRoutes"
+import { createPetAppointmentRoute } from "../../utils/APIRoutes"
 
 const AppointmentForm = () => {
+  const [appointmentDate, setAppointmentDate] = useState(new Date());
+
   const [formData, setFormData] = useState({
-    PetId:null,
+    PetId: null,
     ClinicName: "",
     AppointmentReason: "",
-    AppointmentDateTime:""
+    AppointmentDate: "",
+    AppointmentTime: ""
   });
 
   const handleInputChange = (e) => {
@@ -23,9 +26,26 @@ const AppointmentForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = value.split('T')[0].split('-');
+    const resultDate = `${day}-${month}-${year}`;
+
+    setFormData({
+      ...formData,
+      [name]: resultDate,
+    });
+    setAppointmentDate(value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = axios.post( createPetAppointmentRoute, formData);
+    const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+    setFormData({
+      ...formData,
+      UserID: storedData._id
+    });
+    const response = axios.post(createPetAppointmentRoute, formData);
     // You can perform actions with the form data here, such as sending it to a server or processing it in some way.
     console.log("Form submitted with data:", formData);
   };
@@ -43,10 +63,10 @@ const AppointmentForm = () => {
           label="Appointment Reason"
           onChange={handleInputChange}
         />
-        {/* <Typography variant="body2-poppins-medium">Date of Appointment</Typography>
-        <DatePicker />
+        <Typography variant="body2-poppins-medium">Date of Appointment</Typography>
+        <DatePicker onChange={handleDateChange} id="AppointmentDate" value={appointmentDate}/>
         <Typography variant="body2-poppins-medium">Appointment Time</Typography>
-        <TimePicker /> */}
+        <TimePicker onChange={handleInputChange} id="AppointmentTime" />
         <Button type="submit" variant="yellow" label="Add Pet" size="dk-md-s" />
       </form>
     </div>

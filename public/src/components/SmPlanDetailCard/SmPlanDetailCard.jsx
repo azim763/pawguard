@@ -10,6 +10,7 @@ const SmPlanDetailCard = ({
   smReimbursementNum,
   smCoverageNum,
   smPrice,
+  onClick,
   ...props
 }) => {
   return (
@@ -65,7 +66,7 @@ const SmPlanDetailCard = ({
       </div>
 
       <div className={`${styles["button-container"]}`}>
-        <Button variant="light-blue" label="View Details" size="dk-md" />
+        <Button variant="light-blue" label="View Details" size="dk-md"  onClick={onClick} />
       </div>
     </div>
   );

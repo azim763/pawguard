@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../PetLogForm/PetLogForm.module.css';
 import TextInput from '../TextInput/TextInput';
 import Dropdown from '../Dropdown/Dropdown';
@@ -7,42 +7,64 @@ import DatePicker from '../DatePicker/DatePicker';
 import Button from '../Button/Button';
 import RadioButton from '../RadioButton/RadioButton';
 import Checkbox from '../Checkbox/Checkbox';
-import { createPetFoodRoute,createPetLogRoute } from '../../utils/APIRoutes';
+import { createPetFoodRoute,createPetLogRoute,searchPetsByUserIDRoute } from '../../utils/APIRoutes';
 import axios from 'axios';
 
 const PetLogForm = () => {
+  const [pets,setPets] =useState([]);
+  const [foodDate, setFoodDate] = useState(new Date());
+
+  
+  useEffect(async() => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
+  setPets(response.data);
+}
+,[]);
   const MealPerDay = [
-    { value: 1, label: "1" },
-    { value: 2, label: "2" },
-    { value: 3, label: "3" },
-    { value: 4, label: "4" },
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
   ];
 
   const [foodData, setFoodData] = useState({
-    foodName: "",
-    mealPerDay: "",
-    quantity: "",
-    kibble: false,
-    canned: false,
-    semiMoist: false,
-    homeCooked: false,
-    raw: false,
+    PetID:pets._id,
+    FoodName: "",
+    MealPerDay: "",
+    QuantityPerMeal: "",
+    KibbleDry: false,
+    Canned: false,
+    SemiMoist: false,
+    HomeCooked: false,
+    Raw: false,
     protein: "",
     fat: "",
     fiber: "",
   });
 
+
+  const handleDropdownChange = (name, value) => {
+    console.log("dropdown is dropping");
+    setFoodData({
+      ...foodData,
+      [name]: value,
+    });
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFoodData((prevData) => {
+    setFoodData((foodData) => {
       if (type === "checkbox") {
         return {
-          ...prevData,
+          ...foodData,
           [name]: checked,
         };
       }
       return {
-        ...prevData,
+        ...foodData,
         [name]: value,
       };
     });
@@ -91,11 +113,24 @@ const PetLogForm = () => {
       [category]: option,
     }));
   };
+
   const options = [
     { label: "High ", value: "High" },
     { label: "Normal", value: "Normal" },
     { label: "Low", value: "Low" },
   ];
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = value.split('T')[0].split('-');
+    const resultDate = `${day}-${month}-${year}`;
+
+    setFoodData({
+      ...foodData,
+      [name]: resultDate,
+    });
+    setFoodDate(value);
+  };
+
 
   return (
     <div>
@@ -187,28 +222,29 @@ const PetLogForm = () => {
               <div>
                 <div className={styles.petLogFood}>
                   <TextInput
-                    id="foodName"
-                    name="foodName"
+                    id="FoodName"
+                    name="FoodName"
                     label="Food Name"
-                    value={foodData.foodName}
+                    value={foodData.FoodName}
                     onChange={handleChange}
                   />
                   <div className={styles.petLogFoodAndQuantity}>
                     <Dropdown
                       label="Meals per Day"
-                      id="mealPerDay"
-                      name="mealPerDay"
+                      id="MealPerDay"
+                      name="MealPerDay"
                       options={MealPerDay}
-                      value={foodData.mealPerDay}
-                      onChange={handleChange}
-                    />
+                      value={foodData.MealPerDay}
+                      onChange={(selectedValue) =>
+                        handleDropdownChange("MealPerDay", selectedValue)
+                      }                    />
                     <div className={styles.quantityPerMeal}>
                       <TextInput
-                        id="quantity"
-                        name="quantity"
+                        id="QuantityPerMeal"
+                        name="QuantityPerMeal"
                         label="Quantity Per Meal"
                         placeholder="Eg: 500"
-                        value={foodData.quantity}
+                        value={foodData.QuantityPerMeal}
                         onChange={handleChange}
                       />
                       <Typography variant="body2-poppins-medium">g</Typography>
@@ -217,45 +253,49 @@ const PetLogForm = () => {
                 </div>
                 <div className={styles.petLogCheckBox}>
                   <Checkbox
-                    id="kibble"
-                    name="kibble"
+                    id="KibbleDry"
+                    name="KibbleDry"
                     label="kibble"
-                    value="kibble"
-                    checked={foodData.kibble}
+                    value="KibbleDry"
+                    checked={foodData.KibbleDry}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="canned"
-                    name="canned"
+                    id="Canned"
+                    name="Canned"
                     label="canned"
-                    value="canned"
-                    checked={foodData.canned}
+                    value="Canned"
+                    checked={foodData.Canned}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="semiMoist"
-                    name="semiMoist"
+                    id="SemiMoist"
+                    name="SemiMoist"
                     label="Semi-Moist"
-                    value="semiMoist"
-                    checked={foodData.semiMoist}
+                    value="SemiMoist"
+                    checked={foodData.SemiMoist}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="homeCooked"
-                    name="homeCooked"
+                    id="HomeCooked"
+                    name="HomeCooked"
                     label="Home-Cooked"
-                    value="homeCooked"
-                    checked={foodData.homeCooked}
+                    value="HomeCooked"
+                    checked={foodData.HomeCooked}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="raw"
-                    name="raw"
+                    id="Raw"
+                    name="Raw"
                     label="Raw"
-                    value="raw"
-                    checked={foodData.raw}
+                    value="Raw"
+                    checked={foodData.Raw}
                     onChange={handleChange}
                   />
+                          <Typography variant="body2-poppins-medium">Food Date</Typography>
+
+                  <DatePicker onChange={handleDateChange} id="FoodDate" value={foodDate}/>
+
                 </div>
                 <Button
                   variant="yellow"

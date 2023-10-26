@@ -1,16 +1,17 @@
 import React from "react";
 import styles from "./time-picker.module.css";
 
-const TimePicker = ({ time, setTime, ...props }) => {
-  const handleOnChange = (event) => setTime(event.target.value);
+const TimePicker = ({ id,time, setTime,onChange, ...props }) => {
 
   return (
     <div className={`${styles["wrapper"]}`}>
       <input
         className={`${styles["input"]}`}
         type="time"
+        id={id}
+        name={id}
         value={time}
-        onChange={handleOnChange}
+        onChange={onChange}
         style={props}
       ></input>
     </div>

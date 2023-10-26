@@ -1,86 +1,68 @@
-import React, { useState, useEffect } from "react";
-import styles from "./multiDropDown.module.css";
-import Multiselect from "multiselect-react-dropdown";
 
-function Asd({ options }) {
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './multiDropDown.module.css';
+import Multiselect from 'multiselect-react-dropdown';
+
+export default function Asd({
+   options
+}) {
   const [selectedValues, setSelectedValues] = useState([]);
-  const [showPlaceholder, setShowPlaceholder] = useState(true);
-
-  useEffect(() => {
-    if (selectedValues.length === 0) {
-      setShowPlaceholder(true);
-    } else {
-      setShowPlaceholder(false);
-    }
-  }, [selectedValues]);
-  
-  const handleSelect = (selectedList, selectedItem) => {
-    setSelectedValues(selectedList);
-  };
 
 
   return (
     <div className={styles.container}>
       <h3>Specialties</h3>
       <Multiselect
-        className={styles.dropdown}
         isObject={false}
         options={options}
+        selectedValues={selectedValues}
+        onSelect={(selectedList) => {
+          setSelectedValues(selectedList);
+        }}
+        onRemove={(selectedList) => {
+          setSelectedValues(selectedList);
+        }}
         showCheckbox
         closeIcon="cancel"
-        placeholder={showPlaceholder ? "Select the Speciality" : ""}
         showArrow="true"
         style={{
           placeholder: {
-            fontSize: "15px",
+            display: 'none',  // Hide the placeholder
+            fontSize: '15px'
           },
           chips: {
-            background: "rgb(0,0,128)",
-            fontSize: "18px",
-            fontWeight: "bold",
-            display: "inline-block",
-            marginLeft: "5px",
+            background: 'rgb(0,0,128)',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            display: 'inline-block',
+            marginLeft: '5px'
           },
           multiselectContainer: {
-            color: "black",
-            display: "inline-block",
-            margin: "0",
-            height: "auto",
-            width: "550px",
+            color: 'black',
+            display: 'inline-block',
+            margin: '0',
+            height: 'auto',
+            width: '550px'
           },
           searchBox: {
-            fontSize: "20px",
-            border: "2px solid black",
-            height: "auto",
-            borderRadius: "5px",
-            width: "500px",
+            fontSize: '20px',
+            border: '2px solid black',
+            height: 'auto',
+            borderRadius: '5px',
+            width: '500px'
           },
           optionContainer: {
-            maxHeight: "500px",
-          },
+            maxHeight: '500px'
+          }
         }}
-        onSelect={handleSelect}
       />
     </div>
   );
 }
 
-export default Asd;
 
 
+// to use in pages:-
 
-// To use teh component do foll
-/*
-install this :- npm install npm install react-multi-select-component
-then do foll:-
-## define values:-
-const specialities = [
-    'Option 1',
-    'Option 2',
-    'Option 3',
-    'Option 4',
-    'Option 5'
-];
-## now call:-
- <Asd options={specialities} />
-*/
+// import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
+// <MultipleDropDown options={["1", "1-3 years old", "4-6 years old", "+ 7 years old"]} />
