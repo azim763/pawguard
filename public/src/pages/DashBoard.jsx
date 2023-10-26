@@ -10,11 +10,13 @@ import Header from "../components/Header/header"
  import Background from "../assets/background2.gif";
 import Graph from "../components/Graph/Graph";
 
-import { searchPetsByUserIDRoute } from '../utils/APIRoutes.js'
+import { searchPetsByUserIDRoute, getAllPetFoodsRoute } from '../utils/APIRoutes.js'
 
 
 export default function Chat() {
   const [pets,setPets] =useState([]);
+  const [foods,setFoods] =useState([]);
+
   
   useEffect(async() => {
     const data = await JSON.parse(
@@ -24,6 +26,17 @@ export default function Chat() {
   setPets(response.data);
 }
 ,[]);
+
+useEffect(async ()=>{
+  await axios.get(getAllPetFoodsRoute)
+  .then((responseFood) => {
+    setFoods(responseFood.data);
+    console.log(responseFood.data);
+  })
+  .catch((error) => {
+    console.error("Error fetching insurance plans:", error);
+  });
+},[]);
   
   const navigate = useNavigate();
   const socket = useRef();
@@ -46,17 +59,17 @@ export default function Chat() {
     }
   }, [currentUser]);
 
-  useEffect(async () => {
-    if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
-        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-
-      } else {
-        navigate("/setAvatar");
-      }
-    }
-  }, [currentUser]);
-
+  // useEffect(async() => {
+  //   if (currentUser) {
+  //     if (currentUser.isAvatarImageSet) {
+  //       const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+  //     } else {
+  //       navigate("/setAvatar");
+  //     }
+  //   }
+  // }, [currentUser]);
+  const mealPerDayArray = foods.map(food => food.MealPerDay);
+  const foodDateArray = foods.map(food => food.FoodDate);
   return (
 
     <>
@@ -64,9 +77,9 @@ export default function Chat() {
       <Container>
         <div className="container">
         <Logout />
-        <Graph/>
-        <Graph/>
-
+        {foods && foods.MealPerDay && foods.FoodDate && (
+  <Graph names={mealPerDayArray} values={foodDateArray} />
+)}
         </div>
       </Container>
       

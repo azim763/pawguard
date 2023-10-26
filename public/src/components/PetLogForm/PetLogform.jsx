@@ -12,6 +12,8 @@ import axios from 'axios';
 
 const PetLogForm = () => {
   const [pets,setPets] =useState([]);
+  const [foodDate, setFoodDate] = useState(new Date());
+
   
   useEffect(async() => {
     const data = await JSON.parse(
@@ -117,6 +119,17 @@ const PetLogForm = () => {
     { label: "Normal", value: "Normal" },
     { label: "Low", value: "Low" },
   ];
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = value.split('T')[0].split('-');
+    const resultDate = `${day}-${month}-${year}`;
+
+    setFoodData({
+      ...foodData,
+      [name]: resultDate,
+    });
+    setFoodDate(value);
+  };
 
 
   return (
@@ -279,6 +292,10 @@ const PetLogForm = () => {
                     checked={foodData.Raw}
                     onChange={handleChange}
                   />
+                          <Typography variant="body2-poppins-medium">Food Date</Typography>
+
+                  <DatePicker onChange={handleDateChange} id="FoodDate" value={foodDate}/>
+
                 </div>
                 <Button
                   variant="yellow"
