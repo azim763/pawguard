@@ -6,9 +6,13 @@ const insurancePlanSchema = new mongoose.Schema({
     AnnualDeductible: { type: Number, required: true },
     AnnualCoverage: { type: String, required: true },
     Reimbursement: { type: Number, required: true },
-    CoveredItems: { type: String, required: true },
-    NotCoveredItems: { type: String, required: true },
-    InsurancePrice: { type: Number, required: true }
+    CoveredItems:  [{ type: String }],
+    NotCoveredItems:  [{ type: String }],
+    InsurancePrice: { type: Number, required: true },
+    Recommend: {type: String, require:false},
+    Highlights: {type: String, require:false},
+    PetType: { type: String, required: true },
+    PetAgeRange: { type: String, required: true },
 });
 
 // const InsurancePlan = mongoose.model('InsurancePlan', insurancePlanSchema);
