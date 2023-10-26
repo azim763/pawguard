@@ -8,19 +8,25 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
 import axios from "axios";
-import {searchPetsByUserIDRoute} from "../../utils/APIRoutes"
+import {searchPetsByUserIDRoute} from "../../utils/APIRoutes";
+import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 
 const InsuranceSearch = () => {
   const [pets,setPets] =useState([]);
   
-  useEffect(async() => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
-  setPets(response.data);
-}
-,[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+        setPets(response.data);
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -109,7 +115,7 @@ const InsuranceSearch = () => {
           <Typography variant="body2-poppins-medium" color="almost black">
             Pet's breed
           </Typography>
-          <Dropdown
+          {/* <Dropdown
             key="exampleDropdown"
             // onChange={handleDropdownChange}
             defaultValue="Select a breed"
@@ -120,7 +126,9 @@ const InsuranceSearch = () => {
               { value: "7above", label: "+ 7 years old" },
             ]}
             size="large"
-          />
+          /> */}
+          <MultipleDropDown options={["1", "1-3 years old", "4-6 years old", "+ 7 years old"]} />
+
         </div>
 
         <div style={{ marginBottom: "40px" }}>

@@ -12,13 +12,19 @@ const ExportpetLog = () => {
   //       setLoading(false);  });
 
 // under construction !
-useEffect(async () => {
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(getAllPetLogsRoute);
+      setPetLogs(response.data);
+      setLoading(false);
+    } catch (error) {
+      // Handle any errors here
+    }
+  };
 
-      const data = await axios.get(`${getAllPetLogsRoute}`);
-      setPetLogs(data.data);
-      setLoading(false); 
-});
-
+  fetchData();
+}, []);
   return (
     <div>
       <h1>Pet Logs</h1>

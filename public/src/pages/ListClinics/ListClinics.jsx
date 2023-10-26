@@ -7,27 +7,42 @@ import Typography from "../../components/Typography/Typography";
 import ClinicDetailCard from "../../components/ClinicDetailCard/ClinicDetailCard";
 import styles from "./ListClinics.module.css";
 import PetSelection from "../../components/PetSelection/PetSelection";
-import Dropdown from "../../components/Dropdown/Dropdown";
+// import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
-import { searchPetsByUserIDRoute } from '../../utils/APIRoutes.js'
+import { searchPetsByUserIDRoute } from "../../utils/APIRoutes.js";
+import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
+
+let originalClinicData = [];
 
 const ListClinics = () => {
-  const [pets,setPets] =useState([]);
+  const [pets, setPets] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          const response = await axios.get(searchPetsByUserIDRoute, {
+            params: { userID: data._id },
+          });
+          setPets(response.data);
+        }
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
   
-  useEffect(async() => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
-  setPets(response.data);
-}
-,[]);
+    fetchData();
+  }, []);
 
-  // const specialties = ["allergies", "cancer"];
+  // const options = ["Dentistry", "Allergies"];
+
   const [selectedPet, setSelectedPet] = useState(null);
   const [clinicData, setClinicData] = useState([]);
+  const [urgentCareChecked, setUrgentCareChecked] = useState(false);
+  const [open24hrsChecked, setOpen24hrsChecked] = useState(false);
 
   const navigate = useNavigate();
   const petData = [
@@ -42,6 +57,7 @@ const ListClinics = () => {
       .then((response) => {
         console.log(response.data);
         setClinicData(response.data);
+        originalClinicData = response.data;
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -55,6 +71,80 @@ const ListClinics = () => {
   const handleClickDetails = (clinicId) => {
     navigate(`/clinic/details/${clinicId}`);
   };
+
+  // const onCheckHandler = (event) => {
+  //   const { id, checked } = event.target;
+  //   if (id === "urgCare") {
+  //     setUrgentCareChecked(checked);
+  //     console.log("Urgent Care checked:", checked);
+  //   } else if (id === "24hrs") {
+  //     setOpen24hrsChecked(checked);
+  //     console.log("Open 24 Hours checked:", checked);
+  //   }
+  // };
+
+  const handleUrgCheckboxChange = (event) => {
+    const { checked } = event.target;
+    setUrgentCareChecked(event.target.checked);
+    console.log("Urgent Care checked", checked);
+    console.log(originalClinicData);
+  };
+
+  const handle24CheckboxChange = (event) => {
+    setOpen24hrsChecked(event.target.checked);
+    const { checked } = event.target;
+    console.log("Open 24 Hours checked", checked);
+    console.log(originalClinicData);
+  };
+
+  const onClickHandler = () => {
+    const matchesUrgentCare = urgentCareChecked;
+    const matchesOpen24hrs = open24hrsChecked;
+
+    if (matchesUrgentCare || matchesOpen24hrs) {
+      const filteredResults = originalClinicData.filter((clinic) => {
+        return (
+          (!matchesUrgentCare || clinic.UrgentCare) &&
+          (!matchesOpen24hrs || clinic.Open24)
+        );
+      });
+
+      setClinicData(filteredResults);
+      console.log(filteredResults);
+    } else if (matchesUrgentCare && matchesOpen24hrs) {
+      const filteredResults = originalClinicData.filter((clinic) => {
+        return (
+          (matchesUrgentCare || clinic.UrgentCare) &&
+          (matchesOpen24hrs || clinic.Open24)
+        );
+      });
+      setClinicData(filteredResults);
+      console.log(filteredResults);
+    } else {
+      setClinicData(originalClinicData);
+      console.log(originalClinicData);
+    }
+  };
+
+  //     const matchesUrgentCare = urgentCareChecked ? clinic.UrgentCare : false;
+  //     const matchesOpen24hrs = open24hrsChecked ? clinic.Open24 : false;
+  //     if (urgentCareChecked && open24hrsChecked) {
+  //       return matchesUrgentCare && matchesOpen24hrs;
+  //     } else if (urgentCareChecked) {
+  //       return matchesUrgentCare;
+  //     } else if (open24hrsChecked) {
+  //       return matchesOpen24hrs;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+
+  //   setClinicData(
+  //     urgentCareChecked || open24hrsChecked ? clinicData : filteredResults
+  //   );
+  //   console.log(filteredResults);
+  //   console.log(clinicData);
+  // };
 
   return (
     <div>
@@ -95,7 +185,7 @@ const ListClinics = () => {
         </div>
         <div className={styles.clinicSearch}>
           <div className={styles.dropDownClinics}>
-            <Dropdown
+            {/* <Dropdown
               key="specialityDropDown"
               // onChange={handleDropdownChange}
               defaultValue="Allergies"
@@ -104,14 +194,30 @@ const ListClinics = () => {
                 { value: "Cardiology", label: "Cardiology" },
               ]}
               size="large"
-            />
-            <TextInputIcon label="Zip Code" />
+            /> */}
+            <MultipleDropDown options={["Allergies", "Cardiology", "digestive tract"]} />
+            <TextInputIcon label="Location" />
           </div>
 
-          <Checkbox id="urgCare" label="Urgent Care" value="urgCare" />
-          <Checkbox id="24hrs" label="Open 24 hours" value="24hrs" />
+          <Checkbox
+            id="urgCare"
+            label="Urgent Care"
+            onChangeHandler={handleUrgCheckboxChange}
+            value={urgentCareChecked}
+          />
+          <Checkbox
+            id="24hrs"
+            label="Open 24 hours"
+            onChangeHandler={handle24CheckboxChange}
+            value={open24hrsChecked}
+          />
 
-          <Button variant="yellow" label="Search" size="dk-md-s" />
+          <Button
+            variant="yellow"
+            label="Search"
+            size="dk-md-s"
+            onClickHandler={onClickHandler}
+          />
         </div>
 
         {clinicData.map((clinic) => (
@@ -119,7 +225,6 @@ const ListClinics = () => {
             key={clinic._id}
             clinicName={clinic.Name}
             clinicRating={clinic.Rating}
-            // numberOfRatings={clinic.numberOfRatings}`
             clinicAddress={clinic.Address}
             specialtiesString={clinic.Specialty}
             source={clinic.ImageUrl}

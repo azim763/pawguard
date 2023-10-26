@@ -10,34 +10,59 @@ import DashCalendar from "../components/Calendar/calendar";
 import Background from "../assets/background2.gif";
 import Graph from "../components/Graph/Graph";
 
-import { searchPetsByUserIDRoute } from "../utils/APIRoutes.js";
+import { searchPetsByUserIDRoute, getAllPetFoodsRoute } from '../utils/APIRoutes.js'
+
 
 export default function Chat() {
-  const [pets, setPets] = useState([]);
+  const [pets,setPets] =useState([]);
+  const [foods,setFoods] =useState([]);
 
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-    const response = await axios.get(searchPetsByUserIDRoute, {
-      params: { userID: data._id },
-    });
-    setPets(response.data);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+        setPets(response.data);
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseFood = await axios.get(getAllPetFoodsRoute);
+        setFoods(responseFood.data);
+        console.log(responseFood.data);
+      } catch (error) {
+        console.error("Error fetching pet foods:", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect(async () => {
-    if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-      navigate("/login");
-    } else {
-      setCurrentUser(
-        await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        )
-      );
-    }
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+  
+      if (!storedData) {
+        navigate("/login");
+      } else {
+        const userData = JSON.parse(storedData);
+        setCurrentUser(userData);
+      }
+    };
+  
+    checkLoggedIn();
   }, []);
   useEffect(() => {
     if (currentUser) {
@@ -46,7 +71,7 @@ export default function Chat() {
     }
   }, [currentUser]);
 
-  // useEffect(async () => {
+  // useEffect(async() => {
   //   if (currentUser) {
   //     if (currentUser.isAvatarImageSet) {
   //       const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
@@ -55,16 +80,20 @@ export default function Chat() {
   //     }
   //   }
   // }, [currentUser]);
-
+  const mealPerDayArray = foods.map(food => food.MealPerDay);
+  const foodDateArray = foods.map(food => food.FoodDate);
   return (
     <>
       <Header></Header>
       <Container>
         <div className="container">
           <Logout />
-          {/* <Graph />
-          <Graph /> */}
+          
           <DashCalendar />
+          <div className="graphStyle">
+            {mealPerDayArray  && foodDateArray&& (
+              <Graph names={mealPerDayArray} values={foodDateArray} />)}
+          </div>
         </div>
       </Container>
     </>
@@ -80,6 +109,10 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #dedfdc;
+  .graphStyle{
+    z-index:200;
+    background-color:white;
+  }
   .container {
     height: 85vh;
     width: 85vw;

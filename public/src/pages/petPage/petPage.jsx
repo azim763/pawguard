@@ -14,21 +14,29 @@ import VaccinationCard from '../../components/VaccinationCard/VaccinationCard';
 import AppointmentCard from '../../components/AppointmentCard/AppointmentCard';
 import PetLogCard from '../../components/PetLogCard/PetLogCard';
 import MedicineCard from '../../components/MedicineCard/MedicineCard';
-import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
+// import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
 
 const PetPage = () => {
 
   const [pets,setPets] =useState([]);
   
-  useEffect(async() => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
-  setPets(response.data);
-  console.log(pets);
-}
-,[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+          setPets(response.data);
+          console.log(response.data); // Log the response data here
+        }
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   const tabToButtonLabel = {
     petLog: "PetLog",

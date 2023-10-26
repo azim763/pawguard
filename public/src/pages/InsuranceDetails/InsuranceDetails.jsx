@@ -17,7 +17,7 @@ import {getInsurancePlanByIdRoute} from "../../utils/APIRoutes";
 const InsuranceDetails = () => {
 
   const { companyId } = useParams();
-  const [companyData, setCompanyData] = useState({ CoveredItems: '',NotCoveredItems: '', });
+  const [companyData, setCompanyData] = useState({ CoveredItems:[] ,NotCoveredItems: [], });
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(null);
   // For small cards 
@@ -25,18 +25,18 @@ const InsuranceDetails = () => {
     axios
       .get(`${getInsurancePlanByIdRoute}/${companyId}`)
       .then((response) => {
-        // setCompanyData(response.data);
+        setCompanyData(response.data);
         // setLoading(false);
         console.log("Data "+companyData.CoveredItems);
-        const coveredItemsString = response.data.CoveredItems || '';
-        const notCoveredItemsString = response.data.NotCoveredItems || '';
-        const coveredItemsArray = coveredItemsString.split(',');
-        const notCoveredItemsArray = notCoveredItemsString.split(',');
-        setCompanyData({
-          ...response.data,
-          CoveredItems: coveredItemsArray,
-          NotCoveredItems: notCoveredItemsArray,
-        });
+        // const coveredItemsString = response.data.CoveredItems || '';
+        // const notCoveredItemsString = response.data.NotCoveredItems || '';
+        // const coveredItemsArray = coveredItemsString.split(',');
+        // const notCoveredItemsArray = notCoveredItemsString.split(',');
+        // setCompanyData({
+        //   ...response.data,
+        //   CoveredItems: coveredItemsArray,
+        //   NotCoveredItems: notCoveredItemsArray,
+        // });
       })
       .catch((error) => {
         console.error("Error fetching company data:", error);
@@ -92,10 +92,9 @@ const InsuranceDetails = () => {
           <div>
             <InsuranceCard
               title="Why Recommended"
-              text="Company Name offers the best coverage out of all the plans we analyzed for pet's breed .
-              "
+              text={companyData.Recommend}
               subtitle="Highlight of plan"
-              body="Lorem ipsum dolor sit amet. Eos deserunt dolorum et quibusdam unde et esse minima! Sit accu santium temporibus ut eligendi optio in aliquid necessitatibus ea obcaecatid eserunt   esseminido lorum et quibusdam unde et esse minima! Sit accusantium temligendi optio in aliquid necessita  "
+              body={companyData.Highlights}
             ></InsuranceCard>
 
             {/* Put Why recommend component here  */}
@@ -110,14 +109,14 @@ const InsuranceDetails = () => {
                   "Covered Item 4",
                   "Covered Item 5",
                 ]} /> */}
-          <InsuranceCoverage descriptions={companyData.CoveredItems || []} />
+          <InsuranceCoverage descriptions={companyData.CoveredItems} />
               {/* <InsuranceNotCovered descriptions={[
                   "Not Covered Item 1",
                   "Not Covered Item 2",
                   "Not Covered Item 3",
                   
                 ]}/> */}
-              <InsuranceNotCovered descriptions={companyData.NotCoveredItems || []} />
+              <InsuranceNotCovered descriptions={companyData.NotCoveredItems} />
 
               {/* Put whats covered and whats not covered component here */}
             </div>

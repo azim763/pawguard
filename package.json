@@ -6,6 +6,8 @@
     "multiselect-react-dropdown": "^2.0.25",
     "react-images-uploading": "^3.1.7",
     "react-multi-select-component": "^4.3.4",
-    "react-router-dom": "^6.17.0"
+    "react-router-dom": "^6.17.0",
+    "recharts": "^2.9.0",
+    "rsuite": "^5.41.0"
   }
 }
