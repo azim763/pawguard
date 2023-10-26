@@ -90,13 +90,16 @@ const InsuranceDetails = () => {
           )}
           
           <div>
-            <InsuranceCard
+          {companyData._id &&(
+            <div>
+             <InsuranceCard
               title="Why Recommended"
-              text="Company Name offers the best coverage out of all the plans we analyzed for pet's breed .
-              "
+              text={companyData.Recommend}
               subtitle="Highlight of plan"
-              body="Lorem ipsum dolor sit amet. Eos deserunt dolorum et quibusdam unde et esse minima! Sit accu santium temporibus ut eligendi optio in aliquid necessitatibus ea obcaecatid eserunt   esseminido lorum et quibusdam unde et esse minima! Sit accusantium temligendi optio in aliquid necessita  "
+              body={companyData.Highlights}
             ></InsuranceCard>
+          </div>
+          )}
 
             {/* Put Why recommend component here  */}
           </div>
