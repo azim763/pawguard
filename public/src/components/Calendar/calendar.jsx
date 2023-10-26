@@ -20,42 +20,6 @@ const DashCalendar = () => {
       });
   }, []);
 
-  const calendarEvents = [
-    {
-      day: "1-10",
-      schedule: [
-        { time: "09:30 pm", title: "Products Introduction Meeting" },
-        { time: "12:30 pm", title: "Client entertaining" },
-        { time: "02:00 pm", title: "Product design discussion" },
-        { time: "05:00 pm", title: "Product test and acceptance" },
-        { time: "06:30 pm", title: "Reporting" },
-        { time: "10:00 pm", title: "Going home to walk the dog" },
-      ],
-    },
-    {
-      day: "27-10",
-      schedule: [
-        { time: "09:30 pm", title: "Products Introduction Meeting" },
-        { time: "12:30 pm", title: "Client entertaining" },
-        { time: "02:00 pm", title: "Product design discussion" },
-      ],
-    },
-    {
-      day: "13-10",
-      schedule: [
-        { time: "09:30 pm", title: "Products Introduction Meeting" },
-        { time: "12:30 pm", title: "Client entertaining" },
-        { time: "12:00 pm", title: "Lunch" },
-        { time: "02:00 pm", title: "Product design discussion" },
-      ],
-    },
-    {
-      day: "11-10",
-      schedule: [{ time: "02:00 pm", title: "Product design discussion" }],
-    },
-  ];
-
-  // Define a function to get events for the selected date
   function getSelectedEvents() {
     if (!selectedDate) return []; // If no date is selected, return an empty array
 
