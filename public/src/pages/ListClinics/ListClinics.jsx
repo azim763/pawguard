@@ -12,7 +12,7 @@ import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 import { searchPetsByUserIDRoute } from "../../utils/APIRoutes.js";
-import Asd from "../../components/clinicMultipleDropdown/MultipleDropDown";
+import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 
 let originalClinicData = [];
 
@@ -29,7 +29,7 @@ const ListClinics = () => {
     setPets(response.data);
   }, []);
 
-  const specialties = ["Dentistry", "Allergies"];
+  // const options = ["Dentistry", "Allergies"];
 
   const [selectedPet, setSelectedPet] = useState(null);
   const [clinicData, setClinicData] = useState([]);
@@ -187,20 +187,22 @@ const ListClinics = () => {
               ]}
               size="large"
             /> */}
-            {/* <Asd options={specialties} /> */}
+            {/* <MultipleDropDown
+              options={["1", "1-3 years old", "4-6 years old", "+ 7 years old"]}
+            /> */}
             <TextInputIcon label="Location" />
           </div>
 
           <Checkbox
             id="urgCare"
             label="Urgent Care"
-            onCheckHandler={handleUrgCheckboxChange}
+            onChangeHandler={handleUrgCheckboxChange}
             value={urgentCareChecked}
           />
           <Checkbox
             id="24hrs"
             label="Open 24 hours"
-            onCheckHandler={handle24CheckboxChange}
+            onChangeHandler={handle24CheckboxChange}
             value={open24hrsChecked}
           />
 
