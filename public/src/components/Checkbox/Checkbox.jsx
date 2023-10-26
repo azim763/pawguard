@@ -2,22 +2,24 @@ import React from "react";
 import styles from "./Checkbox.module.css";
 import Typography from "../Typography/Typography";
 
-const Checkbox = ( { key, value, label, placeholder, disabled, required, onClickHandler, variant, size } ) => {
+const Checkbox = ( { id, value, label, placeholder, disabled, required, onCheckHandler, variant, size } ) => {
+  
+
   return (
     <div>
       <input
         className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
         type="checkbox"
-        id={key}
-        name={key}
+        id={id}
+        name={id}
         value={value}
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        onClick={onClickHandler}
+        onChange={onCheckHandler}
       />
       <Typography variant="body2-poppins-medium" color="almost-black">
-        <label htmlFor={key}>{label}</label>
+        <label htmlFor={id}>{label}</label>
       </Typography>
     </div>
   );
