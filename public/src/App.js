@@ -16,11 +16,13 @@ import PetPage from "./pages/petPage/petPage";
 import IndividualClinic from "./pages/IndividualClinic/IndividualClinic";
 import AddPet from "./pages/AddPet/AddPet";
 import ExportpetLog from "./pages/petLog/ExportpetLog";
+import Calendar from "./components/Calendar/calendar";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/setAvatar" element={<SetAvatar />} />
