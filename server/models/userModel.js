@@ -59,7 +59,8 @@ const userSchema = new mongoose.Schema({
   avatarImage: {
     type: String,
     default: "",
-  },
+  }, 
+  timestamp: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Users", userSchema);

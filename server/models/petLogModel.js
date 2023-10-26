@@ -10,6 +10,7 @@ const petLogSchema = new mongoose.Schema({
   StoolAppearance: { type: String, required: false },
   PetImages: [{ type: String }],
   Notes: { type: String, required: false },
+  timestamp: { type: Date, default: Date.now },
 });
 
 const PetLog = mongoose.model("PetLog", petLogSchema);

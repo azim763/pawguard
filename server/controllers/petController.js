@@ -12,6 +12,7 @@ module.exports.getAllPets = async (req, res, next) => {
 module.exports.createPet = async (req, res, next) => {
   try {
     const petData = req.body;
+    petData.timestamp = new Date();
     const pet = await Pet.create(petData);
     return res.json(pet);
   } catch (ex) {
