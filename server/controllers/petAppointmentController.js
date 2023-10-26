@@ -12,6 +12,7 @@ module.exports.getAllPetAppointments = async (req, res, next) => {
 module.exports.createPetAppointment = async (req, res, next) => {
   try {
     const appointmentData = req.body;
+    PetAppointment.timestamp = new Date();
     const appointment = await PetAppointment.create(appointmentData);
     return res.json(appointment);
   } catch (ex) {

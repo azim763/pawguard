@@ -11,10 +11,10 @@ module.exports.getAllPetVaccinations = async (req, res, next) => {
 
 module.exports.createPetVaccination = async (req, res, next) => {
   try {
-   
-    const {petid,nameOfvaccination, vaccinationdate } = req.body;
- 
-    const vaccination = await PetVaccination.create({petid,nameOfvaccination, vaccinationdate});
+    const vaccinationData = req.body;
+   // const {petid,nameOfvaccination, vaccinationdate } = req.body;
+   vaccinationData.timestamp = new Date();
+    const vaccination = await PetVaccination.create(vaccinationData);
     return res.json(vaccination);
   } catch (ex) {
     next(ex);
