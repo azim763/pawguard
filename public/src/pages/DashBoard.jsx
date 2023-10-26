@@ -18,39 +18,51 @@ export default function Chat() {
   const [foods,setFoods] =useState([]);
 
   
-  useEffect(async() => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
-  setPets(response.data);
-}
-,[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+        setPets(response.data);
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
+  }, []);
 
-useEffect(async ()=>{
-  await axios.get(getAllPetFoodsRoute)
-  .then((responseFood) => {
-    setFoods(responseFood.data);
-    console.log(responseFood.data);
-  })
-  .catch((error) => {
-    console.error("Error fetching insurance plans:", error);
-  });
-},[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseFood = await axios.get(getAllPetFoodsRoute);
+        setFoods(responseFood.data);
+        console.log(responseFood.data);
+      } catch (error) {
+        console.error("Error fetching pet foods:", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
   
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect(async () => {
-    if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-      navigate("/login");
-    } else {
-      setCurrentUser(
-        await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        )
-      );
-    }
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+  
+      if (!storedData) {
+        navigate("/login");
+      } else {
+        const userData = JSON.parse(storedData);
+        setCurrentUser(userData);
+      }
+    };
+  
+    checkLoggedIn();
   }, []);
   useEffect(() => {
     if (currentUser) {

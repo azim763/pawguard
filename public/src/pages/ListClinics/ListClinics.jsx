@@ -18,15 +18,23 @@ let originalClinicData = [];
 
 const ListClinics = () => {
   const [pets, setPets] = useState([]);
-
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-    const response = await axios.get(searchPetsByUserIDRoute, {
-      params: { userID: data._id },
-    });
-    setPets(response.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          const response = await axios.get(searchPetsByUserIDRoute, {
+            params: { userID: data._id },
+          });
+          setPets(response.data);
+        }
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
   }, []);
 
   // const options = ["Dentistry", "Allergies"];

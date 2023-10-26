@@ -15,14 +15,19 @@ const PetLogForm = () => {
   const [foodDate, setFoodDate] = useState(new Date());
 
   
-  useEffect(async() => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
-  setPets(response.data);
-}
-,[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+        setPets(response.data);
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
+  }, []);
   const MealPerDay = [
     { value: 1, label: '1' },
     { value: 2, label: '2' },
