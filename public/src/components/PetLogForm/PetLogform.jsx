@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../PetLogForm/PetLogForm.module.css';
 import TextInput from '../TextInput/TextInput';
 import Dropdown from '../Dropdown/Dropdown';
@@ -7,30 +7,42 @@ import DatePicker from '../DatePicker/DatePicker';
 import Button from '../Button/Button';
 import RadioButton from '../RadioButton/RadioButton';
 import Checkbox from '../Checkbox/Checkbox';
-import { createPetFoodRoute,createPetLogRoute } from '../../utils/APIRoutes';
+import { createPetFoodRoute,createPetLogRoute,searchPetsByUserIDRoute } from '../../utils/APIRoutes';
 import axios from 'axios';
 
 const PetLogForm = () => {
+  const [pets,setPets] =useState([]);
+  
+  useEffect(async() => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
+  setPets(response.data);
+}
+,[]);
   const MealPerDay = [
-    { value: 1, label: "1" },
-    { value: 2, label: "2" },
-    { value: 3, label: "3" },
-    { value: 4, label: "4" },
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
   ];
 
   const [foodData, setFoodData] = useState({
-    foodName: "",
-    mealPerDay: "",
-    quantity: "",
-    kibble: false,
-    canned: false,
-    semiMoist: false,
-    homeCooked: false,
-    raw: false,
+    PetID:pets._id,
+    FoodName: "",
+    MealPerDay: "",
+    QuantityPerMeal: "",
+    KibbleDry: false,
+    Canned: false,
+    SemiMoist: false,
+    HomeCooked: false,
+    Raw: false,
     protein: "",
     fat: "",
     fiber: "",
   });
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -91,11 +103,13 @@ const PetLogForm = () => {
       [category]: option,
     }));
   };
+
   const options = [
     { label: "High ", value: "High" },
     { label: "Normal", value: "Normal" },
     { label: "Low", value: "Low" },
   ];
+
 
   return (
     <div>

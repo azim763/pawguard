@@ -43,10 +43,10 @@ const AppointmentForm = () => {
           label="Appointment Reason"
           onChange={handleInputChange}
         />
-        {/* <Typography variant="body2-poppins-medium">Date of Appointment</Typography>
+        <Typography variant="body2-poppins-medium">Date of Appointment</Typography>
         <DatePicker />
         <Typography variant="body2-poppins-medium">Appointment Time</Typography>
-        <TimePicker /> */}
+        <TimePicker />
         <Button type="submit" variant="yellow" label="Add Pet" size="dk-md-s" />
       </form>
     </div>

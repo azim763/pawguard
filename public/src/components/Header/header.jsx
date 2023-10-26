@@ -4,7 +4,7 @@ import LogoSVG from "../SVG/LogoSVG";
 import styles from "./header.module.css";
 import Typography from "../Typography/Typography";
 
-const header = () => {
+const Header = () => {
   return (
     <nav className={styles.nav}>
       <Typography variant="body1-poppins-semibold">
@@ -30,4 +30,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;
