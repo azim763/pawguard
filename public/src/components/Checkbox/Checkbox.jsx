@@ -14,7 +14,7 @@ const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        onChange={onChange}
+        onChange={onCheckHandler}
       />
       <Typography variant="body2-poppins-medium" color="almost-black">
         <label htmlFor={id}>{label}</label>
