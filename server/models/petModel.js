@@ -16,6 +16,7 @@ const PetSchema = new mongoose.Schema({
   PreExistingMedical: { type: String, required: false },
   PetImageName: { type: String, required: false },
   Description: { type: String, required: false },
+  timestamp: { type: Date, default: Date.now },
 });
 
 const Pet = mongoose.model("Pet", PetSchema);

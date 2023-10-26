@@ -12,6 +12,7 @@ module.exports.getAllPetLogs = async (req, res, next) => {
 module.exports.createPetLog = async (req, res, next) => {
   try {
     const logData = req.body;
+    logData.timestamp = new Date();
     const log = await PetLog.create(logData);
     return res.json(log);
   } catch (ex) {

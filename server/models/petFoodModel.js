@@ -11,6 +11,7 @@ const petFoodSchema = new mongoose.Schema({
   SemiMoist: { type: Boolean, required: false },
   HomeCooked: { type: Boolean, required: false },
   Raw: { type: Boolean, required: false },
+  timestamp: { type: Date, default: Date.now },
 });
 
 const PetFood = mongoose.model("PetFood", petFoodSchema);

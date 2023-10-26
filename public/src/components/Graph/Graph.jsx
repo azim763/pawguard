@@ -2,15 +2,11 @@ import React from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 
-const Graph = () => {
-    const data = [
-        { name: 'Jan', value: 10 },
-        { name: 'Feb', value: 15 },
-        { name: 'Mar', value: 12 },
-        { name: 'Apr', value: 20 },
-        { name: 'May', value: 18 },
-        { name: 'Jun', value: 25 },
-      ];
+const Graph = ({ names, values }) => {
+    const data = names.map((name, index) => ({
+        name,
+        value: values[index],
+      }));
     return (
         <div>
             <LineChart width={400} height={300} data={data}>

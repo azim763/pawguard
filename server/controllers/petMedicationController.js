@@ -12,6 +12,7 @@ module.exports.getAllPetMedications = async (req, res, next) => {
 module.exports.createPetMedication = async (req, res, next) => {
   try {
     const medicationData = req.body;
+    PetMedication.timestamp = new Date();
     const medication = await PetMedication.create(medicationData);
     return res.json(medication);
   } catch (ex) {

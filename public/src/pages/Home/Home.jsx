@@ -4,7 +4,7 @@ import Graph from '../../components/Graph/Graph'
 const Home = () => {
   return (
     <div>
-        <Graph></Graph>
+        {/* <Graph></Graph> */}
     </div>
   )
 }
