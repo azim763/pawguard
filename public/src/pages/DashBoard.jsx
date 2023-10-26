@@ -76,9 +76,12 @@ useEffect(async ()=>{
       <Container>
         <div className="container">
           <Logout />
-          <Graph />
-          <Graph />
+          
           <DashCalendar />
+          <div className="graphStyle">
+            {mealPerDayArray  && foodDateArray&& (
+              <Graph names={mealPerDayArray} values={foodDateArray} />)}
+          </div>
         </div>
       </Container>
     </>
@@ -94,6 +97,10 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #dedfdc;
+  .graphStyle{
+    z-index:200;
+    background-color:white;
+  }
   .container {
     height: 85vh;
     width: 85vw;
