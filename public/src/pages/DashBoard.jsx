@@ -5,26 +5,26 @@ import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../utils/APIRoutes";
 import Logout from "../components/Logout";
-import Header from "../components/Header/header"
-
- import Background from "../assets/background2.gif";
+import Header from "../components/Header/header";
+import DashCalendar from "../components/Calendar/calendar";
+import Background from "../assets/background2.gif";
 import Graph from "../components/Graph/Graph";
 
-import { searchPetsByUserIDRoute } from '../utils/APIRoutes.js'
-
+import { searchPetsByUserIDRoute } from "../utils/APIRoutes.js";
 
 export default function Chat() {
-  const [pets,setPets] =useState([]);
-  
-  useEffect(async() => {
+  const [pets, setPets] = useState([]);
+
+  useEffect(async () => {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
-  const response = await axios.get(searchPetsByUserIDRoute,{params:{userID:data._id}})
-  setPets(response.data);
-}
-,[]);
-  
+    const response = await axios.get(searchPetsByUserIDRoute, {
+      params: { userID: data._id },
+    });
+    setPets(response.data);
+  }, []);
+
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -46,30 +46,27 @@ export default function Chat() {
     }
   }, [currentUser]);
 
-  useEffect(async () => {
-    if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
-        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-
-      } else {
-        navigate("/setAvatar");
-      }
-    }
-  }, [currentUser]);
+  // useEffect(async () => {
+  //   if (currentUser) {
+  //     if (currentUser.isAvatarImageSet) {
+  //       const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+  //     } else {
+  //       navigate("/setAvatar");
+  //     }
+  //   }
+  // }, [currentUser]);
 
   return (
-
     <>
-            <Header></Header>
+      <Header></Header>
       <Container>
         <div className="container">
-        <Logout />
-        <Graph/>
-        <Graph/>
-
+          <Logout />
+          <Graph />
+          <Graph />
+          <DashCalendar />
         </div>
       </Container>
-      
     </>
   );
 }
@@ -86,10 +83,10 @@ const Container = styled.div`
   .container {
     height: 85vh;
     width: 85vw;
-  /*  background-image: url("${Background}"); */
+    /*  background-image: url("${Background}"); */
     background-repeat: repeat;
-    
-    background-color:#efeae2;
+
+    background-color: #efeae2;
     /*   display: grid;  */
     grid-template-columns: 25% 75%;
     @media screen and (min-width: 720px) and (max-width: 1080px) {
