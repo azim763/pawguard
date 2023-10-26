@@ -187,9 +187,7 @@ const ListClinics = () => {
               ]}
               size="large"
             /> */}
-            {/* <MultipleDropDown
-              options={["1", "1-3 years old", "4-6 years old", "+ 7 years old"]}
-            /> */}
+            <MultipleDropDown options={["Allergies", "Cardiology", "digestive tract"]} />
             <TextInputIcon label="Location" />
           </div>
 
