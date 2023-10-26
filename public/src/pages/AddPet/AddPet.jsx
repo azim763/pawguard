@@ -12,12 +12,11 @@ import DatePicker from "../../components/DatePicker/DatePicker";
 
 import Header from "../../components/Header/header";
 
-const AddPet = ( ) => {
-  
-const headers = {
-  'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
-};
+const AddPet = () => {
 
+  const navigate = useNavigate();
+
+ 
   const petType = [
     { value: "dog", label: "Dog" },
     { value: "cat", label: "Cat" },
@@ -91,17 +90,16 @@ const headers = {
       { value: "DEA7", label: "DEA 7" },
     ];
 
- 
-  
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setPetData({
-        ...petData,
-        PetImageName: imageUrl, // Set the selected image as PetImageName
-      });
-    }
+
+
+  const handleImageUpload = (data) => {
+    // Handle the image data in the parent component
+    setPetData({
+      ...petData,
+      PetImageName: data, // Use the 'data' parameter instead of 'imageData'
+    });
+    console.log(data); // This logs the image data
+    console.log(petData); // This logs the petData with the updated PetImageName
   };
 
   const onClickHandler = async (event) => {
@@ -109,14 +107,12 @@ const headers = {
 
     try {
       const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
-        setPetData({
-          ...petData,
-          UserID: storedData._id
-        });
-      // Send data to the server using Axios or fetch
-      const response = await axios.post(createPetRoute, petData, {
-        headers: headers, // Include the custom headers
+      setPetData({
+        ...petData,
+        UserID: storedData._id
       });
+      // Send data to the server using Axios or fetch
+      const response = await axios.post(createPetRoute, petData);
       // Handle successful submission
       console.log("Data submitted successfully:", response.data);
       navigate("/home");
@@ -128,14 +124,16 @@ const headers = {
   return (
     <div>
       <Header />
-      <Typography variant="large-h1-poppins-bold" color="almost-black">
-        Add Pet
-      </Typography>
+      <div className="addPetHeader">
+        <Typography variant="large-h1-poppins-bold" color="almost-black">
+          Add Pet
+        </Typography>
+      </div>
       {/* <img src={selectedImage} alt="Selected" width="200" height="200" /> */}
       <div className={styles.addPetForm}>
-        
+
         <form action="/submit" method="post" onSubmit={onClickHandler}>
-        <SingleImageUpload onImageUpload={handleImageUpload} />
+          <SingleImageUpload onImageUpload={handleImageUpload} />
 
           <TextInput
             size="md"
@@ -240,6 +238,7 @@ const headers = {
       </div>
     </div>
   );
-};
+}
+
 
 export default AddPet;

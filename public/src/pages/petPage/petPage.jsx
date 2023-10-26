@@ -102,7 +102,6 @@ const PetPage = () => {
       <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
           <PetCard> </PetCard>
-{pets[0].PetImageName && <ImageDisplay blobUrl={pets[0].PetImageName} />}
         
         </div>
         <div className={styles.petPageTab}>

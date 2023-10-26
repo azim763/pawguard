@@ -14,7 +14,7 @@ const PetSchema = new mongoose.Schema({
   Height: { type: Number, required: false },
   Weight: { type: Number, required: false },
   PreExistingMedical: { type: String, required: false },
-  PetImageName: { type: String, required: true },
+  PetImageName: { type: String, required: false },
   Description: { type: String, required: false },
 });
 

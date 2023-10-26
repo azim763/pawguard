@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-function ImageDisplay({ blobUrl }) {
+function ImageDisplay({ PetImageData }) {
     return (
         <div>
-            {blobUrl && <img src={blobUrl} alt="Image" />}
+            <img src={`data:image/jpeg;base64,${PetImageData}`} alt="Uploaded" />
         </div>
     );
 }
