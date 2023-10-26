@@ -5,9 +5,9 @@ import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../utils/APIRoutes";
 import Logout from "../components/Logout";
-import Header from "../components/Header/header"
-
- import Background from "../assets/background2.gif";
+import Header from "../components/Header/header";
+import DashCalendar from "../components/Calendar/calendar";
+import Background from "../assets/background2.gif";
 import Graph from "../components/Graph/Graph";
 
 import { searchPetsByUserIDRoute, getAllPetFoodsRoute } from '../utils/APIRoutes.js'
@@ -71,18 +71,16 @@ useEffect(async ()=>{
   const mealPerDayArray = foods.map(food => food.MealPerDay);
   const foodDateArray = foods.map(food => food.FoodDate);
   return (
-
     <>
-            <Header></Header>
+      <Header></Header>
       <Container>
         <div className="container">
-        <Logout />
-        {foods && foods.MealPerDay && foods.FoodDate && (
-  <Graph names={mealPerDayArray} values={foodDateArray} />
-)}
+          <Logout />
+          <Graph />
+          <Graph />
+          <DashCalendar />
         </div>
       </Container>
-      
     </>
   );
 }
@@ -99,10 +97,10 @@ const Container = styled.div`
   .container {
     height: 85vh;
     width: 85vw;
-  /*  background-image: url("${Background}"); */
+    /*  background-image: url("${Background}"); */
     background-repeat: repeat;
-    
-    background-color:#efeae2;
+
+    background-color: #efeae2;
     /*   display: grid;  */
     grid-template-columns: 25% 75%;
     @media screen and (min-width: 720px) and (max-width: 1080px) {
