@@ -12,7 +12,8 @@ import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 import { searchPetsByUserIDRoute } from "../../utils/APIRoutes.js";
-import Asd from "../../components/clinicMultipleDropdown/MultipleDropDown";
+// import Asd from "../../components/clinicMultipleDropdown/MultipleDropDown";
+import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 
 let originalClinicData = [];
 
@@ -188,6 +189,8 @@ const ListClinics = () => {
               size="large"
             /> */}
             {/* <Asd options={specialties} /> */}
+            <MultipleDropDown options={["Allergies", "Cardiology", "digestive tract"]} />
+
             <TextInputIcon label="Location" />
           </div>
 
