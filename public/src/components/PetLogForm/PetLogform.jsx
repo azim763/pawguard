@@ -44,17 +44,25 @@ const PetLogForm = () => {
   });
 
 
+  const handleDropdownChange = (name, value) => {
+    console.log("dropdown is dropping");
+    setFoodData({
+      ...foodData,
+      [name]: value,
+    });
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFoodData((prevData) => {
+    setFoodData((foodData) => {
       if (type === "checkbox") {
         return {
-          ...prevData,
+          ...foodData,
           [name]: checked,
         };
       }
       return {
-        ...prevData,
+        ...foodData,
         [name]: value,
       };
     });
@@ -201,28 +209,29 @@ const PetLogForm = () => {
               <div>
                 <div className={styles.petLogFood}>
                   <TextInput
-                    id="foodName"
-                    name="foodName"
+                    id="FoodName"
+                    name="FoodName"
                     label="Food Name"
-                    value={foodData.foodName}
+                    value={foodData.FoodName}
                     onChange={handleChange}
                   />
                   <div className={styles.petLogFoodAndQuantity}>
                     <Dropdown
                       label="Meals per Day"
-                      id="mealPerDay"
-                      name="mealPerDay"
+                      id="MealPerDay"
+                      name="MealPerDay"
                       options={MealPerDay}
-                      value={foodData.mealPerDay}
-                      onChange={handleChange}
-                    />
+                      value={foodData.MealPerDay}
+                      onChange={(selectedValue) =>
+                        handleDropdownChange("MealPerDay", selectedValue)
+                      }                    />
                     <div className={styles.quantityPerMeal}>
                       <TextInput
-                        id="quantity"
-                        name="quantity"
+                        id="QuantityPerMeal"
+                        name="QuantityPerMeal"
                         label="Quantity Per Meal"
                         placeholder="Eg: 500"
-                        value={foodData.quantity}
+                        value={foodData.QuantityPerMeal}
                         onChange={handleChange}
                       />
                       <Typography variant="body2-poppins-medium">g</Typography>
@@ -231,43 +240,43 @@ const PetLogForm = () => {
                 </div>
                 <div className={styles.petLogCheckBox}>
                   <Checkbox
-                    id="kibble"
-                    name="kibble"
+                    id="KibbleDry"
+                    name="KibbleDry"
                     label="kibble"
-                    value="kibble"
-                    checked={foodData.kibble}
+                    value="KibbleDry"
+                    checked={foodData.KibbleDry}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="canned"
-                    name="canned"
+                    id="Canned"
+                    name="Canned"
                     label="canned"
-                    value="canned"
-                    checked={foodData.canned}
+                    value="Canned"
+                    checked={foodData.Canned}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="semiMoist"
-                    name="semiMoist"
+                    id="SemiMoist"
+                    name="SemiMoist"
                     label="Semi-Moist"
-                    value="semiMoist"
-                    checked={foodData.semiMoist}
+                    value="SemiMoist"
+                    checked={foodData.SemiMoist}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="homeCooked"
-                    name="homeCooked"
+                    id="HomeCooked"
+                    name="HomeCooked"
                     label="Home-Cooked"
-                    value="homeCooked"
-                    checked={foodData.homeCooked}
+                    value="HomeCooked"
+                    checked={foodData.HomeCooked}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    id="raw"
-                    name="raw"
+                    id="Raw"
+                    name="Raw"
                     label="Raw"
-                    value="raw"
-                    checked={foodData.raw}
+                    value="Raw"
+                    checked={foodData.Raw}
                     onChange={handleChange}
                   />
                 </div>
