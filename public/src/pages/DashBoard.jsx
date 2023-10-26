@@ -62,8 +62,8 @@ export default function Chat() {
       <Container>
         <div className="container">
           <Logout />
-          <Graph />
-          <Graph />
+          {/* <Graph />
+          <Graph /> */}
           <DashCalendar />
         </div>
       </Container>

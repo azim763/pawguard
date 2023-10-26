@@ -59,6 +59,7 @@ const DashCalendar = () => {
   function getSelectedEvents() {
     const selectedDay = selectedDate.getDate();
     const selectedMonth = selectedDate.getMonth() + 1;
+    const selectedYear = selectedDate.getYear();
     const selectedDateStr = `${selectedDay}-${selectedMonth}`;
 
     const matchingEvent = calendarEvents.find(
