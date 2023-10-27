@@ -14,13 +14,14 @@ import {
   getAllPetAppointmentsRoute,
   getAllPetMedicationsRoute,
   getAllPetVaccinationsRoute,
-  getAllPetLogsRoute
+  getAllPetLogsRoute,
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
 import PetLogCard from "../../components/PetLogCard/PetLogCard";
 import MedicineCard from "../../components/MedicineCard/MedicineCard";
 // import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
+import Map from "../../components/Map/Map";
 
 const PetPage = () => {
   const [pets, setPets] = useState([]);
@@ -112,7 +113,7 @@ const PetPage = () => {
     petLog: (
       <div>
         <div className={styles.getPetPage}>
-        {petLog.length > 0 && (
+          {petLog.length > 0 && (
             <div>
               {petLog.map((log) => (
                 <PetLogCard
@@ -133,14 +134,22 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
             <div>
-              {petAppointments.map((appointment) => (
-                <AppointmentCard
-                  ClinicName={appointment.ClinicName}
-                  AppointmentTime={appointment.AppointmentTime}
-                  AppointmentReason={appointment.AppointmentReason}
-                  AppointmentDateTime={appointment.AppointmentDate}
-                />
-              ))}
+              <Map
+                latitude={49.246292}
+                longitude={-123.116226}
+                markerlong={-123.116226}
+                markerlat={49.246292}
+              />
+              <div>
+                {petAppointments.map((appointment) => (
+                  <AppointmentCard
+                    ClinicName={appointment.ClinicName}
+                    AppointmentTime={appointment.AppointmentTime}
+                    AppointmentReason={appointment.AppointmentReason}
+                    AppointmentDateTime={appointment.AppointmentDate}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>
