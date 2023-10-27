@@ -3,6 +3,12 @@ import styles from "./Checkbox.module.css";
 import Typography from "../Typography/Typography";
 
 const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange, variant, size } ) => {
+
+  const onCheckHandler = (event) => {
+    onChange(event.target.value);
+  };
+
+
   return (
     <div>
       <input
