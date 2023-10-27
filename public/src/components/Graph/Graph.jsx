@@ -12,7 +12,7 @@ const Graph = ({ names, values }) => {
         <div>
            <LineChart width={400} height={300} data={data}>
     <Line type="monotone" dataKey="name" stroke="#8884d8" />
-    <XAxis dataKey="name" />
+    <XAxis dataKey="value" />
     <YAxis />
     <Tooltip />
     <Legend />
