@@ -89,7 +89,7 @@ export default function Chat() {
         <div className="container">
           <Logout />
           
-          {/* <DashCalendar /> */}
+          <DashCalendar />
           <div className="graphStyle">
             {mealPerDayArray  && foodDateArray&& (
               <Graph names={mealPerDayArray} values={foodDateArray} />)}
