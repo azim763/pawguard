@@ -5,7 +5,7 @@ const petMedicationSchema = new mongoose.Schema({
     MedicineName: { type: String, required: false },
     DosageAmount: { type: String, required: false },
     MedicationPeriod: { type: String, required: false },
-    MedicationDate: { type: Date, required: true },
+    MedicationDate: { type: Date, required: false },
     timestamp: { type: Date, default: Date.now },
 });
 
