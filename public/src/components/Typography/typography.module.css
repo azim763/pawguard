@@ -115,6 +115,10 @@
   color: var(--almost-black);
 }
 
+.dark-blue{
+  color: var(--dark-blue)
+}
+
 /* mobile size */
 
 .mb-user-greeting-poppins-semibold {

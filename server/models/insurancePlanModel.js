@@ -12,7 +12,7 @@ const insurancePlanSchema = new mongoose.Schema({
     Recommend: {type: String, require:false},
     Highlights: {type: String, require:false},
     PetType: { type: String, required: true },
-    PetAgeRange: [{ type: String }]
+    PetAgeRange: { type: String }
 });
 
 // const InsurancePlan = mongoose.model('InsurancePlan', insurancePlanSchema);

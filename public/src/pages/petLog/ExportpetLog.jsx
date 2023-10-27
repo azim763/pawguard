@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getAllPetLogsRoute } from "../../utils/APIRoutes";
+import Typography from "../../components/Typography/Typography";
+import styles from "./petLog.module.css";
+
 const ExportpetLog = () => {
   const [petLogs, setPetLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +30,14 @@ useEffect(() => {
 }, []);
   return (
     <div>
-      <h1>Pet Logs</h1>
+
+<Typography variant="h1-poppins-semibold" color="almost-black" >
+  <div className={styles.petLogHeader}>
+    Pet Logs
+  </div>
+
+          </Typography>
+<div className={styles.petLogContainer}>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -40,13 +50,16 @@ useEffect(() => {
                    <strong>StoolAppearance:</strong> {log.StoolAppearance} <br />
                    <strong>Notes:</strong> {log.Notes} <br />
                    <strong>Wheight:</strong> {log.Wheight} <br />
-                                 <strong>StoolAmount:</strong> {log.StoolAmount} <br />
-                                 <strong>StoolAmount:</strong> {log.StoolAmount} <br />
+                                 <strong>ActivityLevel:</strong> {log.ActivityLevel} <br />
+                                 <strong>StoolAppearance:</strong> {log.StoolAppearance} <br />
 
             </li>
           ))}
         </ul>
       )}
+
+</div>
+
     </div>
   );
 };

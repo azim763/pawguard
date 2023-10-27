@@ -12,7 +12,8 @@ const MedicationForm = () => {
     PetID: null,
     MedicineName: "",
     DosageAmount: "",
-    MedicationPeriod: ""
+    MedicationPeriod: "",
+    MedicationDate: "",
   });
 
   const handleInputChange = (e) => {
@@ -21,6 +22,14 @@ const MedicationForm = () => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleDateChange = (event) => {
+    setFormData({
+      ...formData,
+      MedicationDate: event.target.value,
+    });
+    console.log("date is changing")
   };
 
   const handleSubmit = (e) => {
@@ -60,7 +69,7 @@ const MedicationForm = () => {
         <Typography variant="body2-poppins-medium">
           <label>Medication Start Date</label>
         </Typography>
-        <DatePicker />
+        <DatePicker id="MedicationDate" onChange={handleDateChange} />
         <Button variant="yellow" label="Add New Medication" size="dk-md-s" />
       </form>
     </div>
