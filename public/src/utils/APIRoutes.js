@@ -62,9 +62,9 @@ export const updatePetMedicationByIdRoute = `${host}/api/petmedications/update`;
 export const deletePetMedicationByIdRoute = `${host}/api/petmedications/delete`;
 
 export const getAllPetVaccinationsRoute = `${host}/api/petvaccination/allpetvaccinations`;
-export const createPetVaccinationRoute = `${host}/api/petvaccinations/create`;
-export const searchPetVaccinationsByPetIDRoute = `${host}/api/petvaccinations/searchpetvaccinationsbypetid`;
-export const getPetVaccinationByIdRoute = `${host}/api/petvaccinations/getpetvaccinationbyid`;
-export const updatePetVaccinationByIdRoute = `${host}/api/petvaccinations/update`;
-export const deletePetVaccinationByIdRoute = `${host}/api/petvaccinations/delete`;
+export const createPetVaccinationRoute = `${host}/api/petvaccination/create`;
+export const searchPetVaccinationsByPetIDRoute = `${host}/api/petvaccination/searchpetvaccinationsbypetid`;
+export const getPetVaccinationByIdRoute = `${host}/api/petvaccination/getpetvaccinationbyid`;
+export const updatePetVaccinationByIdRoute = `${host}/api/petvaccination/update`;
+export const deletePetVaccinationByIdRoute = `${host}/api/petvaccination/delete`;
 
