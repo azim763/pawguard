@@ -14,16 +14,19 @@ import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDr
 const InsuranceSearch = () => {
   const [pets,setPets] =useState([]);
   
-  useEffect(async() => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-  const response = await axios.get(searchPetsByUserIDRoute,{
-    params:{userID:data._id}
-  })
-  setPets(response.data);
-}
-,[]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+        const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+        setPets(response.data);
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   return (
     <div>

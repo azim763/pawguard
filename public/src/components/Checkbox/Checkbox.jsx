@@ -4,7 +4,7 @@ import Typography from "../Typography/Typography";
 
 const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange, variant, size } ) => {
 
-  const onCheckHandler = (event) => {
+  const onChangeHandler = (event) => {
     onChange(event.target.value);
   };
 
@@ -20,7 +20,7 @@ const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        onChange={onCheckHandler}
+        onChange={onChangeHandler}
       />
       <Typography variant="body2-poppins-medium" color="almost-black">
         <label htmlFor={id}>{label}</label>
