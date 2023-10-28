@@ -11,16 +11,18 @@ import AppointmentForm from "../../components/AppointmentForm/AppointmentForm";
 import axios from "axios";
 import {
   searchPetsByUserIDRoute,
-  getAllPetAppointmentsRoute,
-  getAllPetMedicationsRoute,
-  getAllPetVaccinationsRoute,
-  getAllPetLogsRoute
+  searchPetVaccinationsByPetIDRoute,
+  searchPetMedicationsByPetIDRoute,
+  searchPetAppointmentsByPetIDRoute,
+  searchPetLogsByPetIDRoute
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
 import PetLogCard from "../../components/PetLogCard/PetLogCard";
 import MedicineCard from "../../components/MedicineCard/MedicineCard";
+import TotalPets from "../../components/TotalPets/TotalPets";
 // import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
+import Map from "../../components/Map/Map";
 
 const PetPage = () => {
   const [pets, setPets] = useState([]);
@@ -28,51 +30,69 @@ const PetPage = () => {
   const [petAppointments, setPetAppointments] = useState([]);
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
+  const [selectedPet, setSelectedPet] = useState("");
+
+  const handlePetSelection = (pet) => {
+    setSelectedPet(pet);
+  };
 
   useEffect(() => {
-    axios
-      .get(getAllPetLogsRoute)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(searchPetLogsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
         setPetLog(response.data);
-      })
-      .catch((error) => {
+        console.log(response.data);
+      } catch (error) {
         console.log("Error fetching data: ", error);
-      });
-  }, []);
+      }
+    };
+  
+    fetchData();
+  }, [selectedPet._id]);
+  
 
   useEffect(() => {
     axios
-      .get(getAllPetAppointmentsRoute)
+      .get(searchPetAppointmentsByPetIDRoute, {
+        params: { PetID: selectedPet._id },
+      })
       .then((response) => {
         setPetAppointments(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
       });
-  }, []);
+  }, [selectedPet._id]);
 
   useEffect(() => {
     axios
-      .get(getAllPetMedicationsRoute)
+      .get(searchPetMedicationsByPetIDRoute, {
+        params: { PetID: selectedPet._id },
+      })
       .then((response) => {
         setPetMedications(response.data);
+        console.log(response.data);
+
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
       });
-  }, []);
+  }, [selectedPet._id]);
 
   useEffect(() => {
     axios
-      .get(getAllPetVaccinationsRoute)
+      .get(searchPetVaccinationsByPetIDRoute, {
+        params: { PetID: selectedPet._id },
+      })
       .then((response) => {
-        console.log(response.data);
         setPetVaccines(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
       });
-  }, []);
+  }, [selectedPet._id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,16 +105,20 @@ const PetPage = () => {
           const response = await axios.get(searchPetsByUserIDRoute, {
             params: { userID: data._id },
           });
-          setPets(response.data);
-          console.log(response.data); // Log the response data here
+          await setPets(response.data);
+          // Set the initially selected pet to be the first pet if not already selected
+          if (!selectedPet && response.data.length > 0) {
+            setSelectedPet(response.data[0]);
+          }
         }
       } catch (error) {
         // Handle any errors here
       }
     };
-
+  
     fetchData();
-  }, []);
+  }, [selectedPet]);
+  
 
   const tabToButtonLabel = {
     petLog: "PetLog",
@@ -112,7 +136,7 @@ const PetPage = () => {
     petLog: (
       <div>
         <div className={styles.getPetPage}>
-        {petLog.length > 0 && (
+          {petLog.length > 0 && (
             <div>
               {petLog.map((log) => (
                 <PetLogCard
@@ -133,14 +157,22 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
             <div>
-              {petAppointments.map((appointment) => (
-                <AppointmentCard
-                  ClinicName={appointment.ClinicName}
-                  AppointmentTime={appointment.AppointmentTime}
-                  AppointmentReason={appointment.AppointmentReason}
-                  AppointmentDateTime={appointment.AppointmentDate}
-                />
-              ))}
+              <Map
+                latitude={49.246292}
+                longitude={-123.116226}
+                markerlong={-123.116226}
+                markerlat={49.246292}
+              />
+              <div>
+                {petAppointments.map((appointment) => (
+                  <AppointmentCard
+                    ClinicName={appointment.ClinicName}
+                    AppointmentTime={appointment.AppointmentTime}
+                    AppointmentReason={appointment.AppointmentReason}
+                    AppointmentDateTime={appointment.AppointmentDate}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -203,9 +235,11 @@ const PetPage = () => {
   return (
     <div className={styles.petPage}>
       <Header> </Header>
-      <div className={styles.petPageGrid}>
+      {pets && (
+        <TotalPets pets={pets} onPetSelect={handlePetSelection} />
+      )}      <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
-          <PetCard> </PetCard>
+        {selectedPet && <PetCard src={selectedPet.PetImageName}> </PetCard>}
         </div>
         <div className={styles.petPageTab}>
           <Button variant="yellow" label={buttonLabel} size="dk-md-s" />

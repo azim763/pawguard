@@ -8,12 +8,13 @@ import HeightSVG from "../SVG/HeightSVG";
 import PawSVG from "../SVG/PawSVG";
 import ArchiveSVG from "../SVG/ArchiveSVG";
 import ExportSVG from "../SVG/ExportSVG";
+import ImageDisplay from "../ImageDisplay/ImageDisplay";
 
 const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
   return (
     <div className={styles.petCardContainer}>
       <div className={styles.imgContainer}>
-        <img src={src} alt={src} />
+        <ImageDisplay PetImageData={src}/>
       </div>
       <div className={styles.detailContainer}>
         <div>

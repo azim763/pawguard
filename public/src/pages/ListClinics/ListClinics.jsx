@@ -7,7 +7,6 @@ import Typography from "../../components/Typography/Typography";
 import ClinicDetailCard from "../../components/ClinicDetailCard/ClinicDetailCard";
 import styles from "./ListClinics.module.css";
 import PetSelection from "../../components/PetSelection/PetSelection";
-// import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
@@ -21,7 +20,9 @@ const ListClinics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        const storedData = localStorage.getItem(
+          process.env.REACT_APP_LOCALHOST_KEY
+        );
         if (storedData) {
           const data = JSON.parse(storedData);
           const response = await axios.get(searchPetsByUserIDRoute, {
@@ -33,7 +34,7 @@ const ListClinics = () => {
         // Handle any errors here
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -195,7 +196,29 @@ const ListClinics = () => {
               ]}
               size="large"
             /> */}
-            <MultipleDropDown options={["Allergies", "Cardiology", "digestive tract"]} />
+            <MultipleDropDown
+              options={[
+                "Arthritis XD",
+                "Bloodwork",
+                "Cardiology",
+                "Cytology",
+                "Dentistry",
+                "Dermatology",
+                "Endoscopy",
+                "Euthanasia",
+                "Internal-medicine",
+                "Laser-therapy",
+                "Microchipping",
+                "Neurology",
+                "Nutrition",
+                "Oncology",
+                "Radiography",
+                "Senior",
+                "Surgery",
+                "Ultrasound",
+              ]}
+            />
+
             <TextInputIcon label="Location" />
           </div>
 
