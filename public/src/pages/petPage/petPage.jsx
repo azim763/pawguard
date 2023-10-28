@@ -15,6 +15,7 @@ import {
   getAllPetMedicationsRoute,
   getAllPetVaccinationsRoute,
   getAllPetLogsRoute,
+  getAllClinicsRoute
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
@@ -75,6 +76,7 @@ const PetPage = () => {
       });
   }, []);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,6 +98,8 @@ const PetPage = () => {
 
     fetchData();
   }, []);
+
+
 
   const tabToButtonLabel = {
     petLog: "PetLog",
