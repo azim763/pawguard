@@ -3,14 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../utils/APIRoutes";
-import Logout from "../components/Logout";
-import Header from "../components/Header/header";
-import DashCalendar from "../components/Calendar/calendar";
-import Background from "../assets/background2.gif";
-import Graph from "../components/Graph/Graph";
-
-import { searchPetsByUserIDRoute, getAllPetFoodsRoute } from '../utils/APIRoutes.js'
+import { allUsersRoute, searchPetsByUserIDRoute, getAllPetFoodsRoute,host } from "../../utils/APIRoutes";
+import Logout from "../../components/Logout";
+import Header from "../../components/Header/header";
+import DashCalendar from "../../components/Calendar/calendar";
+import Background from "../../assets/background2.gif";
+import Graph from "../../components/Graph/Graph";
+import styles from "./DashBoard.module.css"
 
 
 export default function Chat() {
@@ -83,20 +82,21 @@ export default function Chat() {
   const mealPerDayArray = foods.map(food => food.MealPerDay);
   const foodDateArray = foods.map(food => food.FoodDate);
   return (
-    <>
-      <Header></Header>
-      <Container>
-        <div className="container">
-          <Logout />
+    <div>
+      <Header/>
+        <div className={styles.dashboardContainer}>
+          {/* <Logout /> */}
           
-          {/* <DashCalendar /> */}
-          <div className="graphStyle">
+          <div className={styles.dashboardPetCard}>
+
+          </div>
+          <div className={styles.dashboardGraph}>
             {mealPerDayArray  && foodDateArray&& (
               <Graph names={mealPerDayArray} values={foodDateArray} />)}
           </div>
+          <DashCalendar />
         </div>
-      </Container>
-    </>
+    </div>
   );
 }
 

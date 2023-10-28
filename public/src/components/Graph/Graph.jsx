@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 
 const Graph = ({ names, values }) => {
-
     const data = names.map((name, index) => ({
         name,
         value: values[index],
@@ -11,7 +10,7 @@ const Graph = ({ names, values }) => {
     return (
         <div>
            <LineChart width={400} height={300} data={data}>
-    <Line type="monotone" dataKey="name" stroke="#8884d8" />
+    <Line type="monotone" dataKey="name" stroke="var(--salmon-pink)" />
     <XAxis dataKey="value" />
     <YAxis />
     <Tooltip />

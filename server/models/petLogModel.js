@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const petLogSchema = new mongoose.Schema({
-  PetID: { type: mongoose.Schema.Types.ObjectId, ref: "Pet", required: false },
+  PetID: { type: String, required: false },
   LogDate: { type: Date, required: false },
   Weight: { type: Number, required: false },
   ActivityLevel: { type: String, required: false },

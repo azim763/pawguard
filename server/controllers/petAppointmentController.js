@@ -23,7 +23,7 @@ module.exports.createPetAppointment = async (req, res, next) => {
 // Search for pet appointments by PetID
 module.exports.searchPetAppointmentsByPetID = async (req, res, next) => {
     try {
-      const petID = req.query.petID;
+      const petID = req.query.PetID;
       const appointments = await PetAppointment.find({ PetID: petID });
       return res.json(appointments);
     } catch (ex) {

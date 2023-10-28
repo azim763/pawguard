@@ -24,7 +24,7 @@ module.exports.createPetVaccination = async (req, res, next) => {
 // Search for pet vaccinations by PetID
 module.exports.searchPetVaccinationsByPetID = async (req, res, next) => {
     try {
-      const petID = req.query.petID;
+      const petID = req.query.PetID;
       const vaccinations = await PetVaccination.find({ PetID: petID });
       return res.json(vaccinations);
     } catch (ex) {

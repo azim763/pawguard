@@ -2,10 +2,12 @@
   width: 100%;
 }
 
-.imgContainer {
+.imgContainer div img {
   width: 249px;
   height: 325px;
+  object-fit: cover;
 }
+
 
 .petCardContainer {
   display: grid;
