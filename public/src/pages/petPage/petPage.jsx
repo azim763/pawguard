@@ -31,8 +31,8 @@ const PetPage = () => {
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
-  const [clinicLatitude, setClinicLatitude] = useState()
-  const [clinicLongitude, setClinicLongitude] = useState()
+  const [clinicLatitude, setClinicLatitude] = useState();
+  const [clinicLongitude, setClinicLongitude] = useState();
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -250,7 +250,17 @@ const PetPage = () => {
       {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}{" "}
       <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
-          {selectedPet && <PetCard src={selectedPet.PetImageName}> </PetCard>}
+          {selectedPet && (
+            <PetCard
+              src={selectedPet.PetImageName}
+              petBreed={selectedPet.Breed}
+              petAge={selectedPet.Birthday}
+              petHeight={selectedPet.Height}
+              petWeight={selectedPet.Weight}
+            >
+              {" "}
+            </PetCard>
+          )}
         </div>
         <div className={styles.petPageTab}>
           <Button variant="yellow" label={buttonLabel} size="dk-md-s" />

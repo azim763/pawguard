@@ -19,7 +19,7 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
       </div>
       <div className={styles.detailContainer}>
         <div>
-          <PawSVG width="40" height="40" />
+          <PawSVG width="41" height="40" />
         </div>
         <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Breed</Typography>
@@ -41,15 +41,17 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
         </div>
         <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Height</Typography>
-          <Typography variant="body1-poppins-semibold" color="dark-blue">{petHeight}</Typography>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">{petHeight} in</Typography>
         </div>
       </div>
       <div className={styles.detailContainer}>
         <div>
-          <WeightSVG width="40" height="40" />
+          <WeightSVG width="41" height="40" />
         </div>
-        <Typography variant="textfield-poppins-regular">Weight</Typography>
-        <Typography variant="body1-poppins-semibold" color="dark-blue">{petWeight}</Typography>
+        <div>
+          <Typography variant="textfield-poppins-regular">Weight</Typography>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">{petWeight} lb</Typography>
+        </div>
       </div>
 
       <div className={styles.actionContainer}>
