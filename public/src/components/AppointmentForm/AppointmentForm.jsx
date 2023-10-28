@@ -82,6 +82,9 @@ const AppointmentForm = ({selectedPet}) => {
     <div>
       <Typography variant="h2-poppins-semibold">Add Appointment</Typography>
       <form onSubmit={handleSubmit}>
+      <Typography variant="body2-poppins-medium">
+          Clinic Name
+        </Typography>
         {clinicData.length > 0 && (
           <AutocompleteComponent
             clinicData={clinicData}
@@ -91,15 +94,14 @@ const AppointmentForm = ({selectedPet}) => {
               // const { ID } = selectedClinic;
               // console.log(ID);
 
-              const { latitude, longitude } = selectedClinic;
-
               console.log("Latitude:", selectedClinic.Latitude);
               console.log("Longitude:", selectedClinic.Longitude);
+              console.log("Clinic Name", selectedClinic.Name);
               setFormData({
                 ...formData,
                 Latitude: selectedClinic.Latitude,
                 Longitude: selectedClinic.Longitude,
-                ClinicName: selectedClinic.ClinicName,
+                ClinicName: selectedClinic.Name,
               });
               console.log(selectedClinic);
               // Make API call to retrieve latitude and longitude using the clinic ID
