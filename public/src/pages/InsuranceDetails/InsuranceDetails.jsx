@@ -13,12 +13,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {getInsurancePlanByIdRoute} from "../../utils/APIRoutes";
+import {getInsuranceCompanyByIdRoute} from "../../utils/APIRoutes";
 
 const InsuranceDetails = () => {
 
+  const { CompanyID } = useParams();
   const { _id } = useParams();
   const [companyData, setCompanyData] = useState({ CoveredItems:[] ,NotCoveredItems: [] });
- 
+  const [planData,setPlanData]=useState([]);
  const navigate = useNavigate();
   
   useEffect(() => {
@@ -30,11 +32,25 @@ const InsuranceDetails = () => {
       })
       .catch((error) => {
         console.error("Error fetching company data:", error);
-        console.log(companyData);
-        console.log(_id);
+        console.log("Error 1 "+companyData);
+        console.log("Error 2 "+_id);
+        console.log("Error 3 "+CompanyID);
       });
   }, [_id]);
- 
+
+  useEffect(()=>{
+    axios
+    .get(`${getInsuranceCompanyByIdRoute}/${CompanyID}`)
+    .then((response) => {
+      setPlanData(response.data);
+      console.log("Plan Data "+response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching Plan data:", error);
+      console.log("Plan Error 1 "+companyData);
+      console.log("Plan Error 2 "+CompanyID);
+    });
+}, [CompanyID]); 
  
   //For small cards 
   const [insurancePlans, setInsurancePlans] = useState([]);
@@ -56,7 +72,6 @@ const InsuranceDetails = () => {
     navigate(`/insurance/details/${_id}`);
   };
 
-
   return (
     <div>
       <Header/>
@@ -66,7 +81,7 @@ const InsuranceDetails = () => {
             {" "}
             Coverage Details
           </Typography>
-          {companyData._id &&(
+          {companyData.CompanyID &&(
             <div>
              <PlanDetailCard
              source="https://picsum.photos/200/200"
@@ -81,26 +96,25 @@ const InsuranceDetails = () => {
           </div>
           )}
           
-          <div>
+          {/* <div>
+          {companyData.CompanyID &&(
             <InsuranceCard
               title="Why Recommended"
-              text={companyData.Recommend}
+              text={CompanyID.Recommend}
               subtitle="Highlight of plan"
-              body={companyData.Highlights}>
+              body={CompanyID.Highlights}>
             </InsuranceCard>
-
-          </div>
+            )}
+          </div> */}
 
           <div className={styles.InsuranceCoverageCenterDiv}>
             <div className={styles.InsuranceCoverageStyle}>
-              
-          <InsuranceCoverage descriptions={companyData.CoveredItems} />
-              
+              <InsuranceCoverage descriptions={companyData.CoveredItems} />
               <InsuranceNotCovered descriptions={companyData.NotCoveredItems} />
-
               </div>
           </div>
         </div>
+
 {/* Similar Plans Section */}
         <div className={styles.InsuranceDetailsSimilarPlans}>
           <Typography

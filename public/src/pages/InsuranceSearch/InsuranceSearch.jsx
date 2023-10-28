@@ -90,26 +90,47 @@ const InsuranceSearch = () => {
     setSelectedBreed(breed);
   };
 
-const handleGetQuotesClick = () => {
-  if (selectedPetType && selectedAge && selectedGender) {
-    axios
-      .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
-      .then((response) => {
-        const filteredPlans = response.data.filter((plan) => {
-          return plan.PetType === selectedPetType && plan.PetAgeRange === selectedAge;
+  const handleGetQuotesClick = () => {
+    if (selectedAge) {
+      axios
+        .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
+        .then((response) => {
+          const filteredPlans = response.data;
+  
+          // Sort the plans based on a criterion, e.g., InsurancePrice
+          filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
+  
+          navigate('/insurances', { state: { filteredPlans } }); // Navigate to the correct route
+        })
+        .catch((error) => {
+          console.error("Error fetching insurance plans:", error);
         });
+    } else {
+      alert("Please select an age before getting a quote.");
+    }
+  };
+  
+// const handleGetQuotesClick = () => {
+//   if (selectedPetType && selectedAge && selectedGender) {
+//     axios
+//       .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
+//       .then((response) => {
+//         const filteredPlans = response.data.filter((plan) => {
+//           return  plan.PetAgeRange === selectedAge;
+//         });
 
-        filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
+//         filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
         
-        navigate('/insurances', { state: { filteredPlans } }); // Pass filteredPlans to ListInsurances component
-      })
-      .catch((error) => {
-        console.error("Error fetching insurance plans:", error);
-      });
-  } else {
-    alert("Please select all fields before getting a quote.");
-  }
-};
+//         navigate('/insurances', { state: { filteredPlans } }); // Pass filteredPlans to ListInsurances component
+//         console.log("CHK THIS IF THIS IS PASSED"+filteredPlans);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching insurance plans:", error);
+//       });
+//   } else {
+//     alert("Please select all fields before getting a quote.");
+//   }
+// };
 
 
   // const handleGetQuotesClick = () => {

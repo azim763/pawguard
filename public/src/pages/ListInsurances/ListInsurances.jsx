@@ -8,14 +8,14 @@ import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
 import axios from "axios";
 //for functioning of the button
 import { useNavigate, useLocation } from "react-router-dom";
-import { setTranslate3d } from "rsuite/esm/List/helper/utils";
 
 //to make get request to fetch data 
 const ListInsurances = () => {
   const navigate = useNavigate();
 
   const location = useLocation(); // Initialize location
-  const { filteredPlans } = location.state || {}; 
+  // const { filteredPlans } = location.state || {}; 
+  const filteredPlans = location.state.filteredPlans;
 
   const [InsurancePlans, setInsurancePlans]= useState('');
   // console.log(filteredPlans);
@@ -35,6 +35,8 @@ const ListInsurances = () => {
 
   const handleViewDetailsClick = (_id) => {
     //method to navigate to the details page
+    // console.log("This is provided to next page"+CompanyID);
+    console.log("This is provided to or next page"+_id);
     navigate(`/insurance/details/${_id}`);
   };
 
@@ -58,7 +60,7 @@ const ListInsurances = () => {
               coverageNum={plan.AnnualCoverage}
               price={plan.InsurancePrice}
               CompanyID={plan.CompanyID}
-              onClick={() => handleViewDetailsClick(plan.CompanyID)}
+              onClick={() => handleViewDetailsClick(plan._id)}
             />
           ))}
         {/* {insurancePlans.map((plan) => (
