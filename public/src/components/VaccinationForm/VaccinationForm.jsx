@@ -11,8 +11,8 @@ import axios from "axios";
 const Vaccination = ({selectedPet}) => {
   const [formData, setFormData] = useState({
     PetID:"",
-    name: "",
-    date: "",
+    NameOfVaccination: "",
+    VaccinationDate: "",
   });
 
   const handleInputChange = (e) => {
@@ -56,7 +56,9 @@ const Vaccination = ({selectedPet}) => {
       <form onSubmit={handleSubmit}>
         <TextInput
           label="Name of Vaccination"
+          id="NameOfVaccination"
           type="text"
+          name="NameOfVaccination"
           onChange={handleInputChange}
           value={formData.name}
         />
