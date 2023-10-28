@@ -85,7 +85,7 @@ export default function Chat() {
     <div>
       <Header/>
         <div className={styles.dashboardContainer}>
-          {/* <Logout /> */}
+          <Logout />
           
           <div className={styles.dashboardPetCard}>
 
