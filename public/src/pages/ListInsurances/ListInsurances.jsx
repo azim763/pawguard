@@ -7,13 +7,19 @@ import styles from "./listInsurances.module.css";
 import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
 import axios from "axios";
 //for functioning of the button
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { setTranslate3d } from "rsuite/esm/List/helper/utils";
 
 //to make get request to fetch data 
 const ListInsurances = () => {
-  const [insurancePlans, setInsurancePlans] = useState([]);
   const navigate = useNavigate();
-  
+
+  const location = useLocation(); // Initialize location
+  const { filteredPlans } = location.state || {}; 
+
+  const [InsurancePlans, setInsurancePlans]= useState('');
+  // console.log(filteredPlans);
+
   
   useEffect( () => {
     // Make a GET request to fetch insurance plans
@@ -27,13 +33,10 @@ const ListInsurances = () => {
       });
   }, []);
 
-  const handleViewDetailsClick = (companyId) => {
+  const handleViewDetailsClick = (_id) => {
     //method to navigate to the details page
-    navigate(`/insurance/details/${companyId}`);
+    navigate(`/insurance/details/${_id}`);
   };
-
- 
-  
 
   return (
     <div>
@@ -42,25 +45,37 @@ const ListInsurances = () => {
         <Typography variant="h1-poppins-semibold" color="almost-black">
           Plans Recommend for you
         </Typography>
-        {/* <Asd options={specialities} /> */}
-
 
         <div className={styles.ListInsurancesBody}>
-        {insurancePlans.map((plan) => (
+
+        {filteredPlans.map((plan) => (
+            <PlanDetailCard
+              source="https://picsum.photos/200/200"
+              alt="logo"
+              key={plan._id}
+              deductibleNum={plan.AnnualDeductible}
+              reimbursementNum={(plan.Reimbursement)*100}
+              coverageNum={plan.AnnualCoverage}
+              price={plan.InsurancePrice}
+              CompanyID={plan.CompanyID}
+              onClick={() => handleViewDetailsClick(plan.CompanyID)}
+            />
+          ))}
+        {/* {insurancePlans.map((plan) => (
             <PlanDetailCard
             source="https://picsum.photos/200/200"
             alt="logo"
             key={plan._id}//this key will be used button is clicked to view details
               // source={plan.source}
               // alt={plan.alt}
-            deductibleNum={plan.AnnualDeductable}
+            deductibleNum={plan.AnnualDeductible}
             reimbursementNum={plan.Reimbursement}
             coverageNum={plan.AnnualCoverage}
             price={plan.InsurancePrice}
-            companyId={plan.CompanyID} 
-            onClick={() => handleViewDetailsClick(plan._id)}
+            CompanyID={plan.CompanyID} 
+            onClick={() => handleViewDetailsClick(plan.CompanyID)}
             />
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

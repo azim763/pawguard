@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import styles from "./buttonGroup.module.css";
 
-const ButtonGroup = ({ groupId, buttons }) => {
-  const [activeButton, setActiveButton] = useState(null);
-
+const ButtonGroup = ({ groupId, buttons, onClick, selected }) => {
   const handleButtonClick = (buttonId) => {
-    setActiveButton(buttonId);
+    onClick(buttons[buttonId]); // Pass the selected button label to the parent component
   };
 
   return (
@@ -14,7 +12,7 @@ const ButtonGroup = ({ groupId, buttons }) => {
         <button
           key={index}
           onClick={() => handleButtonClick(index)}
-          className={index === activeButton ? styles.active : styles.inactive }
+          className={label === selected ? styles.active : styles.inactive }
         >
           {label}
         </button>
