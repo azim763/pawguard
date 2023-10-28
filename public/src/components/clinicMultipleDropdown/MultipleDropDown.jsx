@@ -2,16 +2,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './multiDropDown.module.css';
 import Multiselect from 'multiselect-react-dropdown';
+import Typography from '../Typography/Typography';
 
 export default function Asd({
-   options
+   options, label
 }) {
   const [selectedValues, setSelectedValues] = useState([]);
 
 
   return (
     <div className={styles.container}>
-      <h3>Specialties</h3>
+      <Typography variant="body2-poppins-medium">{label}</Typography>
       <Multiselect
         isObject={false}
         options={options}
@@ -33,7 +34,6 @@ export default function Asd({
           chips: {
             background: 'rgb(0,0,128)',
             fontSize: '18px',
-            fontWeight: 'bold',
             display: 'inline-block',
             marginLeft: '5px'
           },
@@ -48,7 +48,7 @@ export default function Asd({
             fontSize: '20px',
             border: '2px solid black',
             height: 'auto',
-            borderRadius: '5px',
+            borderRadius: '8px',
             width: '500px'
           },
           optionContainer: {
