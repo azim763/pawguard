@@ -9,8 +9,6 @@ const insurancePlanSchema = new mongoose.Schema({
     CoveredItems:  [{ type: String }],
     NotCoveredItems:  [{ type: String }],
     InsurancePrice: { type: Number, required: true },
-    Recommend: {type: String, require:false},
-    Highlights: {type: String, require:false},
     PetType: { type: String, required: true },
     PetAgeRange: { type: String }
 });

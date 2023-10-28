@@ -3,18 +3,13 @@ import axios from 'axios';
 import { getAllPetLogsRoute } from "../../utils/APIRoutes";
 import Typography from "../../components/Typography/Typography";
 import styles from "./petLog.module.css";
+import jsPDF from "jspdf";
 
 const ExportpetLog = () => {
+
   const [petLogs, setPetLogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(async () => {
-  // const data = await axios.get(`${getAllPetLogsRoute}`);
-  //      console.log(data.data);
-  //      setPetLogs(data.data);
-  //       setLoading(false);  });
-
-// under construction !
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -27,6 +22,32 @@ useEffect(() => {
   };
 
   fetchData();
+}, []);
+useEffect(() => {
+const generatePDF = () => {
+  var doc = new jsPDF("p", "pt");
+
+
+for (let index = 0; index < petLogs.length; index++) {
+  //const element = petLogs[index].ActivityLevel;
+  var k= index*200;
+  doc.text(20,k+20,petLogs[index].LogDate);
+  doc.text(20, k+40,petLogs[index].UrineAmount);
+  doc.text(20, k+60,petLogs[index].StoolAmount);
+doc.addFont("helvetica", "normal"); 
+ doc.text(20, k+80,petLogs[index].StoolAppearance);
+  doc.text(20, k+100,petLogs[index].Notes);
+  doc.text(20, k+120,petLogs[index].Wheight);
+  doc.text(20, k+140,petLogs[index].ActivityLevel);
+  doc.text(20, k+160,petLogs[index].StoolAppearance);
+
+
+}
+
+
+  doc.save("exportlog.pdf");
+};
+generatePDF();
 }, []);
   return (
     <div>

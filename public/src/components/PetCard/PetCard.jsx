@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from '../../assets/logo.svg';
-import styles from './PetCard.module.css'
+import styles from './PetCard.module.css';
+import ExportLog from "../PetExport/ExportLog";
 import Typography from '../Typography/Typography';
 const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
     return (
@@ -39,7 +40,8 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
                 </div>
                 <div>
                     <img src={Logo} alt="export Logo"  style={{height:"1rem"}} />
-                    <p>export</p>
+                    {/* <p>export</p> */}
+                    <ExportLog/>
                 </div>
             </div>
 
