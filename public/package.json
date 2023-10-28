@@ -11,6 +11,7 @@
     "@tomtom-international/web-sdk-maps": "^6.25.0",
     "axios": "^0.25.0",
     "buffer": "^6.0.3",
+    "downshift": "^8.2.2",
     "emoji-picker-react": "^3.5.1",
     "jspdf": "^2.5.1",
     "multiselect-react-dropdown": "^2.0.25",
