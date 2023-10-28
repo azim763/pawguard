@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const petFoodSchema = new mongoose.Schema({
-  PetID: { type: mongoose.Schema.Types.ObjectId, ref: "Pet", required: false },
+  PetID: { type: mongoose.Schema.Types.ObjectId, ref: "Pet", required: true },
   MealPerDay: { type: Number, required: false },
   QuantityPerMeal: { type: Number, required: false },
   FoodName: { type: String, required: false },

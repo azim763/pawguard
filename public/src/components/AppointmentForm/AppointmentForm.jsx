@@ -7,11 +7,11 @@ import TimePicker from "../TimePicker/TimePicker";
 import axios from "axios";
 import { createPetAppointmentRoute } from "../../utils/APIRoutes"
 
-const AppointmentForm = () => {
+const AppointmentForm = ({selectedPet}) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
 
   const [formData, setFormData] = useState({
-    PetId: null,
+    PetId:"",
     ClinicName: "",
     AppointmentReason: "",
     AppointmentDate: "",
@@ -40,10 +40,9 @@ const AppointmentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
     setFormData({
       ...formData,
-      UserID: storedData._id
+      PetID:  selectedPet._id
     });
     const response = axios.post(createPetAppointmentRoute, formData);
     // You can perform actions with the form data here, such as sending it to a server or processing it in some way.

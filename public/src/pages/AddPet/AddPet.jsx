@@ -115,7 +115,7 @@ const AddPet = () => {
       const response = await axios.post(createPetRoute, petData);
       // Handle successful submission
       console.log("Data submitted successfully:", response.data);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.error("Error while submitting data:", error);
     }
