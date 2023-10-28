@@ -37,19 +37,19 @@ const InsuranceDetails = () => {
  
  
   //For small cards 
-  // const [insurancePlans, setInsurancePlans] = useState([]);
+  const [insurancePlans, setInsurancePlans] = useState([]);
   // const navigate = useNavigate();
-  // useEffect( () => {
-  //   // Make a GET request to fetch insurance plans
-  //   axios.get(getAllInsurancePlansRoute) 
-  //     .then((response) => {
-  //       setInsurancePlans(response.data);
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching insurance plans:", error);
-  //     });
-  // }, []);
+  useEffect( () => {
+    // Make a GET request to fetch insurance plans
+    axios.get(getAllInsurancePlansRoute) 
+      .then((response) => {
+        setInsurancePlans(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching insurance plans:", error);
+      });
+  }, []);
 
   const handleViewDetailsClick = (_id) => {
     // Use the history.push method to navigate to the details page
@@ -77,13 +77,6 @@ const InsuranceDetails = () => {
              coverageNum={companyData.AnnualCoverage}
              price={companyData.InsurancePrice}
              CompanyID={companyData.CompanyID}
-            //  onClick={() => handleViewDetailsClick(companyData.CompanyID)}
-              // source="https://picsum.photos/200/200"
-              // alt="logo"
-              // deductibleNum={companyData.AnnualDeductible}
-              // reimbursementNum={companyData.Reimbursement * 100}
-              // coverageNum={companyData.AnnualCoverage}
-              // price={companyData.InsurancePrice}
             />     
           </div>
           )}
@@ -93,36 +86,23 @@ const InsuranceDetails = () => {
               title="Why Recommended"
               text={companyData.Recommend}
               subtitle="Highlight of plan"
-              body={companyData.Highlights}
-            ></InsuranceCard>
+              body={companyData.Highlights}>
+            </InsuranceCard>
 
-            {/* Put Why recommend component here  */}
           </div>
 
           <div className={styles.InsuranceCoverageCenterDiv}>
             <div className={styles.InsuranceCoverageStyle}>
-              {/* <InsuranceCoverage descriptions={[
-                  "Covered Item 1",
-                  "Covered Item 2",
-                  "Covered Item 3",
-                  "Covered Item 4",
-                  "Covered Item 5",
-                ]} /> */}
+              
           <InsuranceCoverage descriptions={companyData.CoveredItems} />
-              {/* <InsuranceNotCovered descriptions={[
-                  "Not Covered Item 1",
-                  "Not Covered Item 2",
-                  "Not Covered Item 3",
-                  
-                ]}/> */}
+              
               <InsuranceNotCovered descriptions={companyData.NotCoveredItems} />
 
-              {/* Put whats covered and whats not covered component here */}
-            </div>
+              </div>
           </div>
         </div>
 {/* Similar Plans Section */}
-        {/* <div className={styles.InsuranceDetailsSimilarPlans}>
+        <div className={styles.InsuranceDetailsSimilarPlans}>
           <Typography
             variant="h2-poppins-semibold"
             style={{ gridColumn: "1/-1" }}
@@ -130,22 +110,21 @@ const InsuranceDetails = () => {
             Compare to Similar Plans
           </Typography>
 
-            {insurancePlans.map((plan) => (
+            {insurancePlans.slice(0, 3).map((plan) => (
               // <div key={plan.CompanyID}>
                 <SmPlanDetailCard
                   smSource="https://picsum.photos/250/100"
                   key={plan._id}
                   smAlt="logo"
                   smDeductibleNum={plan.AnnualDeductible}
-                  smReimbursementNum={plan.Reimbursement}
+                  smReimbursementNum={plan.Reimbursement*100}
                   smCoverageNum={plan.AnnualCoverage}
                   smPrice={plan.InsurancePrice}
                   CompanyID={plan.CompanyID}
                   onClick={() => handleViewDetailsClick(plan._id)}
                 />
-              // </div>
             ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
