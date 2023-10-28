@@ -91,7 +91,7 @@ const AppointmentForm = ({selectedPet}) => {
               // const { ID } = selectedClinic;
               // console.log(ID);
 
-              const { latitude, longitude } = selectedClinic;
+              const { Latitude, Longitude } = selectedClinic;
 
               console.log("Latitude:", selectedClinic.Latitude);
               console.log("Longitude:", selectedClinic.Longitude);
