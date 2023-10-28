@@ -9,10 +9,10 @@ const Header = () => {
   return (
     <nav className={styles.nav}>
       <Typography variant="body1-poppins-semibold">
-        <LogoSVG width="224" height="45"/>
+        <LogoSVG width="224" height="45" />
         <ul>
           <li>
-            <NavLink to="/home" exact>
+            <NavLink to="/">
               Home
             </NavLink>
           </li>

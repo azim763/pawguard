@@ -57,7 +57,7 @@ export default function Login() {
           JSON.stringify(data.user)
         );
 
-        navigate("/addPet");
+        navigate("/");
       }
     }
   };

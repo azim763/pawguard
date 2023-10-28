@@ -103,6 +103,23 @@ const AddPet = () => {
       { value: "DEA7", label: "DEA 7" },
     ];
 
+  if (petData.Species === "cat") {
+    breedType = [
+      { value: "Domestic Shorthair", label: "Domestic Shorthair" },
+      { value: "American Shorthair", label: "American Shorthair" },
+      { value: "Domestic Longhair", label: "Domestic Longhair" },
+      { value: "Ragdoll", label: "Ragdoll" },
+      { value: "Siamese", label: "Siamese" },
+    ];
+  } else
+    breedType = [
+      { value: "Beagle", label: "Beagle" },
+      { value: "Golden Retriever", label: "Golden Retriever" },
+      { value: "Poodle", label: "Poodle" },
+      { value: "Rottweiler", label: "Rottweiler" },
+      { value: "Siberian Husky", label: "Siberian Husky" },
+    ];
+
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
     setPetData({
@@ -172,7 +189,7 @@ const AddPet = () => {
             size="md"
             label="Breed *"
             id="Breed"
-            options={petType}
+            options={breedType}
             onChange={(selectedValue) =>
               handleDropdownChange("Breed", selectedValue)
             }
@@ -228,7 +245,10 @@ const AddPet = () => {
             />
             <Typography variant="body2-poppins-medium">lbs</Typography>
           </div>
-          <MultipleDropDown label="Pre-existing medical conditions" options={preExistingMedical} />
+          <MultipleDropDown
+            label="Pre-existing medical conditions"
+            options={preExistingMedical}
+          />
           <TextInput
             size="md"
             id="Description"
