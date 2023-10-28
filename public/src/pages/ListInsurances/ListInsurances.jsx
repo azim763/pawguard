@@ -33,9 +33,9 @@ const ListInsurances = () => {
       });
   }, []);
 
-  const handleViewDetailsClick = (CompanyID) => {
+  const handleViewDetailsClick = (_id) => {
     //method to navigate to the details page
-    navigate(`/insurance/details/${CompanyID}`);
+    navigate(`/insurance/details/${_id}`);
   };
 
   return (

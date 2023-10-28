@@ -18,7 +18,6 @@ const InsuranceSearch = () => {
   const [selectedGender, setSelectedGender] = useState('');
   const [insurancePlans, setInsurancePlans] = useState([]);
   const [filteredInsurancePlans, setFilteredInsurancePlans] = useState([]);
-
   const navigate = useNavigate();
 
   const catBreeds = [
@@ -91,33 +90,55 @@ const InsuranceSearch = () => {
     setSelectedBreed(breed);
   };
 
-  const handleGetQuotesClick = () => {
-    if (selectedPetType && selectedAge && selectedGender) {
-      axios
-        .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
-        .then((response) => {
-          const filteredPlans = response.data.filter((plan) => {
-            return (
-              plan.PetType === selectedPetType &&
-              // plan.breed === selectedBreed &&
-              plan.PetAgeRange === selectedAge 
-              // plan.gender === selectedGender
-            );
-          });
-
-          filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
-          const middleIndex = Math.floor(filteredPlans.length / 2);
-          const middlePlan = filteredPlans[middleIndex];
-  
-          navigate('/insurances', { state: { filteredPlans: [middlePlan] } });
-        })
-        .catch((error) => {
-          console.error("Error fetching insurance plans:", error);
+const handleGetQuotesClick = () => {
+  if (selectedPetType && selectedAge && selectedGender) {
+    axios
+      .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
+      .then((response) => {
+        const filteredPlans = response.data.filter((plan) => {
+          return plan.PetType === selectedPetType && plan.PetAgeRange === selectedAge;
         });
-    } else {
-      alert("Please select all fields before getting a quote.");
-    }
-  };
+
+        filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
+        
+        navigate('/insurances', { state: { filteredPlans } }); // Pass filteredPlans to ListInsurances component
+      })
+      .catch((error) => {
+        console.error("Error fetching insurance plans:", error);
+      });
+  } else {
+    alert("Please select all fields before getting a quote.");
+  }
+};
+
+
+  // const handleGetQuotesClick = () => {
+  //   if (selectedPetType && selectedAge && selectedGender) {
+  //     axios
+  //       .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
+  //       .then((response) => {
+  //         const filteredPlans = response.data.filter((plan) => {
+  //           return (
+  //             plan.PetType === selectedPetType &&
+  //             // plan.breed === selectedBreed &&
+  //             plan.PetAgeRange === selectedAge 
+  //             // plan.gender === selectedGender
+  //           );
+  //         });
+
+  //         filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
+  //         const middleIndex = Math.floor(filteredPlans.length / 2);
+  //         const middlePlan = filteredPlans[middleIndex];
+  
+  //         navigate('/insurances', { state: { filteredPlans: [middlePlan] } });
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching insurance plans:", error);
+  //       });
+  //   } else {
+  //     alert("Please select all fields before getting a quote.");
+  //   }
+  // };
   
     // useEffect(() => {
   //   const fetchData = async () => {
@@ -144,7 +165,6 @@ const InsuranceSearch = () => {
         console.error("Error fetching insurance plans:", error);
       }
     };
-
     fetchInsurancePlans();
   }, []);
 
