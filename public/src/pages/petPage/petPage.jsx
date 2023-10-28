@@ -155,7 +155,8 @@ const PetPage = () => {
     appointment: (
       <div>
         <div className={styles.getPetPage}>
-          {petAppointments.length > 0 && (
+          {/* {petAppointments.length > 0 &&  */}
+          (
             <div>
               <Map
                 latitude={49.246292}
@@ -174,7 +175,7 @@ const PetPage = () => {
                 ))}
               </div>
             </div>
-          )}
+          )
         </div>
         <div className={styles.postPetPage}>
           <AppointmentForm />
