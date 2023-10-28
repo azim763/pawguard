@@ -23,7 +23,7 @@ module.exports.createPetMedication = async (req, res, next) => {
 // Search for pet medications by PetID
 module.exports.searchPetMedicationsByPetID = async (req, res, next) => {
     try {
-      const petID = req.query.petID;
+      const petID = req.query.PetID;
       const medications = await PetMedication.find({ PetID: petID });
       return res.json(medications);
     } catch (ex) {

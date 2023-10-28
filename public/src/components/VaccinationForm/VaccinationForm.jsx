@@ -19,6 +19,14 @@ const Vaccination = () => {
     });
   };
 
+  const handleDateChange = (event) => {
+    setFormData({
+      ...formData,
+      VaccinationDate: event.target.value,
+    });
+    console.log("date is changing")
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can perform actions with the form data here, such as sending it to a server or processing it in some way.
@@ -38,7 +46,7 @@ const Vaccination = () => {
           <Typography variant="body2-poppins-medium">
             <label htmlFor="">Date</label>
           </Typography>
-          <DatePicker label="Date of Vaccination"></DatePicker>
+          <DatePicker id="VaccinationDate" onChange={handleDateChange}></DatePicker>
         </div>
         <Button variant="yellow" label="Add New Vaccination" size="dk-md-s" />
       </form>

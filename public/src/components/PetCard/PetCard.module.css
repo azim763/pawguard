@@ -1,6 +1,30 @@
-.image{
-    height: 3rem;
+.image {
+  width: 100%;
 }
-.logo{
-    height: 2rem;
+
+.imgContainer div img {
+  width: 249px;
+  height: 325px;
+  object-fit: cover;
+}
+
+
+.petCardContainer {
+  display: grid;
+  width: 250px;
+  height: 815px;
+  background-color: var(--pearl-blue);
+  align-items: center;
+}
+
+.detailContainer{
+    display: grid;
+    grid-template-columns: .5fr .8fr;
+}
+
+.actionContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid;
+    padding: 1rem;
 }
