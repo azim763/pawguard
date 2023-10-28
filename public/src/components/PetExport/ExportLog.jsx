@@ -63,10 +63,10 @@ const generatePDF = () => {
   doc.addFont("helvetica", "normal"); 
    doc.text(20, k+80,petLogs[index].StoolAppearance);
     doc.text(20, k+100,petLogs[index].Notes);
-    doc.text(20, k+120,petLogs[index].Wheight);
-    doc.text(20, k+140,petLogs[index].ActivityLevel);
-    doc.text(20, k+160,petLogs[index].StoolAppearance);
-  
+      doc.text(20, k+120,petLogs[index].ActivityLevel);
+    doc.text(20, k+140,petLogs[index].StoolAppearance);
+  //  doc.text(20, k+160,petLogs[index].Wheight);
+
   
   }
   
