@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const petAppointmentSchema = new mongoose.Schema({
     PetID: { type: String, required: true },
@@ -8,6 +8,6 @@ const petAppointmentSchema = new mongoose.Schema({
     AppointmentTime: { type: String, required: false }
 });
 
-const PetAppointment = mongoose.model('PetAppointment', petAppointmentSchema);
+const PetAppointment = mongoose.model("PetAppointment", petAppointmentSchema);
 
 module.exports = PetAppointment;

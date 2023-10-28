@@ -2,6 +2,17 @@
 
 #root{ padding: 10px; }
 
+.calendar {
+  max-width: 365px;
+  box-sizing: border-box;
+  padding: 24px 20px;
+
+}
+
+.rs-badge-independent,
+.rs-badge-content {
+  background-color: hotpink !important;
+}
 .calendar-todo-list {
     text-align: left;
     padding: 0;

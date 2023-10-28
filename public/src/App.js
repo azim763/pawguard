@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SetAvatar from "./components/SetAvatar";
-import DashBoard from "./pages/DashBoard";
+import DashBoard from "./pages/Dashboard/DashBoard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./utils/variable.css";

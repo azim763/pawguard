@@ -8,6 +8,7 @@ import HeightSVG from "../SVG/HeightSVG";
 import PawSVG from "../SVG/PawSVG";
 import ArchiveSVG from "../SVG/ArchiveSVG";
 import ExportSVG from "../SVG/ExportSVG";
+import ExportLog from "../PetExport/ExportLog";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 
 const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
@@ -62,7 +63,9 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
         </div>
         <div>
           <ExportSVG width="28" height="29" />
-          <Typography variant="detailtext2-poppins-medium">export</Typography>
+          <Typography variant="detailtext2-poppins-medium">
+          <ExportLog/>
+          </Typography>
         </div>
       </div>
     </div>

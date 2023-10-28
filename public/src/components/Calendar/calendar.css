@@ -1,0 +1,35 @@
+.rs-badge-independent,
+.rs-badge-content {
+  background-color: var(--salmon-pink) !important;
+}
+
+.rs-calendar-bordered .rs-calendar-table {
+  border: none !important;
+}
+
+.rs-calendar-table-header-cell-content {
+  color: var(--dark-blue);
+  font-weight: 600;
+}
+
+.rs-calendar-panel .rs-calendar-table-cell-is-today .rs-calendar-table-cell-day,
+.rs-calendar-panel .rs-calendar-table-cell-day {
+  background-color: transparent;
+  color: var(--small-text-gray);
+}
+
+.rs-calendar-table-cell-selected {
+  font-weight: 600;
+  background-color: var(--yellow);
+  border-radius: 50%;
+  color: var(--dark-blue);
+}
+
+
+
+.rs-calendar-panel
+  .rs-calendar-table-cell-selected
+  .rs-calendar-table-cell-content {
+  -webkit-box-shadow: none;
+  border-radius: 50%;
+}

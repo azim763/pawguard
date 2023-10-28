@@ -1,0 +1,19 @@
+.dashboardContainer {
+    max-width: 1130px;
+    display: flex;
+    margin: 0 24px;
+    margin-top: 45px;
+    gap: 12px;
+}
+
+.dashboardContainer > div {
+    border-radius: 8px;
+    border: solid 1px var(--border-grey);
+    background-color: white;
+}
+
+.dashboardPetCard {
+    width: 325px;
+    background-color: var(--light-blue) !important;
+    
+}

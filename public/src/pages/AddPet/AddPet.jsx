@@ -9,14 +9,11 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
-
 import Header from "../../components/Header/header";
-
+import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 const AddPet = () => {
-
   const navigate = useNavigate();
 
- 
   const petType = [
     { value: "dog", label: "Dog" },
     { value: "cat", label: "Cat" },
@@ -33,8 +30,24 @@ const AddPet = () => {
   //   const breedType = fetch function from db;
 
   const preExistingMedical = [
-    { value: "M", label: "Male" },
-    { value: "F", label: "Female" },
+    "Arthritis XD",
+    "Bloodwork",
+    "Cardiology",
+    "Cytology",
+    "Dentistry",
+    "Dermatology",
+    "Endoscopy",
+    "Euthanasia",
+    "Internal-medicine",
+    "Laser-therapy",
+    "Microchipping",
+    "Neurology",
+    "Nutrition",
+    "Oncology",
+    "Radiography",
+    "Senior",
+    "Surgery",
+    "Ultrasound",
   ];
 
   const [petData, setPetData] = useState({
@@ -90,8 +103,6 @@ const AddPet = () => {
       { value: "DEA7", label: "DEA 7" },
     ];
 
-
-
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
     setPetData({
@@ -106,10 +117,12 @@ const AddPet = () => {
     event.preventDefault();
 
     try {
-      const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+      const storedData = await JSON.parse(
+        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
       setPetData({
         ...petData,
-        UserID: storedData._id
+        UserID: storedData._id,
       });
       // Send data to the server using Axios or fetch
       const response = await axios.post(createPetRoute, petData);
@@ -131,7 +144,6 @@ const AddPet = () => {
       </div>
       {/* <img src={selectedImage} alt="Selected" width="200" height="200" /> */}
       <div className={styles.addPetForm}>
-
         <form action="/submit" method="post" onSubmit={onClickHandler}>
           <SingleImageUpload onImageUpload={handleImageUpload} />
 
@@ -212,15 +224,7 @@ const AddPet = () => {
             />
             <Typography variant="body2-poppins-medium">lbs</Typography>
           </div>
-          <Dropdown
-            size="md"
-            label="Pre-existing medical conditions"
-            id="PreExistingMedical"
-            options={preExistingMedical}
-            onChange={(selectedValue) =>
-              handleDropdownChange("PreExistingMedical", selectedValue)
-            }
-          />
+          <MultipleDropDown label="Pre-existing medical conditions" options={preExistingMedical} />
           <TextInput
             size="md"
             id="Description"
@@ -238,7 +242,6 @@ const AddPet = () => {
       </div>
     </div>
   );
-}
-
+};
 
 export default AddPet;

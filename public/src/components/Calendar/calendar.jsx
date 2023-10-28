@@ -3,6 +3,10 @@ import axios from "axios";
 import { getAllPetAppointmentsRoute } from "../../utils/APIRoutes";
 import { Calendar, Badge } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
+import DashCalendarCard from "../DashCalendarCard/DashCalendarCard";
+import styles from "./calendar.module.css";
+import "./calendar.css"
+import Typography from "../Typography/Typography";
 
 const DashCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -19,6 +23,14 @@ const DashCalendar = () => {
         console.log("Error fetching data: ", error);
       });
   }, []);
+
+  function formatDate(date) {
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
 
   function getSelectedEvents() {
     if (!selectedDate) return []; // If no date is selected, return an empty array
@@ -65,7 +77,7 @@ const DashCalendar = () => {
   }
 
   return (
-    <div>
+    <div className={styles.calendar}>
       <Calendar
         compact
         bordered
@@ -74,13 +86,20 @@ const DashCalendar = () => {
       />
 
       {selectedDate && getSelectedEvents().length > 0 && (
-        <div>
+        
+      <div>
+      <Typography variant="sub-h2-poppins-medium" color="dark-blue" style={{textAlign: "center", margin: "24px 0"}}>
+      {formatDate(selectedDate)}
+      </Typography>
           {getSelectedEvents().map((item, index) => (
             <div key={index}>
-              <p>Appointment Date: {item.AppointmentDate}</p>
-              <p>Appointment Reason: {item.AppointmentReason}</p>
-              <p>Appointment Time: {item.AppointmentTime}</p>
-              <p>Clinic Name: {item.ClinicName}</p>
+              <DashCalendarCard
+              petName="Oreo"
+              cardTime= {item.AppointmentTime}
+              aptReason= {item.AppointmentReason}
+              clinicName= {item.ClinicName}
+
+              />
             </div>
           ))}
         </div>
