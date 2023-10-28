@@ -14,7 +14,7 @@ import {
   searchPetVaccinationsByPetIDRoute,
   searchPetMedicationsByPetIDRoute,
   searchPetAppointmentsByPetIDRoute,
-  searchPetLogsByPetIDRoute
+  searchPetLogsByPetIDRoute,
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
@@ -31,6 +31,8 @@ const PetPage = () => {
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
+  const [clinicLatitude, setClinicLatitude] = useState()
+  const [clinicLongitude, setClinicLongitude] = useState()
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -48,10 +50,9 @@ const PetPage = () => {
         console.log("Error fetching data: ", error);
       }
     };
-  
+
     fetchData();
   }, [selectedPet._id]);
-  
 
   useEffect(() => {
     axios
@@ -60,6 +61,9 @@ const PetPage = () => {
       })
       .then((response) => {
         setPetAppointments(response.data);
+        setClinicLatitude(response.data.Latitude);
+        setClinicLongitude(response.date.Longitude);
+        console.log(clinicLatitude);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -74,7 +78,6 @@ const PetPage = () => {
       .then((response) => {
         setPetMedications(response.data);
         console.log(response.data);
-
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -115,10 +118,9 @@ const PetPage = () => {
         // Handle any errors here
       }
     };
-  
+
     fetchData();
   }, [selectedPet]);
-  
 
   const tabToButtonLabel = {
     petLog: "PetLog",
@@ -148,38 +150,46 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-         {selectedPet && selectedPet._id && <PetLogform selectedPet={selectedPet} />}
-
+          {selectedPet && selectedPet._id && (
+            <PetLogform selectedPet={selectedPet} />
+          )}
         </div>
       </div>
     ),
     appointment: (
       <div>
         <div className={styles.getPetPage}>
-          {/* {petAppointments.length > 0 &&  */}
-          (
+          {petAppointments.length > 0 && (
             <div>
-              <Map
+              {/* <Map
                 latitude={49.246292}
                 longitude={-123.116226}
                 markerlong={-123.116226}
                 markerlat={49.246292}
-              />
+              /> */}
               <div>
                 {petAppointments.map((appointment) => (
-                  <AppointmentCard
-                    ClinicName={appointment.ClinicName}
-                    AppointmentTime={appointment.AppointmentTime}
-                    AppointmentReason={appointment.AppointmentReason}
-                    AppointmentDateTime={appointment.AppointmentDate}
-                  />
+                  <div>
+                    {/* <Map
+                      latitude={clinicLatitude}
+                      longitude={clinicLongitude}
+                      markerlong={clinicLongitude}
+                      markerlat={clinicLatitude}
+                    /> */}
+                    <AppointmentCard
+                      ClinicName={appointment.ClinicName}
+                      AppointmentTime={appointment.AppointmentTime}
+                      AppointmentReason={appointment.AppointmentReason}
+                      AppointmentDateTime={appointment.AppointmentDate}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
-          )
+          )}
         </div>
         <div className={styles.postPetPage}>
-        {selectedPet && <AppointmentForm selectedPet={selectedPet} />}
+          {selectedPet && <AppointmentForm selectedPet={selectedPet} />}
         </div>
       </div>
     ),
@@ -201,7 +211,7 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-        {selectedPet && <MedicationForm selectedPet={selectedPet}/>}
+          {selectedPet && <MedicationForm selectedPet={selectedPet} />}
         </div>
       </div>
     ),
@@ -221,7 +231,7 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-        {selectedPet && <VaccinationForm selectedPet={selectedPet} />}
+          {selectedPet && <VaccinationForm selectedPet={selectedPet} />}
         </div>
       </div>
     ),
@@ -237,11 +247,10 @@ const PetPage = () => {
   return (
     <div className={styles.petPage}>
       <Header> </Header>
-      {pets && (
-        <TotalPets pets={pets} onPetSelect={handlePetSelection} />
-      )}      <div className={styles.petPageGrid}>
+      {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}{" "}
+      <div className={styles.petPageGrid}>
         <div className={styles.petPagePetCard}>
-        {selectedPet && <PetCard src={selectedPet.PetImageName}> </PetCard>}
+          {selectedPet && <PetCard src={selectedPet.PetImageName}> </PetCard>}
         </div>
         <div className={styles.petPageTab}>
           <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
