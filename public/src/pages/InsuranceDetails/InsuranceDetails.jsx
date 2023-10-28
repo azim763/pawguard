@@ -16,54 +16,44 @@ import {getInsurancePlanByIdRoute} from "../../utils/APIRoutes";
 
 const InsuranceDetails = () => {
 
-  const { companyId } = useParams();
-  const [companyData, setCompanyData] = useState({ CoveredItems:[] ,NotCoveredItems: [], });
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  // For small cards 
+  const { _id } = useParams();
+  const [companyData, setCompanyData] = useState({ CoveredItems:[] ,NotCoveredItems: [] });
+ 
+ const navigate = useNavigate();
+  
   useEffect(() => {
     axios
-      .get(`${getInsurancePlanByIdRoute}/${companyId}`)
+      .get(`${getInsurancePlanByIdRoute}/${_id}`)
       .then((response) => {
         setCompanyData(response.data);
-        // setLoading(false);
         console.log("Data "+companyData.CoveredItems);
-        // const coveredItemsString = response.data.CoveredItems || '';
-        // const notCoveredItemsString = response.data.NotCoveredItems || '';
-        // const coveredItemsArray = coveredItemsString.split(',');
-        // const notCoveredItemsArray = notCoveredItemsString.split(',');
-        // setCompanyData({
-        //   ...response.data,
-        //   CoveredItems: coveredItemsArray,
-        //   NotCoveredItems: notCoveredItemsArray,
-        // });
       })
       .catch((error) => {
         console.error("Error fetching company data:", error);
-        // setError(error);
-        // setLoading(false);
+        console.log(companyData);
+        console.log(_id);
       });
-  }, [companyId]);
+  }, [_id]);
  
  
   //For small cards 
-  const [insurancePlans, setInsurancePlans] = useState([]);
-  const navigate = useNavigate();
-  useEffect( () => {
-    // Make a GET request to fetch insurance plans
-    axios.get(getAllInsurancePlansRoute) 
-      .then((response) => {
-        setInsurancePlans(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching insurance plans:", error);
-      });
-  }, []);
+  // const [insurancePlans, setInsurancePlans] = useState([]);
+  // const navigate = useNavigate();
+  // useEffect( () => {
+  //   // Make a GET request to fetch insurance plans
+  //   axios.get(getAllInsurancePlansRoute) 
+  //     .then((response) => {
+  //       setInsurancePlans(response.data);
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching insurance plans:", error);
+  //     });
+  // }, []);
 
-  const handleViewDetailsClick = (companyId) => {
+  const handleViewDetailsClick = (_id) => {
     // Use the history.push method to navigate to the details page
-    navigate(`/insurance/details/${companyId}`);
+    navigate(`/insurance/details/${_id}`);
   };
 
 
@@ -79,12 +69,21 @@ const InsuranceDetails = () => {
           {companyData._id &&(
             <div>
              <PlanDetailCard
-              source="https://picsum.photos/200/200"
-              alt="logo"
-              deductibleNum={companyData.AnnualDeductable}
-              reimbursementNum={companyData.Reimbursement}
-              coverageNum={companyData.AnnualCoverage}
-              price={companyData.InsurancePrice}
+             source="https://picsum.photos/200/200"
+             alt="logo"
+             key={companyData._id}
+             deductibleNum={companyData.AnnualDeductible}
+             reimbursementNum={(companyData.Reimbursement)*100}
+             coverageNum={companyData.AnnualCoverage}
+             price={companyData.InsurancePrice}
+             CompanyID={companyData.CompanyID}
+            //  onClick={() => handleViewDetailsClick(companyData.CompanyID)}
+              // source="https://picsum.photos/200/200"
+              // alt="logo"
+              // deductibleNum={companyData.AnnualDeductible}
+              // reimbursementNum={companyData.Reimbursement * 100}
+              // coverageNum={companyData.AnnualCoverage}
+              // price={companyData.InsurancePrice}
             />     
           </div>
           )}
@@ -123,7 +122,7 @@ const InsuranceDetails = () => {
           </div>
         </div>
 {/* Similar Plans Section */}
-        <div className={styles.InsuranceDetailsSimilarPlans}>
+        {/* <div className={styles.InsuranceDetailsSimilarPlans}>
           <Typography
             variant="h2-poppins-semibold"
             style={{ gridColumn: "1/-1" }}
@@ -137,16 +136,16 @@ const InsuranceDetails = () => {
                   smSource="https://picsum.photos/250/100"
                   key={plan._id}
                   smAlt="logo"
-                  smDeductibleNum={plan.AnnualDeductable}
+                  smDeductibleNum={plan.AnnualDeductible}
                   smReimbursementNum={plan.Reimbursement}
                   smCoverageNum={plan.AnnualCoverage}
                   smPrice={plan.InsurancePrice}
-                  companyId={plan.CompanyID}
+                  CompanyID={plan.CompanyID}
                   onClick={() => handleViewDetailsClick(plan._id)}
                 />
               // </div>
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
