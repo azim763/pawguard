@@ -4,9 +4,13 @@ import Button from "../Button/Button";
 import styles from "./VaccinationForm.module.css";
 import DatePicker from "../DatePicker/DatePicker";
 import Typography from "../Typography/Typography";
+import {createPetVaccinationRoute} from "../../utils/APIRoutes.js"
+import axios from "axios";
 
-const Vaccination = () => {
+
+const Vaccination = ({selectedPet}) => {
   const [formData, setFormData] = useState({
+    PetID:"",
     name: "",
     date: "",
   });
@@ -27,11 +31,25 @@ const Vaccination = () => {
     console.log("date is changing")
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can perform actions with the form data here, such as sending it to a server or processing it in some way.
-    console.log("Form submitted with data:", formData);
+    if (selectedPet && selectedPet._id) {
+      const updatedFormData = { ...formData, PetID: selectedPet._id };
+      setFormData(updatedFormData);
+      try {
+        const response = await axios.post(createPetVaccinationRoute, updatedFormData);
+        console.log("Form submitted with data:", updatedFormData);
+        console.log("Response from server:", response);
+        // You can further handle the response here, such as displaying a success message to the user.
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        // Handle the error, e.g., display an error message to the user.
+      }
+    } else {
+      console.error("selectedPet or selectedPet._id is undefined.");
+    }
   };
+  
   return (
     <div className={styles.vaccinationForm}>
       <Typography variant="h2-poppins-semibold">Add Vaccination</Typography>

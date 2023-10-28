@@ -10,24 +10,23 @@ import Checkbox from '../Checkbox/Checkbox';
 import { createPetFoodRoute,createPetLogRoute,searchPetsByUserIDRoute } from '../../utils/APIRoutes';
 import axios from 'axios';
 
-const PetLogForm = () => {
-  const [pets,setPets] =useState([]);
+const PetLogForm = ({ selectedPet }) => {
+  // const [pets,setPets] =useState([]);
   const [foodDate, setFoodDate] = useState(new Date());
 
   
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
-        const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
-        setPets(response.data);
-      } catch (error) {
-        // Handle any errors here
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+  //       const response = await axios.get(searchPetsByUserIDRoute, { params: { userID: data._id } });
+  //       setPets(response.data);
+  //     } catch (error) {
+  //       // Handle any errors here
+  //     }
+  //   };
   
-    fetchData();
-  }, []);
+
   const MealPerDay = [
     { value: 1, label: '1' },
     { value: 2, label: '2' },
@@ -36,7 +35,7 @@ const PetLogForm = () => {
   ];
 
   const [foodData, setFoodData] = useState({
-    PetID:pets._id,
+    PetID:"",
     FoodName: "",
     MealPerDay: "",
     QuantityPerMeal: "",
@@ -75,26 +74,46 @@ const PetLogForm = () => {
     });
   };
 
-  const handleFoodFormSubmit = (e) => {
+  const handleFoodFormSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-
+  
     // Handle food form submission
-    console.log("Food data:", foodData);
-    const response = axios.post(createPetFoodRoute, foodData);
-    console.log(response)
-    console.log('data submitted');
+    console.log("Food data before update:", foodData);
+  
+    if (selectedPet && selectedPet._id) {
+      const updatedFoodData = { ...foodData, PetID: selectedPet._id };
+      console.log("Updated food data:", updatedFoodData);
+  
+      await setFoodData(updatedFoodData);
+      const response = await axios.post(createPetFoodRoute, updatedFoodData);
+      console.log(response);
+      console.log('Data submitted');
+    } else {
+      console.error("selectedPet or selectedPet._id is undefined.");
+    }
   };
-
-  const handleAdditionalInfoSubmit = () => {
+  
+  const handleAdditionalInfoSubmit = async () => {
     // Handle additional information form submission
-    console.log('Additional information:', formData);
-    const response = axios.post(createPetLogRoute, formData);
-    console.log(response);
-
+    console.log("Additional information data before update:", formData);
+  
+    if (selectedPet && selectedPet._id) {
+      const updatedFormData = { ...formData, PetID: selectedPet._id };
+      console.log("Updated additional information data:", updatedFormData);
+  
+      setFormData(updatedFormData);
+      const response = await axios.post(createPetLogRoute, updatedFormData);
+      console.log(response);
+      console.log('Data submitted');
+    } else {
+      console.error("selectedPet or selectedPet._id is undefined.");
+    }
   };
+  
 
   const [formData, setFormData] = useState({
     LogDate: new Date(),
+    PetID:"",
     Weight: 0,
     ActivityLevel: "",
     UrineAmount: "",

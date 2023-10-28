@@ -132,24 +132,28 @@ const AddPet = () => {
 
   const onClickHandler = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const storedData = JSON.parse(
-        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
-
-      const requestBody = {
+      const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
+      
+      const updatedPetData = {
         ...petData,
         UserID: storedData._id,
       };
-      // Send data to the server using Axios or fetch
-      const response = await axios.post(createPetRoute, requestBody);
+  
+      setPetData(updatedPetData);
+  
+      const response = await axios.post(createPetRoute, updatedPetData);
+      
       // Handle successful submission
       console.log("Data submitted successfully:", response.data);
       navigate("/");
     } catch (error) {
       console.error("Error while submitting data:", error);
+      // Handle the error, e.g., display an error message to the user.
     }
   };
+  
 
   return (
     <div>

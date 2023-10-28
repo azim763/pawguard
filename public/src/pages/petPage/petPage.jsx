@@ -148,7 +148,8 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          <PetLogform />
+         {selectedPet && selectedPet._id && <PetLogform selectedPet={selectedPet} />}
+
         </div>
       </div>
     ),
@@ -178,7 +179,7 @@ const PetPage = () => {
           )
         </div>
         <div className={styles.postPetPage}>
-          <AppointmentForm />
+        {selectedPet && <AppointmentForm selectedPet={selectedPet} />}
         </div>
       </div>
     ),
@@ -200,7 +201,7 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          <MedicationForm />
+        {selectedPet && <MedicationForm selectedPet={selectedPet}/>}
         </div>
       </div>
     ),
@@ -220,7 +221,7 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          <VaccinationForm />
+        {selectedPet && <VaccinationForm selectedPet={selectedPet} />}
         </div>
       </div>
     ),
