@@ -5,7 +5,9 @@ const petAppointmentSchema = new mongoose.Schema({
     ClinicName: { type: String, required: false },
     AppointmentReason: { type: String, required: false },
     AppointmentDate: { type: String, required: false },
-    AppointmentTime: { type: String, required: false }
+    AppointmentTime: { type: String, required: false },
+    Latitude: { type: Number, required: true },
+    Longitude: { type: Number, required: true }
 });
 
 const PetAppointment = mongoose.model("PetAppointment", petAppointmentSchema);
