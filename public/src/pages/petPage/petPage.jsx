@@ -31,8 +31,8 @@ const PetPage = () => {
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
-  const [clinicLatitude, setClinicLatitude] = useState();
-  const [clinicLongitude, setClinicLongitude] = useState();
+  // const [clinicLatitude, setClinicLatitude] = useState();
+  // const [clinicLongitude, setClinicLongitude] = useState();
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -61,9 +61,9 @@ const PetPage = () => {
       })
       .then((response) => {
         setPetAppointments(response.data);
-        setClinicLatitude(response.data.Latitude);
-        setClinicLongitude(response.date.Longitude);
-        console.log(clinicLatitude);
+        // setClinicLatitude(response.data.Latitude);
+        // setClinicLongitude(response.date.Longitude);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -170,12 +170,12 @@ const PetPage = () => {
               <div>
                 {petAppointments.map((appointment) => (
                   <div>
-                    {/* <Map
-                      latitude={clinicLatitude}
-                      longitude={clinicLongitude}
-                      markerlong={clinicLongitude}
-                      markerlat={clinicLatitude}
-                    /> */}
+                    <Map
+                      latitude={appointment.Latitude}
+                      longitude={appointment.Longitude}
+                      markerlong={appointment.Longitude}
+                      markerlat={appointment.Latitude}
+                    />
                     <AppointmentCard
                       ClinicName={appointment.ClinicName}
                       AppointmentTime={appointment.AppointmentTime}
