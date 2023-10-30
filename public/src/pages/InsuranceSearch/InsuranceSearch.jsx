@@ -9,6 +9,7 @@ import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
+import {getAllPetsRoute} from "../../utils/APIRoutes";
 
 const InsuranceSearch = () => {
   const [pets,setPets] = useState([]);
@@ -78,12 +79,11 @@ const InsuranceSearch = () => {
 
   const handlePetTypeChange = (type) => {
     setSelectedPetType(type);
-    setSelectedBreed(''); // Reset the selected breed when the pet type changes
+    setSelectedBreed(''); 
   };
 
   const handlePetGenderChange = (gender) => {
     setSelectedGender(gender);
-    // setSelectedBreed(''); // Reset the selected breed when the pet type changes
   };
 
   const handleBreedChange = (breed) => {
@@ -109,80 +109,25 @@ const InsuranceSearch = () => {
       alert("Please select an age before getting a quote.");
     }
   };
-  
-// const handleGetQuotesClick = () => {
-//   if (selectedPetType && selectedAge && selectedGender) {
-//     axios
-//       .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
-//       .then((response) => {
-//         const filteredPlans = response.data.filter((plan) => {
-//           return  plan.PetAgeRange === selectedAge;
-//         });
 
-//         filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
-        
-//         navigate('/insurances', { state: { filteredPlans } }); // Pass filteredPlans to ListInsurances component
-//         console.log("CHK THIS IF THIS IS PASSED"+filteredPlans);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching insurance plans:", error);
-//       });
-//   } else {
-//     alert("Please select all fields before getting a quote.");
-//   }
-// };
-
-
-  // const handleGetQuotesClick = () => {
-  //   if (selectedPetType && selectedAge && selectedGender) {
-  //     axios
-  //       .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
-  //       .then((response) => {
-  //         const filteredPlans = response.data.filter((plan) => {
-  //           return (
-  //             plan.PetType === selectedPetType &&
-  //             // plan.breed === selectedBreed &&
-  //             plan.PetAgeRange === selectedAge 
-  //             // plan.gender === selectedGender
-  //           );
-  //         });
-
-  //         filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
-  //         const middleIndex = Math.floor(filteredPlans.length / 2);
-  //         const middlePlan = filteredPlans[middleIndex];
-  
-  //         navigate('/insurances', { state: { filteredPlans: [middlePlan] } });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching insurance plans:", error);
-  //       });
-  //   } else {
-  //     alert("Please select all fields before getting a quote.");
-  //   }
-  // };
-  
-    // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const userData = JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
-  //       const userID = userData.UserID;
-
-  //       const userPetsResponse = await axios.get(searchPetsByUserIDRoute, { params: { userID } });
-  //       setPets(userPetsResponse.data);
-  //       } catch (error) {
-  //         console.error("Error fetching pet data:", error);
-  //       }
-  //     };
-  //   fetchData();
-  // }, []);
-
+  //to fetch pet data
+  useEffect(() => {
+    axios.get(getAllPetsRoute)
+      .then((response) => {
+        console.log("here is the pet data:"+response.data);
+        setPets(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching pet data:", error);
+      });
+  }, []);
+  //to fetch insuarnce plans
   useEffect(() => {
     const fetchInsurancePlans = async () => {
       try {
         const response = await axios.get(getAllInsurancePlansRoute);
         setInsurancePlans(response.data);
-        // console.log("fetch  data "+ response.data);
-      } catch (error) {
+        } catch (error) {
         console.error("Error fetching insurance plans:", error);
       }
     };
@@ -202,6 +147,8 @@ const InsuranceSearch = () => {
           Select the pet you would like to get quotes
         </div>
       </Typography>
+      {/*     
+       NOT INCLUDED NOW   
       <Typography variant="sub-h2-poppins-medium" color="almost-black">
         <div
           style={{
@@ -211,18 +158,18 @@ const InsuranceSearch = () => {
           }}
         >
           <p>Enter new pet's information</p>
-          {/* <a href = "" style = {{color: "var(--almost-black)"}}>Enter new pet's information</a> */}
+          <a href = "" style = {{color: "var(--almost-black)"}}>Enter new pet's information</a>
         </div>
-      </Typography>
+      </Typography> */}
 
       <div className={styles.petSelectionContainer}>
-      {pets.map((pet) => (
-          <PetSelectionPage
-            key={pet.UserID}
-            imgUrl={pet.imageUrl} 
-            petName={pet.name} 
-          ></PetSelectionPage>
-        ))}
+      {pets && Array.isArray(pets) && pets.map((pet) => (
+        <PetSelectionPage
+          key={pet._id}
+          imgUrl={pet.PetImageName}
+          petName={pet.PetName}
+        />
+      ))}
       </div>
 
       <div className={styles.formContainer}>

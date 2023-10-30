@@ -10,6 +10,7 @@ const PlanDetailCard = ({
   coverageNum,
   price,
   onClick,
+  showButton=true,
   ...props
 }) => {
   return (
@@ -40,7 +41,7 @@ const PlanDetailCard = ({
           Annual Coverage per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
-          {coverageNum}
+          ${coverageNum}
         </Typography>
       </div>
 
@@ -49,17 +50,19 @@ const PlanDetailCard = ({
           variant="user-greeting-poppins-semibold"
           color="almost-black"
         >
-          {price}
-           {/* <sup style = {{fontSize: "30px", fontWeight: "500"}}>{price}</sup> */}
+          ${price}{" "}
+          {/* <sup style={{ fontSize: "30px", fontWeight: "500" }}>{price}</sup> */}
         </Typography>
 
         <Typography variant="textfield-poppins-regular" color="almost-black">
           per month
         </Typography>
       </div>
+      {showButton && (
       <div className={`${styles["button-container"]}`}>
         <Button variant="light-blue" label="View Details" size="dk-sm" onClick={onClick} />
       </div>
+      )}
     </div>
   );
 };
