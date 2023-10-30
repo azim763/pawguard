@@ -1,0 +1,41 @@
+.Burger {
+    width: 2rem;
+    height: 2rem;
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column nowrap;
+}
+
+.Burger div {
+    display: flex;
+    flex-flow: column;
+    width: 2rem;
+    height: 0.25rem;
+    background-color: var(--off-white);
+    border-radius: 10px;
+    transition: transform 0.3s, opacity 0.3s;
+
+
+}
+
+.Burger[open]>div:first-child {
+    transform: rotate(45deg) translate(14px, -2px);
+}
+
+.Burger[open]>div:nth-child(2) {
+    opacity: 0;
+}
+
+.Burger[open]>div:last-child {
+    transform: rotate(-45deg) translate(16px, -2px);
+}
+
+@media only screen and (min-width: 699px) {
+
+    .Burger {
+        display: none;
+    }
+}

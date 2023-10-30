@@ -1,26 +1,25 @@
 nav div {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
   height: 10vh;
   background-color: var(--dark-blue);
   color: var(--off-white);
   justify-content: space-between;
-  padding: 5px 5%;
 }
 
-nav div ul {
+.RightNav ul {
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   gap: 2rem;
   align-items: center;
   padding-left: 5rem;
-  margin-bottom: 0;
+  align-content: center;
 }
+
 nav div ul li {
   list-style: none;
   align-items: center;
-  display: flex;
 }
 
 nav li a {
@@ -35,4 +34,28 @@ nav li a:active {
 nav li a:hover {
   color: var(--yellow);
   text-decoration: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .RightNav ul {
+    display: none;
+    transition: opacity 0.6s ease; /* Slower transition */
+  }
+ 
+.menuOpen ul{
+    display: flex;
+    flex-flow: column nowrap;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: var(--dark-blue);
+    width: 30vw;
+    align-items: center;
+    justify-content: center;
+  }
+    /* opacity: 1;
+    transition: opacity 0.6s ease; 
+    } */
+
 }
