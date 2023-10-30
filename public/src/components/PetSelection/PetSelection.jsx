@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import styles from './petSelection.module.css';
 
 const PetSelection = ({ imgUrl, petName, isSelected, onClick }) => {

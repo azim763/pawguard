@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header/header";
 import styles from "../AboutUs/AboutUs.module.css";
 import Typography from "../../components/Typography/Typography";
@@ -8,6 +8,33 @@ import AboutUsFeature from "../../components/AboutUsFeature/AboutUsFeature";
 import AboutUsProfile from "../../components/AboutUsProfile/AboutUsProfile";
 
 const AboutUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("email sent!");
+    // try {
+    //   // Send the form data to your server
+    //   await axios.post("/send-email", formData);
+    //   alert("Email sent successfully!"); // You can customize this message
+    // } catch (error) {
+    //   console.error("Error sending email:", error);
+    //   alert("Email sending failed."); // You can customize this message
+    // }
+  };
+
   return (
     <div className={styles.AboutUspage}>
       <Header />
@@ -24,6 +51,7 @@ const AboutUs = () => {
             </Typography>
             <Button variant="blue-yellow" label="Get Started" size="dk-md" />
           </div>
+          <div><img src="https://picsum.photos/400/250" alt="" /></div>
         </div>
         <div className={styles.abtUs2}>
           <Typography variant="h2-poppins-semibold" color="almost-black">
@@ -67,7 +95,7 @@ const AboutUs = () => {
             tenetur aspernatur odio est, veniam error illo id nulla animi
             praesentium in voluptatibus?
           </Typography>
-          <div className={styles.abtUs3Images1}>
+          <div className={styles.abtUs3Images}>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
@@ -92,8 +120,6 @@ const AboutUs = () => {
               title="profile 4"
               description="dev/des"
             ></AboutUsProfile>
-          </div>
-          <div className={styles.abtUs3Images2}>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
@@ -137,12 +163,23 @@ const AboutUs = () => {
             <img src="https://picsum.photos/400" alt="" />
           </div>
 
-          <div>
-            <TextInput label="Name" />
-            <TextInput label="E-mail" />
-            <TextInput label="Message" />
-            <Button label="Submit" variant="yellow" size="dk-md-s" />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <TextInput id="name" label="Name" />
+            <TextInput id="email" label="E-mail" />
+            <div>
+              <Typography variant="body2-poppins-medium" color="almost-black">
+                <label htmlFor="message">Message</label>
+              </Typography>
+              <br />
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            <Button label="Submit" variant="yellow" size="dk-sm" />
+          </form>
         </div>
       </div>
     </div>
