@@ -17,6 +17,8 @@ export default function Register() {
     theme: "dark",
   };
   const [values, setValues] = useState({
+    firstname:"",
+    lastname:"",
     username: "",
     email: "",
     password: "",
@@ -35,7 +37,15 @@ export default function Register() {
 
   const handleValidation = () => {
     const {firstname, lastname,  password, confirmPassword, username, email } = values;
-    if (password !== confirmPassword) {
+     if (firstname.length <1) {
+      toast.error("First name is required.", toastOptions);
+      return false;
+    }
+    else if (lastname .length <1) {
+      toast.error("Last name is required.", toastOptions);
+      return false;
+    }
+else if (password !== confirmPassword) {
       toast.error(
         "Password and confirm password should be same.",
         toastOptions
@@ -57,15 +67,7 @@ export default function Register() {
       toast.error("Email is required.", toastOptions);
       return false;
     }
-    else if (firstname === "") {
-      toast.error("First name is required.", toastOptions);
-      return false;
-    }
-    else if (lastname === "") {
-      toast.error("Last name is required.", toastOptions);
-      return false;
-    }
-    return true;
+     return true;
   };
 
   const handleSubmit = async (event) => {

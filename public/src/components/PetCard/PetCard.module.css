@@ -17,9 +17,15 @@
   align-items: center;
 }
 
+.descriptionContainer{
+  text-align: left;
+}
+
 .detailContainer{
     display: grid;
-    grid-template-columns: .5fr .8fr;
+    grid-template-columns: .8fr .8fr;
+    /* text-align: left;
+    justify-items: center; */
 }
 
 .actionContainer{

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "downshift": "^8.2.2",
+    "html-webpack-plugin": "^5.5.3",
+    "jspdf": "^2.5.1",
+    "source-map-loader": "^4.0.1"
+  }
+}

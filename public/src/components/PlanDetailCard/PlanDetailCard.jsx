@@ -49,7 +49,8 @@ const PlanDetailCard = ({
           variant="user-greeting-poppins-semibold"
           color="almost-black"
         >
-          {price} <sup style = {{fontSize: "30px", fontWeight: "500"}}>{price}</sup>
+          {price}
+           {/* <sup style = {{fontSize: "30px", fontWeight: "500"}}>{price}</sup> */}
         </Typography>
 
         <Typography variant="textfield-poppins-regular" color="almost-black">

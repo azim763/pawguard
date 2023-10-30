@@ -13,42 +13,48 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {getInsurancePlanByIdRoute} from "../../utils/APIRoutes";
+import {getInsuranceCompanyByIdRoute} from "../../utils/APIRoutes";
 
 const InsuranceDetails = () => {
 
-  const { companyId } = useParams();
-  const [companyData, setCompanyData] = useState({ CoveredItems:[] ,NotCoveredItems: [], });
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  // For small cards 
+  const { CompanyID } = useParams();
+  const { _id } = useParams();
+  const [companyData, setCompanyData] = useState({ CoveredItems:[] ,NotCoveredItems: [] });
+  const [planData,setPlanData]=useState([]);
+ const navigate = useNavigate();
+  
   useEffect(() => {
     axios
-      .get(`${getInsurancePlanByIdRoute}/${companyId}`)
+      .get(`${getInsurancePlanByIdRoute}/${_id}`)
       .then((response) => {
         setCompanyData(response.data);
-        // setLoading(false);
         console.log("Data "+companyData.CoveredItems);
-        // const coveredItemsString = response.data.CoveredItems || '';
-        // const notCoveredItemsString = response.data.NotCoveredItems || '';
-        // const coveredItemsArray = coveredItemsString.split(',');
-        // const notCoveredItemsArray = notCoveredItemsString.split(',');
-        // setCompanyData({
-        //   ...response.data,
-        //   CoveredItems: coveredItemsArray,
-        //   NotCoveredItems: notCoveredItemsArray,
-        // });
       })
       .catch((error) => {
         console.error("Error fetching company data:", error);
-        // setError(error);
-        // setLoading(false);
+        console.log("Error 1 "+companyData);
+        console.log("Error 2 "+_id);
+        console.log("Error 3 "+CompanyID);
       });
-  }, [companyId]);
- 
+  }, [_id]);
+
+  useEffect(()=>{
+    axios
+    .get(`${getInsuranceCompanyByIdRoute}/${CompanyID}`)
+    .then((response) => {
+      setPlanData(response.data);
+      console.log("Plan Data "+response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching Plan data:", error);
+      console.log("Plan Error 1 "+companyData);
+      console.log("Plan Error 2 "+CompanyID);
+    });
+}, [CompanyID]); 
  
   //For small cards 
   const [insurancePlans, setInsurancePlans] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   useEffect( () => {
     // Make a GET request to fetch insurance plans
     axios.get(getAllInsurancePlansRoute) 
@@ -61,11 +67,10 @@ const InsuranceDetails = () => {
       });
   }, []);
 
-  const handleViewDetailsClick = (companyId) => {
+  const handleViewDetailsClick = (_id) => {
     // Use the history.push method to navigate to the details page
-    navigate(`/insurance/details/${companyId}`);
+    navigate(`/insurance/details/${_id}`);
   };
-
 
   return (
     <div>
@@ -76,52 +81,40 @@ const InsuranceDetails = () => {
             {" "}
             Coverage Details
           </Typography>
-          {companyData._id &&(
+          {companyData.CompanyID &&(
             <div>
              <PlanDetailCard
-              source="https://picsum.photos/200/200"
-              alt="logo"
-              deductibleNum={companyData.AnnualDeductable}
-              reimbursementNum={companyData.Reimbursement}
-              coverageNum={companyData.AnnualCoverage}
-              price={companyData.InsurancePrice}
+             source="https://picsum.photos/200/200"
+             alt="logo"
+             key={companyData._id}
+             deductibleNum={companyData.AnnualDeductible}
+             reimbursementNum={(companyData.Reimbursement)*100}
+             coverageNum={companyData.AnnualCoverage}
+             price={companyData.InsurancePrice}
+             CompanyID={companyData.CompanyID}
             />     
           </div>
           )}
           
-          <div>
+          {/* <div>
+          {companyData.CompanyID &&(
             <InsuranceCard
               title="Why Recommended"
-              text={companyData.Recommend}
+              text={CompanyID.Recommend}
               subtitle="Highlight of plan"
-              body={companyData.Highlights}
-            ></InsuranceCard>
-
-            {/* Put Why recommend component here  */}
-          </div>
+              body={CompanyID.Highlights}>
+            </InsuranceCard>
+            )}
+          </div> */}
 
           <div className={styles.InsuranceCoverageCenterDiv}>
             <div className={styles.InsuranceCoverageStyle}>
-              {/* <InsuranceCoverage descriptions={[
-                  "Covered Item 1",
-                  "Covered Item 2",
-                  "Covered Item 3",
-                  "Covered Item 4",
-                  "Covered Item 5",
-                ]} /> */}
-          <InsuranceCoverage descriptions={companyData.CoveredItems} />
-              {/* <InsuranceNotCovered descriptions={[
-                  "Not Covered Item 1",
-                  "Not Covered Item 2",
-                  "Not Covered Item 3",
-                  
-                ]}/> */}
+              <InsuranceCoverage descriptions={companyData.CoveredItems} />
               <InsuranceNotCovered descriptions={companyData.NotCoveredItems} />
-
-              {/* Put whats covered and whats not covered component here */}
-            </div>
+              </div>
           </div>
         </div>
+
 {/* Similar Plans Section */}
         <div className={styles.InsuranceDetailsSimilarPlans}>
           <Typography
@@ -131,20 +124,19 @@ const InsuranceDetails = () => {
             Compare to Similar Plans
           </Typography>
 
-            {insurancePlans.map((plan) => (
+            {insurancePlans.slice(0, 3).map((plan) => (
               // <div key={plan.CompanyID}>
                 <SmPlanDetailCard
                   smSource="https://picsum.photos/250/100"
                   key={plan._id}
                   smAlt="logo"
-                  smDeductibleNum={plan.AnnualDeductable}
-                  smReimbursementNum={plan.Reimbursement}
+                  smDeductibleNum={plan.AnnualDeductible}
+                  smReimbursementNum={plan.Reimbursement*100}
                   smCoverageNum={plan.AnnualCoverage}
                   smPrice={plan.InsurancePrice}
-                  companyId={plan.CompanyID}
+                  CompanyID={plan.CompanyID}
                   onClick={() => handleViewDetailsClick(plan._id)}
                 />
-              // </div>
             ))}
         </div>
       </div>
