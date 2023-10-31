@@ -10,7 +10,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import { createPetFoodRoute,createPetLogRoute,searchPetsByUserIDRoute } from '../../utils/APIRoutes';
 import axios from 'axios';
 
-const PetLogForm = ({ selectedPet }) => {
+const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
   // const [pets,setPets] =useState([]);
   const [foodDate, setFoodDate] = useState(new Date());
 
@@ -86,6 +86,10 @@ const PetLogForm = ({ selectedPet }) => {
   
       await setFoodData(updatedFoodData);
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
+      if (selectedPet && selectedPet._id) {
+        // ...
+        onPetLogSubmit(response.data); 
+      }
       console.log(response);
       console.log('Data submitted');
     } else {

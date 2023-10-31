@@ -11,7 +11,7 @@ import {
 } from "../../utils/APIRoutes";
 import AutocompleteComponent from "../AutocompleteTextfield/AutocompleteTextfield";
 
-const AppointmentForm = ({selectedPet}) => {
+const AppointmentForm = ({selectedPet,onAppointmentSubmit}) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
   // const clinicData = ["Clinic A", "Clinic B", "Clinic C"];
   const [clinicData, setClinicData] = useState([]);
@@ -68,6 +68,10 @@ const AppointmentForm = ({selectedPet}) => {
         const response = await axios.post(createPetAppointmentRoute, updatedFormData);
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
+        if (selectedPet && selectedPet._id) {
+          // ...
+          onAppointmentSubmit(response.data); 
+        }
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
         console.error("Error submitting form:", error);
