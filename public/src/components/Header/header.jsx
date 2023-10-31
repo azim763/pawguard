@@ -35,7 +35,7 @@ const Header = () => {
               <NavLink to="/getinsurances">Insurances</NavLink>
             </li>
             <li>
-              <UserSVG width="33" height="33" />
+              <UserSVG width="48" height="48" />
             </li>
           </ul>
         </div>
