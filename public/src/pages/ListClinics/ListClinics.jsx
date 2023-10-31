@@ -177,7 +177,7 @@ const ListClinics = () => {
           </Typography>
         </div>
         <div className={styles.multiplePetSelection}>
-          {petData.map((pet, index) => (
+          {/* {petData.map((pet, index) => (
             <PetSelection
               key={index}
               imgUrl={pet.imgUrl}
@@ -185,7 +185,7 @@ const ListClinics = () => {
               isSelected={index === selectedPet}
               // onClick={() => handlePetClick(index)}
             />
-          ))}
+          ))} */}
         </div>
         <div className={styles.clinicSearch}>
           <div className={styles.dropDownClinics}>

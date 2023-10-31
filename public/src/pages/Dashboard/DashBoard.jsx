@@ -3,15 +3,23 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, searchPetsByUserIDRoute, searchPetFoodByPetIDRoute, host } from "../../utils/APIRoutes";
+import { Link } from "react-router-dom";
+import PlusSVG from "../../components/SVG/PlusSVG";
+import {
+  allUsersRoute,
+  searchPetsByUserIDRoute,
+  searchPetFoodByPetIDRoute,
+  host,
+} from "../../utils/APIRoutes";
 import Logout from "../../components/Logout";
 import Header from "../../components/Header/header";
 import DashCalendar from "../../components/Calendar/calendar";
 import Background from "../../assets/background2.gif";
 import Graph from "../../components/Graph/Graph";
-import styles from "./DashBoard.module.css"
+import styles from "./DashBoard.module.css";
 import TotalPets from "../../components/TotalPets/TotalPets";
-
+import PetSelection from "../../components/PetSelection/PetSelection";
+import Typography from "../../components/Typography/Typography";
 
 export default function Chat() {
   const [pets, setPets] = useState([]);
@@ -23,6 +31,7 @@ export default function Chat() {
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
+    console.log(selectedPet);
   };
 
   useEffect(() => {
@@ -31,7 +40,6 @@ export default function Chat() {
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,11 +78,11 @@ export default function Chat() {
     fetchData();
   }, [selectedPet]);
 
-
-
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+      const storedData = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
 
       if (!storedData) {
         navigate("/login");
@@ -86,7 +94,6 @@ export default function Chat() {
 
     checkLoggedIn();
   }, []);
-
 
   // useEffect(async() => {
   //   if (currentUser) {
@@ -105,13 +112,24 @@ export default function Chat() {
       <div className={styles.dashboardContainer}>
         <Logout />
         <div className={styles.dashboardPetCard}>
-          <h1>MY PETS</h1>
-         
+          <Typography variant="h2-poppins-semibold" color="almost-black">
+            MY PETS
+          </Typography>
+          <div>
+            {pets &&
+              pets.map((pet) => (
+                // Use a Link to navigate to individual profile PetPage
+                <Link key={pet._id} to={`/petPage/${pet._id}`} state={{ pets: pets }}>
+                  <PetSelection PetImageData={pet.PetImageName} PetName={pet.PetName} />
+                </Link>
+              ))}
+          </div>
+          <Link to="addPet">
+            <PlusSVG />
+          </Link>
         </div>
         <div className={styles.dashboardGraph}>
-        {pets && (
-            <TotalPets pets={pets} onPetSelect={handlePetSelection} />
-          )}
+          {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
           {selectedPet && (
             <Graph
               names={foods.map((food) => food.MealPerDay)}
@@ -134,9 +152,9 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #dedfdc;
-  .graphStyle{
-    z-index:200;
-    background-color:white;
+  .graphStyle {
+    z-index: 200;
+    background-color: white;
   }
   .container {
     height: 85vh;
