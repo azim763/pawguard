@@ -11,8 +11,10 @@ import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Header from "../../components/Header/header";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
+import ImageDisplay from "../../components/ImageDisplay/ImageDisplay"
 const AddPet = () => {
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null)
 
   const petType = [
     { value: "dog", label: "Dog" },
@@ -126,6 +128,7 @@ const AddPet = () => {
       ...petData,
       PetImageName: data, // Use the 'data' parameter instead of 'imageData'
     });
+    setSelectedImage(data);
     console.log(data); // This logs the image data
     console.log(petData); // This logs the petData with the updated PetImageName
   };
@@ -163,10 +166,15 @@ const AddPet = () => {
           Add Pet
         </Typography>
       </div>
-      {/* <img src={selectedImage} alt="Selected" width="200" height="200" /> */}
       <div className={styles.addPetForm}>
         <form action="/submit" method="post" onSubmit={onClickHandler}>
-          <SingleImageUpload onImageUpload={handleImageUpload} />
+          <div>
+            <SingleImageUpload onImageUpload={handleImageUpload} />
+            <div className={styles.showImage}>
+              <ImageDisplay PetImageData={selectedImage}></ImageDisplay>
+            </div>
+          </div>
+
 
           <TextInput
             size="md"
