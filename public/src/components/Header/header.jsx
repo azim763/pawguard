@@ -38,7 +38,7 @@ const Header = () => {
               <UserSVG width="48" height="48" />
             </li>
           </ul>
-        </div>
+          </div>
         <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
       </Typography>
     </nav>
