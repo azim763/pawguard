@@ -26,7 +26,7 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/petPage">My Pets</NavLink>
+              <NavLink to="/petPage[/:profileID]">My Pets</NavLink>
             </li>
             <li>
               <NavLink to="/clinics">Clinics</NavLink>

@@ -34,7 +34,7 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/clinics" element={<ListClinics />} />
         <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/petPage/:profileID" element={<PetPage />} />
+        <Route path="/petPage[/:profileID]" element={<PetPage />} />
         <Route path="/addPet" element={<AddPet />} />
         <Route path="/exportpetLog" element={<ExportpetLog />} />
         
