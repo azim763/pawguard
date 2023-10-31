@@ -12,6 +12,7 @@ import Checkbox from "../../components/Checkbox/Checkbox";
 import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 import { searchPetsByUserIDRoute } from "../../utils/APIRoutes.js";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
+import AutocompleteClinic from "../../components/AutocompleteClinic/AutocompleteClinic";
 
 let originalClinicData = [];
 
@@ -44,6 +45,7 @@ const ListClinics = () => {
   const [clinicData, setClinicData] = useState([]);
   const [urgentCareChecked, setUrgentCareChecked] = useState(false);
   const [open24hrsChecked, setOpen24hrsChecked] = useState(false);
+  const [clinicInfo, setClinicInfo] = useState([]);
 
   const navigate = useNavigate();
   const petData = [
@@ -58,6 +60,7 @@ const ListClinics = () => {
       .then((response) => {
         console.log(response.data);
         setClinicData(response.data);
+        setClinicInfo(response.data)
         originalClinicData = response.data;
       })
       .catch((error) => {
@@ -218,8 +221,16 @@ const ListClinics = () => {
                 "Ultrasound",
               ]}
             />
-
-            <TextInputIcon label="Location" />
+            <Typography variant="body2-poppins-medium">City: </Typography>
+            {clinicInfo.length > 0 && (
+              <AutocompleteClinic
+                clinicInfo={clinicInfo}
+                handleSelection={(selectedClinic) => {
+                  console.log("Selected Clinic:", selectedClinic);
+                  console.log(selectedClinic);
+                }}
+              />
+            )}
           </div>
 
           <Checkbox
