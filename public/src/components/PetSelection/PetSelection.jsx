@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import styles from './petSelection.module.css';
+import React, { useState } from "react";
+import styles from "./petSelection.module.css";
+import Typography from "../Typography/Typography";
+import ImageDisplay from "../ImageDisplay/ImageDisplay";
 
-const PetSelection = ({ imgUrl, petName, isSelected, onClick }) => {
-  const containerClassName = isSelected
-    ? `${styles.petSelection} ${styles.selected}`
-    : styles.petSelection;
-
-  const handleImageClick = () => {
-    onClick();
-  };
-
+const PetSelection = ({ PetName, PetImageData, onClick }) => {
   return (
-    <div className={containerClassName} onClick={handleImageClick}>
-      <img src={imgUrl} alt={petName + ' image'} />
-      <p>{petName}</p>
+    <div
+      className={styles.petCard}
+      onClick={onClick}
+    >
+      <ImageDisplay PetImageData={PetImageData} />
+      <Typography variant="sub-h1-poppins-semibold">{PetName}</Typography>
     </div>
   );
 };
