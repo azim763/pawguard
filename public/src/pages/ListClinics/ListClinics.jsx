@@ -13,11 +13,54 @@ import TextInputIcon from "../../components/TextInputIcon/TextInputIcon";
 import { searchPetsByUserIDRoute } from "../../utils/APIRoutes.js";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 import AutocompleteClinic from "../../components/AutocompleteClinic/AutocompleteClinic";
+import Dropdown from "../../components/Dropdown/Dropdown";
 
 let originalClinicData = [];
 
 const ListClinics = () => {
+
+
+  const [selectedPet, setSelectedPet] = useState(null);
+  const [clinicData, setClinicData] = useState([]);
+  const [urgentCareChecked, setUrgentCareChecked] = useState(false);
+  const [open24hrsChecked, setOpen24hrsChecked] = useState(false);
+  const [clinicInfo, setClinicInfo] = useState([]);
   const [pets, setPets] = useState([]);
+  const [selectedClinicName, setselectedClinicName] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [sort, setSort] = useState(true);
+
+  const handleDropdownChange = (value) => {
+    console.log("Dropdown value changed:", value);
+
+    // Convert the value to a boolean if it's a string
+    const isAscending = value === "true"; // Assuming "true" represents ascending order
+
+    setSort(isAscending);
+  };
+
+  useEffect(() => {
+    // Sort the clinicData whenever the sorting criteria change (sort state changes)
+    const sortedClinicData = [...clinicData];
+    sortedClinicData.sort((a, b) => {
+      if (sort !== null) {
+        if (sort) {
+          return b.Rating - a.Rating; // High to low
+        } else {
+          return a.Rating - b.Rating; // Low to high
+        }
+      }
+      return 0; // Default behavior when sort is not set
+    });
+    setClinicData(sortedClinicData);
+  }, [sort]);
+  
+
+
+
+  const handleSelectedOptions = (selectedValues) => {
+    setSelectedOptions(selectedValues);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,11 +84,6 @@ const ListClinics = () => {
 
   // const options = ["Dentistry", "Allergies"];
 
-  const [selectedPet, setSelectedPet] = useState(null);
-  const [clinicData, setClinicData] = useState([]);
-  const [urgentCareChecked, setUrgentCareChecked] = useState(false);
-  const [open24hrsChecked, setOpen24hrsChecked] = useState(false);
-  const [clinicInfo, setClinicInfo] = useState([]);
 
   const navigate = useNavigate();
   const petData = [
@@ -101,34 +139,25 @@ const ListClinics = () => {
     console.log(originalClinicData);
   };
 
+  const sortBy = [
+    { value: true, label: 'SortBy:Rating from high to low' },
+    { value: false, label: 'SortBy:Rating from low to high' }
+  ];
+
   const onClickHandler = () => {
-    const matchesUrgentCare = urgentCareChecked;
-    const matchesOpen24hrs = open24hrsChecked;
+    const filteredResults = originalClinicData.filter((clinic) => {
+      const matchesUrgentCare = !urgentCareChecked || clinic.UrgentCare;
+      const matchesOpen24hrs = !open24hrsChecked || clinic.Open24;
+      const cityFilter = !selectedClinicName || clinic.City === selectedClinicName;
+      const specialtyFilter = selectedOptions.length === 0 || selectedOptions.includes(clinic.Specialty);
 
-    if (matchesUrgentCare || matchesOpen24hrs) {
-      const filteredResults = originalClinicData.filter((clinic) => {
-        return (
-          (!matchesUrgentCare || clinic.UrgentCare) &&
-          (!matchesOpen24hrs || clinic.Open24)
-        );
-      });
+      // Check if any filter is applied, and only apply relevant filters
+      return (!urgentCareChecked || matchesUrgentCare) && (!open24hrsChecked || matchesOpen24hrs) && (!selectedClinicName || cityFilter) && (selectedOptions.length === 0 || specialtyFilter);
+    });
 
-      setClinicData(filteredResults);
-      console.log(filteredResults);
-    } else if (matchesUrgentCare && matchesOpen24hrs) {
-      const filteredResults = originalClinicData.filter((clinic) => {
-        return (
-          (matchesUrgentCare || clinic.UrgentCare) &&
-          (matchesOpen24hrs || clinic.Open24)
-        );
-      });
-      setClinicData(filteredResults);
-      console.log(filteredResults);
-    } else {
-      setClinicData(originalClinicData);
-      console.log(originalClinicData);
-    }
+    setClinicData(filteredResults);
   };
+
 
   //     const matchesUrgentCare = urgentCareChecked ? clinic.UrgentCare : false;
   //     const matchesOpen24hrs = open24hrsChecked ? clinic.Open24 : false;
@@ -183,7 +212,7 @@ const ListClinics = () => {
               imgUrl={pet.imgUrl}
               petName={pet.petName}
               isSelected={index === selectedPet}
-              // onClick={() => handlePetClick(index)}
+            // onClick={() => handlePetClick(index)}
             />
           ))}
         </div>
@@ -219,15 +248,21 @@ const ListClinics = () => {
                 "Senior",
                 "Surgery",
                 "Ultrasound",
-              ]}
+              ]
+
+              }
+              onSelect={handleSelectedOptions}
+
             />
+           
             <Typography variant="body2-poppins-medium">City: </Typography>
             {clinicInfo.length > 0 && (
               <AutocompleteClinic
                 clinicInfo={clinicInfo}
                 handleSelection={(selectedClinic) => {
                   console.log("Selected Clinic:", selectedClinic);
-                  console.log(selectedClinic);
+                  console.log(selectedClinic.City);
+                  setselectedClinicName(selectedClinic.City)
                 }}
               />
             )}
@@ -252,20 +287,32 @@ const ListClinics = () => {
             size="dk-md-s"
             onClickHandler={onClickHandler}
           />
+
+<Dropdown
+              label="Sort By"
+              id="sortBy"
+              name="sortBy"
+              options={sortBy}
+              onChange={(selectedValue) => handleDropdownChange(selectedValue)}
+            />
         </div>
 
-        {clinicData.map((clinic) => (
-          <ClinicDetailCard
-            key={clinic._id}
-            clinicName={clinic.Name}
-            clinicRating={clinic.Rating}
-            clinicAddress={clinic.Address}
-            specialtiesString={clinic.Specialty}
-            source={clinic.ImageUrl}
-            open24={clinic.Open24 ? "Open 24" : "Not open 24"}
-            handleClickDetails={() => handleClickDetails(clinic._id)}
-          />
-        ))}
+        {clinicData.length === 0 ? (
+          <p>No results found.</p>
+        ) : (
+          clinicData.map((clinic) => (
+            <ClinicDetailCard
+              key={clinic._id}
+              clinicName={clinic.Name}
+              clinicRating={clinic.Rating}
+              clinicAddress={clinic.Address}
+              specialtiesString={clinic.Specialty}
+              source={clinic.ImageUrl}
+              open24={clinic.Open24 ? "Open 24" : "Not open 24"}
+              handleClickDetails={() => handleClickDetails(clinic._id)}
+            />
+          )))
+        }
       </main>
     </div>
   );
