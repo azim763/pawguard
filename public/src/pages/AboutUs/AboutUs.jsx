@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/header";
 import styles from "../AboutUs/AboutUs.module.css";
 import Typography from "../../components/Typography/Typography";
@@ -8,6 +9,7 @@ import AboutUsFeature from "../../components/AboutUsFeature/AboutUsFeature";
 import AboutUsProfile from "../../components/AboutUsProfile/AboutUsProfile";
 
 const AboutUs = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,6 +37,10 @@ const AboutUs = () => {
     // }
   };
 
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
   return (
     <div className={styles.AboutUspage}>
       <Header />
@@ -49,9 +55,16 @@ const AboutUs = () => {
               eveniet dolor, quos inventore aliquam accusantium eaque
               repellendus quia repudiandae quam.
             </Typography>
-            <Button variant="blue-yellow" label="Get Started" size="dk-md" />
+            <Button
+              onClick={handleLoginClick}
+              variant="blue-yellow"
+              label="Get Started"
+              size="dk-md"
+            />
           </div>
-          <div><img src="https://picsum.photos/400/250" alt="" /></div>
+          <div>
+            <img src="https://picsum.photos/400/250" alt="" />
+          </div>
         </div>
         <div className={styles.abtUs2}>
           <Typography variant="h2-poppins-semibold" color="almost-black">

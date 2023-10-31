@@ -11,10 +11,10 @@ import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Header from "../../components/Header/header";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
-import ImageDisplay from "../../components/ImageDisplay/ImageDisplay"
+import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
 const AddPet = () => {
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const petType = [
     { value: "dog", label: "Dog" },
@@ -28,8 +28,6 @@ const AddPet = () => {
 
   let bloodType;
   let breedType;
-
-  //   const breedType = fetch function from db;
 
   const preExistingMedical = [
     "Arthritis XD",
@@ -52,14 +50,17 @@ const AddPet = () => {
     "Ultrasound",
   ];
 
+  const defaultGender = gender && gender.length > 0 ? gender[0].value : "";
+  const defaultSpecies = petType && petType.length > 0 ? petType[0].value : "";
+
   const [petData, setPetData] = useState({
     UserID: "",
     PetName: "",
-    Gender: "",
-    Species: "",
-    Breed: "",
+    Gender: defaultGender,
+    Species: defaultSpecies,
+    Breed: "Beagle",
     Birthday: "",
-    BloodType: "",
+    BloodType: "DEA1",
     Height: "",
     Weight: "",
     PreExistingMedical: "",
@@ -135,19 +136,21 @@ const AddPet = () => {
 
   const onClickHandler = async (event) => {
     event.preventDefault();
-  
+
     try {
-      const storedData = await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
-      
+      const storedData = await JSON.parse(
+        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
+
       const updatedPetData = {
         ...petData,
         UserID: storedData._id,
       };
-  
+
       setPetData(updatedPetData);
-  
+
       const response = await axios.post(createPetRoute, updatedPetData);
-      
+
       // Handle successful submission
       console.log("Data submitted successfully:", response.data);
       navigate("/");
@@ -156,7 +159,6 @@ const AddPet = () => {
       // Handle the error, e.g., display an error message to the user.
     }
   };
-  
 
   return (
     <div>
@@ -174,7 +176,6 @@ const AddPet = () => {
               <ImageDisplay PetImageData={selectedImage}></ImageDisplay>
             </div>
           </div>
-
 
           <TextInput
             size="md"
@@ -198,6 +199,7 @@ const AddPet = () => {
             label="Breed *"
             id="Breed"
             options={breedType}
+            value={breedType[0]}
             onChange={(selectedValue) =>
               handleDropdownChange("Breed", selectedValue)
             }
@@ -227,6 +229,7 @@ const AddPet = () => {
             label="Blood type"
             id="BloodType"
             options={bloodType}
+            value={bloodType[0]}
             onChange={(selectedValue) =>
               handleDropdownChange("BloodType", selectedValue)
             }
@@ -257,13 +260,18 @@ const AddPet = () => {
             label="Pre-existing medical conditions"
             options={preExistingMedical}
           />
-          <TextInput
-            size="md"
-            id="Description"
-            label="Pet Notes"
-            placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
-            onChange={handleInputChange}
-          />
+          <div>
+            <label htmlFor="Description">Pet Notes</label>
+            <br />
+            <textarea
+              name="Description"
+              id="Description"
+              cols="30"
+              rows="10"
+              placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
           <Button
             type="submit"
             variant="yellow"

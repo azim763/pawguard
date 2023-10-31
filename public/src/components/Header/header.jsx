@@ -26,7 +26,7 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/petPage">My Pets</NavLink>
+              <NavLink to="/petPage[/:profileID]">My Pets</NavLink>
             </li>
             <li>
               <NavLink to="/clinics">Clinics</NavLink>
@@ -35,10 +35,10 @@ const Header = () => {
               <NavLink to="/getinsurances">Insurances</NavLink>
             </li>
             <li>
-              <UserSVG width="33" height="33" />
+              <UserSVG width="48" height="48" />
             </li>
           </ul>
-        </div>
+          </div>
         <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
       </Typography>
     </nav>

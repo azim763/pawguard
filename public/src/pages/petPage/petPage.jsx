@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -25,7 +26,10 @@ import TotalPets from "../../components/TotalPets/TotalPets";
 import Map from "../../components/Map/Map";
 
 const PetPage = () => {
-  const [pets, setPets] = useState([]);
+  const location = useLocation();
+  const initialPets = location.state?.pets || [];
+  const { profileID } = useParams();
+  const [pets, setPets] = useState(initialPets);
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
   const [petMedications, setPetMedications] = useState([]);
@@ -33,7 +37,51 @@ const PetPage = () => {
   const [selectedPet, setSelectedPet] = useState("");
   // const [clinicLatitude, setClinicLatitude] = useState();
   // const [clinicLongitude, setClinicLongitude] = useState();
+  console.log(pets)
 
+  // useEffect(() => {
+  //   const foundPet = pets.find((pet) => pet._id === profileID); // Adjust the property (e.g., _id) you are using for comparison
+  //   if (foundPet) {
+  //     setSelectedPet(foundPet);
+  //   } else {
+  //     // Handle the case where the pet with the given profileID is not found
+  //   }
+  // }, [profileID, pets]);
+  
+
+  useEffect(() => {
+    const foundPet = pets.find((pet) => pet._id === profileID); // Adjust the property (e.g., _id) you are using for comparison
+    if (foundPet) {
+      setSelectedPet(foundPet);
+    } else {
+      // Handle the case where the pet with the given profileID is not found
+  
+      // Start the second useEffect for fetching pets
+      const fetchData = async () => {
+        try {
+          const storedData = localStorage.getItem(
+            process.env.REACT_APP_LOCALHOST_KEY
+          );
+          if (storedData) {
+            const data = JSON.parse(storedData);
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
+            await setPets(response.data);
+            if (!selectedPet && response.data.length > 0) {
+              setSelectedPet(response.data[0]);
+            }
+          }
+        } catch (error) {
+          // Handle any errors here
+        }
+      };
+  
+      fetchData();
+      // End the second useEffect
+    }
+  }, [profileID, pets, selectedPet]);
+  
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
   };
@@ -97,30 +145,28 @@ const PetPage = () => {
       });
   }, [selectedPet._id]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedData = localStorage.getItem(
-          process.env.REACT_APP_LOCALHOST_KEY
-        );
-        if (storedData) {
-          const data = JSON.parse(storedData);
-          const response = await axios.get(searchPetsByUserIDRoute, {
-            params: { userID: data._id },
-          });
-          await setPets(response.data);
-          // Set the initially selected pet to be the first pet if not already selected
-          if (!selectedPet && response.data.length > 0) {
-            setSelectedPet(response.data[0]);
-          }
-        }
-      } catch (error) {
-        // Handle any errors here
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const storedData = localStorage.getItem(
+  //         process.env.REACT_APP_LOCALHOST_KEY
+  //       );
+  //       if (storedData) {
+  //         const data = JSON.parse(storedData);
+  //         const response = await axios.get(searchPetsByUserIDRoute, {
+  //           params: { userID: data._id },
+  //         });
+  //         await setPets(response.data);
+  //         if (!selectedPet && response.data.length > 0) {
+  //           setSelectedPet(response.data[0]);
+  //         }
+  //       }
+  //     } catch (error) {
+  //     }
+  //   };
 
-    fetchData();
-  }, [selectedPet]);
+  //   fetchData();
+  // }, [selectedPet]);
 
   const tabToButtonLabel = {
     petLog: "PetLog",

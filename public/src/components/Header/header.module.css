@@ -15,6 +15,7 @@ nav div {
   align-items: center;
   padding-left: 5rem;
   align-content: center;
+  opacity: 0;
 }
 
 nav div ul li {
@@ -38,11 +39,14 @@ nav li a:hover {
 
 @media only screen and (max-width: 700px) {
   .RightNav ul {
-    display: none;
-    transition: opacity 0.6s ease; /* Slower transition */
+    transform: translateX(100%);
   }
- 
-.menuOpen ul{
+
+  /* .menuOpen {
+    transition: all 1s ease-in-out;
+  } */
+
+  .menuOpen ul {
     display: flex;
     flex-flow: column nowrap;
     position: fixed;
@@ -53,9 +57,7 @@ nav li a:hover {
     width: 30vw;
     align-items: center;
     justify-content: center;
+    transform: translateX(0); /* Slide the menu in from the right */
+    transition: transform 0.6s ease;
   }
-    /* opacity: 1;
-    transition: opacity 0.6s ease; 
-    } */
-
 }
