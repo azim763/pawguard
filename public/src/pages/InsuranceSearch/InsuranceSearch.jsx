@@ -19,9 +19,13 @@ const InsuranceSearch = () => {
   const [selectedGender, setSelectedGender] = useState('');
   const [insurancePlans, setInsurancePlans] = useState([]);
   const [filteredInsurancePlans, setFilteredInsurancePlans] = useState([]);
+  const [selectedPetName, setSelectedPetName] = useState(""); 
+  const [userId, setUserId] = useState(null); 
+
   const navigate = useNavigate();
 
   const catBreeds = [
+    { value: 'Select the Breed', label: 'Select the Breed' },
     { value: 'AmericanShortHair', label: 'American ShortHair' },
     { value: 'Birman', label: 'Birman' },
     { value: 'DevonRex', label: 'Devon Rex' },
@@ -39,6 +43,7 @@ const InsuranceSearch = () => {
   ];
   
   const dogBreeds = [
+    { value: 'Select the Breed', label: 'Select the Breed' },
     { value: 'BostonTerrier', label: 'Boston Terrier' },
     { value: 'Chihuahua', label: 'Chihuahua' },
     { value: 'Dachshund', label: 'Dachshund' },
@@ -57,6 +62,7 @@ const InsuranceSearch = () => {
   ];
   
   const petAge = [
+    { value: 'Select the Pet Age', label: 'Select the Pet Age' },
     { value: '8 weeks - 11 months', label: '8 weeks - 11 months' },
     { value: '1 year', label: '1 year' },
     { value: '2 year', label: '2 year' },
@@ -110,17 +116,32 @@ const InsuranceSearch = () => {
     }
   };
 
+  const handlePetSelection = (petName) => {
+    setSelectedPetName(petName);
+  };
+
+  // Fetch pets associated with the logged-in user
+useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+
   //to fetch pet data
   useEffect(() => {
-    axios.get(getAllPetsRoute)
+    axios
+      .get(getAllPetsRoute, {
+        params: { userId: userId }, // Use the userId state variable
+      })
       .then((response) => {
-        console.log("here is the pet data:"+response.data);
         setPets(response.data);
       })
       .catch((error) => {
         console.error("Error fetching pet data:", error);
       });
-  }, []);
+  }, [userId]);
+
   //to fetch insuarnce plans
   useEffect(() => {
     const fetchInsurancePlans = async () => {
@@ -147,37 +168,28 @@ const InsuranceSearch = () => {
           Select the pet you would like to get quotes
         </div>
       </Typography>
-      {/*     
-       NOT INCLUDED NOW   
-      <Typography variant="sub-h2-poppins-medium" color="almost-black">
-        <div
-          style={{
-            textAlign: "center",
-            textDecoration: "underline",
-            marginBottom: "2%",
-          }}
-        >
-          <p>Enter new pet's information</p>
-          <a href = "" style = {{color: "var(--almost-black)"}}>Enter new pet's information</a>
-        </div>
-      </Typography> */}
 
       <div className={styles.petSelectionContainer}>
-      {pets && Array.isArray(pets) && pets.map((pet) => (
-        <PetSelectionPage
-          key={pet._id}
-          imgUrl={pet.PetImageName}
-          petName={pet.PetName}
-        />
-      ))}
+      {pets &&
+    Array.isArray(pets) &&
+    pets.map((pet) => (
+      <PetSelectionPage
+        key={pet._id}
+        imgUrl={pet.PetImageName}
+        petName={pet.PetName}
+        onClick={handlePetSelection} 
+      />
+    ))}
+
       </div>
 
       <div className={styles.formContainer}>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            About Pet Milo
-          </div>
-        </Typography>
+      <Typography variant="h1-poppins-semibold" color="almost-black">
+        <div
+          style={{ textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>
+          {selectedPetName ? `About your ${selectedPetName}` : "Tell us about your Pet"}
+        </div>
+      </Typography>
 
         <div style={{ marginBottom: "40px" }}>
           <Typography variant="body2-poppins-medium" color="almost black">
@@ -202,11 +214,11 @@ const InsuranceSearch = () => {
             key="ageDropdown"
             value={selectedAge}
             onChange={handlePetAgeChange}
-            defaultValue="Select an Age" 
+            // defaultValue="Select an Age" 
             options={petAge}
             placeholder="Select an Age"
             required={true} 
-            size="large"
+            size="ml"
       />
         </div>
 
@@ -221,9 +233,9 @@ const InsuranceSearch = () => {
               value={selectedBreed}
               onChange={handleBreedChange}
               placeholder="Select a breed"
-              defaultValue="Select a breed"
+              // defaultValue="Select a breed"
               options={selectedPetType === 'Cat' ? catBreeds : dogBreeds}
-              size="large"
+              size="ml"
             />
         </div>
      
