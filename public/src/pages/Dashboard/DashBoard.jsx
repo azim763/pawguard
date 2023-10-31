@@ -10,6 +10,8 @@ import {
   searchPetsByUserIDRoute,
   searchPetFoodByPetIDRoute,
   host,
+  searchPetAppointmentsByPetIDRoute,
+  searchPetMedicationsByPetIDRoute,
 } from "../../utils/APIRoutes";
 import Logout from "../../components/Logout";
 import Header from "../../components/Header/header";
@@ -20,6 +22,9 @@ import styles from "./DashBoard.module.css";
 import TotalPets from "../../components/TotalPets/TotalPets";
 import PetSelection from "../../components/PetSelection/PetSelection";
 import Typography from "../../components/Typography/Typography";
+import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard";
+import DashAptCard from "../../components/DashAptCard/DashAptCard";
+
 
 export default function Chat() {
   const [pets, setPets] = useState([]);
@@ -28,6 +33,8 @@ export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [appointments, setAppointment] = useState([]);
+  const [medication, setMedication] = useState([]);
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -79,6 +86,38 @@ export default function Chat() {
   }, [selectedPet]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseApt = await axios.get(searchPetAppointmentsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
+        setAppointment(responseApt.data);
+        console.log(responseApt.data);
+      } catch (error) {
+        console.error("Error fetching pet appointment:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseMed = await axios.get(searchPetMedicationsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
+        setMedication(responseMed.data);
+        console.log(responseMed.data);
+      } catch (error) {
+        console.error("Error fetching pet medication:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
     const checkLoggedIn = async () => {
       const storedData = localStorage.getItem(
         process.env.REACT_APP_LOCALHOST_KEY
@@ -119,8 +158,15 @@ export default function Chat() {
             {pets &&
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
-                <Link key={pet._id} to={`/petPage/${pet._id}`} state={{ pets: pets }}>
-                  <PetSelection PetImageData={pet.PetImageName} PetName={pet.PetName} />
+                <Link
+                  key={pet._id}
+                  to={`/petPage/${pet._id}`}
+                  state={{ pets: pets }}
+                >
+                  <PetSelection
+                    PetImageData={pet.PetImageName}
+                    PetName={pet.PetName}
+                  />
                 </Link>
               ))}
           </div>
@@ -128,14 +174,30 @@ export default function Chat() {
             <PlusSVG />
           </Link>
         </div>
-        <div className={styles.dashboardGraph}>
-          {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
-          {selectedPet && (
-            <Graph
-              names={foods.map((food) => food.MealPerDay)}
-              values={foods.map((food) => food.FoodDate)}
-            />
-          )}
+
+        <div className={styles.middleContainer}>
+          <div className={styles.middleTitle}>
+            <Typography variant="sub-h2-poppins-medium">
+              {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
+            </Typography>
+
+            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+          </div>
+          <div>
+            <DashMedicineCard numOfMedicine={medication.length}/>
+          </div>
+          <div>
+            <DashAptCard numOfApt={appointments.length} />
+          </div>
+          <div className={styles.dashboardGraph}>
+            {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
+            {selectedPet && (
+              <Graph
+                names={foods.map((food) => food.MealPerDay)}
+                values={foods.map((food) => food.FoodDate)}
+              />
+            )}
+          </div>
         </div>
         <DashCalendar />
       </div>

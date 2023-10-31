@@ -15,5 +15,19 @@
 .dashboardPetCard {
     width: 325px;
     background-color: var(--light-blue) !important;
-    
 }
+
+.middleContainer{
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: .5fr 1fr 3fr;
+    column-gap: 20px;
+    padding: 24px 20px; 
+}
+
+.middleTitle{
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+  }
