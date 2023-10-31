@@ -10,7 +10,7 @@ const router = require("express").Router();
 
 router.post("/allinsurancecompanies", getAllInsuranceCompanies);
 router.post("/create", createInsuranceCompany);
-router.post("/getinsurancecompanybyid/:id", getInsuranceCompanyById);
+router.get("/getinsurancecompanybyid/:id", getInsuranceCompanyById);
 router.get("/update/:id", updateInsuranceCompanyById);
 router.get("/delete/:id", deleteInsuranceCompanyById);
 module.exports = router;
