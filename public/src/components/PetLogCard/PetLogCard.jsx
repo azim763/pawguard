@@ -2,22 +2,43 @@ import React from "react";
 import Typography from "../Typography/Typography";
 import DeleteSVG from "../SVG/DeleteSVG";
 import styles from "./petLogCard.module.css";
+import axios from "axios"
+import {
+  deletePetLogByIdRoute,
 
-const PetLogCard = ({ PetLogDate, PetLogTime }) => {
+} from "../../utils/APIRoutes.js";
+
+
+const PetLogCard = ({ PetLogDate, PetLogTime,logId, onDelete }) => {
+  const timestamp = new Date(PetLogTime);
+  const timeString = timestamp.toLocaleTimeString('en-US', { timeStyle: 'medium' });
+
+  const handleDeleteClick = () => {
+    
+    axios.delete(`${deletePetLogByIdRoute}/${logId}`) 
+      .then(response => {
+        console.log(`Log entry with ID ${logId} deleted successfully.`);
+        onDelete();
+      })
+      .catch(error => {
+        console.error(`Error deleting log entry with ID ${logId}:`, error);
+      });
+  };
+
   return (
     <div className={styles.petlogcardContainer}>
       <div>
         <div>
           <Typography variant="body1-poppins-semibold">Time</Typography>
-          <Typography variant="body3-poppins-regular">{PetLogDate}</Typography>
+          <Typography variant="body3-poppins-regular">{timeString}</Typography>
         </div>
       </div>
       <div>
         <Typography variant="body1-poppins-semibold">Date</Typography>
-        <Typography variant="body3-poppins-regular">{PetLogTime}</Typography>
+        <Typography variant="body3-poppins-regular">{PetLogDate}</Typography>
       </div>
       <div>
-        <DeleteSVG width="30" height="30" />
+        <DeleteSVG width="30" height="30"  onClick={handleDeleteClick}/>
       </div>
     </div>
   );

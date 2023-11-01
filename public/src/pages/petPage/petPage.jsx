@@ -61,6 +61,9 @@ const PetPage = () => {
   const handlePetLogSubmit = (newPetLogData) => {
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
+  const handlePetLogDelete = (deletedLogId) => {
+    setPetLog((prevPetLog) => prevPetLog.filter((log) => log._id !== deletedLogId));
+  };
 
 
   useEffect(() => {
@@ -111,7 +114,7 @@ const PetPage = () => {
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
   };
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -187,9 +190,14 @@ const PetPage = () => {
           {petLog.length > 0 && (
             <div>
               {petLog.map((log) => (
+                
                 <PetLogCard
                   PetLogDate={log.LogDate}
                   PetLogTime={log.timestamp}
+                  logId={log._id}
+                  onDelete={() => handlePetLogDelete(log._id)}
+
+
                 />
               ))}
             </div>

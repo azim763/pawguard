@@ -13,6 +13,8 @@ import axios from 'axios';
 const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
   // const [pets,setPets] =useState([]);
   const [foodDate, setFoodDate] = useState(new Date());
+  const [LogDate, setLogDate] = useState(new Date());
+
 
   
   // useEffect(() => {
@@ -84,7 +86,7 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
       console.log("Updated food data:", updatedFoodData);
   
-      await setFoodData(updatedFoodData);
+       setFoodData(updatedFoodData);
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       if (selectedPet && selectedPet._id) {
         // ...
@@ -116,7 +118,6 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
   
 
   const [formData, setFormData] = useState({
-    LogDate: new Date(),
     PetID:"",
     Weight: 0,
     ActivityLevel: "",
@@ -158,6 +159,17 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
     });
     setFoodDate(value);
   };
+  const handleLogDateChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = value.split('T')[0].split('-');
+    const resultDate = `${day}-${month}-${year}`;
+
+    setFormData({
+      ...formData,
+      [name]: resultDate,
+    });
+    setLogDate(value);
+  };
 
 
   return (
@@ -177,14 +189,8 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
               </div>
               <div className={styles.petLogFormLine1}>
                 <Typography variant="body2-poppins-medium">Date</Typography>
-                {formData.LogDate && (
-                  <DatePicker
-                    id="LogDate"
-                    name="LogDate"
-                    value={formData.LogDate.toISOString().split("T")[0]} // Format the date to 'yyyy-MM-dd'
-                    onChange={handleInputChange}
-                  />
-                )}
+                  <DatePicker onChange={handleLogDateChange} id="LogDate" value={LogDate}/>
+
                 <div className={styles.petWeight}>
                   <TextInput
                     id="Weight"
