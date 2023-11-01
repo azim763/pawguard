@@ -9,8 +9,10 @@ const PetSelection = ({ PetName, PetImageData, onClick }) => {
       className={styles.petCard}
       onClick={onClick}
     >
-      <ImageDisplay PetImageData={PetImageData} />
-      <Typography variant="sub-h1-poppins-semibold">{PetName}</Typography>
+      <div className={styles.imageContainer}>
+        <ImageDisplay PetImageData={PetImageData} />
+      </div>
+      <Typography variant="sub-h1-poppins-semibold" color="dark-blue">{PetName}</Typography>
     </div>
   );
 };

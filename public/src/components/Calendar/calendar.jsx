@@ -5,24 +5,11 @@ import { Calendar, Badge } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import DashCalendarCard from "../DashCalendarCard/DashCalendarCard";
 import styles from "./calendar.module.css";
-import "./calendar.css"
+import "./calendar.css";
 import Typography from "../Typography/Typography";
 
-const DashCalendar = () => {
+const DashCalendar = ({ petAppointments }) => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [petAppointments, setPetAppointments] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(getAllPetAppointmentsRoute)
-      .then((response) => {
-        console.log(response.data);
-        setPetAppointments(response.data);
-      })
-      .catch((error) => {
-        console.log("Error fetching data: ", error);
-      });
-  }, []);
 
   function formatDate(date) {
     return date.toLocaleDateString("en-US", {
@@ -39,8 +26,8 @@ const DashCalendar = () => {
     const selectedMonth = selectedDate.getMonth() + 1;
     const selectedYear = selectedDate.getFullYear();
 
-    const formattedDay = String(selectedDay).padStart(2, '0');
-    const formattedMonth = String(selectedMonth).padStart(2, '0');
+    const formattedDay = String(selectedDay).padStart(2, "0");
+    const formattedMonth = String(selectedMonth).padStart(2, "0");
     const selectedDateStr = `${formattedDay}-${formattedMonth}-${selectedYear}`;
 
     const matchingEvents = petAppointments.filter(
@@ -50,7 +37,7 @@ const DashCalendar = () => {
     console.log(selectedDateStr);
     console.log(matchingEvents);
     console.log(matchingEvents.length);
-    return matchingEvents
+    return matchingEvents;
   }
 
   function handleDateSelect(selectedDate) {
@@ -62,8 +49,8 @@ const DashCalendar = () => {
     const selectedMonth = selectedDate.getMonth() + 1;
     const selectedYear = selectedDate.getFullYear();
 
-    const formattedDay = String(selectedDay).padStart(2, '0');
-    const formattedMonth = String(selectedMonth).padStart(2, '0');
+    const formattedDay = String(selectedDay).padStart(2, "0");
+    const formattedMonth = String(selectedMonth).padStart(2, "0");
     const selectedDateStr = `${formattedDay}-${formattedMonth}-${selectedYear}`;
 
     const matchingEvent = petAppointments.find(
@@ -86,19 +73,21 @@ const DashCalendar = () => {
       />
 
       {selectedDate && getSelectedEvents().length > 0 && (
-        
-      <div>
-      <Typography variant="sub-h2-poppins-medium" color="dark-blue" style={{textAlign: "center", margin: "24px 0"}}>
-      {formatDate(selectedDate)}
-      </Typography>
+        <div>
+          <Typography
+            variant="sub-h2-poppins-medium"
+            color="dark-blue"
+            style={{ textAlign: "center", margin: "24px 0" }}
+          >
+            {formatDate(selectedDate)}
+          </Typography>
           {getSelectedEvents().map((item, index) => (
             <div key={index}>
               <DashCalendarCard
-              petName="Oreo"
-              cardTime= {item.AppointmentTime}
-              aptReason= {item.AppointmentReason}
-              clinicName= {item.ClinicName}
-
+                petName="Oreo"
+                cardTime={item.AppointmentTime}
+                aptReason={item.AppointmentReason}
+                clinicName={item.ClinicName}
               />
             </div>
           ))}
