@@ -24,6 +24,7 @@ import MedicineCard from "../../components/MedicineCard/MedicineCard";
 import TotalPets from "../../components/TotalPets/TotalPets";
 // import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
 import Map from "../../components/Map/Map";
+import Typography from "../../components/Typography/Typography";
 
 const PetPage = () => {
   const location = useLocation();
@@ -36,8 +37,8 @@ const PetPage = () => {
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
 
-  console.log(pets)
-  
+  console.log(pets);
+
   const isValidCoordinate = (coord) => {
     return (
       typeof coord === "object" &&
@@ -87,7 +88,9 @@ const PetPage = () => {
 
             if (selectedPetID) {
               // Find the pet with the matching ID and set it as the selectedPet
-              const matchingPet = petArray.find((pet) => pet._id === selectedPetID);
+              const matchingPet = petArray.find(
+                (pet) => pet._id === selectedPetID
+              );
               if (matchingPet) {
                 setSelectedPet(matchingPet);
               }
@@ -174,10 +177,10 @@ const PetPage = () => {
   }, [selectedPet._id]);
 
   const tabToButtonLabel = {
-    petLog: "PetLog",
-    medication: "Medication",
-    appointment: "Appointment",
-    vaccination: "Vaccination",
+    PetLog: "Pet Log",
+    Medication: "Medication",
+    Appointment: "Appointment",
+    Vaccination: "Vaccination",
   };
 
   const [activeLink, setActiveLink] = useState("petLog");
@@ -207,7 +210,7 @@ const PetPage = () => {
   const petAge = calculateAge(selectedPet.Birthday);
 
   const tabContents = {
-    petLog: (
+    PetLog: (
       <div>
         <div className={styles.getPetPage}>
           {petLog.length > 0 && (
@@ -231,12 +234,11 @@ const PetPage = () => {
         </div>
       </div>
     ),
-    appointment: (
+    Appointment: (
       <div>
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
             <div>
-
               <Map coordinates={validPetAppointments} />
               {petAppointments.map((appointment, index) => (
                 <AppointmentCard
@@ -262,7 +264,7 @@ const PetPage = () => {
       </div>
     ),
 
-    medication: (
+    Medication: (
       <div>
         <div className={styles.getPetPage}>
           {petMedications.length > 0 && (
@@ -289,7 +291,7 @@ const PetPage = () => {
       </div>
     ),
 
-    vaccination: (
+    Vaccination: (
       <div>
         <div className={styles.getPetPage}>
           {petVaccines.length > 0 && (
@@ -323,29 +325,36 @@ const PetPage = () => {
   console.log("Active Tab:", activeLink);
 
   return (
-    <div className={styles.petPage}>
+    <div>
       <Header> </Header>
-      {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}{" "}
       <div className={styles.petPageGrid}>
-        <div className={styles.petPagePetCard}>
-          {selectedPet && (
-            <PetCard
-              src={selectedPet.PetImageName}
-              petBreed={selectedPet.Breed}
-              petAge = {petAge !== '-' ? `${petAge} years` : '-'}
-              petHeight={selectedPet.Height}
-              petWeight={selectedPet.Weight}
-            />
-          )}
-        </div>
-        <div className={styles.petPageTab}>
-          <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
-          <PageTabs
-            tabs={Object.keys(tabContents)}
-            activeTab={activeLink}
-            onTabChange={handleLinkClick}
+        {selectedPet && (
+          <PetCard
+            src={selectedPet.PetImageName}
+            petBreed={selectedPet.Breed}
+            petAge={petAge !== "-" ? `${petAge} years` : "-"}
+            petHeight={selectedPet.Height}
+            petWeight={selectedPet.Weight}
           />
-          <div className={styles.tabContent}>{tabContents[activeLink]}</div>
+        )}
+
+        <div className={styles.allTabs}>
+          <div className={styles.tabTitle}>
+            <Typography variant="large-h1-poppins-bold">
+              {selectedPet.PetName}
+            </Typography>
+            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+            <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
+          </div>
+
+          <div className={styles.petPageTab}>
+            <PageTabs
+              tabs={Object.keys(tabContents)}
+              activeTab={activeLink}
+              onTabChange={handleLinkClick}
+            />
+            <div className={styles.tabContent}>{tabContents[activeLink]}</div>
+          </div>
         </div>
       </div>
     </div>

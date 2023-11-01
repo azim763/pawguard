@@ -2,33 +2,35 @@
   display: grid;
   gap: 2rem;
 }
+
 .petPageTabs {
-  width: 40vw;
+  width: 100%;
   text-align: center;
 }
+
 .petPageGrid {
-  width: 80vw;
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
+  margin-top: 60px;
+  padding: 0 90px;
 }
-.petPagePetCard {
-  text-align: center;
-  align-items: center;
-}
+
 .tabContent {
-  /* background-color: white; */
   padding: 1rem;
   border: 1px solid var(--border-grey);
   border-radius: 8px;
 }
-/* .petPageTab{
-    display: grid;
-    gap:2rem;
-} */
+
+.tabTitle{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
 .postPetPage {
   background-color: white;
 }
 .getPetPage {
-  background-color: white
-  ;
+  background-color: white;
 }
