@@ -3,7 +3,7 @@
   /* grid-template-rows: 0.5fr .1fr; */
   width: 262px;
   height: 130px;
-  background-color: var(--pearl-blue);
+  background-color: var(--pearl-yellow);
   grid-template-columns: 0.8fr 1fr;
   align-items: center;
   text-align: left;
