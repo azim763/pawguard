@@ -1,10 +1,11 @@
 .totalPets div img{
-    width: 79px;
-    height: 77px;
+    width: 60px;
+    height: 60px;
     border-radius: 1px solid ;
-    border-radius:50%;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-size: cover;
 }
-
 
 .totalPets{
     display: flex;

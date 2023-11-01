@@ -1,8 +1,10 @@
 .input {
-    height: 54px;
+    height: 42px;
     padding: 0px 12px;
     border-radius: 8px;
     box-sizing: border-box;
+    margin-bottom: 20px;
+    border: 1px solid var(--almost-black);    
 }
 
 .small {
@@ -23,5 +25,9 @@
   
   .large {
     width: 555px;
+  }
+
+  .full {
+    width: 100%;
   }
   

@@ -25,7 +25,6 @@ import Typography from "../../components/Typography/Typography";
 import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard";
 import DashAptCard from "../../components/DashAptCard/DashAptCard";
 
-
 export default function Chat() {
   const [pets, setPets] = useState([]);
   const [foods, setFoods] = useState([]);
@@ -35,6 +34,25 @@ export default function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [appointments, setAppointment] = useState([]);
   const [medication, setMedication] = useState([]);
+
+  const currentDate = new Date(); // Get the current date
+  const formattedCurrentDate = `${currentDate.getDate()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
+  console.log(formattedCurrentDate);
+
+  const filteredAppointment = appointments.filter((apt) => {
+    const aptDateParts = apt.AppointmentDate.split("-");
+    const aptDate = new Date(
+      `${aptDateParts[2]}-${aptDateParts[1]}-${aptDateParts[0]}`
+    );
+    return aptDate >= currentDate; // Compare aptDate to currentDate
+  });
+
+  const filteredMedication = medication.filter((med) => {
+    const medDate = new Date(med.timestamp * 1000);
+    return medDate >= currentDate;
+  });
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -152,10 +170,10 @@ export default function Chat() {
       <div className={styles.dashboardContainer}>
         <Logout />
         <div className={styles.dashboardPetCard}>
-          <Typography variant="h2-poppins-semibold" color="almost-black">
-            MY PETS
+          <Typography variant="h2-poppins-semibold" color="dark-blue">
+            My Pets
           </Typography>
-          <div>
+          <div styles={{ marginTop: "50px" }}>
             {pets &&
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
@@ -164,15 +182,16 @@ export default function Chat() {
                   state={{ selectedPetID: pet._id, petsFromPetPage: pets }}
                 >
                   <PetSelection
+                    styles={{ marginBottom: "20px" }}
                     PetImageData={pet.PetImageName}
                     PetName={pet.PetName}
                   />
                 </Link>
               ))}
+            <Link to="addPet">
+              <PlusSVG width="60" height="60" />
+            </Link>
           </div>
-          {/* <Link to="addPet">
-            <PlusSVG />
-          </Link> */}
         </div>
 
         <div className={styles.middleContainer}>
@@ -184,10 +203,10 @@ export default function Chat() {
             {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
           </div>
           <div>
-            <DashMedicineCard numOfMedicine={medication.length} />
+            <DashMedicineCard numOfMedicine={filteredMedication.length} />
           </div>
           <div>
-            <DashAptCard numOfApt={appointments.length} />
+            <DashAptCard numOfApt={filteredAppointment.length} />
           </div>
           <div className={styles.dashboardGraph}>
             {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
@@ -199,7 +218,7 @@ export default function Chat() {
             )}
           </div>
         </div>
-        <DashCalendar />
+        <DashCalendar petAppointments={appointments} />
       </div>
     </div>
   );

@@ -63,7 +63,7 @@ const AboutUs = () => {
             />
           </div>
           <div>
-            <img src="https://picsum.photos/400/250" alt="" />
+            <img src="./../../assets/image-03.webp" alt="" />
           </div>
         </div>
         <div className={styles.abtUs2}>
@@ -109,64 +109,63 @@ const AboutUs = () => {
             praesentium in voluptatibus?
           </Typography>
           <div className={styles.abtUs3Images}>
+          <AboutUsProfile
+              src="https://picsum.photos/200"
+              alt="Sanika Coutinho"
+              title="Sanika Coutinho"
+              description="Designer"
+            ></AboutUsProfile>
             <AboutUsProfile
               src="https://picsum.photos/200"
-              alt="image"
-              title="profile 1"
-              description="dev/des"
+              alt="Cassie Hsieh"
+              title="Cassie Hsieh"
+              description="Designer"
             ></AboutUsProfile>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
-              title="profile 2"
-              description="dev/des"
+              title="Gillian Kwok"
+              description="PM / Designer"
+            ></AboutUsProfile>
+            <AboutUsProfile
+              src="https://picsum.photos/200"
+              alt="Akhil Jayakumar"
+              title="Akhil Jayakumar"
+              description="Designer"
+            ></AboutUsProfile>
+            <AboutUsProfile
+              src="https://t4.ftcdn.net/jpg/05/80/61/41/360_F_580614175_LW6mydM9ii6KEwPjF8aAlPqmlj21YKiC.jpg"
+              alt="image"
+              title="Thalha Uzair"
+              description="FS Developer"
             ></AboutUsProfile>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
-              title="profile 3"
-              description="dev/des"
+              title="Azim Mohammadi"
+              description="BE Developer"
             ></AboutUsProfile>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
-              title="profile 4"
-              description="dev/des"
+              title="Yuki Cheng"
+              description="PM / FS Developer"
             ></AboutUsProfile>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
-              title="profile 5"
-              description="dev/des"
+              title="Cylvia Lian"
+              description="FS Developer"
             ></AboutUsProfile>
             <AboutUsProfile
               src="https://picsum.photos/200"
               alt="image"
-              title="profile 6"
-              description="dev/des"
-            ></AboutUsProfile>
-            <AboutUsProfile
-              src="https://picsum.photos/200"
-              alt="image"
-              title="profile 7"
-              description="dev/des"
-            ></AboutUsProfile>
-            <AboutUsProfile
-              src="https://picsum.photos/200"
-              alt="image"
-              title="profile 8"
-              description="dev/des"
-            ></AboutUsProfile>
-            <AboutUsProfile
-              src="https://picsum.photos/200"
-              alt="image"
-              title="profile 9s"
-              description="dev/des"
+              title="Harnoor Kaur"
+              description="FS Developer"
             ></AboutUsProfile>
           </div>
         </div>
-      </div>
-      <div className={styles.abtUs4}>
+        <div className={styles.abtUs4}>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           <div className={styles.title1}>Contact Us</div>
         </Typography>
@@ -177,24 +176,28 @@ const AboutUs = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
-            <TextInput id="name" label="Name" />
-            <TextInput id="email" label="E-mail" />
+            <TextInput id="name" label="Name" size="full" placeholder="Enter your name"/>
+            <TextInput id="email" label="E-mail" size="full" placeholder="Enter your e-mail"/>
             <div>
               <Typography variant="body2-poppins-medium" color="almost-black">
                 <label htmlFor="message">Message</label>
               </Typography>
-              <br />
+              <Typography variant="textfield-poppins-regular" color="small-text-gray">
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
+                placeholder="Enter your message"
               ></textarea>
+              </Typography>
             </div>
             <Button label="Submit" variant="yellow" size="dk-sm" />
           </form>
         </div>
       </div>
+      </div>
+      
     </div>
   );
 };
