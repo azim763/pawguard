@@ -56,6 +56,7 @@ export default function Chat() {
             params: { userID: currentUser._id },
           });
           setPets(responsePets.data);
+          localStorage.setItem('petsData', JSON.stringify(responsePets.data));
 
           if (responsePets.data.length > 0) {
             setSelectedPet(responsePets.data[0]);
@@ -159,9 +160,8 @@ export default function Chat() {
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
                 <Link
-                  key={pet._id}
-                  to={`/petPage/${pet._id}`}
-                  state={{ pets: pets }}
+                  to="/petPage"
+                  state={{ selectedPetID: pet._id, petsFromPetPage: pets }}
                 >
                   <PetSelection
                     PetImageData={pet.PetImageName}
@@ -170,9 +170,9 @@ export default function Chat() {
                 </Link>
               ))}
           </div>
-          <Link to="addPet">
+          {/* <Link to="addPet">
             <PlusSVG />
-          </Link>
+          </Link> */}
         </div>
 
         <div className={styles.middleContainer}>
@@ -184,7 +184,7 @@ export default function Chat() {
             {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
           </div>
           <div>
-            <DashMedicineCard numOfMedicine={medication.length}/>
+            <DashMedicineCard numOfMedicine={medication.length} />
           </div>
           <div>
             <DashAptCard numOfApt={appointments.length} />

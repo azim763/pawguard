@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -27,19 +27,19 @@ import Map from "../../components/Map/Map";
 
 const PetPage = () => {
   const location = useLocation();
-  const initialPets = location.state?.pets || [];
-  const { profileID } = useParams();
-  const [pets, setPets] = useState(initialPets);
+  const { selectedPetID, petsFromPetPage } = location.state || {};
+  const [pets, setPets] = useState(petsFromPetPage);
+
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
-  
+
   console.log(pets)
 
 
-  
+
   const handleMedicationSubmit = (newMedicationData) => {
     setPetMedications((prevMedications) => [...prevMedications, newMedicationData]);
   };
@@ -52,38 +52,43 @@ const PetPage = () => {
   const handlePetLogSubmit = (newPetLogData) => {
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
-  
+
 
   useEffect(() => {
-    const foundPet = pets.find((pet) => pet._id === profileID); 
-    if (foundPet) {
-      setSelectedPet(foundPet);
-    } else {
-      
-      const fetchData = async () => {
-        try {
-          const storedData = localStorage.getItem(
-            process.env.REACT_APP_LOCALHOST_KEY
-          );
-          if (storedData) {
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        if (storedData) {
+          const petData = localStorage.getItem('petsData');
+          if (petData) {
+            const petArray = JSON.parse(petData);
+            setPets(petArray);
+            if (!selectedPet && petArray.length > 0) {
+              setSelectedPet(petArray[0]);
+            }
+          } else {
             const data = JSON.parse(storedData);
             const response = await axios.get(searchPetsByUserIDRoute, {
               params: { userID: data._id },
             });
-            await setPets(response.data);
+            setPets(response.data);
             if (!selectedPet && response.data.length > 0) {
               setSelectedPet(response.data[0]);
             }
           }
-        } catch (error) {
         }
-      };
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
   
-      fetchData();
-    }
-  }, [profileID, pets, selectedPet]);
+    // Fetch data when the component mounts or when selectedPetID changes
+    fetchData();
+  }, [selectedPetID]);
   
-  
+
+
+
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
   };
@@ -173,7 +178,7 @@ const PetPage = () => {
         </div>
         <div className={styles.postPetPage}>
           {selectedPet && selectedPet._id && (
-            <PetLogform selectedPet={selectedPet} onPetLogSubmit={handlePetLogSubmit}/>
+            <PetLogform selectedPet={selectedPet} onPetLogSubmit={handlePetLogSubmit} />
           )}
         </div>
       </div>
@@ -183,7 +188,7 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
             <div>
-           
+
               <div>
                 {petAppointments.map((appointment) => (
                   <div>
@@ -232,7 +237,7 @@ const PetPage = () => {
         </div>
       </div>
     ),
-  
+
 
     vaccination: (
       <div>
