@@ -23,34 +23,34 @@ const InsuranceDetails = () => {
   const [planData,setPlanData]=useState([]);
  const navigate = useNavigate();
   
-  useEffect(() => {
-    axios
-      .get(`${getInsurancePlanByIdRoute}/${_id}`)
-      .then((response) => {
-        setCompanyData(response.data);
-        console.log("Data "+companyData.CoveredItems);
-      })
-      .catch((error) => {
-        console.error("Error fetching company data:", error);
-        console.log("Error 1 "+companyData);
-        console.log("Error 2 "+_id);
-        console.log("Error 3 "+CompanyID);
-      });
-  }, [_id]);
-
-  useEffect(()=>{
-    axios
-    .get(`${getInsuranceCompanyByIdRoute}/${CompanyID}`)
+ useEffect(() => {
+  axios.get(`${getInsurancePlanByIdRoute}/${_id}`)
     .then((response) => {
-      setPlanData(response.data);
-      console.log("Plan Data "+response.data);
+      setCompanyData(response.data);
+      console.log("Plan Data {complete page}: /n"+response.data);
+       console.log("Plan Data [ID passed] {complete page}: /n"+response.data.CompanyID);
+       console.log(" Plan_Error 1 general :: "+companyData);
+      console.log("Plan_Error 2 _id "+_id);
+      console.log("Plan_Error 3 CompanyID  "+CompanyID);
+      axios.get(`${getInsuranceCompanyByIdRoute}/${response.data.CompanyID}`)
+      .then((responsecompany) => {
+         console.log("Company Data Data {a part of the page}: /n"+responsecompany.data);
+         setPlanData(responsecompany.data);
+         console.log("Company_Error 1 general :: "+companyData);
+      console.log("Company_Error 2 _id "+_id);
+      console.log("Company_Error 3 CompanyID  "+CompanyID);
+    })
+      .catch((error) => {
+        console.error("Error fetching Company data:", error);
+      });
     })
     .catch((error) => {
       console.error("Error fetching Plan data:", error);
-      console.log("Plan Error 1 "+companyData);
-      console.log("Plan Error 2 "+CompanyID);
+      console.log("Error 1 general :: "+companyData);
+      console.log("Error 2 _id "+_id);
+      console.log("Error 3 CompanyID  "+CompanyID);
     });
-}, [CompanyID]); 
+}, [_id, CompanyID]);
  
   //For small cards 
   const [insurancePlans, setInsurancePlans] = useState([]);
@@ -81,6 +81,9 @@ const InsuranceDetails = () => {
             {" "}
             Coverage Details
           </Typography>
+          <Typography variant="sub-h3-poppins-regular" color="almost-black">
+          <p>Information may vary from the actual insurance policy provided by each company</p>
+          </Typography>
           {companyData.CompanyID &&(
             <div>
              <PlanDetailCard
@@ -92,20 +95,21 @@ const InsuranceDetails = () => {
              coverageNum={companyData.AnnualCoverage}
              price={companyData.InsurancePrice}
              CompanyID={companyData.CompanyID}
+             showButton={false}
             />     
           </div>
           )}
           
-          {/* <div>
-          {companyData.CompanyID &&(
+          <div>
+          {/* {companyData.CompanyID &&( */}
             <InsuranceCard
               title="Why Recommended"
-              text={CompanyID.Recommend}
+              text={planData.Recommend}
               subtitle="Highlight of plan"
-              body={CompanyID.Highlights}>
+              body={planData.Highlights}>
             </InsuranceCard>
-            )}
-          </div> */}
+            {/* )} */}
+          </div>
 
           <div className={styles.InsuranceCoverageCenterDiv}>
             <div className={styles.InsuranceCoverageStyle}>

@@ -32,3 +32,9 @@ padding-left: 12px;
     justify-self: right;
     margin-top: 60px;
 }
+.showImage img{
+    width: 325px;
+    height:325px;
+    object-fit:cover;
+    position: relative;
+}

@@ -3,15 +3,27 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, searchPetsByUserIDRoute, searchPetFoodByPetIDRoute, host } from "../../utils/APIRoutes";
+import { Link } from "react-router-dom";
+import PlusSVG from "../../components/SVG/PlusSVG";
+import {
+  allUsersRoute,
+  searchPetsByUserIDRoute,
+  searchPetFoodByPetIDRoute,
+  host,
+  searchPetAppointmentsByPetIDRoute,
+  searchPetMedicationsByPetIDRoute,
+} from "../../utils/APIRoutes";
 import Logout from "../../components/Logout";
 import Header from "../../components/Header/header";
 import DashCalendar from "../../components/Calendar/calendar";
 import Background from "../../assets/background2.gif";
 import Graph from "../../components/Graph/Graph";
-import styles from "./DashBoard.module.css"
+import styles from "./DashBoard.module.css";
 import TotalPets from "../../components/TotalPets/TotalPets";
-
+import PetSelection from "../../components/PetSelection/PetSelection";
+import Typography from "../../components/Typography/Typography";
+import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard";
+import DashAptCard from "../../components/DashAptCard/DashAptCard";
 
 export default function Chat() {
   const [pets, setPets] = useState([]);
@@ -20,9 +32,31 @@ export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [appointments, setAppointment] = useState([]);
+  const [medication, setMedication] = useState([]);
+
+  const currentDate = new Date(); // Get the current date
+  const formattedCurrentDate = `${currentDate.getDate()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
+  console.log(formattedCurrentDate);
+
+  const filteredAppointment = appointments.filter((apt) => {
+    const aptDateParts = apt.AppointmentDate.split("-");
+    const aptDate = new Date(
+      `${aptDateParts[2]}-${aptDateParts[1]}-${aptDateParts[0]}`
+    );
+    return aptDate >= currentDate; // Compare aptDate to currentDate
+  });
+
+  const filteredMedication = medication.filter((med) => {
+    const medDate = new Date(med.timestamp * 1000);
+    return medDate >= currentDate;
+  });
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
+    console.log(selectedPet);
   };
 
   useEffect(() => {
@@ -31,7 +65,6 @@ export default function Chat() {
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,11 +103,43 @@ export default function Chat() {
     fetchData();
   }, [selectedPet]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseApt = await axios.get(searchPetAppointmentsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
+        setAppointment(responseApt.data);
+        console.log(responseApt.data);
+      } catch (error) {
+        console.error("Error fetching pet appointment:", error);
+      }
+    };
 
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseMed = await axios.get(searchPetMedicationsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
+        setMedication(responseMed.data);
+        console.log(responseMed.data);
+      } catch (error) {
+        console.error("Error fetching pet medication:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+      const storedData = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
 
       if (!storedData) {
         navigate("/login");
@@ -86,7 +151,6 @@ export default function Chat() {
 
     checkLoggedIn();
   }, []);
-
 
   // useEffect(async() => {
   //   if (currentUser) {
@@ -105,21 +169,56 @@ export default function Chat() {
       <div className={styles.dashboardContainer}>
         <Logout />
         <div className={styles.dashboardPetCard}>
-          <h1>MY PETS</h1>
-         
+          <Typography variant="h2-poppins-semibold" color="dark-blue">
+            My Pets
+          </Typography>
+          <div styles={{ marginTop: "50px" }}>
+            {pets &&
+              pets.map((pet) => (
+                // Use a Link to navigate to individual profile PetPage
+                <Link
+                  key={pet._id}
+                  to={`/petPage/${pet._id}`}
+                  state={{ pets: pets }}
+                >
+                  <PetSelection
+                    styles={{ marginBottom: "20px" }}
+                    PetImageData={pet.PetImageName}
+                    PetName={pet.PetName}
+                  />
+                </Link>
+              ))}
+            <Link to="addPet">
+              <PlusSVG width="60" height="60" />
+            </Link>
+          </div>
         </div>
-        <div className={styles.dashboardGraph}>
-        {pets && (
-            <TotalPets pets={pets} onPetSelect={handlePetSelection} />
-          )}
-          {selectedPet && (
-            <Graph
-              names={foods.map((food) => food.MealPerDay)}
-              values={foods.map((food) => food.FoodDate)}
-            />
-          )}
+
+        <div className={styles.middleContainer}>
+          <div className={styles.middleTitle}>
+            <Typography variant="sub-h2-poppins-medium">
+              {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
+            </Typography>
+
+            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+          </div>
+          <div>
+            <DashMedicineCard numOfMedicine={filteredMedication.length} />
+          </div>
+          <div>
+            <DashAptCard numOfApt={filteredAppointment.length} />
+          </div>
+          <div className={styles.dashboardGraph}>
+            {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
+            {selectedPet && (
+              <Graph
+                names={foods.map((food) => food.MealPerDay)}
+                values={foods.map((food) => food.FoodDate)}
+              />
+            )}
+          </div>
         </div>
-        <DashCalendar />
+        <DashCalendar petAppointments={appointments} />
       </div>
     </div>
   );
@@ -134,9 +233,9 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #dedfdc;
-  .graphStyle{
-    z-index:200;
-    background-color:white;
+  .graphStyle {
+    z-index: 200;
+    background-color: white;
   }
   .container {
     height: 85vh;

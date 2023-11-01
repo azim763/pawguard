@@ -9,15 +9,16 @@ function InsuranceCard({title,text,subtitle,body}){
             <Typography variant="sub-h1-poppins-semibold" color="almost-black">
                 {title}
             </Typography>
-            <Typography variant="body2-poppins-regular" color="almost-black">
+            <div className={styles.titleBody}>
+            <Typography variant="body3-poppins-regular" color="almost-black">
                 {text}
             </Typography>
+            </div>
             </div>
             <div className={styles.cardBody}>
                 <Typography variant="sub-h1-poppins-semibold" color="almost-black">
                     {subtitle}
                 </Typography>
-                
                     <Typography variant="body3-poppins-regular" color="almost-black">
                     <div className={styles.bodyText}>
                         {body}

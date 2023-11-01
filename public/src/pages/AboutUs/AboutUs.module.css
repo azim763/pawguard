@@ -1,58 +1,130 @@
-.abtUsBody{
-    display: flex;
-    flex-flow:  column nowrap;    
+.abtUs1 {
+  background-color: var(--pearl-blue);
 }
 
-.abtUs1{
-   background-image: url("../../assets/logo.svg");
-   height: 70vh;
-   background-repeat: no-repeat;
-   background-size: cover;
+.abtUs1Description,
+.abtUs2,
+.abtUs3,
+.abtUs4 {
+  padding: 42px 20px 72px;
 }
 
-.abtUs1Description{
+.abtUs2,
+.abtUs3,
+.title1 {
+  text-align: center;
+}
+
+.abtUs2 > div:nth-child(2),
+.abtUs3 > div:nth-child(2) {
+  padding-top: 16px;
+}
+
+.abtUs2Images > div,
+.abtUs3Images > div {
+  margin-top: 42px;
+}
+
+.abtUs3Images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.abtUs1Description > * {
+  margin-bottom: 16px;
+}
+
+.abtUs4 {
+  background-color: var(--pearl-blue);
+}
+
+.abtUs4Info {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.abtUs4Info > div:first-of-type {
+  order: 2;
+}
+
+.abtUs4 img {
+  width: 100%;
+}
+
+.abtUs4 textarea {
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  border: 1px solid var(--almost-black);
+  padding: 8px 12px;
+  margin-bottom: 20px;
+}
+
+.abtUs4 form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.abtUs4 button {
+  align-self: end;
+}
+
+@media screen and (min-width: 700px) {
+  .abtUs1 {
+    height: 70vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .abtUs1Description {
+    display: flex;
+    padding-right: 32px;
     flex-direction: column;
     justify-content: center;
     align-items: start;
     width: 55vw;
     height: 70vh;
-    margin-left: 5rem;
     gap: 36px;
-}
+  }
 
-.abtUs2, .abtUs3, .abtUs4{
-    width: 100%;
-    padding: 64px 152px;
-    margin: 0 auto;
-}
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 {
+    padding: 42px 32px 72px;
+  }
 
-.abtUs2 > div:nth-child(2), .abtUs3 > div:nth-child(2)  {
-    max-width:700px;
+  .abtUs3Images {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .abtUs2 > div:nth-child(2),
+  .abtUs3 > div:nth-child(2) {
+    max-width: 700px;
     text-align: center;
     margin: 0 auto;
     padding: 24px 0;
     line-height: 181%;
-}
+  }
 
-.abtUs2Images{
-    padding-top: 56px;
+  .abtUs2Images {
     display: flex;
     flex-direction: row;
-    gap:2rem;
+    gap: 2rem;
+  }
 
-}
-
-.abtUs3 {
+  .abtUs3 {
     padding-bottom: 96px;
-}
+  }
 
-.title1 {
+  .title1 {
     position: relative;
-    text-align: center;
-}
+  }
 
-.title1::before, .title1::after {
+  .title1::before,
+  .title1::after {
     content: "";
     display: inline-block;
     width: 20%;
@@ -63,54 +135,75 @@
   }
 
   .title1::before {
-    left: 150px;
+    left: 40px;
   }
-  
+
   .title1::after {
-    right: 150px;
+    right: 40px;
   }
 
-
-.aboutusProfile{
+  .aboutusProfile {
     display: flex;
     flex-flow: column;
-    gap:5rem;
-}
+    gap: 5rem;
+  }
 
-.abtUs3Images1, .abtUs3Images2{
+  .abtUs3Images1,
+  .abtUs3Images2 {
     display: flex;
     flex-flow: row;
     justify-content: center;
-    gap:36px;
-}
+    gap: 36px;
+  }
 
-.abtUs3Images1 {
+  .abtUs3Images1 {
     padding-bottom: 36px;
-}
+  }
 
-.abtUs4{
-    background-color: var(--light-blue);
-}
-
-.abtUs4Info {
+  .abtUs4Info {
     padding-top: 24px;
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    max-width: 1000px;
+    max-width: 1130px;
     gap: 24px;
     margin: 0 auto;
-}
+  }
 
-.abtUs4Info > div:nth-child(2) {
+  .abtUs4Info > div:nth-child(2) {
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
-}
+  }
 
-.abtUs4Info div:nth-child(2) div:nth-child(3) input{
+  .abtUs4Info div:nth-child(2) div:nth-child(3) input {
     height: 150px;
+  }
+
+  .abtUs4Info input {
+    width: 100%;
+  }
 }
 
-.abtUs4Info input {
+@media screen and (min-width: 1000px) {
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 {
     width: 100%;
+    padding: 64px 152px;
+    margin: 0 auto;
+  }
+
+  .abtUs1Description,
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 form {
+    max-width: 1130px;
+  }
+
+  .title1::before {
+    left: 80px;
+  }
+
+  .title1::after {
+    right: 80px;
+  }
 }

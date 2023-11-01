@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from "../SingleImageUpload/SingleImageUpload.module.css"
 
 function SingleImageUpload({ onImageUpload }) {
   const [image, setImage] = useState(null);
@@ -25,7 +26,11 @@ function SingleImageUpload({ onImageUpload }) {
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <label  for="file-upload" class={styles.cfu}>
+   
+      <input type="file" id="file-upload" accept="image/*" onChange={handleImageChange} />
+     Change Pet Image
+   </label>
     </div>
   );
 }

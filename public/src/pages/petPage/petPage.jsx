@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -25,15 +26,64 @@ import TotalPets from "../../components/TotalPets/TotalPets";
 import Map from "../../components/Map/Map";
 
 const PetPage = () => {
-  const [pets, setPets] = useState([]);
+  const location = useLocation();
+  const initialPets = location.state?.pets || [];
+  const { profileID } = useParams();
+  const [pets, setPets] = useState(initialPets);
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
-  const [clinicLatitude, setClinicLatitude] = useState();
-  const [clinicLongitude, setClinicLongitude] = useState();
+  
+  console.log(pets)
 
+
+  
+  const handleMedicationSubmit = (newMedicationData) => {
+    setPetMedications((prevMedications) => [...prevMedications, newMedicationData]);
+  };
+  const handleAppointmentSubmit = (newAppointmentData) => {
+    setPetAppointments((prevAppointment) => [...prevAppointment, newAppointmentData]);
+  };
+  const handleVaccinationSubmit = (newVaccinationData) => {
+    setPetVaccines((prevVaccination) => [...prevVaccination, newVaccinationData]);
+  };
+  const handlePetLogSubmit = (newPetLogData) => {
+    setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
+  };
+  
+
+  useEffect(() => {
+    const foundPet = pets.find((pet) => pet._id === profileID); 
+    if (foundPet) {
+      setSelectedPet(foundPet);
+    } else {
+      
+      const fetchData = async () => {
+        try {
+          const storedData = localStorage.getItem(
+            process.env.REACT_APP_LOCALHOST_KEY
+          );
+          if (storedData) {
+            const data = JSON.parse(storedData);
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
+            await setPets(response.data);
+            if (!selectedPet && response.data.length > 0) {
+              setSelectedPet(response.data[0]);
+            }
+          }
+        } catch (error) {
+        }
+      };
+  
+      fetchData();
+    }
+  }, [profileID, pets, selectedPet]);
+  
+  
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
   };
@@ -61,9 +111,7 @@ const PetPage = () => {
       })
       .then((response) => {
         setPetAppointments(response.data);
-        setClinicLatitude(response.data.Latitude);
-        setClinicLongitude(response.date.Longitude);
-        console.log(clinicLatitude);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -97,43 +145,17 @@ const PetPage = () => {
       });
   }, [selectedPet._id]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedData = localStorage.getItem(
-          process.env.REACT_APP_LOCALHOST_KEY
-        );
-        if (storedData) {
-          const data = JSON.parse(storedData);
-          const response = await axios.get(searchPetsByUserIDRoute, {
-            params: { userID: data._id },
-          });
-          await setPets(response.data);
-          // Set the initially selected pet to be the first pet if not already selected
-          if (!selectedPet && response.data.length > 0) {
-            setSelectedPet(response.data[0]);
-          }
-        }
-      } catch (error) {
-        // Handle any errors here
-      }
-    };
-
-    fetchData();
-  }, [selectedPet]);
 
   const tabToButtonLabel = {
     petLog: "PetLog",
     medication: "Medication",
     appointment: "Appointment",
     vaccination: "Vaccination",
-    // Add more tabs and labels as needed
   };
 
   const [activeLink, setActiveLink] = useState("petLog");
   const [buttonLabel, setButtonLabel] = useState(tabToButtonLabel[activeLink]);
 
-  // Define the content for each tab, in this case, the content is a form component
   const tabContents = {
     petLog: (
       <div>
@@ -151,7 +173,7 @@ const PetPage = () => {
         </div>
         <div className={styles.postPetPage}>
           {selectedPet && selectedPet._id && (
-            <PetLogform selectedPet={selectedPet} />
+            <PetLogform selectedPet={selectedPet} onPetLogSubmit={handlePetLogSubmit}/>
           )}
         </div>
       </div>
@@ -161,21 +183,16 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
             <div>
-              {/* <Map
-                latitude={49.246292}
-                longitude={-123.116226}
-                markerlong={-123.116226}
-                markerlat={49.246292}
-              /> */}
+           
               <div>
                 {petAppointments.map((appointment) => (
                   <div>
-                    {/* <Map
-                      latitude={clinicLatitude}
-                      longitude={clinicLongitude}
-                      markerlong={clinicLongitude}
-                      markerlat={clinicLatitude}
-                    /> */}
+                    <Map
+                      latitude={appointment.Latitude}
+                      longitude={appointment.Longitude}
+                      markerlong={appointment.Longitude}
+                      markerlat={appointment.Latitude}
+                    />
                     <AppointmentCard
                       ClinicName={appointment.ClinicName}
                       AppointmentTime={appointment.AppointmentTime}
@@ -189,7 +206,7 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          {selectedPet && <AppointmentForm selectedPet={selectedPet} />}
+          {selectedPet && <AppointmentForm selectedPet={selectedPet} onAppointmentSubmit={handleAppointmentSubmit} />}
         </div>
       </div>
     ),
@@ -211,10 +228,11 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          {selectedPet && <MedicationForm selectedPet={selectedPet} />}
+          {selectedPet && <MedicationForm selectedPet={selectedPet} onMedicationSubmit={handleMedicationSubmit} />}
         </div>
       </div>
     ),
+  
 
     vaccination: (
       <div>
@@ -231,7 +249,7 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          {selectedPet && <VaccinationForm selectedPet={selectedPet} />}
+          {selectedPet && <VaccinationForm selectedPet={selectedPet} onVaccinationSubmit={handleVaccinationSubmit} />}
         </div>
       </div>
     ),
@@ -243,6 +261,7 @@ const PetPage = () => {
   };
 
   console.log("Active Tab:", activeLink);
+
 
   return (
     <div className={styles.petPage}>

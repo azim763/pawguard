@@ -4,10 +4,14 @@ import styles from './multiDropDown.module.css';
 import Multiselect from 'multiselect-react-dropdown';
 import Typography from '../Typography/Typography';
 
-export default function Asd({
-   options, label
+export default function MultipleDropDown({
+   options, label,onSelect
 }) {
   const [selectedValues, setSelectedValues] = useState([]);
+  const handleSelectionChange = (selectedList) => {
+    setSelectedValues(selectedList);
+    onSelect(selectedList); // Call the callback function in the parent component
+  };
 
 
   return (
@@ -17,12 +21,8 @@ export default function Asd({
         isObject={false}
         options={options}
         selectedValues={selectedValues}
-        onSelect={(selectedList) => {
-          setSelectedValues(selectedList);
-        }}
-        onRemove={(selectedList) => {
-          setSelectedValues(selectedList);
-        }}
+        onSelect={handleSelectionChange} 
+        onRemove={handleSelectionChange} 
         showCheckbox
         closeIcon="cancel"
         showArrow="true"
