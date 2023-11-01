@@ -8,7 +8,7 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
+import {getAllInsurancePlansRoute,searchPetsByUserIDRoute} from "../../utils/APIRoutes";
 import {getAllPetsRoute} from "../../utils/APIRoutes";
 
 const InsuranceSearch = () => {
@@ -21,6 +21,7 @@ const InsuranceSearch = () => {
   const [filteredInsurancePlans, setFilteredInsurancePlans] = useState([]);
   const [selectedPetName, setSelectedPetName] = useState(""); 
   const [userId, setUserId] = useState(null); 
+
 
   const navigate = useNavigate();
 
@@ -82,6 +83,7 @@ const InsuranceSearch = () => {
   const handlePetAgeChange = (age) => {
     setSelectedAge(age);
   };
+  
 
   const handlePetTypeChange = (type) => {
     setSelectedPetType(type);
@@ -130,17 +132,43 @@ useEffect(() => {
 
   //to fetch pet data
   useEffect(() => {
-    axios
-      .get(getAllPetsRoute, {
-        params: { userId: userId }, // Use the userId state variable
-      })
-      .then((response) => {
-        setPets(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching pet data:", error);
-      });
-  }, [userId]);
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          const petData = localStorage.getItem('petsData');
+          
+          if (petData) {
+            // If petData exists in local storage, use it
+            const petArray = JSON.parse(petData);
+            setPets(petArray);
+  
+            if (!selectedPetName && petArray.length > 0) {
+              setSelectedPetName(petArray[0]);
+            }
+          } else {
+            // Fetch pet data from the backend
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
+  
+            setPets(response.data);
+  
+            if (!selectedPetName && response.data.length > 0) {
+              setSelectedPetName(response.data[0]);
+            }
+          }
+        }
+      } catch (error) {
+        // Handle any errors here
+      }
+    };
+  
+    // Fetch data when the component mounts
+    fetchData();
+  }, []);
+  
 
   //to fetch insuarnce plans
   useEffect(() => {

@@ -27,8 +27,8 @@ import Map from "../../components/Map/Map";
 
 const PetPage = () => {
   const location = useLocation();
-  const { selectedPetID, petsFromPetPage } = location.state || {};
-  const [pets, setPets] = useState(petsFromPetPage);
+  const { selectedPetID } = location.state || {};
+  const [pets, setPets] = useState([]);
 
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
@@ -37,6 +37,15 @@ const PetPage = () => {
   const [selectedPet, setSelectedPet] = useState("");
 
   console.log(pets)
+  
+  const isValidCoordinate = (coord) => {
+    return (
+      typeof coord === "object" &&
+      !isNaN(coord.Latitude) &&
+      !isNaN(coord.Longitude)
+    );
+  };
+  const validPetAppointments = petAppointments.filter(isValidCoordinate);
 
 
 
@@ -63,8 +72,17 @@ const PetPage = () => {
           if (petData) {
             const petArray = JSON.parse(petData);
             setPets(petArray);
+
             if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]);
+              setSelectedPet(petArray[0]); // Set the first pet by default
+            }
+
+            if (selectedPetID) {
+              // Find the pet with the matching ID and set it as the selectedPet
+              const matchingPet = petArray.find((pet) => pet._id === selectedPetID);
+              if (matchingPet) {
+                setSelectedPet(matchingPet);
+              }
             }
           } else {
             const data = JSON.parse(storedData);
@@ -81,11 +99,12 @@ const PetPage = () => {
         // Handle any errors here
       }
     };
-  
+
     // Fetch data when the component mounts or when selectedPetID changes
     fetchData();
   }, [selectedPetID]);
-  
+
+
 
 
 
@@ -188,28 +207,20 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
             <div>
-
-              <div>
-                {petAppointments.map((appointment) => (
-                  <div>
-                    <Map
-                      latitude={appointment.Latitude}
-                      longitude={appointment.Longitude}
-                      markerlong={appointment.Longitude}
-                      markerlat={appointment.Latitude}
-                    />
-                    <AppointmentCard
-                      ClinicName={appointment.ClinicName}
-                      AppointmentTime={appointment.AppointmentTime}
-                      AppointmentReason={appointment.AppointmentReason}
-                      AppointmentDateTime={appointment.AppointmentDate}
-                    />
-                  </div>
-                ))}
-              </div>
+              <Map coordinates={validPetAppointments} />
+              {petAppointments.map((appointment, index) => (
+                <AppointmentCard
+                  key={index}
+                  ClinicName={appointment.ClinicName}
+                  AppointmentTime={appointment.AppointmentTime}
+                  AppointmentReason={appointment.AppointmentReason}
+                  AppointmentDateTime={appointment.AppointmentDate}
+                />
+              ))}
             </div>
           )}
         </div>
+
         <div className={styles.postPetPage}>
           {selectedPet && <AppointmentForm selectedPet={selectedPet} onAppointmentSubmit={handleAppointmentSubmit} />}
         </div>

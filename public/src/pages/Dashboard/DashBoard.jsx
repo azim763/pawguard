@@ -183,9 +183,9 @@ export default function Chat() {
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
                 <Link
-                  to="/petPage"
-                  state={{ selectedPetID: pet._id, petsFromPetPage: pets }}
-                >
+                to="/petPage"
+                state={{ selectedPetID: pet._id }}
+              >
                   <PetSelection
                     styles={{ marginBottom: "20px" }}
                     PetImageData={pet.PetImageName}
