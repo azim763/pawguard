@@ -128,6 +128,7 @@ const FormContainer = styled.div`
     h1 {
       color: #54656f;
       text-transform: uppercase;
+      font-size:2.2rem;
     }
   }
 

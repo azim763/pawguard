@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoutes";
 import loginbackground from "../assets/images/loginback.jpeg";
 import Button from "../components/Button/Button";
+import Header from "../components/Header/header";
+import stylle from "../assets/css/common.css"
 
 export default function Register() {
   const navigate = useNavigate();
@@ -99,6 +101,7 @@ else if (password !== confirmPassword) {
 
   return (
     <>
+    <Header/>
       <FormContainer>
       <div class="parent clearfix">
     <div class="bg-illustration">
@@ -180,6 +183,7 @@ const FormContainer = styled.div`
     h1 {
       color: #54656f;
       text-transform: uppercase;
+      font-size:2.2rem;
     }
   }
 
