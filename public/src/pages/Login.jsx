@@ -160,20 +160,6 @@ const FormContainer = styled.div`
       outline: none;
     }
   }
-  // button {
-  //   background-color: #01a783;
-  //   color: white;
-  //   padding: 1rem 2rem;
-  //   border: none;
-  //   font-weight: bold;
-  //   cursor: pointer;
-  //   border-radius: 0.4rem;
-  //   font-size: 1rem;
-  //   text-transform: uppercase;
-  //   &:hover {
-  //     background-color: #01a783;
-  //   }
-  // }
   span {
     color: #54656f;
     text-transform: uppercase;
@@ -183,12 +169,13 @@ const FormContainer = styled.div`
       font-weight: bold;
     }
   }
-
+button{
+  margin: auto;
+}
 .signinup
 {
 
   background-color: var(--off-white);
-
   min-width: 480px;
   justify-content: center;
   display: flex;
@@ -200,8 +187,6 @@ const FormContainer = styled.div`
   -moz-box-pack: center;
   justify-content: center;
   height: 100vh;
-
-
 }
   .parent{
     display: grid;
@@ -227,7 +212,7 @@ const FormContainer = styled.div`
     height: auto;
     margin: 19px 0 0 25px;
   }
-  @media only screen and (min-width: 1024px) and (max-width: 1680px) {
+  @media only screen and (min-width: 960px) and (max-width: 1680px) {
     .bg-illustration {
       width: 50vw;
       -webkit-animation: none;
@@ -237,82 +222,17 @@ const FormContainer = styled.div`
     .signinup {
       width: 50vw;
     }
-  
-   
+  }
   }
 
-
-  @media only screen and (max-width: 1024px) {
-    body {
-      overflow-x: hidden;
-    }
-  
-    @-webkit-keyframes slideIn {
-      from {
-        left: -100%;
-        opacity: 0;
-      }
-      to {
-        left: 0;
-        opacity: 1;
-      }
-    }
-  
-    @keyframes slideIn {
-      from {
-        left: -100%;
-        opacity: 0;
-      }
-      to {
-        left: 0;
-        opacity: 1;
-      }
-    }
-    .bg-illustration {
-      float: none;
-      background: url("https://i.ibb.co/rwncw7s/bg-mobile.png") center center;
-      background-size: cover;
-      -webkit-animation: slideIn 0.8s ease-in-out forwards;
-              animation: slideIn 0.8s ease-in-out forwards;
-      width: 100%;
-      height: 190px;
-      text-align: center;
-    }
-    .bg-illustration img {
-      width: 100px;
-      height: auto;
-      margin: 20px auto !important;
-      text-align: center;
-    }
-    .bg-illustration .burger-btn {
-      left: 33px;
-      top: 29px;
-      display: block;
-      position: absolute;
-    }
-    .bg-illustration .burger-btn span {
-      display: block;
-      height: 4px;
-      margin: 6px;
-      background-color: #fff;
-    }
-    .bg-illustration .burger-btn span:nth-child(1) {
-      width: 37px;
-    }
-    .bg-illustration .burger-btn span:nth-child(2) {
-      width: 28px;
-    }
-    .bg-illustration .burger-btn span:nth-child(3) {
-      width: 20px;
-    }
-  
-   
-  }
-
-
-  @media only screen and (max-width: 600px)
+  @media only screen and (max-width: 960px)
   {
+    .parent {
+      display: grid;
+      grid-template-columns: auto ;
+    }
     .bg-illustration {
+      
      display: none;
     }
   }
