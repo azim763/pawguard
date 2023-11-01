@@ -72,14 +72,6 @@ export default function Login() {
 
       <div class="parent clearfix">
     <div class="bg-illustration">
-      {/* <img src="https://i.ibb.co/Pcg0Pk1/logo.png" alt="logo"/>
-
-      <div class="burger-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div> */}
-
     </div>
 <div class="signinup">
         <form action="" onSubmit={(event) => handleSubmit(event)}>
