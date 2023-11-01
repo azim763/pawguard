@@ -27,8 +27,8 @@ import Map from "../../components/Map/Map";
 
 const PetPage = () => {
   const location = useLocation();
-  const { selectedPetID, petsFromPetPage } = location.state || {};
-  const [pets, setPets] = useState(petsFromPetPage);
+  const { selectedPetID } = location.state || {};
+  const [pets, setPets] = useState([]);
 
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
@@ -63,8 +63,17 @@ const PetPage = () => {
           if (petData) {
             const petArray = JSON.parse(petData);
             setPets(petArray);
+  
             if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]);
+              setSelectedPet(petArray[0]); // Set the first pet by default
+            }
+  
+            if (selectedPetID) {
+              // Find the pet with the matching ID and set it as the selectedPet
+              const matchingPet = petArray.find((pet) => pet._id === selectedPetID);
+              if (matchingPet) {
+                setSelectedPet(matchingPet);
+              }
             }
           } else {
             const data = JSON.parse(storedData);
