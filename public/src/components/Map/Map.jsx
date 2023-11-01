@@ -3,32 +3,30 @@ import mapSDK from "@tomtom-international/web-sdk-maps";
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
 import styles from "./map.module.css";
 
-const Map = ({ latitude, longitude, markerlat, markerlong }) => {
+const Map = ({ coordinates }) => {
   useEffect(() => {
     const map = mapSDK.map({
       key: "2TseK96GRlPI1NdG2lpm0nMvDK4fwDWv",
       container: "map-container",
-      center: [longitude, latitude],
+      center: [coordinates[0].Longitude, coordinates[0].Latitude], // Set the center based on the first coordinate
       zoom: 10,
     });
 
-    //     var element = document.createElement("div")
-    // element.id = "marker"
-    // const customMarkerElement = document.createElement("div");
-    // ReactDOM.render(<LocationSVG width="23" height="34" />, customMarkerElement);
+    // Create and add markers for each coordinate
+    coordinates.forEach((coord) => {
+      new mapSDK.Marker({
+        draggable: false,
+      })
+        .setLngLat([coord.Longitude, coord.Latitude])
+        .addTo(map);
+    });
 
-    const marker = new mapSDK.Marker({
-      draggable: false,
-    })
-      .setLngLat([markerlong, markerlat])
-      .addTo(map);
-    console.log(markerlong);
     map.scrollZoom.enable();
 
     return () => {
       map.remove();
     };
-  }, [latitude, longitude, markerlat, markerlong]);
+  }, [coordinates]);
 
   return (
     <div id="map-container" className={`${styles["map-container"]}`}>

@@ -64,23 +64,41 @@ const ListClinics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedData = localStorage.getItem(
-          process.env.REACT_APP_LOCALHOST_KEY
-        );
+        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
         if (storedData) {
           const data = JSON.parse(storedData);
-          const response = await axios.get(searchPetsByUserIDRoute, {
-            params: { userID: data._id },
-          });
-          setPets(response.data);
+          const petData = localStorage.getItem('petsData');
+          
+          if (petData) {
+            // If petData exists in local storage, use it
+            const petArray = JSON.parse(petData);
+            setPets(petArray);
+  
+            if (!selectedPet && petArray.length > 0) {
+              setSelectedPet(petArray[0]);
+            }
+          } else {
+            // Fetch pet data from the backend
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
+  
+            setPets(response.data);
+  
+            if (!selectedPet && response.data.length > 0) {
+              setSelectedPet(response.data[0]);
+            }
+          }
         }
       } catch (error) {
         // Handle any errors here
       }
     };
-
+  
+    // Fetch data when the component mounts
     fetchData();
   }, []);
+  
 
   // const options = ["Dentistry", "Allergies"];
 
