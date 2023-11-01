@@ -51,8 +51,13 @@ export default function Chat() {
   });
 
   const filteredMedication = medication.filter((med) => {
-    const medDate = new Date(med.timestamp * 1000);
-    return medDate >= currentDate;
+    const medDate = new Date(med.MedicationDate);
+    const daysToAdd = med.MedicationPeriod; 
+  
+    const targetDate = new Date(medDate);
+    targetDate.setDate(medDate.getDate() + daysToAdd); 
+  
+    return targetDate >= currentDate;
   });
 
   const handlePetSelection = (pet) => {

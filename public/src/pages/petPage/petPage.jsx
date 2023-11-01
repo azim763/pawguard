@@ -24,6 +24,7 @@ import MedicineCard from "../../components/MedicineCard/MedicineCard";
 import TotalPets from "../../components/TotalPets/TotalPets";
 // import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
 import Map from "../../components/Map/Map";
+import Typography from "../../components/Typography/Typography";
 
 const PetPage = () => {
   const location = useLocation();
@@ -36,8 +37,8 @@ const PetPage = () => {
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
 
-  console.log(pets)
-  
+  console.log(pets);
+
   const isValidCoordinate = (coord) => {
     return (
       typeof coord === "object" &&
@@ -47,16 +48,23 @@ const PetPage = () => {
   };
   const validPetAppointments = petAppointments.filter(isValidCoordinate);
 
-
-
   const handleMedicationSubmit = (newMedicationData) => {
-    setPetMedications((prevMedications) => [...prevMedications, newMedicationData]);
+    setPetMedications((prevMedications) => [
+      ...prevMedications,
+      newMedicationData,
+    ]);
   };
   const handleAppointmentSubmit = (newAppointmentData) => {
-    setPetAppointments((prevAppointment) => [...prevAppointment, newAppointmentData]);
+    setPetAppointments((prevAppointment) => [
+      ...prevAppointment,
+      newAppointmentData,
+    ]);
   };
   const handleVaccinationSubmit = (newVaccinationData) => {
-    setPetVaccines((prevVaccination) => [...prevVaccination, newVaccinationData]);
+    setPetVaccines((prevVaccination) => [
+      ...prevVaccination,
+      newVaccinationData,
+    ]);
   };
   const handlePetLogSubmit = (newPetLogData) => {
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
@@ -65,13 +73,14 @@ const PetPage = () => {
     setPetLog((prevPetLog) => prevPetLog.filter((log) => log._id !== deletedLogId));
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+        const storedData = localStorage.getItem(
+          process.env.REACT_APP_LOCALHOST_KEY
+        );
         if (storedData) {
-          const petData = localStorage.getItem('petsData');
+          const petData = localStorage.getItem("petsData");
           if (petData) {
             const petArray = JSON.parse(petData);
             setPets(petArray);
@@ -82,7 +91,9 @@ const PetPage = () => {
 
             if (selectedPetID) {
               // Find the pet with the matching ID and set it as the selectedPet
-              const matchingPet = petArray.find((pet) => pet._id === selectedPetID);
+              const matchingPet = petArray.find(
+                (pet) => pet._id === selectedPetID
+              );
               if (matchingPet) {
                 setSelectedPet(matchingPet);
               }
@@ -106,10 +117,6 @@ const PetPage = () => {
     // Fetch data when the component mounts or when selectedPetID changes
     fetchData();
   }, [selectedPetID]);
-
-
-
-
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -172,19 +179,41 @@ const PetPage = () => {
       });
   }, [selectedPet._id]);
 
-
   const tabToButtonLabel = {
-    petLog: "PetLog",
-    medication: "Medication",
-    appointment: "Appointment",
-    vaccination: "Vaccination",
+    PetLog: "Pet Log",
+    Medication: "Medication",
+    Appointment: "Appointment",
+    Vaccination: "Vaccination",
   };
 
   const [activeLink, setActiveLink] = useState("petLog");
   const [buttonLabel, setButtonLabel] = useState(tabToButtonLabel[activeLink]);
 
+  function calculateAge(birthDate) {
+    if (!birthDate) {
+      return "-";
+    }
+
+    const currentDate = new Date();
+    const dateOfBirth = new Date(birthDate);
+
+    let age = currentDate.getFullYear() - dateOfBirth.getFullYear();
+
+    if (
+      currentDate.getMonth() < dateOfBirth.getMonth() ||
+      (currentDate.getMonth() === dateOfBirth.getMonth() &&
+        currentDate.getDate() < dateOfBirth.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  }
+
+  const petAge = calculateAge(selectedPet.Birthday);
+
   const tabContents = {
-    petLog: (
+    PetLog: (
       <div>
         <div className={styles.getPetPage}>
           {petLog.length > 0 && (
@@ -205,12 +234,15 @@ const PetPage = () => {
         </div>
         <div className={styles.postPetPage}>
           {selectedPet && selectedPet._id && (
-            <PetLogform selectedPet={selectedPet} onPetLogSubmit={handlePetLogSubmit} />
+            <PetLogform
+              selectedPet={selectedPet}
+              onPetLogSubmit={handlePetLogSubmit}
+            />
           )}
         </div>
       </div>
     ),
-    appointment: (
+    Appointment: (
       <div>
         <div className={styles.getPetPage}>
           {petAppointments.length > 0 && (
@@ -230,12 +262,17 @@ const PetPage = () => {
         </div>
 
         <div className={styles.postPetPage}>
-          {selectedPet && <AppointmentForm selectedPet={selectedPet} onAppointmentSubmit={handleAppointmentSubmit} />}
+          {selectedPet && (
+            <AppointmentForm
+              selectedPet={selectedPet}
+              onAppointmentSubmit={handleAppointmentSubmit}
+            />
+          )}
         </div>
       </div>
     ),
 
-    medication: (
+    Medication: (
       <div>
         <div className={styles.getPetPage}>
           {petMedications.length > 0 && (
@@ -252,13 +289,17 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          {selectedPet && <MedicationForm selectedPet={selectedPet} onMedicationSubmit={handleMedicationSubmit} />}
+          {selectedPet && (
+            <MedicationForm
+              selectedPet={selectedPet}
+              onMedicationSubmit={handleMedicationSubmit}
+            />
+          )}
         </div>
       </div>
     ),
 
-
-    vaccination: (
+    Vaccination: (
       <div>
         <div className={styles.getPetPage}>
           {petVaccines.length > 0 && (
@@ -273,7 +314,12 @@ const PetPage = () => {
           )}
         </div>
         <div className={styles.postPetPage}>
-          {selectedPet && <VaccinationForm selectedPet={selectedPet} onVaccinationSubmit={handleVaccinationSubmit} />}
+          {selectedPet && (
+            <VaccinationForm
+              selectedPet={selectedPet}
+              onVaccinationSubmit={handleVaccinationSubmit}
+            />
+          )}
         </div>
       </div>
     ),
@@ -286,33 +332,37 @@ const PetPage = () => {
 
   console.log("Active Tab:", activeLink);
 
-
   return (
-    <div className={styles.petPage}>
+    <div>
       <Header> </Header>
-      {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}{" "}
       <div className={styles.petPageGrid}>
-        <div className={styles.petPagePetCard}>
-          {selectedPet && (
-            <PetCard
-              src={selectedPet.PetImageName}
-              petBreed={selectedPet.Breed}
-              petAge={selectedPet.Birthday}
-              petHeight={selectedPet.Height}
-              petWeight={selectedPet.Weight}
-            >
-              {" "}
-            </PetCard>
-          )}
-        </div>
-        <div className={styles.petPageTab}>
-          <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
-          <PageTabs
-            tabs={Object.keys(tabContents)}
-            activeTab={activeLink}
-            onTabChange={handleLinkClick}
+        {selectedPet && (
+          <PetCard
+            src={selectedPet.PetImageName}
+            petBreed={selectedPet.Breed}
+            petAge={petAge !== "-" ? `${petAge} years` : "-"}
+            petHeight={selectedPet.Height}
+            petWeight={selectedPet.Weight}
           />
-          <div className={styles.tabContent}>{tabContents[activeLink]}</div>
+        )}
+
+        <div className={styles.allTabs}>
+          <div className={styles.tabTitle}>
+            <Typography variant="large-h1-poppins-bold">
+              {selectedPet.PetName}
+            </Typography>
+            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+            <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
+          </div>
+
+          <div className={styles.petPageTab}>
+            <PageTabs
+              tabs={Object.keys(tabContents)}
+              activeTab={activeLink}
+              onTabChange={handleLinkClick}
+            />
+            <div className={styles.tabContent}>{tabContents[activeLink]}</div>
+          </div>
         </div>
       </div>
     </div>
