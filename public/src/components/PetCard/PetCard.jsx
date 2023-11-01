@@ -48,7 +48,7 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
         <div>
           <WeightSVG width="41" height="40" />
         </div>
-        <div>
+        <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Weight</Typography>
           <Typography variant="body1-poppins-semibold" color="dark-blue">{petWeight} lb</Typography>
         </div>
