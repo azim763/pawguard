@@ -7,6 +7,8 @@
 }
 
 .AboutUsFeature img {
-    width: 217px;
-    height: 217px;
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 1;
+    object-fit: cover;
 }
