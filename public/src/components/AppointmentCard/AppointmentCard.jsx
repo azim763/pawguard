@@ -2,8 +2,24 @@ import React from "react";
 import Typography from "../Typography/Typography";
 import styles from "./AppointmentCard.module.css";
 import DeleteSVG from "../SVG/DeleteSVG";
+import axios from "axios"
+import {
+  deletePetAppointmentByIdRoute,
 
-const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, AppointmentDateTime }) => {
+} from "../../utils/APIRoutes.js";
+
+const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, AppointmentDateTime,AppointmentId,onDelete }) => {
+  const handleAppointmentDelete = () => {
+    
+    axios.delete(`${deletePetAppointmentByIdRoute}/${AppointmentId}`) 
+      .then(response => {
+        console.log(`Log entry with ID ${AppointmentId} deleted successfully.`);
+        onDelete();
+      })
+      .catch(error => {
+        console.error(`Error deleting log entry with ID ${AppointmentId}:`, error);
+      });
+  };
   return (
     <div className={styles.appointmentCardContainer}>
       <div className={styles.firstRow}>
@@ -18,7 +34,7 @@ const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, Appoi
           </Typography>
         </div>
         <div>
-          <DeleteSVG width="30px" height="30px"/>
+          <DeleteSVG width="30px" height="30px" onClick={handleAppointmentDelete}/>
         </div>
       </div>
       <div className={styles.secondRow}>
