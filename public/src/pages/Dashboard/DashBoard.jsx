@@ -24,6 +24,10 @@ import PetSelection from "../../components/PetSelection/PetSelection";
 import Typography from "../../components/Typography/Typography";
 import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard";
 import DashAptCard from "../../components/DashAptCard/DashAptCard";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+
 
 export default function Chat() {
   const [pets, setPets] = useState([]);
@@ -34,12 +38,11 @@ export default function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [appointments, setAppointment] = useState([]);
   const [medication, setMedication] = useState([]);
-  const [petLog,setPetLog] = useState([]);
+  const [petLog, setPetLog] = useState([]);
 
   const currentDate = new Date(); // Get the current date
-  const formattedCurrentDate = `${currentDate.getDate()}-${
-    currentDate.getMonth() + 1
-  }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
+  const formattedCurrentDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1
+    }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
   console.log(formattedCurrentDate);
 
   const filteredAppointment = appointments.filter((apt) => {
@@ -52,11 +55,11 @@ export default function Chat() {
 
   const filteredMedication = medication.filter((med) => {
     const medDate = new Date(med.MedicationDate);
-    const daysToAdd = med.MedicationPeriod; 
-  
+    const daysToAdd = med.MedicationPeriod;
+
     const targetDate = new Date(medDate);
-    targetDate.setDate(medDate.getDate() + daysToAdd); 
-  
+    targetDate.setDate(medDate.getDate() + daysToAdd);
+
     return targetDate >= currentDate;
   });
 
@@ -201,9 +204,9 @@ export default function Chat() {
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
                 <Link
-                to="/petPage"
-                state={{ selectedPetID: pet._id }}
-              >
+                  to="/petPage"
+                  state={{ selectedPetID: pet._id }}
+                >
                   <PetSelection
                     styles={{ marginBottom: "20px" }}
                     PetImageData={pet.PetImageName}
@@ -232,20 +235,55 @@ export default function Chat() {
             <DashAptCard numOfApt={filteredAppointment.length} />
           </div>
           <div className={styles.dashboardGraph}>
-            {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
-            {selectedPet && (
-              <Graph
-                names={foods.map((food) => food.MealPerDay)}
-                values={foods.map((food) => food.FoodDate)}
-              />
-            )}
 
-              {selectedPet && (
-                <Graph
-                  names={petLog.map((petLog) => petLog.Weight)}
-                  values={petLog.map((petLog) => petLog.LogDate)}
-              />
-            )}
+            <Carousel
+             showStatus={false}
+             showIndicators={false}
+              renderArrowPrev={(clickHandler, hasPrev) => {
+                return (
+                  <div
+                    className={`carousel-arrow carousel-arrow-left ${hasPrev ? '' : 'hidden'}`}
+                    onClick={clickHandler}
+                  >
+                    {hasPrev ? 'Meal Record' : ''}
+                  </div>
+                );
+              }}
+              renderArrowNext={(clickHandler, hasNext) => {
+                return (
+                  <div
+                    className={`carousel-arrow carousel-arrow-right ${hasNext ? '' : 'hidden'}`}
+                    onClick={clickHandler}
+                  >
+                    {hasNext ? 'Weight Record' : ''}
+                  </div>
+                );
+              }}>
+              {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
+              <div>
+                <Typography variant="body2-poppins-medium">
+                  Weekly Meal Record
+                </Typography>
+                {selectedPet && (
+                  <Graph
+                    names={foods.map((food) => food.MealPerDay)}
+                    values={foods.map((food) => food.FoodDate)}
+                  />
+                )}
+              </div>
+
+              <div>
+                <Typography variant="body2-poppins-medium">
+                  Weekly Weight Record
+                </Typography>
+                {selectedPet && (
+                  <Graph
+                    names={petLog.map((petLog) => petLog.Weight)}
+                    values={petLog.map((petLog) => petLog.LogDate)}
+                  />
+                )}
+              </div>
+            </Carousel>
           </div>
         </div>
         <DashCalendar petAppointments={appointments} />
