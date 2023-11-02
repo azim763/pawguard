@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const petMedicationSchema = new mongoose.Schema({
+    UserID: {
+        type: String,
+          required: true,
+      },
     PetID: { type: String, required: false },
     MedicineName: { type: String, required: false },
     DosageAmount: { type: String, required: false },

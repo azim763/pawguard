@@ -19,7 +19,6 @@ module.exports.createPetAppointment = async (req, res, next) => {
   }
 };
 
-
 // Search for pet appointments by PetID
 module.exports.searchPetAppointmentsByPetID = async (req, res, next) => {
     try {
@@ -29,8 +28,19 @@ module.exports.searchPetAppointmentsByPetID = async (req, res, next) => {
     } catch (ex) {
       next(ex);
     }
-  };
+  };  
   
+// Search for pet appointments by UserID
+module.exports.searchPetAppointmentsByUserID = async (req, res, next) => {
+  try {
+    const userID = req.query.UserID;
+    const appointments = await PetAppointment.find({ UserID: userID });
+    return res.json(appointments);
+  } catch (ex) {
+    next(ex);
+  }
+};
+
   // Read a pet appointment by its ID
 module.exports.getPetAppointmentById = async (req, res, next) => {
     try {

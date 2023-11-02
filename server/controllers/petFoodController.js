@@ -30,6 +30,17 @@ module.exports.searchPetFoodByPetID = async (req, res, next) => {
     }
   };
   
+  // Search for pet food by UserID
+module.exports.searchPetFoodByUserID = async (req, res, next) => {
+  try {
+    const userID = req.query.UserID;
+    const foods = await PetFood.find({ UserID: userID });
+    return res.json(foods);
+  } catch (ex) {
+    next(ex);
+  }
+};
+
   // Read a pet food record by its ID
 module.exports.getPetFoodById = async (req, res, next) => {
     try {

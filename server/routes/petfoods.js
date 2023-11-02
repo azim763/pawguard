@@ -14,6 +14,7 @@ const {
 router.get('/allpetfoods', getAllPetFoods);
 router.post('/create', createPetFood);
 router.get('/searchpetfoodbypetid', searchPetFoodByPetID);
+router.get('/searchpetfoodbyuserid', searchPetFoodByUserID);
 router.get('/getpetfoodbyid/:id', getPetFoodById);
 router.put('/update/:id', updatePetFoodById);
 router.delete('/delete/:id', deletePetFoodById);

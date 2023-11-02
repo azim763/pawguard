@@ -31,6 +31,17 @@ module.exports.searchPetMedicationsByPetID = async (req, res, next) => {
     }
   };
   
+// Search for pet medications by UserID
+module.exports.searchPetMedicationsByUserID = async (req, res, next) => {
+  try {
+    const userID = req.query.UserID;
+    const medications = await PetMedication.find({ UserID: userID });
+    return res.json(medications);
+  } catch (ex) {
+    next(ex);
+  }
+};
+
   // Read a pet medication record by its ID
 module.exports.getPetMedicationById = async (req, res, next) => {
     try {
