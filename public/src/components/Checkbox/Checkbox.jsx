@@ -10,7 +10,7 @@ const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange
 
 
   return (
-    <div>
+    <div style={{display: "flex"}}>
       <input
         className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
         type="checkbox"
@@ -22,9 +22,11 @@ const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange
         required={required}
         onChange={onChangeHandler}
       />
-      <Typography variant="body2-poppins-medium" color="almost-black">
-        <label htmlFor={id}>{label}</label>
-      </Typography>
+      <div className={styles.checkboxLabel}>
+        <Typography variant="body2-poppins-medium" color="almost-black">
+          <label htmlFor={id}>{label}</label>
+        </Typography>
+      </div>
     </div>
   );
 };

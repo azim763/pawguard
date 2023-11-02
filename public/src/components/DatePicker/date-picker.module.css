@@ -13,4 +13,6 @@
   border-radius: 8px;
   color: var(--black);
   background-color: var(--white);
+  width: 100%;
+
 }

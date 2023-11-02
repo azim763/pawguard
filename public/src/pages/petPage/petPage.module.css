@@ -14,6 +14,7 @@
   grid-template-columns: 1fr 2fr;
   margin-top: 60px;
   padding: 0 90px;
+  gap: 30px;
 }
 
 .tabContent {
@@ -34,3 +35,6 @@
 .getPetPage {
   background-color: white;
 }
+
+
+
