@@ -42,14 +42,14 @@ export default function MultipleDropDown({
             display: 'inline-block',
             margin: '0',
             height: 'auto',
-            width: '550px'
           },
           searchBox: {
             fontSize: '20px',
-            border: '2px solid black',
+            border: '1px solid var(--almost-black) ',
             height: 'auto',
             borderRadius: '8px',
-            width: '500px'
+            backgroundColor: 'white',
+            
           },
           optionContainer: {
             maxHeight: '500px'

@@ -11,6 +11,8 @@
   box-sizing: border-box;
   border: 2px var(--black) solid;
   border-radius: 8px;
-  color: var(--black);
+  color: var(--almost-black);
   background-color: var(--white);
+  width: 100%;
+
 }
