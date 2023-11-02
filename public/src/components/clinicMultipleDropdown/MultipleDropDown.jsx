@@ -46,7 +46,7 @@ export default function MultipleDropDown({
           searchBox: {
             fontSize: '20px',
             border: '1px solid var(--almost-black) ',
-            height: 'auto',
+            height: '54px',
             borderRadius: '8px',
             backgroundColor: 'white',
             
