@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const petFoodSchema = new mongoose.Schema({
+  UserID: {
+    type: String,
+      required: true,
+  },
   PetID: { type: String, required: true },
   MealPerDay: { type: Number, required: false },
   QuantityPerMeal: { type: Number, required: false },

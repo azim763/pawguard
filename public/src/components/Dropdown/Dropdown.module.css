@@ -1,3 +1,4 @@
+
 .dropdown {
   box-sizing: border-box;
   height: 54px;
@@ -11,6 +12,7 @@
   line-height: 19.4px;
   width: 100%;
   border-color: var(--almost-black);
+  color: var(--small-text-gray);
 }
 
 .small {

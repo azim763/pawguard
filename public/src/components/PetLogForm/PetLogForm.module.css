@@ -1,13 +1,76 @@
-.petLogRadioButtons{
-    display: flex;
-    flex-flow: column nowrap;
+.petLogContainer {
+  padding: 26px 20px;
 }
-.petLogRadioButtons div{
-    display: flex;
-    flex-flow: column;
+
+.addPetForm {
+  display: grid;
 }
-.petLogRadioButtons div div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
+.petLogFormLine1 {
+  display: flex;
+}
+
+.petUnit {
+  display: flex;
+  margin-bottom: 36px;
+  margin-right: 10px;
+  align-items: center
+}
+
+.unitGap {
+  margin-left: 10px;
+}
+
+.petLogRadioButtons {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: 36px;
+}
+
+.petLogRadioButtons div {
+  display: flex;
+  flex-flow: column;
+}
+
+.sessionGap {
+  margin-bottom: 36px;
+}
+
+.petLogRadioButtons div div {
+  display: flex;
+  flex-direction: row;
+  margin-right: 30px;
+  align-items: flex-end;
+}
+
+.sessionContainer {
+  display: grid;
+}
+
+.petLogFoodLine2 {
+  display: flex;
+}
+
+.formSubheading {
+  background-color: var(--pearl-blue);
+  padding: 10px;
+  margin: 28px 0;
+}
+
+.petLogFoodAndQuantity {
+  display: flex;
+}
+
+.petLogCheckBox {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 36px;
+}
+
+
+.buttonStyle {
+  display: flex;
+  justify-content: end;
 }

@@ -4,6 +4,7 @@ const {
   getAllPetVaccinations,
   createPetVaccination,
   searchPetVaccinationsByPetID,
+  searchPetVaccinationsByUserID,
   getPetVaccinationById,
   updatePetVaccinationById,
   deletePetVaccinationById,
@@ -13,6 +14,7 @@ const {
 router.get('/allpetvaccinations', getAllPetVaccinations);
 router.post('/create', createPetVaccination);
 router.get('/searchpetvaccinationsbypetid', searchPetVaccinationsByPetID);
+router.get('/searchpetvaccinationsbyuserid', searchPetVaccinationsByUserID);
 router.get('/getpetvaccinationbyid/:id', getPetVaccinationById);
 router.put('/update/:id', updatePetVaccinationById);
 router.delete('/delete/:id', deletePetVaccinationById);

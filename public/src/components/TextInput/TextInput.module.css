@@ -1,9 +1,12 @@
+input, select, textarea {
+margin-top: 8px;
+}
+
 .input {
-    height: 42px;
+    height: 54px;
     padding: 0px 12px;
     border-radius: 8px;
     box-sizing: border-box;
-    margin-bottom: 20px;
     border: 1px solid var(--almost-black);    
 }
 

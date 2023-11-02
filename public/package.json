@@ -13,6 +13,7 @@
     "buffer": "^6.0.3",
     "downshift": "^8.2.2",
     "emoji-picker-react": "^3.5.1",
+    "html2pdf": "^0.0.11",
     "jspdf": "^2.5.1",
     "multiselect-react-dropdown": "^2.0.25",
     "react": "^17.0.2",

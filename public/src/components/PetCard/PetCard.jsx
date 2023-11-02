@@ -10,8 +10,15 @@ import ArchiveSVG from "../SVG/ArchiveSVG";
 import ExportSVG from "../SVG/ExportSVG";
 import ExportLog from "../PetExport/ExportLog";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
+import { useNavigate, Link } from "react-router-dom";
 
-const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
+const PetCard = ({ src, petBreed, petAge, petHeight, petWeight,petId }) => {
+
+  const navigate = useNavigate();
+  const onClickHandler = () => {
+    navigate(`/exportpetLog/${petId}`);
+  };
+
   return (
     <div className={styles.petCardContainer}>
       <div className={styles.imgContainer}>
@@ -63,10 +70,11 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight }) => {
           <ArchiveSVG width="30" height="30" />
           <Typography variant="detailtext2-poppins-medium">archive </Typography>
         </div>
-        <div>
+        <div onClick={  onClickHandler}>
           <ExportSVG width="28" height="29" />
           <Typography variant="detailtext2-poppins-medium">
-          <ExportLog/>
+          {/* <ExportLog petId={petId}/> */}
+
           </Typography>
         </div>
       </div>
