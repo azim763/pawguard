@@ -1,4 +1,6 @@
 const PetMedication = require("../models/petMedicationModel");
+const { ObjectId } = require('mongoose').Types;
+
 
 module.exports.getAllPetMedications = async (req, res, next) => {
   try {
@@ -59,7 +61,7 @@ module.exports.getPetMedicationById = async (req, res, next) => {
   // Update a pet medication record by its ID
 module.exports.updatePetMedicationById = async (req, res, next) => {
     try {
-      const medicationId = req.params.id;
+      const medicationId = new ObjectId(req.params.id);
       const updatedMedicationData = req.body;
       const updatedMedication = await PetMedication.findByIdAndUpdate(
         medicationId,

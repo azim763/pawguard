@@ -14,5 +14,5 @@ router.post("/create", createClinic);
 router.get("/searchclinicsbyspecies/:species", searchClinicsBySpecies);
 router.get("/getclinicbyid/:id", getClinicById);
 router.get("/update/:id", updateClinicById);
-router.get("/delete/:id", deleteClinicById);
+router.delete("/delete/:id", deleteClinicById);
 module.exports = router;

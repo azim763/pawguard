@@ -1,4 +1,6 @@
 const PetAppointment = require("../models/petAppointmentModel");
+const { ObjectId } = require('mongoose').Types;
+
 
 module.exports.getAllPetAppointments = async (req, res, next) => {
   try {
@@ -77,7 +79,7 @@ module.exports.updatePetAppointmentById = async (req, res, next) => {
   // Delete a pet appointment by its ID
 module.exports.deletePetAppointmentById = async (req, res, next) => {
     try {
-      const appointmentId = req.params.id;
+      const appointmentId = new ObjectId(req.params.id);
       const deletedAppointment = await PetAppointment.findByIdAndRemove(appointmentId);
       if (!deletedAppointment) {
         return res.status(404).json({ msg: 'Pet appointment not found' });

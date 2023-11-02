@@ -1,4 +1,6 @@
 const PetVaccination = require("../models/petVaccinationModel");
+const { ObjectId } = require('mongoose').Types;
+
 
 module.exports.getAllPetVaccinations = async (req, res, next) => {
   try {
@@ -78,7 +80,7 @@ module.exports.updatePetVaccinationById = async (req, res, next) => {
   // Delete a pet vaccination record by its ID
 module.exports.deletePetVaccinationById = async (req, res, next) => {
     try {
-      const vaccinationId = req.params.id;
+      const vaccinationId = new ObjectId(req.params.id);
       const deletedVaccination = await PetVaccination.findByIdAndRemove(vaccinationId);
       if (!deletedVaccination) {
         return res.status(404).json({ msg: 'Pet vaccination record not found' });

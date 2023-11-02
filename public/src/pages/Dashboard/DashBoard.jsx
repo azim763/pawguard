@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PlusSVG from "../../components/SVG/PlusSVG";
 import {
-  allUsersRoute,
+  searchPetLogsByPetIDRoute,
   searchPetsByUserIDRoute,
   searchPetFoodByPetIDRoute,
   host,
@@ -34,6 +34,7 @@ export default function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [appointments, setAppointment] = useState([]);
   const [medication, setMedication] = useState([]);
+  const [petLog,setPetLog] = useState([]);
 
   const currentDate = new Date(); // Get the current date
   const formattedCurrentDate = `${currentDate.getDate()}-${
@@ -50,8 +51,13 @@ export default function Chat() {
   });
 
   const filteredMedication = medication.filter((med) => {
-    const medDate = new Date(med.timestamp * 1000);
-    return medDate >= currentDate;
+    const medDate = new Date(med.MedicationDate);
+    const daysToAdd = med.MedicationPeriod; 
+  
+    const targetDate = new Date(medDate);
+    targetDate.setDate(medDate.getDate() + daysToAdd); 
+  
+    return targetDate >= currentDate;
   });
 
   const handlePetSelection = (pet) => {
@@ -74,6 +80,7 @@ export default function Chat() {
             params: { userID: currentUser._id },
           });
           setPets(responsePets.data);
+          localStorage.setItem('petsData', JSON.stringify(responsePets.data));
 
           if (responsePets.data.length > 0) {
             setSelectedPet(responsePets.data[0]);
@@ -102,6 +109,23 @@ export default function Chat() {
 
     fetchData();
   }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responsePetLog = await axios.get(searchPetLogsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
+        setPetLog(responsePetLog.data);
+        console.log(responsePetLog.data);
+      } catch (error) {
+        console.error("Error fetching pet foods:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -177,10 +201,9 @@ export default function Chat() {
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
                 <Link
-                  key={pet._id}
-                  to={`/petPage/${pet._id}`}
-                  state={{ pets: pets }}
-                >
+                to="/petPage"
+                state={{ selectedPetID: pet._id }}
+              >
                   <PetSelection
                     styles={{ marginBottom: "20px" }}
                     PetImageData={pet.PetImageName}
@@ -214,6 +237,13 @@ export default function Chat() {
               <Graph
                 names={foods.map((food) => food.MealPerDay)}
                 values={foods.map((food) => food.FoodDate)}
+              />
+            )}
+
+              {selectedPet && (
+                <Graph
+                  names={petLog.map((petLog) => petLog.Weight)}
+                  values={petLog.map((petLog) => petLog.LogDate)}
               />
             )}
           </div>

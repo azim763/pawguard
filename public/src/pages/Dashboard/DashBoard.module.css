@@ -38,3 +38,11 @@
   .dashboardGraph{
     grid-column: 1/-1;
   }
+
+
+  @media only screen and (max-width: 768px) {
+    .dashboardContainer {
+    
+      flex-flow: column nowrap;
+    }
+  }

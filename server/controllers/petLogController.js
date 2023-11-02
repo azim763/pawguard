@@ -1,4 +1,7 @@
 const PetLog = require("../models/petLogModel");
+const { ObjectId } = require('mongoose').Types;
+
+
 
 module.exports.getAllPetLogs = async (req, res, next) => {
   try {
@@ -68,7 +71,7 @@ module.exports.updatePetLogById = async (req, res, next) => {
   // Delete a pet log entry by its ID
 module.exports.deletePetLogById = async (req, res, next) => {
     try {
-      const logId = req.params.id;
+      const logId = new ObjectId(req.params.id);
       const deletedLog = await PetLog.findByIdAndRemove(logId);
       if (!deletedLog) {
         return res.status(404).json({ msg: 'Pet log entry not found' });

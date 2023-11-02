@@ -8,7 +8,6 @@
   object-fit: cover;
 }
 
-
 .petCardContainer {
   display: grid;
   width: 250px;
@@ -17,20 +16,20 @@
   align-items: center;
 }
 
-.descriptionContainer{
+.descriptionContainer {
   text-align: left;
 }
 
-.detailContainer{
-    display: grid;
-    grid-template-columns: .8fr .8fr;
-    /* text-align: left;
-    justify-items: center; */
+.detailContainer {
+  display: grid;
+  grid-template-columns: 0.8fr 0.8fr;
+  text-align: center;
 }
 
-.actionContainer{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid;
-    padding: 1rem;
+.actionContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid;
+  padding: 1rem;
+  text-align: center;
 }

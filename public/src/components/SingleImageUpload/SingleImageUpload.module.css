@@ -49,5 +49,6 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  color:var(--dark-blue)
+  color:var(--dark-blue);
+  margin: auto;
 }

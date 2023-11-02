@@ -1,4 +1,4 @@
-import React,{useState}from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import LogoSVG from "../SVG/LogoSVG";
 import styles from "./header.module.css";
@@ -16,31 +16,30 @@ const Header = () => {
 
   return (
     <nav className={styles.nav}>
-      <Typography variant="body1-poppins-semibold">
+      <div>
         <LogoSVG width="224" height="45" />
         <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
-          <ul >
-            <li>
-              <NavLink to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/petPage[/:profileID]">My Pets</NavLink>
-            </li>
-            <li>
-              <NavLink to="/clinics">Clinics</NavLink>
-            </li>
-            <li>
-              <NavLink to="/getinsurances">Insurances</NavLink>
-            </li>
-            <li>
-              <UserSVG width="48" height="48" />
-            </li>
+          <ul>
+
+              <li>
+                <NavLink to="/"><Typography variant="body1-poppins-semibold">Home</Typography></NavLink>
+              </li>
+              <li>
+                <NavLink to="/petPage"><Typography variant="body1-poppins-semibold">My Pets</Typography></NavLink>
+              </li>
+              <li>
+                <NavLink to="/clinics"><Typography variant="body1-poppins-semibold">Clinics</Typography></NavLink>
+              </li>
+              <li>
+                <NavLink to="/getinsurances"><Typography variant="body1-poppins-semibold">Insurances</Typography></NavLink>
+              </li>
+              <li>
+                <UserSVG width="48" height="48" />
+              </li>
           </ul>
-          </div>
+        </div>
         <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
-      </Typography>
+        </div>
     </nav>
   );
 };
