@@ -1,0 +1,8 @@
+.checkboxLabel{
+    margin-left: 10px;
+}
+
+input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+}

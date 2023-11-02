@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import styles from '../PetLogForm/PetLogForm.module.css';
-import TextInput from '../TextInput/TextInput';
-import Dropdown from '../Dropdown/Dropdown';
-import Typography from '../Typography/Typography';
-import DatePicker from '../DatePicker/DatePicker';
-import Button from '../Button/Button';
-import RadioButton from '../RadioButton/RadioButton';
-import Checkbox from '../Checkbox/Checkbox';
-import { createPetFoodRoute,createPetLogRoute,searchPetsByUserIDRoute } from '../../utils/APIRoutes';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import styles from "../PetLogForm/PetLogForm.module.css";
+import TextInput from "../TextInput/TextInput";
+import Dropdown from "../Dropdown/Dropdown";
+import Typography from "../Typography/Typography";
+import DatePicker from "../DatePicker/DatePicker";
+import Button from "../Button/Button";
+import RadioButton from "../RadioButton/RadioButton";
+import Checkbox from "../Checkbox/Checkbox";
+import {
+  createPetFoodRoute,
+  createPetLogRoute,
+  searchPetsByUserIDRoute,
+} from "../../utils/APIRoutes";
+import TextArea from "../TextArea/TextArea";
+import axios from "axios";
 
-const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
+const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
   // const [pets,setPets] =useState([]);
   const [foodDate, setFoodDate] = useState(new Date());
   const [LogDate, setLogDate] = useState(new Date());
@@ -27,17 +32,16 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
   //       // Handle any errors here
   //     }
   //   };
-  
 
   const MealPerDay = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-    { value: 4, label: '4' },
+    { value: 1, label: "1" },
+    { value: 2, label: "2" },
+    { value: 3, label: "3" },
+    { value: 4, label: "4" },
   ];
 
   const [foodData, setFoodData] = useState({
-    PetID:"",
+    PetID: "",
     FoodName: "",
     MealPerDay: "",
     QuantityPerMeal: "",
@@ -50,7 +54,6 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
     fat: "",
     fiber: "",
   });
-
 
   const handleDropdownChange = (name, value) => {
     console.log("dropdown is dropping");
@@ -78,10 +81,10 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
 
   const handleFoodFormSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-  
+
     // Handle food form submission
     console.log("Food data before update:", foodData);
-  
+
     if (selectedPet && selectedPet._id) {
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
       console.log("Updated food data:", updatedFoodData);
@@ -90,32 +93,31 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       if (selectedPet && selectedPet._id) {
         // ...
-        onPetLogSubmit(response.data); 
+        onPetLogSubmit(response.data);
       }
       console.log(response);
-      console.log('Data submitted');
+      console.log("Data submitted");
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
   };
-  
+
   const handleAdditionalInfoSubmit = async () => {
     // Handle additional information form submission
     console.log("Additional information data before update:", formData);
-  
+
     if (selectedPet && selectedPet._id) {
       const updatedFormData = { ...formData, PetID: selectedPet._id };
       console.log("Updated additional information data:", updatedFormData);
-  
+
       setFormData(updatedFormData);
       const response = await axios.post(createPetLogRoute, updatedFormData);
       console.log(response);
-      console.log('Data submitted');
+      console.log("Data submitted");
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
   };
-  
 
   const [formData, setFormData] = useState({
     PetID:"",
@@ -144,13 +146,13 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
   };
 
   const options = [
-    { label: "High ", value: "High" },
-    { label: "Normal", value: "Normal" },
-    { label: "Low", value: "Low" },
+    { label: "High", value: "High" },
+    { label: "Normal ", value: "Normal" },
+    { label: "Low ", value: "Low" },
   ];
   const handleDateChange = (e) => {
     const { name, value } = e.target;
-    const [year, month, day] = value.split('T')[0].split('-');
+    const [year, month, day] = value.split("T")[0].split("-");
     const resultDate = `${day}-${month}-${year}`;
 
     setFoodData({
@@ -177,36 +179,57 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
       {/* <div>
         <PetLogCard />
       </div> */}
-      <div>
+      <div className={styles.petLogContainer}>
         <div>
-          <h2>Add Pet Log</h2>
+          <Typography variant="h2-poppins-semibold">Add Pet Log</Typography>
         </div>
         <div className={styles.addPetForm}>
           <form onSubmit={handleFoodFormSubmit}>
             <div className={styles.petLogFormGeneral}>
-              <div>
-                <h3>General</h3>
+              <div className={styles.formSubheading}>
+                <Typography variant="sub-h1-poppins-semibold">
+                  General
+                </Typography>
               </div>
               <div className={styles.petLogFormLine1}>
-                <Typography variant="body2-poppins-medium">Date</Typography>
-                  <DatePicker onChange={handleLogDateChange} id="LogDate" value={LogDate}/>
-
-                <div className={styles.petWeight}>
-                  <TextInput
-                    id="Weight"
-                    name="Weight"
-                    label="Pet Weight"
-                    placeholder="Eg: 30"
-                    value={formData.Weight}
-                    onChange={handleInputChange}
-                  />
-                  <Typography variant="body2-poppins-medium">lbs</Typography>
+                <div>
+                  <Typography variant="body2-poppins-medium">Date</Typography>
+                  {formData.LogDate && (
+                    <DatePicker
+                      id="LogDate"
+                      name="LogDate"
+                      value={formData.LogDate.toISOString().split("T")[0]} // Format the date to 'yyyy-MM-dd'
+                      onChange={handleInputChange}
+                    />
+                  )}
+                </div>
+                <div>
+                  <Typography variant="body2-poppins-medium">
+                    Pet Weight
+                  </Typography>
+                  <div className={styles.petUnit}>
+                    <TextInput
+                      id="Weight"
+                      name="Weight"
+                      // label="Pet Weight"
+                      placeholder="Eg: 30"
+                      value={formData.Weight}
+                      onChange={handleInputChange}
+                    />
+                    <div className={styles.unitGap}>
+                      <Typography variant="body2-poppins-medium">
+                        lbs
+                      </Typography>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className={styles.petLogRadioButtons}>
-                <div>
-                  <h4>Activity Level</h4>
-                  <div>
+                <div className={styles.sessionGap}>
+                  <Typography variant="body2-poppins-medium">
+                    Activity Level
+                  </Typography>
+                  <div style={{ padding: "10px" }}>
                     {options.map((option) => (
                       <RadioButton
                         key={option.value}
@@ -219,9 +242,12 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
                     ))}
                   </div>
                 </div>
-                <div>
-                  <h4>Urine Amount</h4>
-                  <div>
+                <div className={styles.sessionGap}>
+                  <Typography variant="body2-poppins-medium">
+                    Urine Amount
+                  </Typography>
+
+                  <div style={{ padding: "10px" }}>
                     {options.map((option) => (
                       <RadioButton
                         key={option.value}
@@ -235,8 +261,11 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
                   </div>
                 </div>
                 <div>
-                  <h4>Stool Amount</h4>
-                  <div>
+                  <Typography variant="body2-poppins-medium">
+                    Stool Amount
+                  </Typography>
+
+                  <div style={{ padding: "10px" }}>
                     {options.map((option) => (
                       <RadioButton
                         key={option.value}
@@ -252,95 +281,139 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
               </div>
             </div>
             <div>
-              <h3>Food </h3>
-              <div>
+              <div className={styles.formSubheading}>
+                <Typography variant="sub-h1-poppins-semibold">Food </Typography>
+              </div>
+              <div className={styles.sessionContainer}>
                 <div className={styles.petLogFood}>
-                  <TextInput
-                    id="FoodName"
-                    name="FoodName"
-                    label="Food Name"
-                    value={foodData.FoodName}
-                    onChange={handleChange}
-                  />
+                  <div className={styles.sessionGap}>
+                    <TextInput
+                      size="md"
+                      id="FoodName"
+                      name="FoodName"
+                      label="Food Name"
+                      placeholder="Enter Food Name"
+                      value={foodData.FoodName}
+                      onChange={handleChange}
+                    />
+                  </div>
+
                   <div className={styles.petLogFoodAndQuantity}>
-                    <Dropdown
-                      label="Meals per Day"
-                      id="MealPerDay"
-                      name="MealPerDay"
-                      options={MealPerDay}
-                      value={foodData.MealPerDay}
-                      onChange={(selectedValue) =>
-                        handleDropdownChange("MealPerDay", selectedValue)
-                      }                    />
-                    <div className={styles.quantityPerMeal}>
-                      <TextInput
-                        id="QuantityPerMeal"
-                        name="QuantityPerMeal"
-                        label="Quantity Per Meal"
-                        placeholder="Eg: 500"
-                        value={foodData.QuantityPerMeal}
-                        onChange={handleChange}
+                    <div style={{ marginRight: "50px" }}>
+                      <Dropdown
+                        size="small"
+                        label="Meals per Day"
+                        id="MealPerDay"
+                        name="MealPerDay"
+                        options={MealPerDay}
+                        value={foodData.MealPerDay}
+                        onChange={(selectedValue) =>
+                          handleDropdownChange("MealPerDay", selectedValue)
+                        }
                       />
-                      <Typography variant="body2-poppins-medium">g</Typography>
+                    </div>
+                    <div className={styles.quantityPerMeal}>
+                      <Typography variant="body2-poppins-medium">
+                        Quantity Per Meal
+                      </Typography>
+                      <div className={styles.petUnit}>
+                        <TextInput
+                          size="small"
+                          id="QuantityPerMeal"
+                          name="QuantityPerMeal"
+                          // label="Quantity Per Meal"
+                          placeholder="500"
+                          value={foodData.QuantityPerMeal}
+                          onChange={handleChange}
+                        />
+                        <div className={styles.unitGap}>
+                          <Typography variant="body2-poppins-medium">
+                            g
+                          </Typography>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+
                 <div className={styles.petLogCheckBox}>
-                  <Checkbox
-                    id="KibbleDry"
-                    name="KibbleDry"
-                    label="kibble"
-                    value="KibbleDry"
-                    checked={foodData.KibbleDry}
-                    onChange={handleChange}
-                  />
-                  <Checkbox
-                    id="Canned"
-                    name="Canned"
-                    label="canned"
-                    value="Canned"
-                    checked={foodData.Canned}
-                    onChange={handleChange}
-                  />
-                  <Checkbox
-                    id="SemiMoist"
-                    name="SemiMoist"
-                    label="Semi-Moist"
-                    value="SemiMoist"
-                    checked={foodData.SemiMoist}
-                    onChange={handleChange}
-                  />
-                  <Checkbox
-                    id="HomeCooked"
-                    name="HomeCooked"
-                    label="Home-Cooked"
-                    value="HomeCooked"
-                    checked={foodData.HomeCooked}
-                    onChange={handleChange}
-                  />
-                  <Checkbox
-                    id="Raw"
-                    name="Raw"
-                    label="Raw"
-                    value="Raw"
-                    checked={foodData.Raw}
-                    onChange={handleChange}
-                  />
-                          <Typography variant="body2-poppins-medium">Food Date</Typography>
-
-                  <DatePicker onChange={handleDateChange} id="FoodDate" value={foodDate}/>
-
+                  <div className={styles.checkboxGap}>
+                    <Checkbox
+                      id="KibbleDry"
+                      name="KibbleDry"
+                      label="Kibble-Dry"
+                      value="KibbleDry"
+                      checked={foodData.KibbleDry}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className={styles.checkboxGap}>
+                    <Checkbox
+                      id="Canned"
+                      name="Canned"
+                      label="Canned"
+                      value="Canned"
+                      checked={foodData.Canned}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className={styles.checkboxGap}>
+                    <Checkbox
+                      id="SemiMoist"
+                      name="SemiMoist"
+                      label="Semi-Moist"
+                      value="SemiMoist"
+                      checked={foodData.SemiMoist}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className={styles.checkboxGap}>
+                    <Checkbox
+                      id="HomeCooked"
+                      name="HomeCooked"
+                      label="Home-Cooked"
+                      value="HomeCooked"
+                      checked={foodData.HomeCooked}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className={styles.checkboxGap}>
+                    <Checkbox
+                      id="Raw"
+                      name="Raw"
+                      label="Raw"
+                      value="Raw"
+                      checked={foodData.Raw}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </div>
-                <Button
-                  variant="yellow"
-                  label="Add Food"
-                  size="dk-md-s"
-                  type="submit" // This should be 'type="submit"' to trigger the form submission
+                <Typography variant="body2-poppins-medium">
+                  Food Date
+                </Typography>
+
+                <DatePicker
+                  onChange={handleDateChange}
+                  id="FoodDate"
+                  value={foodDate}
                 />
+
+                <div className={styles.buttonStyle}>
+                  <Button
+                    variant="dark-blue"
+                    label="Add Food"
+                    size="dk-md-s"
+                    type="submit" // This should be 'type="submit"' to trigger the form submission
+                  />
+                </div>
               </div>
             </div>
-            <div>
-              <h3>Additional Information</h3>
+            <div className={styles.sessionContainer}>
+              <div className={styles.formSubheading}>
+                <Typography variant="sub-h1-poppins-semibold">
+                  Additional Information
+                </Typography>
+              </div>
               <TextInput
                 id="Notes"
                 name="Notes"
@@ -349,12 +422,14 @@ const PetLogForm = ({ selectedPet,onPetLogSubmit }) => {
                 value={formData.Notes}
                 onChange={handleInputChange}
               />
-              <Button
-                variant="yellow"
-                label="save"
-                size="dk-md-s"
-                onClick={handleAdditionalInfoSubmit}
-              />
+              <div className={styles.buttonStyle}>
+                <Button
+                  variant="yellow"
+                  label="save"
+                  size="dk-md-s"
+                  onClick={handleAdditionalInfoSubmit}
+                />
+              </div>
             </div>
           </form>
         </div>
