@@ -2,8 +2,8 @@
   padding: 26px 20px;
 }
 
-.addPetForm{
-    display: grid;
+.addPetForm {
+  display: grid;
 }
 
 .petLogFormLine1 {
@@ -14,10 +14,11 @@
   display: flex;
   margin-bottom: 36px;
   margin-right: 10px;
+  align-items: center
 }
 
-.unitGap{
-    margin-left: 10px;
+.unitGap {
+  margin-left: 10px;
 }
 
 .petLogRadioButtons {
@@ -39,10 +40,11 @@
   display: flex;
   flex-direction: row;
   margin-right: 30px;
+  align-items: flex-end;
 }
 
-.sessionContainer{
-    display: grid;
+.sessionContainer {
+  display: grid;
 }
 
 .petLogFoodLine2 {
@@ -62,14 +64,13 @@
 .petLogCheckBox {
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 36px;
 }
 
-.checkboxGap {
-  margin-right: 20px;
-}
 
-
-.buttonStyle{
-    display: flex;
-    justify-content: end;
+.buttonStyle {
+  display: flex;
+  justify-content: end;
 }

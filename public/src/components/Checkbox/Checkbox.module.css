@@ -1,8 +1,13 @@
-.checkboxLabel{
-    margin-left: 10px;
+.checkboxLabel {
+  margin-left: 10px;
 }
 
-input[type=checkbox]{
-    width: 20px;
-    height: 20px;
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.checkboxStyle {
+  display: flex;
+  align-items: flex-end;
 }

@@ -10,7 +10,7 @@ const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange
 
 
   return (
-    <div style={{display: "flex"}}>
+    <div className= {styles.checkboxStyle}>
       <input
         className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
         type="checkbox"
