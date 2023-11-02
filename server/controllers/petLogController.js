@@ -26,8 +26,8 @@ module.exports.createPetLog = async (req, res, next) => {
 // Search for pet logs by PetID
 module.exports.searchPetLogsByPetID = async (req, res, next) => {
     try {
-  const PetID = req.params.petID;
-      const logs = await PetLog.find({ PetID: PetID });
+  const petID = req.params.petID;
+      const logs = await PetLog.find({ petID: petID });
       return res.json(logs);
     } catch (ex) {
       next(ex);
