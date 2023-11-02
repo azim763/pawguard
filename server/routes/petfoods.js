@@ -5,6 +5,7 @@ const {
   getAllPetFoods,
   createPetFood,
   searchPetFoodByPetID,
+  searchPetFoodByUserID,
   getPetFoodById,
   updatePetFoodById,
   deletePetFoodById,

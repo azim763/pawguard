@@ -4,6 +4,7 @@ const {
   getAllPetVaccinations,
   createPetVaccination,
   searchPetVaccinationsByPetID,
+  searchPetVaccinationsByUserID,
   getPetVaccinationById,
   updatePetVaccinationById,
   deletePetVaccinationById,

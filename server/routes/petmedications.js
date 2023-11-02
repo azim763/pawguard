@@ -4,6 +4,7 @@ const {
   getAllPetMedications,
   createPetMedication,
   searchPetMedicationsByPetID,
+  searchPetMedicationsByUserID,
   getPetMedicationById,
   updatePetMedicationById,
   deletePetMedicationById,

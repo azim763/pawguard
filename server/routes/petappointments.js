@@ -5,6 +5,7 @@ const {
   getAllPetAppointments,
   createPetAppointment,
   searchPetAppointmentsByPetID,
+  searchPetAppointmentsByUserID,
   getPetAppointmentById,
   updatePetAppointmentById,
   deletePetAppointmentById,
