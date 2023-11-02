@@ -4,14 +4,16 @@ import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
 import DatePicker from "../DatePicker/DatePicker";
 import TimePicker from "../TimePicker/TimePicker";
+import styles from "./appointmentForm.module.css";
 import axios from "axios";
 import {
   createPetAppointmentRoute,
   getAllClinicsRoute,
 } from "../../utils/APIRoutes";
 import AutocompleteComponent from "../AutocompleteTextfield/AutocompleteTextfield";
+import CloseSVG from "./../SVG/CloseSVG";
 
-const AppointmentForm = ({selectedPet,onAppointmentSubmit}) => {
+const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
   // const clinicData = ["Clinic A", "Clinic B", "Clinic C"];
   const [clinicData, setClinicData] = useState([]);
@@ -30,7 +32,7 @@ const AppointmentForm = ({selectedPet,onAppointmentSubmit}) => {
   }, []);
 
   const [formData, setFormData] = useState({
-    PetID:"",
+    PetID: "",
     ClinicName: "",
     Latitude: "",
     Longitude: "",
@@ -65,12 +67,15 @@ const AppointmentForm = ({selectedPet,onAppointmentSubmit}) => {
       const updatedFormData = { ...formData, PetID: selectedPet._id };
       setFormData(updatedFormData);
       try {
-        const response = await axios.post(createPetAppointmentRoute, updatedFormData);
+        const response = await axios.post(
+          createPetAppointmentRoute,
+          updatedFormData
+        );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
         if (selectedPet && selectedPet._id) {
           // ...
-          onAppointmentSubmit(response.data); 
+          onAppointmentSubmit(response.data);
         }
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
@@ -81,60 +86,70 @@ const AppointmentForm = ({selectedPet,onAppointmentSubmit}) => {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
   };
-  
+
   return (
-    <div>
-      <Typography variant="h2-poppins-semibold">Add Appointment</Typography>
+    <div className={styles.appointmentContainer}>
+      <div className={styles.appointmentTitle}>
+        <Typography variant="h2-poppins-semibold">Add Appointment</Typography>
+        <CloseSVG width="27" height="28" />
+      </div>
       <form onSubmit={handleSubmit}>
-      <Typography variant="body2-poppins-medium">
-          Clinic Name
-        </Typography>
-        {clinicData.length > 0 && (
-          <AutocompleteComponent
-            clinicData={clinicData}
-            handleSelection={(selectedClinic) => {
-              console.log("Selected Clinic:", selectedClinic);
-              // Use the selected clinic object to retrieve latitude and longitude
-              // const { ID } = selectedClinic;
-              // console.log(ID);
+        <div>
+          <Typography variant="body2-poppins-medium">Clinic Name</Typography>
+          {clinicData.length > 0 && (
+            <AutocompleteComponent
+              clinicData={clinicData}
+              handleSelection={(selectedClinic) => {
+                console.log("Selected Clinic:", selectedClinic);
 
-              const { Latitude, Longitude } = selectedClinic;
-
-              console.log("Latitude:", selectedClinic.Latitude);
-              console.log("Longitude:", selectedClinic.Longitude);
-              console.log("Clinic Name", selectedClinic.Name);
-              setFormData({
-                ...formData,
-                Latitude: selectedClinic.Latitude,
-                Longitude: selectedClinic.Longitude,
-                ClinicName: selectedClinic.Name,
-              });
-              console.log(selectedClinic);
-              // Make API call to retrieve latitude and longitude using the clinic ID
-            }}
+                const { Latitude, Longitude } = selectedClinic;
+                console.log("Latitude:", selectedClinic.Latitude);
+                console.log("Longitude:", selectedClinic.Longitude);
+                console.log("Clinic Name", selectedClinic.Name);
+                setFormData({
+                  ...formData,
+                  Latitude: selectedClinic.Latitude,
+                  Longitude: selectedClinic.Longitude,
+                  ClinicName: selectedClinic.Name,
+                });
+                console.log(selectedClinic);
+              }}
+            />
+          )}
+        </div>
+        <div>
+          <TextInput
+            id="AppointmentReason"
+            label="Appointment Reason"
+            onChange={handleInputChange}
           />
-        )}
-        {/* <TextInput
-          id="ClinicName"
-          label="Clinic Name"
-          onChange={handleInputChange}
-        /> */}
-        <TextInput
-          id="AppointmentReason"
-          label="Appointment Reason"
-          onChange={handleInputChange}
-        />
-        <Typography variant="body2-poppins-medium">
-          Date of Appointment
-        </Typography>
-        <DatePicker
-          onChange={handleDateChange}
-          id="AppointmentDate"
-          value={appointmentDate}
-        />
-        <Typography variant="body2-poppins-medium">Appointment Time</Typography>
-        <TimePicker onChange={handleInputChange} id="AppointmentTime" />
-        <Button type="submit" variant="yellow" label="Add Pet" size="dk-md-s" />
+        </div>
+        <div>
+          <Typography variant="body2-poppins-medium">
+            Date of Appointment
+          </Typography>
+          <DatePicker
+            onChange={handleDateChange}
+            id="AppointmentDate"
+            value={appointmentDate}
+          />
+        </div>
+        <div>
+          <Typography variant="body2-poppins-medium">
+            Appointment Time
+          </Typography>
+          <div className={styles.timepickerContainer}>
+            <TimePicker onChange={handleInputChange} id="AppointmentTime" />
+          </div>
+        </div>
+        <div className={styles.button}>
+          <Button
+            type="submit"
+            variant="yellow"
+            label="Save"
+            size="dk-md-s"
+          />
+        </div>
       </form>
     </div>
   );

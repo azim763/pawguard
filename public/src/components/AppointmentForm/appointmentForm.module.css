@@ -1,0 +1,28 @@
+.appointmentContainer {
+  padding: 26px 20px;
+}
+
+.appointmentContainer form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 35px;
+  row-gap: 36px;
+}
+
+.appointmentTitle {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.button {
+  display: flex;
+  justify-content: end;
+  grid-column: 1/-1;
+}
+
+.timepickerContainer{
+    width: 210px;
+  }
+  
