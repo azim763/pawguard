@@ -191,14 +191,8 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
               <div className={styles.petLogFormLine1}>
                 <div>
                   <Typography variant="body2-poppins-medium">Date</Typography>
-                  {formData.LogDate && (
-                    <DatePicker
-                      id="LogDate"
-                      name="LogDate"
-                      value={formData.LogDate.toISOString().split("T")[0]} // Format the date to 'yyyy-MM-dd'
-                      onChange={handleInputChange}
-                    />
-                  )}
+                  <DatePicker onChange={handleLogDateChange} id="LogDate" value={LogDate}/>
+
                 </div>
                 <div>
                   <Typography variant="body2-poppins-medium">
