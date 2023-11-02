@@ -18,7 +18,10 @@ import axios from "axios";
 const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
   // const [pets,setPets] =useState([]);
   const [foodDate, setFoodDate] = useState(new Date());
+  const [LogDate, setLogDate] = useState(new Date());
 
+
+  
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -85,8 +88,8 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
     if (selectedPet && selectedPet._id) {
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
       console.log("Updated food data:", updatedFoodData);
-
-      await setFoodData(updatedFoodData);
+  
+       setFoodData(updatedFoodData);
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       if (selectedPet && selectedPet._id) {
         // ...
@@ -117,8 +120,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
   };
 
   const [formData, setFormData] = useState({
-    LogDate: new Date(),
-    PetID: "",
+    PetID:"",
     Weight: 0,
     ActivityLevel: "",
     UrineAmount: "",
@@ -159,6 +161,18 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
     });
     setFoodDate(value);
   };
+  const handleLogDateChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = value.split('T')[0].split('-');
+    const resultDate = `${day}-${month}-${year}`;
+
+    setFormData({
+      ...formData,
+      [name]: resultDate,
+    });
+    setLogDate(value);
+  };
+
 
   return (
     <div>

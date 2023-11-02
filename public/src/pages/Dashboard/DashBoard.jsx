@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PlusSVG from "../../components/SVG/PlusSVG";
 import {
-  allUsersRoute,
+  searchPetLogsByPetIDRoute,
   searchPetsByUserIDRoute,
   searchPetFoodByPetIDRoute,
   host,
@@ -34,6 +34,7 @@ export default function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [appointments, setAppointment] = useState([]);
   const [medication, setMedication] = useState([]);
+  const [petLog,setPetLog] = useState([]);
 
   const currentDate = new Date(); // Get the current date
   const formattedCurrentDate = `${currentDate.getDate()}-${
@@ -108,6 +109,23 @@ export default function Chat() {
 
     fetchData();
   }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responsePetLog = await axios.get(searchPetLogsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
+        setPetLog(responsePetLog.data);
+        console.log(responsePetLog.data);
+      } catch (error) {
+        console.error("Error fetching pet foods:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -219,6 +237,13 @@ export default function Chat() {
               <Graph
                 names={foods.map((food) => food.MealPerDay)}
                 values={foods.map((food) => food.FoodDate)}
+              />
+            )}
+
+              {selectedPet && (
+                <Graph
+                  names={petLog.map((petLog) => petLog.Weight)}
+                  values={petLog.map((petLog) => petLog.LogDate)}
               />
             )}
           </div>

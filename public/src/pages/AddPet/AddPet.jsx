@@ -163,7 +163,7 @@ const AddPet = () => {
   return (
     <div>
       <Header />
-      <div className="addPetHeader">
+      <div className={styles.addPetHeader}>
         <Typography variant="large-h1-poppins-bold" color="almost-black">
           Add Pet
         </Typography>
@@ -261,8 +261,7 @@ const AddPet = () => {
             options={preExistingMedical}
           />
           <div>
-            <label htmlFor="Description">Pet Notes</label>
-            <br />
+          <Typography variant="body2-poppins-medium"><label htmlFor="Description">Pet Notes</label></Typography>
             <textarea
               name="Description"
               id="Description"
