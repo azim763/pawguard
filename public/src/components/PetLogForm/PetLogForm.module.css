@@ -1,5 +1,7 @@
 .petLogContainer {
   padding: 26px 20px;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
 }
 
 .addPetForm {

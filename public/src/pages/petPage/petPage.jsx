@@ -236,15 +236,17 @@ const PetPage = () => {
       <div>
         <div className={styles.getPetPage}>
           {petLog.length > 0 && (
-            <div>
+            <div className={styles.petLogCard}>
               {petLog.map((log) => (
 
-                <PetLogCard
-                  PetLogDate={log.LogDate}
-                  PetLogTime={log.timestamp}
-                  logId={log._id}
-                  onDelete={() => handlePetLogDelete(log._id)}
-                />
+                <div>
+                  <PetLogCard
+                    PetLogDate={log.LogDate}
+                    PetLogTime={log.timestamp}
+                    logId={log._id}
+                    onDelete={() => handlePetLogDelete(log._id)}
+                  />
+                </div>
               ))}
             </div>
           )}
@@ -264,18 +266,20 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {validPetAppointments.length > 0 && (
             <div>
-              <Map coordinates={validPetAppointments} />
-              {petAppointments.map((appointment, index) => (
-                <AppointmentCard
-                  key={index}
-                  ClinicName={appointment.ClinicName}
-                  AppointmentTime={appointment.AppointmentTime}
-                  AppointmentReason={appointment.AppointmentReason}
-                  AppointmentDateTime={appointment.AppointmentDate}
-                  AppointmentId={appointment._id}
-                  onDelete={() => handleAppointmentDelete(appointment._id)}
-                />
-              ))}
+              <div styles={{marginBottom: "27px"}}><Map coordinates={validPetAppointments} /></div>
+              <div className={styles.appointmentCard}>
+                {petAppointments.map((appointment, index) => (
+                  <AppointmentCard
+                    key={index}
+                    ClinicName={appointment.ClinicName}
+                    AppointmentTime={appointment.AppointmentTime}
+                    AppointmentReason={appointment.AppointmentReason}
+                    AppointmentDateTime={appointment.AppointmentDate}
+                    AppointmentId={appointment._id}
+                    onDelete={() => handleAppointmentDelete(appointment._id)}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>
