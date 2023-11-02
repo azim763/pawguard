@@ -1,5 +1,7 @@
 .appointmentContainer {
   padding: 26px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-grey)
 }
 
 .appointmentContainer form {
