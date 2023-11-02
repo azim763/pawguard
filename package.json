@@ -3,6 +3,7 @@
     "downshift": "^8.2.2",
     "html-webpack-plugin": "^5.5.3",
     "jspdf": "^2.5.1",
+    "react-responsive-carousel": "^3.2.23",
     "source-map-loader": "^4.0.1"
   }
 }

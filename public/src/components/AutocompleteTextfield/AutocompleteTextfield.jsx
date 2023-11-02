@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import Downshift from 'downshift';
+import React, { useState, useEffect } from "react";
+import Downshift from "downshift";
+import Typography from "../Typography/Typography";
 
 const AutocompleteComponent = ({ clinicData, handleSelection }) => {
   return (
     <Downshift
       onChange={(selection) => handleSelection(selection)} // Set the onChange handler here
-      itemToString={(item) => (item ? item.Name : '')}
+      itemToString={(item) => (item ? item.Name : "")}
     >
       {({
         getInputProps,
@@ -19,7 +20,18 @@ const AutocompleteComponent = ({ clinicData, handleSelection }) => {
       }) => (
         <div>
           <div {...getRootProps({}, { suppressRefError: true })}>
-            <input {...getInputProps()} />
+            <Typography variant="textfield-poppins-regular">
+              <input
+                {...getInputProps()}
+                style={{
+                  width: "325px",
+                  height: "54px",
+                  borderRadius: "8px",
+                  borderColor: "var(--almost-black)",
+                  padding: "0 12px",
+                }}
+              />
+            </Typography>
           </div>
           <ul {...getMenuProps()}>
             {isOpen &&
@@ -36,8 +48,8 @@ const AutocompleteComponent = ({ clinicData, handleSelection }) => {
                       item,
                       style: {
                         backgroundColor:
-                          highlightedIndex === index ? 'lightgray' : 'white',
-                        fontWeight: selectedItem === item ? 'bold' : 'normal',
+                          highlightedIndex === index ? "lightgray" : "white",
+                        fontWeight: selectedItem === item ? "bold" : "normal",
                       },
                     })}
                     key={index}
