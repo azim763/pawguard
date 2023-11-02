@@ -36,6 +36,7 @@ const PetPage = () => {
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
+  const [validPetAppointments, setValidPetAppointments] = useState([])
 
   console.log(pets);
 
@@ -46,7 +47,16 @@ const PetPage = () => {
       !isNaN(coord.Longitude)
     );
   };
-  const validPetAppointments = petAppointments.filter(isValidCoordinate);
+  const handleAppointmentDelete = (deletedAppointmentId) => {
+    // Remove the appointment with the deleted ID from petAppointments
+    setPetAppointments((prevAppointments) =>
+      prevAppointments.filter((appointment) => appointment._id !== deletedAppointmentId)
+    );
+
+    // Update validPetAppointments to exclude the deleted appointment
+    setValidPetAppointments(validPetAppointments.filter((appointment) => appointment._id !== deletedAppointmentId));
+  };
+
 
   const handleMedicationSubmit = (newMedicationData) => {
     setPetMedications((prevMedications) => [
@@ -72,6 +82,14 @@ const PetPage = () => {
   const handlePetLogDelete = (deletedLogId) => {
     setPetLog((prevPetLog) => prevPetLog.filter((log) => log._id !== deletedLogId));
   };
+  const handleVaccinationDelete = (deleteVaccinationId) => {
+    setPetVaccines((prevVaccination) => prevVaccination.filter((vaccine) => vaccine._id !== deleteVaccinationId));
+  };
+
+  const handleMedicationDelete = (deleteMedicationId) => {
+    setPetMedications((prevMedications) => prevMedications.filter((medication) => medication._id !== deleteMedicationId));
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -121,7 +139,7 @@ const PetPage = () => {
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
   };
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -145,6 +163,7 @@ const PetPage = () => {
       })
       .then((response) => {
         setPetAppointments(response.data);
+        setValidPetAppointments(response.data)
         console.log(response.data);
       })
       .catch((error) => {
@@ -180,13 +199,13 @@ const PetPage = () => {
   }, [selectedPet._id]);
 
   const tabToButtonLabel = {
-    PetLog: "Pet Log",
+    PetLog: "PetLog",
     Medication: "Medication",
     Appointment: "Appointment",
     Vaccination: "Vaccination",
   };
 
-  const [activeLink, setActiveLink] = useState("petLog");
+  const [activeLink, setActiveLink] = useState("PetLog");
   const [buttonLabel, setButtonLabel] = useState(tabToButtonLabel[activeLink]);
 
   function calculateAge(birthDate) {
@@ -219,14 +238,12 @@ const PetPage = () => {
           {petLog.length > 0 && (
             <div>
               {petLog.map((log) => (
-                
+
                 <PetLogCard
                   PetLogDate={log.LogDate}
                   PetLogTime={log.timestamp}
                   logId={log._id}
                   onDelete={() => handlePetLogDelete(log._id)}
-
-
                 />
               ))}
             </div>
@@ -245,7 +262,7 @@ const PetPage = () => {
     Appointment: (
       <div>
         <div className={styles.getPetPage}>
-          {petAppointments.length > 0 && (
+          {validPetAppointments.length > 0 && (
             <div>
               <Map coordinates={validPetAppointments} />
               {petAppointments.map((appointment, index) => (
@@ -255,12 +272,13 @@ const PetPage = () => {
                   AppointmentTime={appointment.AppointmentTime}
                   AppointmentReason={appointment.AppointmentReason}
                   AppointmentDateTime={appointment.AppointmentDate}
+                  AppointmentId={appointment._id}
+                  onDelete={() => handleAppointmentDelete(appointment._id)}
                 />
               ))}
             </div>
           )}
         </div>
-
         <div className={styles.postPetPage}>
           {selectedPet && (
             <AppointmentForm
@@ -283,6 +301,8 @@ const PetPage = () => {
                   dosage={medication.DosageAmount}
                   startDate={medication.MedicationDate}
                   Period={medication.MedicationPeriod}
+                  onDelete={() => handleMedicationDelete(medication._id)}
+                  MedicationId={medication._id}
                 />
               ))}
             </div>
@@ -308,6 +328,8 @@ const PetPage = () => {
                 <VaccinationCard
                   VaccineName={vaccine.NameOfVaccination}
                   VaccineDate={vaccine.VaccinationDate}
+                  onDelete={() => handleVaccinationDelete(vaccine._id)}
+                  VaccineId={vaccine._id}
                 />
               ))}
             </div>
