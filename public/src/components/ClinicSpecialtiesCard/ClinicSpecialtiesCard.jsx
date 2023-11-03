@@ -17,7 +17,7 @@ const ClinicSpecialtiesCard = ({ specialtiesCardString }) => {
       </div>
       <div className={`${styles["specialties-container"]}`}>
         <ul style={{ paddingLeft: "5%" }}>
-        <Typography variant="sub-h2-poppins-medium">
+        <Typography variant=".sub-poppins-medium">
           {specialtiesCardArray.map((item, index) => (
             <li key={index}>{item}</li>
           ))}

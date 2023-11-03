@@ -6,7 +6,7 @@ const InsuranceCoverage = ({descriptions, ...props}) => {
   return (
     <div className={styles.InsuranceCoverage}>
       <div className={styles.InsuranceCoverageheaderCovered}>
-        <Typography variant="sub-h2-poppins-medium">What's Covered</Typography>
+        <Typography variant="sub-poppins-medium">What's Covered</Typography>
       </div>
       <div>
         <Typography variant="body2-poppins-medium" color="almost-black">

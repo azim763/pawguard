@@ -7,6 +7,10 @@ import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
 import AboutUsFeature from "../../components/AboutUsFeature/AboutUsFeature";
 import AboutUsProfile from "../../components/AboutUsProfile/AboutUsProfile";
+import AbtUs1SVG from "../../components/SVG/AbtUs1SVG";
+import AbtUs2SVG from "../../components/SVG/AbtUs2SVG";
+import AbtUs3SVG from "../../components/SVG/AbtUs3SVG";
+import image from "./../../assets/image-03.webp";
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -24,18 +28,10 @@ const AboutUs = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("email sent!");
-    // try {
-    //   // Send the form data to your server
-    //   await axios.post("/send-email", formData);
-    //   alert("Email sent successfully!"); // You can customize this message
-    // } catch (error) {
-    //   console.error("Error sending email:", error);
-    //   alert("Email sending failed."); // You can customize this message
-    // }
-  };
+  // const onClickHandler = async (e) => {
+  //   e.preventDefault();
+  //   console.log("email sent!");
+  // };
 
   const handleLoginClick = () => {
     navigate("/login");
@@ -48,12 +44,12 @@ const AboutUs = () => {
         <div className={styles.abtUs1}>
           <div className={styles.abtUs1Description}>
             <Typography variant="large-h1-poppins-bold" color="almost-black">
-              Pawguard Slogan here
+              Safeguarding Pets, Simplifying Care
             </Typography>
             <Typography variant="body2-poppins-medium" color="almost-black">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-              eveniet dolor, quos inventore aliquam accusantium eaque
-              repellendus quia repudiandae quam.
+              Elevate your pet's care journey with PetGuard and effortlessly
+              manage their well-being, from food and medicine tracking to
+              finding vet clinics nearby
             </Typography>
             <Button
               onClick={handleLoginClick}
@@ -71,30 +67,32 @@ const AboutUs = () => {
             <div className={styles.title1}>Explore Our System</div>
           </Typography>
           <Typography variant="body2-poppins-medium" color="almost-black">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
-            commodi consectetur. Asperiores quibusdam deserunt ipsam nemo natus
-            tenetur aspernatur odio est, veniam error illo id nulla animi
-            praesentium in voluptatibus?
+            Discover the future of pet care with PetGuard, where a suite of
+            intuitive features simplifies every aspect of your pet's health and
+            happiness
           </Typography>
           <div className={styles.abtUs2Images}>
-            <AboutUsFeature
-              src="https://picsum.photos/200"
-              alt="image"
-              title="Feature 1"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, commodi consectetur."
-            ></AboutUsFeature>
-            <AboutUsFeature
-              src="https://picsum.photos/200"
-              alt="image"
-              title="Feature 2"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, commodi consectetur."
-            ></AboutUsFeature>
-            <AboutUsFeature
-              src="https://picsum.photos/200"
-              alt="image"
-              title="Feature 3"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, commodi consectetur."
-            ></AboutUsFeature>
+            <div>
+              <AbtUs2SVG />
+              <AboutUsFeature
+                title="Pet Health Tracking"
+                description="Track and record your pet’s health, medications and appointments"
+              ></AboutUsFeature>
+            </div>
+            <div>
+              <AbtUs3SVG />
+              <AboutUsFeature
+                title="Find Specialised Vet Clinics"
+                description="Find clinics that offer specialized care for your pet’s needs"
+              ></AboutUsFeature>
+            </div>
+            <div>
+              <AbtUs1SVG />
+              <AboutUsFeature
+                title="Insurance Recommendations"
+                description="View and compare the best pet insurance recommendations"
+              ></AboutUsFeature>
+            </div>
           </div>
         </div>
 
@@ -103,13 +101,15 @@ const AboutUs = () => {
             <div className={styles.title1}>Our Team</div>
           </Typography>
           <Typography variant="body2-poppins-medium" color="almost-black">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi,
-            commodi consectetur. Asperiores quibusdam deserunt ipsam nemo natus
-            tenetur aspernatur odio est, veniam error illo id nulla animi
-            praesentium in voluptatibus?
+            The PetGuard project's success is attributed to our dedicated team
+            of UX/UI designers and developers. Our designers created an
+            intuitive, visually appealing user experience, while our developers
+            brought these designs to life, ensuring a seamless and reliable
+            platform. This collaborative effort has simplified pet care and made
+            it more accessible to pet owners
           </Typography>
           <div className={styles.abtUs3Images}>
-          <AboutUsProfile
+            <AboutUsProfile
               src="https://picsum.photos/200"
               alt="Sanika Coutinho"
               title="Sanika Coutinho"
@@ -166,38 +166,55 @@ const AboutUs = () => {
           </div>
         </div>
         <div className={styles.abtUs4}>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          <div className={styles.title1}>Contact Us</div>
-        </Typography>
+          <Typography variant="h2-poppins-semibold" color="almost-black">
+            <div className={styles.title1}>Contact Us</div>
+          </Typography>
 
-        <div className={styles.abtUs4Info}>
-          <div>
-            <img src="https://picsum.photos/400" alt="" />
-          </div>
-
-          <form onSubmit={handleSubmit}>
-            <TextInput id="name" label="Name" size="full" placeholder="Enter your name"/>
-            <TextInput id="email" label="E-mail" size="full" placeholder="Enter your e-mail"/>
+          <div className={styles.abtUs4Info}>
             <div>
-              <Typography variant="body2-poppins-medium" color="almost-black">
-                <label htmlFor="message">Message</label>
-              </Typography>
-              <Typography variant="textfield-poppins-regular" color="small-text-gray">
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                placeholder="Enter your message"
-              ></textarea>
-              </Typography>
+              <img src={image} alt="" />
             </div>
-            <Button label="Submit" variant="yellow" size="dk-sm" />
-          </form>
+
+            <form
+              action="https://formsubmit.co/cylvia.lian@gmail.com"
+              method="POST"
+            >
+              <TextInput
+                id="name"
+                label="Name"
+                name="name"
+                size="full"
+                placeholder="Enter your name"
+              />
+              <TextInput
+                id="email"
+                name="email"
+                label="E-mail"
+                size="full"
+                placeholder="Enter your e-mail"
+              />
+              <div>
+                <Typography variant="body2-poppins-medium" color="almost-black">
+                  <label htmlFor="message">Message</label>
+                </Typography>
+                <Typography
+                  variant="textfield-poppins-regular"
+                  color="small-text-gray"
+                >
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Enter your message"
+                  ></textarea>
+                </Typography>
+              </div>
+              <Button label="Submit" variant="yellow" size="dk-sm" />
+            </form>
+          </div>
         </div>
       </div>
-      </div>
-      
     </div>
   );
 };

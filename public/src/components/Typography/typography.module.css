@@ -1,110 +1,77 @@
- /* Typography */
+* {
+  font-family: "Poppins";
+  font-style: normal;
+} /* Typography */
 
 /* desktop size */
 
 .user-greeting-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 60px;
   line-height: 90px;
 }
 
 .large-h1-poppins-bold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 700;
   font-size: 48px;
   line-height: 72px;
 }
 
 .h1-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 42px;
   line-height: 50.8px;
 }
 
 .h2-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 32px;
   line-height: 48px;
 }
 
-.sub-h1-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29px;
-}
+/* .sub-h1-poppins-semibold, .sub-h2-poppins-medium, .sub-h3-poppins-regular */
 
-.sub-h2-poppins-medium {
-  font-family: "Poppins";
-  font-style: normal;
+.sub-poppins-medium {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
 }
 
-.sub-h3-poppins-regular {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 29px;
-}
-
 .body1-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 18px;
   line-height: 21.8px;
 }
 
 .body2-poppins-medium {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 21.8px;
 }
 
 .body3-poppins-regular {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 21.8px;
 }
 
-.textfield-poppins-regular {
-  font-family: "Poppins";
-  font-style: normal;
+/* .textfield-poppins-regular {
   font-weight: 400;
   font-size: 16px;
   line-height: 19.4px;
 }
 
 .detailtext1-poppins-medium {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 16.9px;
 }
 
 .detailtext2-poppins-medium {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
-}
+} */
 
 /* color */
 .small-text-gray {
@@ -115,79 +82,103 @@
   color: var(--almost-black);
 }
 
-.dark-blue{
-  color: var(--dark-blue)
+.dark-blue {
+  color: var(--dark-blue);
+}
+
+@media screen and (max-width: 768px) {
+  .user-greeting-poppins-semibold {
+    font-size: 32px;
+    line-height: 48px;
+  }
+  
+  .large-h1-poppins-bold {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  
+  .h1-poppins-semibold {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  
+  .h2-poppins-semibold {
+    font-size: 22px;
+    line-height: 33px;
+  }
+  
+  .sub-poppins-medium {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  
+  .body1-poppins-semibold {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .body2-poppins-medium {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .body3-poppins-regular {
+    font-size: 16px;
+    line-height: 21px;
+  }
 }
 
 /* mobile size */
 
-.mb-user-greeting-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
+/* .mb-user-greeting-poppins-semibold {
   font-weight: 600;
   font-size: 32px;
   line-height: 48px;
 }
 
 .mb-large-h1-poppins-bold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 700;
   font-size: 24px;
   line-height: 36px;
 }
 
 .mb-h1-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 36px;
 }
 
 .mb-h2-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
   line-height: 33px;
 }
 
 .mb-sub-h1-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 20px;
   line-height: 30px;
 }
 
 .sub-h2-poppins-medium {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
 }
 
 .sub-h3-poppins-regular {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 30px;
 }
 
 .mb-body1-poppins-semibold {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
 }
 
 .mb-body2-poppins-medium {
-  font-family: "Poppins";
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -195,7 +186,6 @@
 
 .mb-body3-poppins-regular {
   font-family: "Poppins";
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
@@ -203,7 +193,6 @@
 
 .mb-detailtext1-poppins-regular {
   font-family: "Poppins";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -211,8 +200,7 @@
 
 .mb-detailtext2-poppins-regular {
   font-family: "Poppins";
-  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
-}
+} */
