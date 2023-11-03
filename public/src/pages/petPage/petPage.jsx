@@ -16,6 +16,7 @@ import {
   searchPetMedicationsByPetIDRoute,
   searchPetAppointmentsByPetIDRoute,
   searchPetLogsByPetIDRoute,
+  searchPetFoodByPetIDRoute,
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
@@ -86,9 +87,11 @@ const PetPage = () => {
     console.log(newPetLogData)
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
+ 
   const handlePetLogDelete = (deletedLogId) => {
     setPetLog((prevPetLog) => prevPetLog.filter((log) => log._id !== deletedLogId));
   };
+ 
   const handleVaccinationDelete = (deleteVaccinationId) => {
     setPetVaccines((prevVaccination) => prevVaccination.filter((vaccine) => vaccine._id !== deleteVaccinationId));
   };
@@ -150,7 +153,9 @@ const PetPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${searchPetLogsByPetIDRoute}/${selectedPet._id}`);
+        const response = await axios.get(searchPetLogsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });
         setPetLog(response.data);
         console.log(response.data);
       } catch (error) {
@@ -237,8 +242,6 @@ const PetPage = () => {
 
   const petAge = calculateAge(selectedPet.Birthday);
 
-  console.log("petLog")
-  console.log(petLog)
   const tabContents = {
     PetLog: (
       <div>
@@ -264,6 +267,7 @@ const PetPage = () => {
             <PetLogform
               selectedPet={selectedPet}
               onPetLogSubmit={handlePetLogSubmit}
+              SelectedPetID ={selectedPet._id}
             />
           )}
         </div>

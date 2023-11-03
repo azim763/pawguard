@@ -1,4 +1,5 @@
 import React from "react";
+import Typography from "../Typography/Typography";
 
 const FoodCard = ( { FoodName, MealPerDay, QuantityPerMeal, TypeOfFood }) => {
   return (
