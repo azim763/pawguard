@@ -1,18 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Typography from "../Typography/Typography";
 import DeleteSVG from "../SVG/DeleteSVG";
 import styles from "./petLogCard.module.css";
-import axios from "axios"
-import {
-  deletePetLogByIdRoute,
-
-} from "../../utils/APIRoutes.js";
-import Modal from "react-modal"; 
+import axios from "axios";
+import { deletePetLogByIdRoute } from "../../utils/APIRoutes.js";
+import Modal from "react-modal";
 import modalStyles from "../Modal/Modal.module.css";
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
-
-const PetLogCard = ({ PetLogDate, PetLogTime,logId, onDelete }) => {
+const PetLogCard = ({ PetLogDate, PetLogTime, logId, onDelete }) => {
   const date = new Date(PetLogTime);
   const hours = String(date.getHours()).padStart(2, "0");
   const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -24,19 +20,18 @@ const PetLogCard = ({ PetLogDate, PetLogTime,logId, onDelete }) => {
     // Open the delete confirmation modal
     setIsDeleteModalOpen(true);
   };
- 
+
   const handleConfirmDelete = () => {
-    
-    axios.delete(`${deletePetLogByIdRoute}/${logId}`) 
-      .then(response => {
+    axios
+      .delete(`${deletePetLogByIdRoute}/${logId}`)
+      .then((response) => {
         console.log(`Log entry with ID ${logId} deleted successfully.`);
         onDelete();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(`Error deleting log entry with ID ${logId}:`, error);
       });
-      setIsDeleteModalOpen(false);
-
+    setIsDeleteModalOpen(false);
   };
   const handleCancelDelete = () => {
     // Close the delete confirmation modal without performing the delete
@@ -47,16 +42,17 @@ const PetLogCard = ({ PetLogDate, PetLogTime,logId, onDelete }) => {
     <div className={styles.petlogcardContainer}>
       <div>
         <div>
-          <Typography variant="body1-poppins-semibold">Time</Typography>
-          <Typography variant="body3-poppins-regular">{timeString}</Typography>
+          <Typography variant="body1-poppins-semibold">Date</Typography>
+          <Typography variant="body3-poppins-regular">{PetLogDate}</Typography>
         </div>
       </div>
       <div>
-        <Typography variant="body1-poppins-semibold">Date</Typography>
-        <Typography variant="body3-poppins-regular">{PetLogDate}</Typography>
+        <Typography variant="body1-poppins-semibold">Time</Typography>
+        <Typography variant="body3-poppins-regular">{timeString}</Typography>
       </div>
+
       <div>
-        <DeleteSVG width="30" height="30"  onClick={handleDeleteClick}/>
+        <DeleteSVG width="30" height="30" onClick={handleDeleteClick} />
       </div>
       <Modal
         isOpen={isDeleteModalOpen}

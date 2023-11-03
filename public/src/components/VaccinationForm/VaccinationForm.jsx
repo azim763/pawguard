@@ -18,17 +18,47 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
 
   const [petVaccine, setPetVaccine] = useState({});
 
-  const options = [
-    { value: "felinePanleukopeniaVirus", label: "Feline panleukopenia virus" },
-    { value: "FHV-1", label: "Feline viral rhinotracheitis (FHV-1)" },
-    { value: "felineCaliciviruses", label: "Feline caliciviruses" },
-    { value: "RabiesVirus", label: "Rabies virus" },
-    { value: "FeLV", label: "Feline leukemia virus (FeLV)" },
+  const vaccines = [
+    // cat
+    {
+      value: "Feline Panleukopenia Virus",
+      label: "Feline Panleukopenia Virus",
+    },
+    {
+      value: "Feline Viral Rhinotracheitis (FHV-1)",
+      label: "Feline Viral Rhinotracheitis (FHV-1)",
+    },
+    {
+      value: "Feline Caliciviruses",
+      label: "Feline Caliciviruses",
+    },
+    {
+      value: "Rabies Virus",
+      label: "Rabies Virus",
+    },
+    {
+      value: "Feline Leukemia Virus (FeLV)",
+      label: "Feline Leukemia Virus (FeLV)",
+    },
+    // dog
+    {
+      value: "Canine Distemper Virus (CDV)",
+      label: "Canine Distemper Virus (CDV)",
+    },
+    {
+      value: "Canine adenovirus 2 (CAV-2)",
+      label: "Canine adenovirus 2 (CAV-2)",
+    },
+    {
+      value: "Canine parvovirus type 2 (CPV-2)",
+      label: "Canine parvovirus type 2 (CPV-2)",
+    },
+    { value: "Rabies", label: "Rabies" },
   ];
 
   const handleDropdownChange = (fieldName, selectedValue) => {
-    setPetVaccine({
-      ...petVaccine,
+    setFormData({
+      ...formData,
       [fieldName]: selectedValue,
     });
   };
@@ -64,10 +94,10 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-          // ...
+        // ...
 
-          onVaccinationSubmit(updatedFormData); 
-        
+        onVaccinationSubmit(updatedFormData);
+
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -87,10 +117,11 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
       <form onSubmit={handleSubmit}>
         <Dropdown
           size="md"
-          label="Name of Vaccination *"
+          label="Name of Vaccination"
+          defaultValue="Select Vaccine"
           id="NameOfVaccination"
-          options={options}
-          value={petVaccine.NameOfVaccination}
+          options={vaccines}
+          value={formData.NameOfVaccination}
           onChange={(selectedValue) =>
             handleDropdownChange("NameOfVaccination", selectedValue)
           }
@@ -104,7 +135,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
           onChange={handleInputChange}
           value={formData.name}
         /> */}
-        <div>
+        <div className={styles.fieldGap}>
           <Typography variant="body2-poppins-medium">
             <label htmlFor="">Date</label>
           </Typography>
@@ -114,7 +145,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
           ></DatePicker>
         </div>
         <div className={styles.vaccineButton}>
-          <Button variant="yellow" label="Add New Vaccination" size="dk-md-s" />
+          <Button variant="yellow" label="Save" size="dk-md-s" />
         </div>
       </form>
     </div>
