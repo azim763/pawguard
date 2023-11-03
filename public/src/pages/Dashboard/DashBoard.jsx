@@ -178,17 +178,6 @@ export default function Chat() {
     checkLoggedIn();
   }, []);
 
-  // useEffect(async() => {
-  //   if (currentUser) {
-  //     if (currentUser.isAvatarImageSet) {
-  //       const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-  //     } else {
-  //       navigate("/setAvatar");
-  //     }
-  //   }
-  // }, [currentUser]);
-  // const mealPerDayArray = foods.map(food => food.MealPerDay);
-  // const foodDateArray = foods.map(food => food.FoodDate);
   return (
     <div>
       <Header />

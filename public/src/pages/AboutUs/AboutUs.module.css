@@ -42,6 +42,9 @@
 .abtUs4Info {
   display: flex;
   flex-flow: column nowrap;
+  gap: 56px;
+  max-width: 500px;
+  margin: auto;
 }
 
 .abtUs4Info > div:first-of-type {
@@ -64,6 +67,9 @@ textarea {
 .abtUs4 form {
   display: flex;
   flex-flow: column wrap;
+  max-width: 500px;
+  gap: 16px;
+  
 }
 
 .abtUs4 button {
@@ -160,13 +166,25 @@ textarea {
     padding-bottom: 36px;
   }
 
+
   .abtUs4Info {
     padding-top: 24px;
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
     max-width: 1130px;
-    gap: 24px;
     margin: 0 auto;
   }
+
+  .abtUs4Info > div:first-of-type {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+
+  .abtUs4Info > form {
+    grid-column: 2/3;
+  }
+
 
   .abtUs4Info > div:nth-child(2) {
     display: flex;
