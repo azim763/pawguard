@@ -171,10 +171,8 @@ const AddPet = () => {
       <div className={styles.addPetForm}>
         <form action="/submit" method="post" onSubmit={onClickHandler}>
           <div>
-            <SingleImageUpload onImageUpload={handleImageUpload} />
-            <div className={styles.showImage}>
-              <ImageDisplay PetImageData={selectedImage}></ImageDisplay>
-            </div>
+            <ImageDisplay PetImageData={selectedImage} />
+            <SingleImageUpload label="Add Pet Image" onImageUpload={handleImageUpload} />
           </div>
 
           <TextInput
@@ -257,11 +255,13 @@ const AddPet = () => {
             <Typography variant="body2-poppins-medium">lbs</Typography>
           </div>
           <MultipleDropDown
-            label="Pre-existing medical conditions"
+            label="Medical Necessities"
             options={preExistingMedical}
           />
           <div>
-          <Typography variant="body2-poppins-medium"><label htmlFor="Description">Pet Notes</label></Typography>
+            <Typography variant="body2-poppins-medium">
+              <label htmlFor="Description">Pet Notes</label>
+            </Typography>
             <textarea
               name="Description"
               id="Description"
