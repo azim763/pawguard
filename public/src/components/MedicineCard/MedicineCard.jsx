@@ -19,9 +19,11 @@ const MedicineCard = ({
   MedicationId,
   onDelete,
 }) => {
-  const year = startDate.getFullYear();
-  const month = String(startDate.getMonth() + 1).padStart(2, "0");
-  const day = String(startDate.getDate()).padStart(2, "0");
+
+
+  const medDate = startDate.toLocaleDateString();
+  const [month, day, year] = medDate.split("/");
+  const medFormattedDate = `${day}-${month}-${year}`;
 
   const date = new Date(medicationTime);
   const hours = String(date.getHours()).padStart(2, "0");
@@ -86,7 +88,7 @@ const MedicineCard = ({
         <div>
           <Typography variant="body1-poppins-semibold">Start date</Typography>
           <Typography variant="body3-poppins-regular">
-            {formattedDate}
+            {medFormattedDate}
           </Typography>
         </div>
         <div>
