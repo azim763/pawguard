@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "../Typography/Typography";
 import DeleteSVG from "../SVG/DeleteSVG";
 import styles from "./petLogCard.module.css";
+import Button from "../Button/Button";
 import axios from "axios";
 import { deletePetLogByIdRoute } from "../../utils/APIRoutes.js";
 import Modal from "react-modal";
@@ -61,11 +62,22 @@ const PetLogCard = ({ PetLogDate, PetLogTime, logId, onDelete }) => {
         className={modalStyles.modal} // Apply the modal styles
         overlayClassName={modalStyles.overlay} // You can also style the overlay
       >
-        <h2>Confirm Delete</h2>
-        <p>Are you sure you want to delete this PetLog card?</p>
+        <Typography variant="sub-h2-poppins-medium">Delete Entry</Typography>
+        <hr></hr>
+        <Typography variant="body2-poppins-medium">
+          This entry will be removed.
+        </Typography>
         <div className={modalStyles.CardButtonGroup}>
-          <button onClick={handleConfirmDelete}>Yes, Delete</button>
-          <button onClick={handleCancelDelete}>Cancel</button>
+          <Button
+            variant="cancel-btn"
+            size="dk-md-s"
+            onClick={handleCancelDelete}
+          >
+            Cancel
+          </Button>
+          <Button variant="yellow" size="dk-md-s" onClick={handleConfirmDelete}>
+            Confirm
+          </Button>
         </div>
       </Modal>
     </div>

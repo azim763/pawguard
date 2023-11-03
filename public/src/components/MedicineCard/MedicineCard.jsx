@@ -1,14 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Typography from "../Typography/Typography";
 import styles from "./MedicineCard.module.css";
 import DeleteSVG from "../SVG/DeleteSVG";
+import Button from "../Button/Button";
 import axios from "axios";
 import { deletePetMedicationByIdRoute } from "../../utils/APIRoutes.js";
-import Modal from "react-modal"; 
+import Modal from "react-modal";
 import modalStyles from "../Modal/Modal.module.css"; // Import the modal styles
 
-Modal.setAppElement('#root');
-
+Modal.setAppElement("#root");
 
 const MedicineCard = ({
   medicineName,
@@ -19,8 +19,6 @@ const MedicineCard = ({
   MedicationId,
   onDelete,
 }) => {
-
-
   const medDate = startDate.toLocaleDateString();
   const [month, day, year] = medDate.split("/");
   const medFormattedDate = `${day}-${month}-${year}`;
@@ -38,7 +36,7 @@ const MedicineCard = ({
     setIsDeleteModalOpen(true);
   };
 
-  const handleConfirmDelete  = () => {
+  const handleConfirmDelete = () => {
     axios
       .delete(`${deletePetMedicationByIdRoute}/${MedicationId}`)
       .then((response) => {
@@ -51,8 +49,7 @@ const MedicineCard = ({
           error
         );
       });
-      setIsDeleteModalOpen(false);
-
+    setIsDeleteModalOpen(false);
   };
 
   const handleCancelDelete = () => {
@@ -81,9 +78,7 @@ const MedicineCard = ({
         </div>
         <div>
           <Typography variant="body1-poppins-semibold">Time</Typography>
-          <Typography variant="body3-poppins-regular">
-            {timeString}
-          </Typography>
+          <Typography variant="body3-poppins-regular">{timeString}</Typography>
         </div>
         <div>
           <Typography variant="body1-poppins-semibold">Start date</Typography>
@@ -103,11 +98,22 @@ const MedicineCard = ({
         className={modalStyles.modal} // Apply the modal styles
         overlayClassName={modalStyles.overlay} // You can also style the overlay
       >
-        <h2>Confirm Delete</h2>
-        <p>Are you sure you want to delete this medicine card?</p>
+        <Typography variant="sub-h2-poppins-medium">Delete Entry</Typography>
+        <hr></hr>
+        <Typography variant="body2-poppins-medium">
+          This entry will be removed.
+        </Typography>
         <div className={modalStyles.CardButtonGroup}>
-          <button onClick={handleConfirmDelete}>Yes, Delete</button>
-          <button onClick={handleCancelDelete}>Cancel</button>
+          <Button
+            variant="cancel-btn"
+            size="dk-md-s"
+            onClick={handleCancelDelete}
+          >
+            Cancel
+          </Button>
+          <Button variant="yellow" size="dk-md-s" onClick={handleConfirmDelete}>
+            Confirm
+          </Button>
         </div>
       </Modal>
     </div>

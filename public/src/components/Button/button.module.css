@@ -62,6 +62,12 @@
   width: 100%;
 }
 
+.cancel-btn{
+  background-color: transparent;
+  color: var(--almost-black);
+  border: 1px solid var(--border-grey)
+}
+
 .dk-sm {
   font-size: 16px;
   height: 40px;
