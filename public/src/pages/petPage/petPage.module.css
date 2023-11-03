@@ -40,8 +40,9 @@
 .cardStyle {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  column-gap: 1rem;
   margin-top: 27px;
+  margin-bottom: 30px;
   /* background-color: var(--white-white); */
 }
 

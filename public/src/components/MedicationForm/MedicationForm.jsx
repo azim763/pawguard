@@ -27,17 +27,15 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
   };
 
   const handleDateChange = (event) => {
-
     const value = event.target.value;
     const [year, month, day] = value.split("T")[0].split("-");
-    const resultDate = `${day}-${month}-${year}`;
+    const medResultDate = new Date(year, month - 1, day);
     setFormData({
       ...formData,
-      MedicationDate: resultDate,
+      MedicationDate: medResultDate,
     });
     console.log("date is changing");
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
