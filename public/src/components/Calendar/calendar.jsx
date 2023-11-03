@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { getAllPetAppointmentsRoute } from "../../utils/APIRoutes";
 import { Calendar, Badge } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 import DashCalendarCard from "../DashCalendarCard/DashCalendarCard";
