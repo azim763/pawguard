@@ -1,14 +1,8 @@
 .AboutUsFeature{
     display: flex;
+    gap: 8PX;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-.AboutUsFeature img {
-    width: 100%;
-    max-width: 350px;
-    aspect-ratio: 1;
-    object-fit: cover;
 }

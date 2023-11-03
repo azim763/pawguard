@@ -81,7 +81,7 @@ const AppointmentCard = ({
         className={modalStyles.modal} // Apply the modal styles
         overlayClassName={modalStyles.overlay} // You can also style the overlay
       >
-        <Typography variant="sub-h2-poppins-medium">Delete Entry</Typography>
+        <Typography variant="sub-poppins-medium">Delete Entry</Typography>
         <hr></hr>
         <Typography variant="body2-poppins-medium">
           This entry will be removed.
