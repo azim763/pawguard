@@ -25,7 +25,7 @@ function SingleImageUpload({ label, onImageUpload }) {
 
   return (
     <div>
-      <label for="file-upload" class={styles.cfu}>
+      <label htmlFor="file-upload" className={styles.cfu}>
         <input
           type="file"
           id="file-upload"
