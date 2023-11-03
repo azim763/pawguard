@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const petVaccinationSchema = new mongoose.Schema({
     UserID: {
         type: String,
-          required: true,
+          required: false,
       },
     PetID: { type: String, required: true },
-    NameOfVaccination: { type: String, required: true },
-    VaccinationDate: { type: Date, required: true },
+    NameOfVaccination: { type: String, required: false },
+    VaccinationDate: { type: String, required: false },
     timestamp: { type: Date, default: Date.now },
 });
 

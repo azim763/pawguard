@@ -224,7 +224,8 @@ const valuesStyle={
                     Blood Group:
                   </td>
                   <td>
-
+   <div style={valuesStyle}>{pet.BloodType}</div>
+   
                   </td>
 
                 </tr>
@@ -234,7 +235,7 @@ const valuesStyle={
                     Gender:
                   </td>
                   <td>
-
+   <div style={valuesStyle}>{pet.Gender}</div>
                   </td>
                   <td>
                     DOB:

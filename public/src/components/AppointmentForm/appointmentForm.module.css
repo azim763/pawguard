@@ -1,32 +1,30 @@
-.vaccinationForm {
+.appointmentContainer {
   padding: 26px 20px;
   border-radius: 8px;
-  border: 1px solid var(--border-grey);
+  border: 1px solid var(--border-grey)
 }
 
-.vaccinationForm form {
+.appointmentContainer form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  column-gap: 35px;
   row-gap: 36px;
 }
 
-.vaccineTitle {
+.appointmentTitle {
   grid-column: 1/-1;
   display: flex;
   justify-content: space-between;
   margin-bottom: 28px;
 }
 
-.vaccinationForm button {
-  align-self: flex-end;
-}
-
-.vaccineButton {
+.button {
   display: flex;
   justify-content: end;
   grid-column: 1/-1;
 }
 
-.fieldGap{
-  margin-left: 40px;
-}
+.timepickerContainer{
+    width: 210px;
+  }
+  

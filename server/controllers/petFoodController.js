@@ -1,4 +1,6 @@
 const PetFood = require("../models/petFoodModel");
+const { ObjectId } = require('mongoose').Types;
+
 
 module.exports.getAllPetFoods = async (req, res, next) => {
   try {
@@ -23,7 +25,7 @@ module.exports.createPetFood = async (req, res, next) => {
 module.exports.searchPetFoodByPetID = async (req, res, next) => {
     try {
       const petID = req.query.PetID;
-      const foods = await PetFood.find({ PetID: petID });
+      const foods = await PetFood.find({ petID: petID });
       return res.json(foods);
     } catch (ex) {
       next(ex);
@@ -77,7 +79,7 @@ module.exports.updatePetFoodById = async (req, res, next) => {
   // Delete a pet food record by its ID
 module.exports.deletePetFoodById = async (req, res, next) => {
     try {
-      const foodId = req.params.id;
+      const foodId = new ObjectId(req.params.id);
       const deletedFood = await PetFood.findByIdAndRemove(foodId);
       if (!deletedFood) {
         return res.status(404).json({ msg: 'Pet food record not found' });

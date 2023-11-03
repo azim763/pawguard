@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Downshift from "downshift";
+import Typography from "../Typography/Typography";
 
 const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
   // Use a Set to keep track of unique clinic cities
-  const uniqueCities = [...new Set(clinicInfo.map(item => item.City))];
+  const uniqueCities = [...new Set(clinicInfo.map((item) => item.City))];
 
   return (
     <Downshift
@@ -22,7 +23,18 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
       }) => (
         <div>
           <div {...getRootProps({}, { suppressRefError: true })}>
-            <input {...getInputProps()} />
+            <Typography variant="textfield-poppins-regular">
+              <input
+                {...getInputProps()}
+                style={{
+                  width: "325px",
+                  height: "54px",
+                  borderRadius: "8px",
+                  borderColor: "var(--almost-black)",
+                  padding: "0 12px",
+                }}
+              />
+            </Typography>
           </div>
           <ul {...getMenuProps()}>
             {isOpen &&

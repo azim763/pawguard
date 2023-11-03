@@ -6,6 +6,7 @@ import Header from '../../components/Header/header'
 import {
   searchPetsByUserIDRoute,
 } from "../../utils/APIRoutes.js";
+import FoodForm from '../../components/PetLogForm/FoodForm/FoodForm.jsx'
 
 const Home = () => {
   // const [pets, setPets] = useState([]);
@@ -35,6 +36,7 @@ const Home = () => {
     <div>
       {/* {pets && <TotalPets pets={pets}></TotalPets>} */}
       <Header></Header>
+      <FoodForm></FoodForm>
     </div>
   )
 }

@@ -1,0 +1,39 @@
+.medicineContainer {
+  padding: 26px 20px;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  background-color: var(--white-white);
+}
+
+.medicineContainer form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 35px;
+  row-gap: 36px;
+}
+
+.medicineTitle {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.unitContainer {
+  display: flex;
+  align-items: center;
+}
+
+.medDatePicker,
+.buttonContainer {
+  grid-column: 1/-1;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: right;
+}
+
+.medTimePicker {
+  width: 252px;
+}

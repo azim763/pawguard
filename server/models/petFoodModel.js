@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const petFoodSchema = new mongoose.Schema({
   UserID: {
     type: String,
-      required: true,
+      required: false,
   },
   PetID: { type: String, required: true },
   MealPerDay: { type: Number, required: false },

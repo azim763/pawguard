@@ -1,5 +1,12 @@
 .petLogContainer {
   padding: 26px 20px;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+}
+
+.petLogTitle {
+  display: flex;
+  justify-content: space-between;
 }
 
 .addPetForm {
@@ -14,7 +21,7 @@
   display: flex;
   margin-bottom: 36px;
   margin-right: 10px;
-  align-items: center
+  align-items: center;
 }
 
 .unitGap {
@@ -68,7 +75,6 @@
   justify-content: space-around;
   margin-bottom: 36px;
 }
-
 
 .buttonStyle {
   display: flex;

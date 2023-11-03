@@ -18,23 +18,31 @@
 }
 
 .tabContent {
-  padding: 1rem;
-  border: 1px solid var(--border-grey);
-  border-radius: 8px;
+  margin-top: 1rem;
+  /* border: 1px solid var(--border-grey); */
+  /* border-radius: 8px; */
 }
 
-.tabTitle{
+.tabTitle {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
 }
 
 .postPetPage {
-  background-color: white;
+  background-color: var(--white-white);
 }
+
 .getPetPage {
-  background-color: white;
+  /* background-color: white; */
 }
 
-
+.cardStyle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1rem;
+  margin-top: 27px;
+  margin-bottom: 30px;
+  /* background-color: var(--white-white); */
+}
 
