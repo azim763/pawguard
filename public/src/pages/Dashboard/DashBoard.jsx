@@ -116,9 +116,10 @@ export default function Chat() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responsePetLog = await axios.get(`${searchPetLogsByPetIDRoute}/${selectedPet._id}`);
-        setPetLog(responsePetLog.data);
-        console.log(responsePetLog.data);
+        const response = await axios.get(searchPetLogsByPetIDRoute, {
+          params: { PetID: selectedPet._id },
+        });        setPetLog(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching pet foods:", error);
       }
