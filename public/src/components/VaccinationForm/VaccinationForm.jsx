@@ -40,10 +40,8 @@ const Vaccination = ({selectedPet,onVaccinationSubmit}) => {
         const response = await axios.post(createPetVaccinationRoute, updatedFormData);
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-        if (selectedPet && selectedPet._id) {
           // ...
-          onVaccinationSubmit(response.data); 
-        }
+          onVaccinationSubmit(updatedFormData); 
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
         console.error("Error submitting form:", error);

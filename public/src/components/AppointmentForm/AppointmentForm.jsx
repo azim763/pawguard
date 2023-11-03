@@ -63,8 +63,15 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const storedData = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
     if (selectedPet && selectedPet._id) {
-      const updatedFormData = { ...formData, PetID: selectedPet._id };
+      const updatedFormData = { ...formData, 
+        PetID: selectedPet._id,
+        UserID: storedData._id
+
+       };
       setFormData(updatedFormData);
       try {
         const response = await axios.post(
@@ -73,10 +80,8 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-        if (selectedPet && selectedPet._id) {
           // ...
-          onAppointmentSubmit(response.data);
-        }
+          onAppointmentSubmit(updatedFormData);
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
         console.error("Error submitting form:", error);

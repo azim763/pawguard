@@ -5,7 +5,7 @@ import TextInput from "../TextInput/TextInput";
 import DatePicker from "../DatePicker/DatePicker";
 import { createPetMedicationRoute } from "../../utils/APIRoutes.js";
 import axios from "axios";
-import styles from "./medicationForm.module.css";
+import styles from "./MedicationForm.module.css";
 import CloseSVG from "./../SVG/CloseSVG";
 import TimePicker from "../TimePicker/TimePicker";
 
@@ -41,8 +41,14 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const storedData = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
     if (selectedPet && selectedPet._id) {
-      const updatedFormData = { ...formData, PetID: selectedPet._id };
+      const updatedFormData = { ...formData,
+         PetID: selectedPet._id,
+         UserID: storedData._id
+        };
       setFormData(updatedFormData);
 
       try {
@@ -52,10 +58,8 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-        if (selectedPet && selectedPet._id) {
           // ...
-          onMedicationSubmit(response.data);
-        }
+          onMedicationSubmit(updatedFormData);
       } catch (error) {
         console.error("Error submitting form:", error);
       }

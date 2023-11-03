@@ -92,7 +92,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       if (selectedPet && selectedPet._id) {
         // ...
-        onPetLogSubmit(response.data);
+        onPetLogSubmit(updatedFoodData);
       }
       console.log(response);
       console.log("Data submitted");
@@ -104,6 +104,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
   const handleAdditionalInfoSubmit = async () => {
     // Handle additional information form submission
     console.log("Additional information data before update:", formData);
+    
 
     if (selectedPet && selectedPet._id) {
       const updatedFormData = { ...formData, PetID: selectedPet._id };
@@ -111,6 +112,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
 
       setFormData(updatedFormData);
       const response = await axios.post(createPetLogRoute, updatedFormData);
+        onPetLogSubmit(updatedFormData);      
       console.log(response);
       console.log("Data submitted");
     } else {

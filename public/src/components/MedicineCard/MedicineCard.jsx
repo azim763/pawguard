@@ -18,6 +18,11 @@ const MedicineCard = ({
   const month = String(startDate.getMonth() + 1).padStart(2, "0");
   const day = String(startDate.getDate()).padStart(2, "0");
 
+  const date = new Date(medicationTime);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  const timeString = `${hours}:${minutes}`;
   const formattedDate = `${day}-${month}-${year}`;
   const handleDeleteClick = () => {
     axios
@@ -56,7 +61,7 @@ const MedicineCard = ({
         <div>
           <Typography variant="body1-poppins-semibold">Time</Typography>
           <Typography variant="body3-poppins-regular">
-            {medicationTime}
+            {timeString}
           </Typography>
         </div>
         <div>
