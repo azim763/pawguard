@@ -4,11 +4,12 @@
     border: 1px solid var(--border-grey);
     border-radius: 8px;
     column-gap: 10px;
-    padding: 3%;
-    margin-bottom: 30px;
+    padding: 5% 3% 7% 5%;
+    margin-bottom: 10px;
+    background-color: var(--white-white);
   }
   
   .firstRow{
-      display: grid;
-      grid-template-columns: 1fr .5fr;
+      display: flex;
+      justify-content: space-between;
   }

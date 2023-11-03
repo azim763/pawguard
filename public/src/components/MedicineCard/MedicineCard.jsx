@@ -14,11 +14,11 @@ const MedicineCard = ({
   MedicationId,
   onDelete,
 }) => {
-  const year = startDate.getFullYear();
-  const month = String(startDate.getMonth() + 1).padStart(2, "0");
-  const day = String(startDate.getDate()).padStart(2, "0");
 
-  const formattedDate = `${day}-${month}-${year}`;
+  const medDate = startDate.toLocaleDateString();
+  const [month, day, year] = medDate.split("/");
+  const medFormattedDate = `${day}-${month}-${year}`;
+
   const handleDeleteClick = () => {
     axios
       .delete(`${deletePetMedicationByIdRoute}/${MedicationId}`)
@@ -62,7 +62,7 @@ const MedicineCard = ({
         <div>
           <Typography variant="body1-poppins-semibold">Start date</Typography>
           <Typography variant="body3-poppins-regular">
-            {formattedDate}
+            {medFormattedDate}
           </Typography>
         </div>
         <div>

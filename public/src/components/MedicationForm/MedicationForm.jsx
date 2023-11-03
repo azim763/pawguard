@@ -5,7 +5,7 @@ import TextInput from "../TextInput/TextInput";
 import DatePicker from "../DatePicker/DatePicker";
 import { createPetMedicationRoute } from "../../utils/APIRoutes.js";
 import axios from "axios";
-import styles from "./medicationForm.module.css";
+import styles from "./MedicationForm.module.css";
 import CloseSVG from "./../SVG/CloseSVG";
 import TimePicker from "../TimePicker/TimePicker";
 
@@ -27,17 +27,15 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
   };
 
   const handleDateChange = (event) => {
-
     const value = event.target.value;
     const [year, month, day] = value.split("T")[0].split("-");
-    const resultDate = `${day}-${month}-${year}`;
+    const medResultDate = new Date(year, month - 1, day);
     setFormData({
       ...formData,
-      MedicationDate: resultDate,
+      MedicationDate: medResultDate,
     });
     console.log("date is changing");
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();

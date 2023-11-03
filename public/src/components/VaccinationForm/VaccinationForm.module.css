@@ -1,10 +1,28 @@
-.vaccinationForm form{
-    display: flex;
-    flex-flow: row wrap;
-    gap:2rem;
-
+.vaccinationForm {
+  padding: 26px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-grey);
 }
 
-.vaccinationForm button{
-    align-self: flex-end;
+.vaccinationForm form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 36px;
+}
+
+.vaccineTitle {
+  grid-column: 1/-1;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.vaccinationForm button {
+  align-self: flex-end;
+}
+
+.vaccineButton {
+  display: flex;
+  justify-content: end;
+  grid-column: 1/-1;
 }

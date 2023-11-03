@@ -42,7 +42,7 @@ const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, Appoi
           <Typography variant="body1-poppins-semibold">Purpose</Typography>
           <Typography variant="body3-poppins-regular">{AppointmentReason}</Typography>
         </div>
-        <div>
+        <div className={styles.aptDate}>
           <Typography variant="body1-poppins-semibold">Date</Typography>
           <Typography variant="body3-poppins-regular">
             {AppointmentDateTime}
