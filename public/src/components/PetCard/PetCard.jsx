@@ -78,7 +78,7 @@ const handle = window.open(
           <ArchiveSVG width="30" height="30" />
           <Typography variant="detailtext2-poppins-medium">archive </Typography>
         </div>
-        <a href={`/exportpetLog/?${id}`} target="_blank" >
+        <a href={`/exportpetLog/${id}`} target="_blank" >
           <ExportSVG width="28" height="29" />
           <Typography variant="detailtext2-poppins-medium">
           export

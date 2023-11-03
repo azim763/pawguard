@@ -10,37 +10,47 @@ import Button from "../../components/Button/Button";
 //import LogoSVG from '../../components/SVG/LogoSVG';
 import { useParams } from "react-router-dom";
 import { searchPetLogsByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
+import { Cell } from 'recharts';
 
-// import { searchPetLogsByPetID } from '../../../../server/controllers/petLogController';
-// import { searchPetLogsByPetIDRoute } from '../../utils/APIRoutes';
 const ExportpetLog = () => {
 
-  
+
   const [petLog, setPetLog] = useState([]);
-  const [petobj, setPets] = useState([]);
- // const { _id } = useParams();
- // const [petLogs, setPetLogs] = useState([]);
+  const [pet, setPet] = useState({});
 
   const [loading, setLoading] = useState(true);
 
 
-  
- //  console.log(PetID);
-   const { petID } = useParams();
-  //var { id } =petID;
-   // console.log(petID);
+
+  //  console.log(PetID);
+  const { petID } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`${getPetByIdRoute}/${petID}`)
+      .then((response) => {
+        //  console.log(response.data);
+        setPet(response.data);
+        console.log(pet);
+        console.log(response.data.PetName);
+        // console.log(clinicDetails);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
+  }, [petID]);
+
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-         const response2 = await axios.get(getPetByIdRoute +'/'+petID );
-        setPets(response2.data);
-        console.log(petobj);
-          const response = await axios.get(searchPetLogsByPetIDRoute +'/'+petID );
+        const response = await axios.get(searchPetLogsByPetIDRoute + '/' + petID);
         setPetLog(response.data);
-         console.log(response2.data);
-          setLoading(false);
-       } catch (error) {
+        setLoading(false);
+      }
+      catch (error) {
         console.log("Error fetching data: ", error);
       }
     };
@@ -53,7 +63,7 @@ const ExportpetLog = () => {
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
- 
+
   //       const response = await axios.get(getPetByIdRoute +'/'+petID );
   //       setPets(response.data);
 
@@ -85,27 +95,54 @@ const ExportpetLog = () => {
     const userFriendlyDateTime = dateTime.toLocaleDateString("en-US", options);
     return userFriendlyDateTime;
   }
+
+  /************************    Styles   ********************** */
+
+
+
   const myComponentStyle = {
-    color: 'blue',
+    color: 'black',
     lineHeight: 2,
     padding: '1.5em',
-    innerWidth: '100%'
+    innerWidth: '100%',
+    width:'600px'
   }
-  const logheaderStyle={
+  const logheaderStyle = {
     height: '20px',
     width: '100%',
-    backgroundColor:'#efefef'
+    backgroundColor: '#efefef'
   }
+
+  const generalinfo = {
+    backgroundColor: 'var(--pearl-blue)',
+    padding: '10px',
+    margin: '28px 0'
+  }
+const contentContainer={
+  width: '100%'
+
+}
+const tdlabelsStyle={  width: '120px'}
+const tdvaluesStyle={  width: '170px'}
+const labelsStyle={
+  fontWeight: '500'
+
+}
+const valuesStyle={
+  fontWeight: '400'
+
+}
+  /******************************************************* */
   const generatePDF = () => {
 
     // var element = document.getElementById("export");
     var element = document.querySelector(".export");
- 
+
     var doc = new jsPDF("p", "pt", "a4");
-   
+
     doc.html(element, {
       async callback(doc) {
-             doc.save("petlog");
+        doc.save("petlog");
       }
     });
 
@@ -113,43 +150,136 @@ const ExportpetLog = () => {
 
 
   return (
-    <div>
+    <div >
 
       <Typography variant="h1-poppins-semibold" color="almost-black" >
 
 
       </Typography>
-      <Header/>
-      
-      <div className={styles.petLogContainer}  class="export" style={myComponentStyle}>
-      {/* <div className={styles.petLogContainer}   style={myComponentStyle}> */}
-   
-<div  style={logheaderStyle}>
+      <Header />
 
-</div>
+      <div className={styles.petLogContainer} class="export" style={myComponentStyle}>
+        {/* <div className={styles.petLogContainer}   style={myComponentStyle}> */}
 
-   <div className={styles.petLogHeader}>
-        Pet Logs
-      </div>  
-       {loading ? (
+        <div style={logheaderStyle}>
+
+        </div>
+
+        <div className={styles.petLogHeader}>
+          Pet Logs
+        </div>
+        {loading ? (
           <p>Loading...</p>
         ) : (
-
-
           <div >
-<div> 
-  
-<ul >
-              {petobj.map(logpet => (
-                <li key={logpet._id}>
-                  <strong>Log Date:</strong> {logpet._id} <br />
-                
-                </li>
-              ))}
-            </ul>
-  </div>
-  <div>
-    </div>
+            <div style={generalinfo}>
+              General Information
+            </div>
+            <div>
+              <table style={contentContainer}>
+                <tr>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Name:</div>
+                    
+                  </td>
+                  <td style={tdvaluesStyle}>
+                  <div style={valuesStyle}>{pet.PetName}</div>
+                  </td>
+                  <td>
+                  <div style={labelsStyle}>Height:</div>
+                  
+                  </td>
+                  <td>
+                  <div style={valuesStyle}>{pet.Height}</div>
+                  </td>
+
+                </tr>
+
+                <tr>
+                  <td>
+                  <div style={labelsStyle}>Breed:</div>
+                    
+                  </td>
+                  <td>
+                  <div style={valuesStyle}>{pet.Breed}</div>
+                  </td>
+                  <td>
+                  <div style={labelsStyle}>Weight:</div>
+                 
+                  </td>
+                  <td>
+ <div style={valuesStyle}>{pet.Weight}</div>
+                  </td>
+
+                </tr>
+
+                <tr>
+                  <td>
+                    Age:
+                  </td>
+                  <td>
+                  <div style={valuesStyle}>{pet.Age}</div>
+                  </td>
+                  <td>
+                    Blood Group:
+                  </td>
+                  <td>
+
+                  </td>
+
+                </tr>
+
+                <tr>
+                  <td>
+                    Gender:
+                  </td>
+                  <td>
+
+                  </td>
+                  <td>
+                    DOB:
+                  </td>
+                  <td>
+
+                  </td>
+
+                </tr>
+              </table>
+            </div>
+
+            <div style={generalinfo}>
+              Medication History
+            </div>
+            <div>
+
+            </div>
+
+            <div style={generalinfo}>
+              Meal Graph
+            </div>
+            <div>
+
+            </div>
+
+            <div style={generalinfo}>
+              Weight Graph
+            </div>
+            <div>
+
+            </div>
+
+
+
+
+            <div style={generalinfo}>
+              Health
+            </div>
+            <div>
+
+            </div>
+
+            <div>
+            </div>
             <ul >
               {petLog.map(log => (
                 <li key={log._id}>
@@ -166,12 +296,23 @@ const ExportpetLog = () => {
               ))}
             </ul>
 
+
+
+
+            <ul >
+
+              <li key={pet._id}>
+                <strong>Log Date:</strong> {pet.PetName} <br />
+
+              </li>
+
+            </ul>
           </div>
 
         )}
- 
+
       </div>
-       <Button onClickHandler={generatePDF} variant="yellow" type="submit" label={"Export"} size="dk-md-s" />
+      <Button onClickHandler={generatePDF} variant="yellow" type="submit" label={"Export"} size="dk-md-s" />
 
     </div>
 
