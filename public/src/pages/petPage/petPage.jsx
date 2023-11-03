@@ -288,7 +288,7 @@ const PetPage = () => {
         <div className={styles.getPetPage}>
           {validPetAppointments.length > 0 && (
             <div>
-              <div styles={{ marginBottom: "27px" }}>
+              <div styles={{ marginBottom: "27px", marginTop: "10px" }}>
                 <Map coordinates={validPetAppointments} />
               </div>
               <div className={styles.cardStyle}>
@@ -329,7 +329,7 @@ const PetPage = () => {
                   dosage={medication.DosageAmount}
                   startDate={new Date(medication.MedicationDate)}
                   Period={medication.MedicationPeriod}
-                  medicationTime={medication.timestamp}
+                  medicationTime={medication.M}
                   onDelete={() => handleMedicationDelete(medication._id)}
                   MedicationId={medication._id}
                 />

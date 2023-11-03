@@ -26,3 +26,7 @@
   justify-content: end;
   grid-column: 1/-1;
 }
+
+.fieldGap{
+  margin-left: 40px;
+}
