@@ -4,6 +4,11 @@
   border-radius: 8px;
 }
 
+.petLogTitle{
+  display: flex;
+  justify-content: space-between;
+}
+
 .addPetForm {
   display: grid;
 }

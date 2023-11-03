@@ -14,6 +14,7 @@ import {
 } from "../../utils/APIRoutes";
 import TextArea from "../TextArea/TextArea";
 import axios from "axios";
+import CloseSVG from "./../SVG/CloseSVG"
 
 const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
   // const [pets,setPets] =useState([]);
@@ -177,8 +178,9 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
         <PetLogCard />
       </div> */}
       <div className={styles.petLogContainer}>
-        <div>
+        <div className={styles.petLogTitle}>
           <Typography variant="h2-poppins-semibold">Add Pet Log</Typography>
+          <CloseSVG width="27" height="28" />
         </div>
         <div className={styles.addPetForm}>
           <form onSubmit={handleFoodFormSubmit}>
@@ -208,7 +210,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
                       onChange={handleInputChange}
                     />
                     <div className={styles.unitGap}>
-                      <Typography variant="body2-poppins-medium">
+                      <Typography variant="textfield-poppins-regular">
                         lbs
                       </Typography>
                     </div>
@@ -318,7 +320,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit }) => {
                           onChange={handleChange}
                         />
                         <div className={styles.unitGap}>
-                          <Typography variant="body2-poppins-medium">
+                          <Typography variant="textfield-poppins-regular">
                             g
                           </Typography>
                         </div>

@@ -69,6 +69,11 @@ const PetPage = () => {
       ...prevAppointment,
       newAppointmentData,
     ]);
+    
+    setValidPetAppointments((validPetAppointments) => [
+      ...validPetAppointments,
+      newAppointmentData,
+    ]);
   };
   const handleVaccinationSubmit = (newVaccinationData) => {
     setPetVaccines((prevVaccination) => [
@@ -77,6 +82,8 @@ const PetPage = () => {
     ]);
   };
   const handlePetLogSubmit = (newPetLogData) => {
+    console.log("newPetLogData")
+    console.log(newPetLogData)
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
   const handlePetLogDelete = (deletedLogId) => {
@@ -143,9 +150,7 @@ const PetPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(searchPetLogsByPetIDRoute, {
-          params: { PetID: selectedPet._id },
-        });
+        const response = await axios.get(`${searchPetLogsByPetIDRoute}/${selectedPet._id}`);
         setPetLog(response.data);
         console.log(response.data);
       } catch (error) {
@@ -179,6 +184,7 @@ const PetPage = () => {
       .then((response) => {
         setPetMedications(response.data);
         console.log(response.data);
+        
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -231,12 +237,14 @@ const PetPage = () => {
 
   const petAge = calculateAge(selectedPet.Birthday);
 
+  console.log("petLog")
+  console.log(petLog)
   const tabContents = {
     PetLog: (
       <div>
         <div className={styles.getPetPage}>
           {petLog.length > 0 && (
-            <div className={styles.petLogCard}>
+            <div className={styles.cardStyle}>
               {petLog.map((log) => (
 
                 <div>
@@ -267,7 +275,7 @@ const PetPage = () => {
           {validPetAppointments.length > 0 && (
             <div>
               <div styles={{marginBottom: "27px"}}><Map coordinates={validPetAppointments} /></div>
-              <div className={styles.appointmentCard}>
+              <div className={styles.cardStyle}>
                 {petAppointments.map((appointment, index) => (
                   <AppointmentCard
                     key={index}
@@ -298,13 +306,14 @@ const PetPage = () => {
       <div>
         <div className={styles.getPetPage}>
           {petMedications.length > 0 && (
-            <div>
+            <div className={styles.cardStyle}>
               {petMedications.map((medication) => (
                 <MedicineCard
                   medicineName={medication.MedicineName}
                   dosage={medication.DosageAmount}
-                  startDate={medication.MedicationDate}
+                  startDate={new Date(medication.MedicationDate)}
                   Period={medication.MedicationPeriod}
+                  medicationTime={medication.M}
                   onDelete={() => handleMedicationDelete(medication._id)}
                   MedicationId={medication._id}
                 />

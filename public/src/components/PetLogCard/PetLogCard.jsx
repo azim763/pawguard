@@ -10,9 +10,12 @@ import {
 
 
 const PetLogCard = ({ PetLogDate, PetLogTime,logId, onDelete }) => {
-  const timestamp = new Date(PetLogTime);
-  const timeString = timestamp.toLocaleTimeString('en-US', { timeStyle: 'medium' });
+  const date = new Date(PetLogTime);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
 
+  const timeString = `${hours}:${minutes}`;
+ 
   const handleDeleteClick = () => {
     
     axios.delete(`${deletePetLogByIdRoute}/${logId}`) 
