@@ -1,0 +1,24 @@
+.foodFormContainer {
+  display: grid;
+  row-gap: 16px;
+  grid-template-rows: 1.5fr 1fr 1fr;
+  padding: 5%;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  background-color: var(--white-white);
+  margin-bottom: 10px;
+}
+
+.foodName {
+  grid-column: 1/3;
+}
+
+.firstRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.secondRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

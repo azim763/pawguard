@@ -9,18 +9,11 @@
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    max-width: 400px;
+    max-width: 700px;
   }
+
   
-  .modal h2 {
-    margin: 0;
-  }
-  
-  .modal p {
-    margin-bottom: 20px;
-  }
-  
-  .modal button {
+  /* .modal button {
     background: var(--yellow);
     color: white;
     border: none;
@@ -30,9 +23,11 @@
   
   .modal button:hover {
     background: var(--dark-blue);
-  }
+  } */
 
   .CardButtonGroup{
-    display: flex;
-    gap:2rem;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 3rem;
   }
