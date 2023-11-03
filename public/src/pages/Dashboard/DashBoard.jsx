@@ -116,9 +116,7 @@ export default function Chat() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responsePetLog = await axios.get(searchPetLogsByPetIDRoute, {
-          params: { PetID: selectedPet._id },
-        });
+        const responsePetLog = await axios.get(`${searchPetLogsByPetIDRoute}/${selectedPet._id}`);
         setPetLog(responsePetLog.data);
         console.log(responsePetLog.data);
       } catch (error) {
