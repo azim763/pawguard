@@ -365,6 +365,7 @@ const PetPage = () => {
             petAge={petAge !== "-" ? `${petAge} years` : "-"}
             petHeight={selectedPet.Height}
             petWeight={selectedPet.Weight}
+            id={selectedPet._id}
           />
         )}
 

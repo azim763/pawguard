@@ -9,131 +9,64 @@ import Header from "../../components/Header/header";
 import Button from "../../components/Button/Button";
 //import LogoSVG from '../../components/SVG/LogoSVG';
 import { useParams } from "react-router-dom";
-import { searchPetLogsByPetIDRoute } from "../../utils/APIRoutes";
+import { searchPetLogsByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
 
 // import { searchPetLogsByPetID } from '../../../../server/controllers/petLogController';
 // import { searchPetLogsByPetIDRoute } from '../../utils/APIRoutes';
 const ExportpetLog = () => {
 
-  const [petLog, setPetLog] = useState([]);
-
-  const { PetID } = useParams();
-   console.log(PetID);
-   const { petID } = useParams();
-   console.log(petID);
-   const { petid } = useParams();
-   console.log(petid);
-   const { petId } = useParams();
-   console.log(petId);
   
+  const [petLog, setPetLog] = useState([]);
+  const [petobj, setPets] = useState([]);
+ // const { _id } = useParams();
+ // const [petLogs, setPetLogs] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+
+  
+ //  console.log(PetID);
+   const { petID } = useParams();
+  //var { id } =petID;
+   // console.log(petID);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(searchPetLogsByPetIDRoute, {
-          params: { PetID: petId },
-        });
+         const response2 = await axios.get(getPetByIdRoute +'/'+petID );
+        setPets(response2.data);
+        console.log(petobj);
+          const response = await axios.get(searchPetLogsByPetIDRoute +'/'+petID );
         setPetLog(response.data);
-        console.log(response.data);
-      } catch (error) {
+         console.log(response2.data);
+          setLoading(false);
+       } catch (error) {
         console.log("Error fetching data: ", error);
       }
     };
 
     fetchData();
-  }, [petId]);
-
-
-
-
-  const [petLogs, setPetLogs] = useState([]);
-  const [pets, setPets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  // const [petid, setSelectedPet] = useState("");
- // const { petid } = useParams();
- 
-  // const { _id } = useParams();
- 
-//  console.log(_id);
-  // const onloadpage = () => {
-
-  //   // read id from querystring
-
-  //   //setSelectedPet("");
-  // };
-
-
-  useEffect(() => {
-    axios.get(`${searchPetLogsByPetIDRoute}/${PetID}`)
-      .then((response) => {
-        setPetLogs(response.data);
-  //             setLoading(false);
-   
-      })
-      .catch((error) => {
-        console.log(PetID);
-        console.error("Error fetching  data:", error);
-       });
-  }, [ PetID]);
+  }, [petID]);
 
 
 
   // useEffect(() => {
   //   const fetchData = async () => {
-  //     const { petid } = useParams();
+  //     try {
+ 
+  //       const response = await axios.get(getPetByIdRoute +'/'+petID );
+  //       setPets(response.data);
 
-  //     console.log(petid);
-  //     axios.get(searchPetLogsByPetIDRoute, {
-  //       params: { petID: petid },
-  //     })
-  //     .then(responsePet => {
-  //       setPets(responsePet.data);
-
-  //       //     axios.get(getAllPetLogsRoute)
-  //       //  .then(response => {
-  //       //    setPetLogs(response.data);
-  //       //    setLoading(false);
-  //       //  })
-  //       //  .catch(error => {
-  //       //    console.error('Error fetching data:', error);
-  //       //    setLoading(false);
-  //       //  });
-  //     })
-  //     .catch(error => {})
-  //      };
-  //   fetchData();
-
-  // }, [petid]);
-
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-
-
-
-  //     axios.get(getAllPetsRoute)
-  //       .then(responsePet => {
-  //         setPets(responsePet.data);
-
-  //         axios.get(getAllPetLogsRoute)
-  //           .then(response => {
-  //             setPetLogs(response.data);
-  //             setLoading(false);
-  //           })
-  //           .catch(error => {
-  //             console.error('Error fetching data:', error);
-  //             setLoading(false);
-  //           });
-  //       })
-  //       .catch(error => { })
+  //        console.log(response.data);
+  //     setLoading(false);
+  //      } catch (error) {
+  //       console.log("Error fetching data: ", error);
+  //     }
   //   };
+
   //   fetchData();
+  // }, [petID]);
 
-  // }, []);
-  // useEffect(() => {
-
-  // // generatePDF();
-  // }, []);
 
   function userfrDateTime(isoString) {
 
@@ -167,61 +100,15 @@ const ExportpetLog = () => {
 
     // var element = document.getElementById("export");
     var element = document.querySelector(".export");
-    //  var doc = new jsPDF();
-    //   doc.fromHTML(element);
-
-    //   doc.save("exportlog.pdf");
-
-
+ 
     var doc = new jsPDF("p", "pt", "a4");
-    // var pdf = document.querySelector(".export"); 
-    // doc.fromHTML(element); 
-
-
+   
     doc.html(element, {
       async callback(doc) {
-        // save the document as a PDF with name of pdf_name
-        doc.save("petlog");
+             doc.save("petlog");
       }
     });
 
-
-    //   console.log(element);
-    // doc.save("GFG.pdf"); 
-
-
-    //   var doc = new jsPDF("p", "pt");
-
-    // for (let pindex = 0; pindex < pets.length; pindex++)
-    // {
-
-
-    //   doc.setFontSize(22);
-    //   //  doc.addFont("helvetica", "normal"); 
-    //   //console.log(pets[0]);
-    //   console.log(pindex);
-    //   doc.text(20, 20, pets[pindex].PetName);
-    //   doc.setFontSize(12);
-
-    //   for (let index = 0; index < petLogs.length; index++) {
-    //   //  if(petLogs[index].petID==pets[pindex]._id)
-
-    //     var np=index%4
-    //      var k= np*200;
-    //     doc.text(20,k+60,"Log Date:    "+  userfrDateTime(petLogs[index].LogDate));
-    //      doc.text(20, k+80,"Activity Level:    "+ petLogs[index].ActivityLevel);
-    //     doc.text(20, k+100,"Urine Amount:     "+ petLogs[index].UrineAmount);
-    //     doc.text(20, k+120,"Stool Amount:    "+ petLogs[index].StoolAmount);
-    //     doc.text(20, k+140,"Stool Appearance:    "+ petLogs[index].StoolAppearance);
-    //       doc.text(20, k+160,"Stool Appearance:   "+ petLogs[index].StoolAppearance);
-    //     doc.text(20, k+180,"Notes:   "+ petLogs[index].Notes);
-    //  //   doc.text(20, k+160,petLogs[index].Wheight);
-    //   if (np==3)
-    //   doc.addPage();
-    //   }
-    // }
-
-    //     doc.save("exportlog.pdf");
   };
 
 
@@ -235,6 +122,7 @@ const ExportpetLog = () => {
       <Header/>
       
       <div className={styles.petLogContainer}  class="export" style={myComponentStyle}>
+      {/* <div className={styles.petLogContainer}   style={myComponentStyle}> */}
    
 <div  style={logheaderStyle}>
 
@@ -249,10 +137,21 @@ const ExportpetLog = () => {
 
 
           <div >
-
-
+<div> 
+  
+<ul >
+              {petobj.map(logpet => (
+                <li key={logpet._id}>
+                  <strong>Log Date:</strong> {logpet._id} <br />
+                
+                </li>
+              ))}
+            </ul>
+  </div>
+  <div>
+    </div>
             <ul >
-              {petLogs.map(log => (
+              {petLog.map(log => (
                 <li key={log._id}>
                   <strong>Log Date:</strong> {log.LogDate} <br />
                   <strong>Log UrineAmount:</strong> {log.UrineAmount} <br />

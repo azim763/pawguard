@@ -12,11 +12,19 @@ import ExportLog from "../PetExport/ExportLog";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 import { useNavigate, Link } from "react-router-dom";
 
-const PetCard = ({ src, petBreed, petAge, petHeight, petWeight,petId }) => {
+const PetCard = ({ src, petBreed, petAge, petHeight, petWeight,id }) => {
 
   const navigate = useNavigate();
   const onClickHandler = () => {
-    navigate(`/exportpetLog/${petId}`);
+
+    const windowFeatures = "left=100,top=100,width=320,height=320";
+const handle = window.open(
+  `/exportpetLog/?${id}`,
+  "mozillaWindow",
+  windowFeatures,
+);
+    window.open(`/exportpetLog/${id}`);
+  //  navigate(`/exportpetLog/?${id}`,{replace: false});
   };
 
   return (
@@ -70,13 +78,12 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight,petId }) => {
           <ArchiveSVG width="30" height="30" />
           <Typography variant="detailtext2-poppins-medium">archive </Typography>
         </div>
-        <div onClick={  onClickHandler}>
+        <a href={`/exportpetLog/?${id}`} target="_blank" >
           <ExportSVG width="28" height="29" />
           <Typography variant="detailtext2-poppins-medium">
-          {/* <ExportLog petId={petId}/> */}
-
+          export
           </Typography>
-        </div>
+        </a>
       </div>
     </div>
   );
