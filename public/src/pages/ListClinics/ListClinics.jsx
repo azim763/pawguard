@@ -61,6 +61,7 @@ const ListClinics = () => {
   const handleSelectedOptions = (selectedValues) => {
     setSelectedOptions(selectedValues);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -163,15 +164,19 @@ const ListClinics = () => {
   ];
 
   const onClickHandler = () => {
+    console.log(
+      originalClinicData
+    )
     const filteredResults = originalClinicData.filter((clinic) => {
       const matchesUrgentCare = !urgentCareChecked || clinic.UrgentCare;
       const matchesOpen24hrs = !open24hrsChecked || clinic.Open24;
       const cityFilter = !selectedClinicName || clinic.City === selectedClinicName;
-      const specialtyFilter = selectedOptions.length === 0 || selectedOptions.includes(clinic.Specialty);
+      const specialtyFilter = selectedOptions.length === 0 || clinic.Specialty.split(',').some(word => selectedOptions.includes(word.trim()));
 
       // Check if any filter is applied, and only apply relevant filters
       return (!urgentCareChecked || matchesUrgentCare) && (!open24hrsChecked || matchesOpen24hrs) && (!selectedClinicName || cityFilter) && (selectedOptions.length === 0 || specialtyFilter);
     });
+    console.log("filteredResult", filteredResults)
 
     setClinicData(filteredResults);
   };
