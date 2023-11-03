@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styles from "../SingleImageUpload/SingleImageUpload.module.css"
+import React, { useState } from "react";
+import styles from "../SingleImageUpload/SingleImageUpload.module.css";
 
-function SingleImageUpload({ onImageUpload }) {
+function SingleImageUpload({ label, onImageUpload }) {
   const [image, setImage] = useState(null);
 
   const handleImageChange = (e) => {
@@ -12,8 +12,7 @@ function SingleImageUpload({ onImageUpload }) {
         setImage(URL.createObjectURL(file));
 
         // Emit the image data to the parent component
-        onImageUpload(reader.result.split(',')[1]); // Pass the base64 data as a string
-
+        onImageUpload(reader.result.split(",")[1]); // Pass the base64 data as a string
       };
       reader.readAsDataURL(file);
     } else {
@@ -26,11 +25,15 @@ function SingleImageUpload({ onImageUpload }) {
 
   return (
     <div>
-      <label  for="file-upload" class={styles.cfu}>
-   
-      <input type="file" id="file-upload" accept="image/*" onChange={handleImageChange} />
-     Change Pet Image
-   </label>
+      <label for="file-upload" class={styles.cfu}>
+        <input
+          type="file"
+          id="file-upload"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        {label}
+      </label>
     </div>
   );
 }
