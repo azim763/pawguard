@@ -39,8 +39,14 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const storedData = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
     if (selectedPet && selectedPet._id) {
-      const updatedFormData = { ...formData, PetID: selectedPet._id };
+      const updatedFormData = { ...formData,
+         PetID: selectedPet._id,
+         UserID: storedData._id
+        };
       setFormData(updatedFormData);
 
       try {
@@ -50,10 +56,8 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-        if (selectedPet && selectedPet._id) {
           // ...
-          onMedicationSubmit(response.data);
-        }
+          onMedicationSubmit(updatedFormData);
       } catch (error) {
         console.error("Error submitting form:", error);
       }

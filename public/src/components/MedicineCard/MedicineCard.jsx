@@ -1,9 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import Typography from "../Typography/Typography";
 import styles from "./MedicineCard.module.css";
 import DeleteSVG from "../SVG/DeleteSVG";
 import axios from "axios";
 import { deletePetMedicationByIdRoute } from "../../utils/APIRoutes.js";
+import Modal from "react-modal"; 
+import modalStyles from "../Modal/Modal.module.css"; // Import the modal styles
+
+Modal.setAppElement('#root');
+
 
 const MedicineCard = ({
   medicineName,
@@ -15,11 +20,25 @@ const MedicineCard = ({
   onDelete,
 }) => {
 
+
   const medDate = startDate.toLocaleDateString();
   const [month, day, year] = medDate.split("/");
   const medFormattedDate = `${day}-${month}-${year}`;
 
+  const date = new Date(medicationTime);
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  const timeString = `${hours}:${minutes}`;
+  const formattedDate = `${day}-${month}-${year}`;
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const handleDeleteClick = () => {
+    // Open the delete confirmation modal
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete  = () => {
     axios
       .delete(`${deletePetMedicationByIdRoute}/${MedicationId}`)
       .then((response) => {
@@ -32,6 +51,13 @@ const MedicineCard = ({
           error
         );
       });
+      setIsDeleteModalOpen(false);
+
+  };
+
+  const handleCancelDelete = () => {
+    // Close the delete confirmation modal without performing the delete
+    setIsDeleteModalOpen(false);
   };
   return (
     <div className={styles.medicineCardContainer}>
@@ -56,7 +82,7 @@ const MedicineCard = ({
         <div>
           <Typography variant="body1-poppins-semibold">Time</Typography>
           <Typography variant="body3-poppins-regular">
-            {medicationTime}
+            {timeString}
           </Typography>
         </div>
         <div>
@@ -70,6 +96,20 @@ const MedicineCard = ({
           <Typography variant="body3-poppins-regular">{Period} days</Typography>
         </div>
       </div>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        contentLabel="Delete Confirmation"
+        onRequestClose={() => setIsDeleteModalOpen(false)}
+        className={modalStyles.modal} // Apply the modal styles
+        overlayClassName={modalStyles.overlay} // You can also style the overlay
+      >
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete this medicine card?</p>
+        <div className={modalStyles.CardButtonGroup}>
+          <button onClick={handleConfirmDelete}>Yes, Delete</button>
+          <button onClick={handleCancelDelete}>Cancel</button>
+        </div>
+      </Modal>
     </div>
   );
 };

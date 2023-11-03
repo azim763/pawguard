@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Typography from "../Typography/Typography";
 import styles from "./AppointmentCard.module.css";
 import DeleteSVG from "../SVG/DeleteSVG";
@@ -7,9 +7,21 @@ import {
   deletePetAppointmentByIdRoute,
 
 } from "../../utils/APIRoutes.js";
+import Modal from "react-modal"; 
+import modalStyles from "../Modal/Modal.module.css";
+Modal.setAppElement('#root');
+
 
 const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, AppointmentDateTime,AppointmentId,onDelete }) => {
-  const handleAppointmentDelete = () => {
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    // Open the delete confirmation modal
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
     
     axios.delete(`${deletePetAppointmentByIdRoute}/${AppointmentId}`) 
       .then(response => {
@@ -19,6 +31,12 @@ const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, Appoi
       .catch(error => {
         console.error(`Error deleting log entry with ID ${AppointmentId}:`, error);
       });
+      setIsDeleteModalOpen(false);
+
+  };
+  const handleCancelDelete = () => {
+    // Close the delete confirmation modal without performing the delete
+    setIsDeleteModalOpen(false);
   };
   return (
     <div className={styles.appointmentCardContainer}>
@@ -34,7 +52,7 @@ const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, Appoi
           </Typography>
         </div>
         <div>
-          <DeleteSVG width="30px" height="30px" onClick={handleAppointmentDelete}/>
+          <DeleteSVG width="30px" height="30px" onClick={handleDeleteClick}/>
         </div>
       </div>
       <div className={styles.secondRow}>
@@ -49,6 +67,20 @@ const AppointmentCard = ({ ClinicName, AppointmentTime, AppointmentReason, Appoi
           </Typography>
         </div>
       </div>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        contentLabel="Delete Confirmation"
+        onRequestClose={() => setIsDeleteModalOpen(false)}
+        className={modalStyles.modal} // Apply the modal styles
+        overlayClassName={modalStyles.overlay} // You can also style the overlay
+      >
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete this Appointment card?</p>
+        <div className={modalStyles.CardButtonGroup}>
+          <button onClick={handleConfirmDelete}>Yes, Delete</button>
+          <button onClick={handleCancelDelete}>Cancel</button>
+        </div>
+      </Modal>
     </div>
   );
 };

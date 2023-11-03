@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const petAppointmentSchema = new mongoose.Schema({
     UserID: {
         type: String,
-          required: false,
+          required: true,
       },
     PetID: { type: String, required: true },
     ClinicName: { type: String, required: false },
