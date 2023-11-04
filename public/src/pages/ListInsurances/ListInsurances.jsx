@@ -51,8 +51,8 @@ const ListInsurances = () => {
 
         {filteredPlans.map((plan,index) => (
             <PlanDetailCard
-              source="https://picsum.photos/200/200"
-              alt="logo"
+              source={plan._id.CompanyLogo}
+              alt={plan._id.CompanyLogo}
               key={plan._id}
               deductibleNum={plan.AnnualDeductible}
               reimbursementNum={(plan.Reimbursement)*100}
@@ -84,3 +84,6 @@ const ListInsurances = () => {
 };
 
 export default ListInsurances;
+
+
+

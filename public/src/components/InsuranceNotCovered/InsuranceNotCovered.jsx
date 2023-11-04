@@ -6,7 +6,7 @@ const InsuranceNotCovered = ({ descriptions, ...props }) => {
   return (
     <div className={styles.InsuranceNotCovered}>
       <div className={styles.InsuranceNotCoveredheader}>
-        <Typography variant="sub-h2-poppins-medium">
+        <Typography variant="sub-poppins-medium">
           What's Not Covered
         </Typography>
       </div>
