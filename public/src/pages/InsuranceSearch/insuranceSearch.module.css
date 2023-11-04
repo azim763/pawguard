@@ -1,11 +1,12 @@
 .petSelectionContainer{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
+    display: flex;
+    flex-direction:row;
+    /* grid-template-columns: repeat(3, 1fr); */
+    justify-content: center;
 }
 
 .formContainer{
     display: grid;
     justify-items: center;
-    padding: 10%;
+    /* padding: 10%; */
 }
