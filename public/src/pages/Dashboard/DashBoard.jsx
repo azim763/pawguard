@@ -181,7 +181,6 @@ export default function Chat() {
     <div>
       <Header />
       <div className={styles.dashboardContainer}>
-        {/* <Logout /> */}
         <div className={styles.dashboardPetCard}>
           <Typography variant="h2-poppins-semibold" color="dark-blue">
             My Pets
