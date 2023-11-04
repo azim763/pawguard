@@ -229,15 +229,16 @@ const ListClinics = () => {
           <Typography variant="sub-h2-poppins-medium" color="almost-black">
             Specialties will be recommended for your pet’s needs.
           </Typography>
-
-          {pets.map((petSelectClinic) => (
-            <PetSelectionClinic
-              specialties={petSelectClinic.PreExistingMedical}
-              imgUrl={petSelectClinic.PetImageName}
-              clinicPetName={petSelectClinic.PetName}
-              onClick={handlePetSelectClinicClick}
-            />
-          ))}
+          <div className={styles.petSelection}>
+            {pets.map((petSelectClinic) => (
+              <PetSelectionClinic
+                specialties={petSelectClinic.PreExistingMedical}
+                imgUrl={petSelectClinic.PetImageName}
+                clinicPetName={petSelectClinic.PetName}
+                onClick={handlePetSelectClinicClick}
+              />
+            ))}
+          </div>
         </div>
         <div className={styles.multiplePetSelection}>
           {/* {petData.map((pet, index) => (
