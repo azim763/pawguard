@@ -34,3 +34,9 @@
 .large {
   width: 555px;
 }
+
+.round{
+  border-radius: 20px;
+  width: 280px;
+  height: 42px;
+}
