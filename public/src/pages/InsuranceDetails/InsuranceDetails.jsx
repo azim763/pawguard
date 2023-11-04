@@ -23,22 +23,16 @@ const InsuranceDetails = () => {
   const [planData,setPlanData]=useState([]);
  const navigate = useNavigate();
   
+ const [currentCompanyID, setCurrentCompanyID] = useState(null);
+
  useEffect(() => {
   axios.get(`${getInsurancePlanByIdRoute}/${_id}`)
     .then((response) => {
       setCompanyData(response.data);
-      console.log("Plan Data {complete page}: /n"+response.data);
-       console.log("Plan Data [ID passed] {complete page}: /n"+response.data.CompanyID);
-       console.log(" Plan_Error 1 general :: "+companyData);
-      console.log("Plan_Error 2 _id "+_id);
-      console.log("Plan_Error 3 CompanyID  "+CompanyID);
+      setCurrentCompanyID(response.data.CompanyID);
       axios.get(`${getInsuranceCompanyByIdRoute}/${response.data.CompanyID}`)
       .then((responsecompany) => {
-         console.log("Company Data Data {a part of the page}: /n"+responsecompany.data);
          setPlanData(responsecompany.data);
-         console.log("Company_Error 1 general :: "+companyData);
-      console.log("Company_Error 2 _id "+_id);
-      console.log("Company_Error 3 CompanyID  "+CompanyID);
     })
       .catch((error) => {
         console.error("Error fetching Company data:", error);
@@ -46,17 +40,12 @@ const InsuranceDetails = () => {
     })
     .catch((error) => {
       console.error("Error fetching Plan data:", error);
-      console.log("Error 1 general :: "+companyData);
-      console.log("Error 2 _id "+_id);
-      console.log("Error 3 CompanyID  "+CompanyID);
     });
 }, [_id, CompanyID]);
  
   //For small cards 
   const [insurancePlans, setInsurancePlans] = useState([]);
-  // const navigate = useNavigate();
   useEffect( () => {
-    // Make a GET request to fetch insurance plans
     axios.get(getAllInsurancePlansRoute) 
       .then((response) => {
         setInsurancePlans(response.data);
@@ -68,7 +57,6 @@ const InsuranceDetails = () => {
   }, []);
 
   const handleViewDetailsClick = (_id) => {
-    // Use the history.push method to navigate to the details page
     navigate(`/insurance/details/${_id}`);
   };
 
@@ -77,6 +65,7 @@ const InsuranceDetails = () => {
       <Header/>
       <div>
         <div className={styles.InsuranceDetails}>
+        <div className={styles.InsuranceDetailsHeading}>
           <Typography variant="h1-poppins-semibold" color="almost-black">
             {" "}
             Coverage Details
@@ -84,6 +73,7 @@ const InsuranceDetails = () => {
           <Typography variant="sub-h3-poppins-regular" color="almost-black">
           <p>Information may vary from the actual insurance policy provided by each company</p>
           </Typography>
+        </div>
           {companyData.CompanyID &&(
             <div>
              <PlanDetailCard
@@ -121,27 +111,32 @@ const InsuranceDetails = () => {
 
 {/* Similar Plans Section */}
         <div className={styles.InsuranceDetailsSimilarPlans}>
+        <div className={styles.InsuranceDetailsSimilarPlansHeading}>
           <Typography
             variant="h2-poppins-semibold"
             style={{ gridColumn: "1/-1" }}
           >
             Compare to Similar Plans
           </Typography>
-
-            {insurancePlans.slice(0, 3).map((plan) => (
-              // <div key={plan.CompanyID}>
+          </div>
+          <div className={styles.InsuranceDetailsSimilarPlansBody}>
+          {insurancePlans
+              .filter((plan) => plan.CompanyID !== currentCompanyID) // Filter out the current company's plan
+              .slice(0, 4)
+              .map((plan) => (
                 <SmPlanDetailCard
                   smSource="https://picsum.photos/250/100"
                   key={plan._id}
                   smAlt="logo"
                   smDeductibleNum={plan.AnnualDeductible}
-                  smReimbursementNum={plan.Reimbursement*100}
+                  smReimbursementNum={plan.Reimbursement * 100}
                   smCoverageNum={plan.AnnualCoverage}
                   smPrice={plan.InsurancePrice}
                   CompanyID={plan.CompanyID}
                   onClick={() => handleViewDetailsClick(plan._id)}
                 />
-            ))}
+              ))}
+              </div>
         </div>
       </div>
     </div>

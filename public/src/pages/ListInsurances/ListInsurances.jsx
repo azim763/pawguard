@@ -3,30 +3,22 @@ import Header from "../../components/Header/header";
 import Typography from "../../components/Typography/Typography";
 import PlanDetailCard from "../../components/PlanDetailCard/PlanDetailCard";
 import styles from "./listInsurances.module.css";
-//for fetching details from db
 import {getAllInsurancePlansRoute} from "../../utils/APIRoutes";
 import axios from "axios";
 //for functioning of the button
 import { useNavigate, useLocation } from "react-router-dom";
 
-//to make get request to fetch data 
 const ListInsurances = () => {
   const navigate = useNavigate();
-
-  const location = useLocation(); // Initialize location
-  // const { filteredPlans } = location.state || {}; 
-  const filteredPlans = location.state.filteredPlans;
-
+  const location = useLocation();
+  const filteredPlans = location.state?.filteredPlans || [];
   const [InsurancePlans, setInsurancePlans]= useState('');
-  // console.log(filteredPlans);
 
-  
   useEffect( () => {
-    // Make a GET request to fetch insurance plans
     axios.get(getAllInsurancePlansRoute) 
       .then((response) => {
         setInsurancePlans(response.data);
-        console.log(response.data);
+        console.log("ListInsurancesResponse:"+response.data);
       })
       .catch((error) => {
         console.error("Error fetching insurance plans:", error);
@@ -34,8 +26,6 @@ const ListInsurances = () => {
   }, []);
 
   const handleViewDetailsClick = (_id) => {
-    //method to navigate to the details page
-    // console.log("This is provided to next page"+CompanyID);
     console.log("This is provided to or next page"+_id);
     navigate(`/insurance/details/${_id}`);
   };
@@ -44,13 +34,22 @@ const ListInsurances = () => {
     <div>
       <Header></Header>
       <div className={styles.ListInsurances}>
-        <Typography variant="h1-poppins-semibold" color="almost-black">
-          Plans Recommend for you
-        </Typography>
+        <div className={styles.heading}>
+          <div className={styles.mainHeading}>
+          <Typography variant="h1-poppins-semibold" color="almost-black">
+            Plans Recommend for you
+          </Typography>
+          </div>
+          <div className={styles.subHeading}>
+          <Typography variant="sub-h2-poppins-medium" color="almost-black">
+          Information may vary from the actual insurance policy provided by each company.
+          </Typography>
+          </div>
+        </div>
 
         <div className={styles.ListInsurancesBody}>
 
-        {filteredPlans.map((plan) => (
+        {filteredPlans.map((plan,index) => (
             <PlanDetailCard
               source="https://picsum.photos/200/200"
               alt="logo"
