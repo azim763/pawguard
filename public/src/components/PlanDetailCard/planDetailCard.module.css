@@ -21,6 +21,11 @@
   align-self: center;
 }
 
+.image-container img{
+  width:400px;
+  height:200px;
+}
+
 .image-container,
 .detail-card-deductible,
 .detail-card-reimbursement,

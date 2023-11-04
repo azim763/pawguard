@@ -21,8 +21,8 @@
 }
 
 .image-container img {
-  width: auto;
-  max-height: 100%;
+    width:240px;
+    height:200px;
 }
 
 .detail-card-price {
