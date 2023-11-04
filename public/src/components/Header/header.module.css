@@ -102,4 +102,16 @@ nav li a:hover {
     transform: translateX(0); /* Slide the menu in from the right */
     transition: all 1s ease-in-out;
   }
+
+  .profileMenu a div {
+    color: var(--pearl-blue);
+  }
+
+  .profileMenu button {
+    background-color: transparent !important;
+  }
+
+  .profileMenu button div {
+    color: var(--pearl-blue) !important;
+  }
 }

@@ -83,7 +83,7 @@ const Header = () => {
                     <div className={styles.profileMenu}>
                       <ul>
                         <li>
-                          <NavLink to="/manageAccount">
+                          <NavLink to="/">
                             <Typography variant="body3-poppins-regular" color="almost-black">
                               Account Settings
                             </Typography>
@@ -102,6 +102,13 @@ const Header = () => {
           <div>
             <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
               <ul>
+              <li>
+                  <NavLink to="/AboutUs">
+                    <Typography variant="body1-poppins-semibold">
+                      About Us
+                    </Typography>
+                  </NavLink>
+                </li>
                 <li>
                   <NavLink to="/clinics">
                     <Typography variant="body1-poppins-semibold">
@@ -115,25 +122,6 @@ const Header = () => {
                       Insurances
                     </Typography>
                   </NavLink>
-                </li>
-                <li className={styles.profileIcon}>
-                  <div onClick={handleProfileClick}>
-                    <UserSVG width="48" height="48" />
-                  </div>
-                  {profileMenuOpen && (
-                    <div className={styles.profileMenu}>
-                      <ul>
-                        <li>
-                          <NavLink to="/manageAccount">
-                            <Typography variant="body3-poppins-regular" color="almost-black">
-                              Account Settings
-                            </Typography>
-                          </NavLink>
-                        </li>
-                        <Logout />
-                      </ul>
-                    </div>
-                  )}
                 </li>
               </ul>
             </div>
