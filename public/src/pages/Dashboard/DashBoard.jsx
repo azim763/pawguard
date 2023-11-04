@@ -27,7 +27,7 @@ import DashAptCard from "../../components/DashAptCard/DashAptCard";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-export default function Chat() {
+export default function Dashboard() {
   const [pets, setPets] = useState([]);
   const [foods, setFoods] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");

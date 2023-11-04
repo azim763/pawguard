@@ -19,23 +19,23 @@ const Header = () => {
     setMenuOpen(!menuOpen);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const checkLoggedIn = async () => {
-      const storedData = localStorage.getItem(
-        process.env.REACT_APP_LOCALHOST_KEY
-      );
-      if (!storedData) {
-        if (!(location.pathname == '/getinsurances' || location.pathname == '/clinics'))
-          navigate("/login");
-      } else {
-        const userData = JSON.parse(storedData);
-        setCurrentUser(userData);
-      }
-    };
+  //   const checkLoggedIn = async () => {
+  //     const storedData = localStorage.getItem(
+  //       process.env.REACT_APP_LOCALHOST_KEY
+  //     );
+  //     if (!storedData) {
+  //       if (!(location.pathname == '/getinsurances' || location.pathname == '/clinics'))
+  //         navigate("/login");
+  //     } else {
+  //       const userData = JSON.parse(storedData);
+  //       setCurrentUser(userData);
+  //     }
+  //   };
 
-    checkLoggedIn();
-  }, []);
+  //   checkLoggedIn();
+  // }, []);
 
   const handleProfileClick = () => {
     setProfileMenuOpen(!profileMenuOpen);
