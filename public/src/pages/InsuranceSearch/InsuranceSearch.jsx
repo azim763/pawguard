@@ -12,6 +12,7 @@ import {getAllInsurancePlansRoute,searchPetsByUserIDRoute} from "../../utils/API
 import {getAllPetsRoute} from "../../utils/APIRoutes";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic";
 
 const InsuranceSearch = () => {
   const [pets,setPets] = useState([]);
@@ -22,7 +23,7 @@ const InsuranceSearch = () => {
   const [insurancePlans, setInsurancePlans] = useState([]);
   const [selectedPetName, setSelectedPetName] = useState(""); 
   const [userId, setUserId] = useState(null); 
-
+  
 
   const navigate = useNavigate();
 
@@ -162,42 +163,36 @@ const handlePetSelection = (petName) => {
 
 //to fetch pet data
 useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
-        if (storedData) {
-          const data = JSON.parse(storedData);
-          const petData = localStorage.getItem('petsData');
-          
-          if (petData) {
-            // If petData exists in local storage, use it
-            const petArray = JSON.parse(petData);
-            setPets(petArray);
-  
-            if (!selectedPetName && petArray.length > 0) {
-              setSelectedPetName(petArray[0]);
-            }
-          } else {
-            // Fetch pet data from the backend
-            const response = await axios.get(searchPetsByUserIDRoute, {
-              params: { userID: data._id },
-            });
-  
-            setPets(response.data);
-  
-            if (!selectedPetName && response.data.length > 0) {
-              setSelectedPetName(response.data[0]);
-            }
-          }
-        }
-      } catch (error) {
-        // Handle any errors here
+  const fetchData = async () => {
+    try {
+      const storedData = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
+      const data = JSON.parse(storedData);
+
+      console.log("getPetData");
+      // Fetch pet data from the backend
+      const response = await axios.get(searchPetsByUserIDRoute, {
+        params: { userID: data._id },
+      });
+
+      setPets(response.data);
+      if (!selectedPetName && response.data.length > 0) {
+        setSelectedPetName(response.data[0]);
+        // setSelectedOptions(response.data[0].PreExistingMedical.split(","));
+        //
       }
-    };
-  
-    // Fetch data when the component mounts
-    fetchData();
-}, [selectedPetName]);
+
+      console.log("sort data");
+      // setSort(true);
+    } catch (error) {
+      // Handle any errors here
+    }
+  };
+
+  // Fetch data when the component mounts
+  fetchData();
+}, []);
   
 
   //to fetch insuarnce plans
@@ -231,7 +226,7 @@ useEffect(() => {
       {pets &&
         Array.isArray(pets) &&
         pets.map((pet) => (
-          <PetSelection
+          <PetSelectionClinic
             key={pet._id}
             imgUrl={pet.PetImageName}
             petName={pet.PetName}
@@ -245,8 +240,8 @@ useEffect(() => {
       <Typography variant="h1-poppins-semibold" color="almost-black">
         <div
           style={{ textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>
-          {selectedPetName ? `About your ${selectedPetName}` : "Tell us about your Pet"}
-        </div>
+          Tell us about your pet  
+          </div>
       </Typography>
 
         <div style={{ marginBottom: "40px" }}>
