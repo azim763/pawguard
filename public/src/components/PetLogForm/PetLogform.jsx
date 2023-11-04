@@ -19,7 +19,7 @@ import FoodForm from "./FoodForm/FoodForm";
 
 const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID }) => {
   // const [pets,setPets] =useState([]);
-  const [foodData, setFoodData] = useState(new Date());
+  const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
 
   
@@ -52,7 +52,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
 
       setFormData(updatedFormData);
       const response = await axios.post(createPetLogRoute, updatedFormData);
-      onPetLogSubmit(updatedFormData);
+      onPetLogSubmit(response.data);
       console.log(response);
       console.log("Data submitted");
     } else {

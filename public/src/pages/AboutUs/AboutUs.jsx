@@ -135,7 +135,7 @@ const AboutUs = () => {
               description="Designer"
             ></AboutUsProfile>
             <AboutUsProfile
-              src="https://t4.ftcdn.net/jpg/05/80/61/41/360_F_580614175_LW6mydM9ii6KEwPjF8aAlPqmlj21YKiC.jpg"
+              src="https://picsum.photos/200"
               alt="image"
               title="Thalha Uzair"
               description="FS Developer"

@@ -15,20 +15,13 @@ const MedicineCard = ({
   dosage,
   startDate,
   Period,
-  medicationTime,
+  MedicineTime,
   MedicationId,
   onDelete,
 }) => {
   const medDate = startDate.toLocaleDateString();
   const [month, day, year] = medDate.split("/");
   const medFormattedDate = `${day}-${month}-${year}`;
-
-  const date = new Date(medicationTime);
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  const timeString = `${hours}:${minutes}`;
-  const formattedDate = `${day}-${month}-${year}`;
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
@@ -78,7 +71,7 @@ const MedicineCard = ({
         </div>
         <div>
           <Typography variant="body1-poppins-semibold">Time</Typography>
-          <Typography variant="body3-poppins-regular">{timeString}</Typography>
+          <Typography variant="body3-poppins-regular">{MedicineTime}</Typography>
         </div>
         <div>
           <Typography variant="body1-poppins-semibold">Start date</Typography>
