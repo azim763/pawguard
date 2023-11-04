@@ -9,6 +9,7 @@ import SpecialtySVG from "../../components/SVG/SpecialtySVG";
 const ClinicDetailCard = ({
   clinicName,
   clinicRating,
+  clinicRatingStar,
   // numberOfRatings,
   clinicAddress,
   specialtiesString,
@@ -50,10 +51,7 @@ const ClinicDetailCard = ({
           <Typography variant="body3-poppins-regular" color="almost-black">
             {clinicRating}
           </Typography>
-          {/* <img src={imgUrl} alt="clinic"/> */}
-          {/* <Typography variant="body3-poppins-regular" color="almost-black">
-          {numberOfRatings}
-          </Typography> */}
+            {clinicRatingStar}
         </div>
         <div className={styles.clinicAddress}>
           <LocationSVG width="25" height="34" />
@@ -75,15 +73,22 @@ const ClinicDetailCard = ({
 
         <div className={styles.clinicSpecialties}>
           <SpecialtySVG width="26" height="26" />
-          <ul>
+          <ul className={styles.listing}>
             {specialtiesArray.map((item, index) => (
               <Typography variant="body3-poppins-regular" color="almost-black">
-                <li key={index}>{item}</li>
+                <li className={styles.listingList} key={index}>
+                  {item}
+                </li>
               </Typography>
             ))}
           </ul>
         </div>
-        <Button variant="dark-blue" label="View details" size="dk-sm" onClick={handleClickDetails}/>
+        <Button
+          variant="dark-blue"
+          label="View details"
+          size="dk-sm"
+          onClick={handleClickDetails}
+        />
       </div>
     </div>
   );

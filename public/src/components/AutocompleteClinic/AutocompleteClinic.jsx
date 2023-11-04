@@ -27,7 +27,7 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
               <input
                 {...getInputProps()}
                 style={{
-                  width: "325px",
+                  width: "100%",
                   height: "54px",
                   borderRadius: "8px",
                   borderColor: "var(--almost-black)",

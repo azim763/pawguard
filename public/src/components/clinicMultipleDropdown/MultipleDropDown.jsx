@@ -32,9 +32,9 @@ export default function MultipleDropDown({
             fontSize: '15px'
           },
           chips: {
-            background: 'rgb(0,0,128)',
+            background: 'var(--dark-blue)',
             fontSize: '18px',
-            display: 'inline-block',
+            // display: 'inline-block',
             marginLeft: '5px'
           },
           multiselectContainer: {
@@ -46,7 +46,7 @@ export default function MultipleDropDown({
           searchBox: {
             fontSize: '20px',
             border: '1px solid var(--almost-black) ',
-            height: '54px',
+            minHeight: '54px',
             borderRadius: '8px',
             backgroundColor: 'white',
             
