@@ -73,7 +73,7 @@ const DashCalendar = ({ petAppointments }) => {
       {selectedDate && getSelectedEvents().length > 0 && (
         <div>
           <Typography
-            variant="sub-h2-poppins-medium"
+            variant="sub-poppins-medium"
             color="dark-blue"
             style={{ textAlign: "center", margin: "24px 0" }}
           >

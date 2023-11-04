@@ -2,7 +2,7 @@
   display: grid;
   /* grid-template-rows: 0.5fr .1fr; */
   width: 262px;
-  height: 130px;
+  height: 98px;
   background-color: var(--pearl-yellow);
   grid-template-columns: 0.8fr 1fr;
   align-items: center;
