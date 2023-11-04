@@ -77,8 +77,8 @@ const InsuranceDetails = () => {
           {companyData.CompanyID &&(
             <div>
              <PlanDetailCard
-             source="https://picsum.photos/200/200"
-             alt="logo"
+             source={planData.CompanyLogo}
+             alt={planData.CompanyLogo}
              key={companyData._id}
              deductibleNum={companyData.AnnualDeductible}
              reimbursementNum={(companyData.Reimbursement)*100}
@@ -125,9 +125,9 @@ const InsuranceDetails = () => {
               .slice(0, 4)
               .map((plan) => (
                 <SmPlanDetailCard
-                  smSource="https://picsum.photos/250/100"
+                  smSource={planData.CompanyLogo}
                   key={plan._id}
-                  smAlt="logo"
+                  smAlt={planData.CompanyLogo}
                   smDeductibleNum={plan.AnnualDeductible}
                   smReimbursementNum={plan.Reimbursement * 100}
                   smCoverageNum={plan.AnnualCoverage}
