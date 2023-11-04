@@ -6,12 +6,12 @@ import styles from "./DashCalendarCard.module.css"
 const DashCalendarCard = ( { petName, cardTime, aptReason, clinicName } ) => {
   return (
     <div className={styles.dashCalendarCard}>
-      <Typography variant="sub-h2-poppins-medium" color="dark-blue">
+      <Typography variant="sub-poppins-medium" color="dark-blue">
         {petName}
       </Typography>
       <div className={styles.calendarTime}>
         <ClockSVG width="26" height="27"/>
-        <Typography variant="textfield-poppins-regular" color="almost-black">
+        <Typography variant="detailtext1-poppins-medium" color="almost-black">
           {cardTime}
         </Typography>
       </div>

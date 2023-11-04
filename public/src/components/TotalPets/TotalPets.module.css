@@ -4,10 +4,17 @@
     border-radius: 1px solid ;
     border-radius: 50%;
     box-sizing: border-box;
-    background-size: cover;
+    object-fit: cover;
 }
 
 .totalPets{
     display: flex;
     flex-flow: row;
+}
+
+@media screen and (min-width: 768px) {
+    .totalPets div img{
+        width: 41px;
+        height: 41px;
+    }
 }
