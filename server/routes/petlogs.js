@@ -3,8 +3,8 @@ const router = require("express").Router();
 const {
   getAllPetLogs,
   createPetLog,
-  getPetLogsByPetID,
   searchPetLogsByPetID,
+  getPetLogsByPetID,
   getPetLogById,
   updatePetLogById,
   deletePetLogById,
@@ -13,8 +13,8 @@ const {
 // Define routes for Pet Logs
 router.get('/allpetlogs', getAllPetLogs);
 router.post('/create', createPetLog);
-router.get('/searchpetlogsbypetid/:petID', searchPetLogsByPetID);
-router.get('/getpetlogsbypetid', getPetLogsByPetID);
+router.get('/searchpetlogsbypetid', searchPetLogsByPetID);
+router.get('/getpetlogsbypetid/:petID', getPetLogsByPetID);
 router.get('/getpetlogbyid/:id', getPetLogById);
 router.put('/update/:id', updatePetLogById);
 router.delete('/delete/:id', deletePetLogById);

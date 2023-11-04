@@ -9,7 +9,7 @@ import Header from "../../components/Header/header";
 import Button from "../../components/Button/Button";
 //import LogoSVG from '../../components/SVG/LogoSVG';
 import { useParams } from "react-router-dom";
-import { searchPetLogsByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
+import { searchPetLogsByPetIDRoute,searchPetMedicationsByPetIDRoute,searchPetVaccinationsByPetIDRoute,searchPetFoodByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
 import { Cell } from 'recharts';
 
 const ExportpetLog = () => {
@@ -20,6 +20,8 @@ const ExportpetLog = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const [petMedications, setPetMedications] = useState([]);
+  const [petVaccines, setPetVaccines] = useState([]);
 
 
   //  console.log(PetID);
@@ -43,21 +45,64 @@ const ExportpetLog = () => {
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(searchPetLogsByPetIDRoute + '/' + petID);
-        setPetLog(response.data);
-        setLoading(false);
-      }
-      catch (error) {
-        console.log("Error fetching data: ", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(getPetLogsByPetIDRoute + '/' + petID);
+  //       setPetLog(response.data);
+  //       console.log(pet);
+  //       setLoading(false);
+  //     }
+  //     catch (error) {
+  //       console.log("Error fetching data: ", error);
+  //     }
+  //   };
 
-    fetchData();
+  //   fetchData();
+  // }, [petID]);
+
+  
+  useEffect(() => {
+    axios
+      .get(searchPetLogsByPetIDRoute, {
+        params: { PetID: petID },
+      })
+      .then((response) => {
+        setPetLog(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
   }, [petID]);
 
+
+  useEffect(() => {
+    axios
+      .get(searchPetMedicationsByPetIDRoute, {
+        params: { PetID: petID },
+      })
+      .then((response) => {
+        setPetMedications(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
+  }, [petID]);
+
+  useEffect(() => {
+    axios
+      .get(searchPetVaccinationsByPetIDRoute, {
+        params: { PetID: petID },
+      })
+      .then((response) => {
+        setPetVaccines(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
+  }, [petID]);
 
 
   // useEffect(() => {
@@ -138,7 +183,7 @@ const valuesStyle={
     // var element = document.getElementById("export");
     var element = document.querySelector(".export");
 
-    var doc = new jsPDF("p", "pt", "a4");
+    var doc = new jsPDF("p", "pt", "letter");
 
     doc.html(element, {
       async callback(doc) {
@@ -185,7 +230,7 @@ const valuesStyle={
                   <td style={tdvaluesStyle}>
                   <div style={valuesStyle}>{pet.PetName}</div>
                   </td>
-                  <td>
+                  <td style={tdlabelsStyle}>
                   <div style={labelsStyle}>Height:</div>
                   
                   </td>
@@ -196,14 +241,14 @@ const valuesStyle={
                 </tr>
 
                 <tr>
-                  <td>
+                  <td style={tdlabelsStyle}>
                   <div style={labelsStyle}>Breed:</div>
                     
                   </td>
                   <td>
                   <div style={valuesStyle}>{pet.Breed}</div>
                   </td>
-                  <td>
+                  <td style={tdlabelsStyle}>
                   <div style={labelsStyle}>Weight:</div>
                  
                   </td>
@@ -214,13 +259,13 @@ const valuesStyle={
                 </tr>
 
                 <tr>
-                  <td>
+                  <td style={tdlabelsStyle}>
                     Age:
                   </td>
                   <td>
                   <div style={valuesStyle}>{pet.Age}</div>
                   </td>
-                  <td>
+                  <td style={tdlabelsStyle}>
                     Blood Group:
                   </td>
                   <td>
@@ -231,13 +276,13 @@ const valuesStyle={
                 </tr>
 
                 <tr>
-                  <td>
+                  <td style={tdlabelsStyle}>
                     Gender:
                   </td>
                   <td>
    <div style={valuesStyle}>{pet.Gender}</div>
                   </td>
-                  <td>
+                  <td style={tdlabelsStyle}>
                     DOB:
                   </td>
                   <td>
@@ -252,7 +297,36 @@ const valuesStyle={
               Medication History
             </div>
             <div>
+            <table style={contentContainer}>
+                <tr>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Medication Name:</div>
+                    
+                  </td>
+               
+                  <td style={tdlabelsStyle}>
+                  <div style={labelsStyle}>Date:</div>
+                  
+                  </td>
+                
 
+                </tr>
+
+                {petVaccines.map(log => (
+                <tr key={log._id}>
+                  <td style={tdvaluesStyle}>
+                  <div style={valuesStyle}>{log.NameOfVaccination}</div>
+                  </td>
+                  <td style={tdvaluesStyle}>
+                  <div style={valuesStyle}>{log.MedicationDate}</div>
+                  </td>
+
+                </tr>
+              ))}
+
+
+
+</table>
             </div>
 
             <div style={generalinfo}>
@@ -298,7 +372,13 @@ const valuesStyle={
             </ul>
 
 
-
+            <ul >
+              {petVaccines.map(log => (
+                <li key={log._id}>
+                  <strong>Medication Name:</strong> {log.NameOfVaccination} <br />
+                </li>
+              ))}
+            </ul>
 
             <ul >
 
