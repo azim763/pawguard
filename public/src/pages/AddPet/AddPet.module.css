@@ -3,6 +3,9 @@
     padding: 40px;
 }
 
+.addPetImage div img{
+    width:325px;
+}
 .addPetForm form > div:first-of-type {
     text-align: center;
     margin-bottom: 25px;
@@ -54,6 +57,7 @@ padding-left: 12px;
         justify-self: center;
     }
 }
+
 
 @media screen and (min-width: 1000px) {
     .addPetForm form {

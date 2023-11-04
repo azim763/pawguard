@@ -182,7 +182,7 @@ const AddPet = () => {
       </div>
       <div className={styles.addPetForm}>
         <form action="/submit" method="post" onSubmit={onClickHandler}>
-          <div>
+          <div className={styles.addPetImage}>
             <ImageDisplay PetImageData={selectedImage} />
             <SingleImageUpload
               label="Add Pet Image"

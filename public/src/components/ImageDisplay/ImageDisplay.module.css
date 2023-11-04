@@ -9,6 +9,4 @@
 .imageDisplay {
   object-fit: cover;
   aspect-ratio: 1;
-  width:325px;
-  height: 325px;
 }
