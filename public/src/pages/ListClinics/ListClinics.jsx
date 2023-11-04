@@ -15,6 +15,7 @@ import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDr
 import AutocompleteClinic from "../../components/AutocompleteClinic/AutocompleteClinic";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import StarRating from "../../components/StarRating/StarRating";
+import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic";
 
 let originalClinicData = [];
 
@@ -29,9 +30,13 @@ const ListClinics = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
 
-  const handleDropdownChange = (value) => {
-    console.log("Dropdown value changed:", value);
+  const handlePetSelectClinicClick = (specialties) => {
+    if (specialties === "" || specialties === null) setSelectedOptions([]);
+    else setSelectedOptions(specialties.split(","));
+  };
 
+  const handleDropdownChange = (value) => {
+    console.log(`handleDropdownChange: ${value}`);
     // Convert the value to a boolean if it's a string
     const isAscending = value === "true"; // Assuming "true" represents ascending order
 
@@ -39,17 +44,15 @@ const ListClinics = () => {
   };
 
   useEffect(() => {
+    console.log(`change sort: ${sort}`);
     // Sort the clinicData whenever the sorting criteria change (sort state changes)
     const sortedClinicData = [...clinicData];
     sortedClinicData.sort((a, b) => {
-      if (sort !== null) {
-        if (sort) {
-          return b.Rating - a.Rating; // High to low
-        } else {
-          return a.Rating - b.Rating; // Low to high
-        }
+      if (sort) {
+        return b.Rating - a.Rating; // High to low
+      } else {
+        return a.Rating - b.Rating; // Low to high
       }
-      return 0; // Default behavior when sort is not set
     });
     setClinicData(sortedClinicData);
   }, [sort]);
@@ -64,31 +67,23 @@ const ListClinics = () => {
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
-        if (storedData) {
-          const data = JSON.parse(storedData);
-          const petData = localStorage.getItem("petsData");
+        const data = JSON.parse(storedData);
 
-          if (petData) {
-            // If petData exists in local storage, use it
-            const petArray = JSON.parse(petData);
-            setPets(petArray);
+        console.log("getPetData");
+        // Fetch pet data from the backend
+        const response = await axios.get(searchPetsByUserIDRoute, {
+          params: { userID: data._id },
+        });
 
-            if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]);
-            }
-          } else {
-            // Fetch pet data from the backend
-            const response = await axios.get(searchPetsByUserIDRoute, {
-              params: { userID: data._id },
-            });
-
-            setPets(response.data);
-
-            if (!selectedPet && response.data.length > 0) {
-              setSelectedPet(response.data[0]);
-            }
-          }
+        setPets(response.data);
+        if (!selectedPet && response.data.length > 0) {
+          setSelectedPet(response.data[0]);
+          setSelectedOptions(response.data[0].PreExistingMedical.split(","));
+          //
         }
+
+        console.log("sort data");
+        setSort(true);
       } catch (error) {
         // Handle any errors here
       }
@@ -111,9 +106,15 @@ const ListClinics = () => {
     axios
       .get(getAllClinicsRoute)
       .then((response) => {
-        console.log(response.data);
-        setClinicData(response.data);
-        setClinicInfo(response.data);
+        const data = response.data.sort((a, b) => {
+          if (sort) {
+            return b.Rating - a.Rating; // High to low
+          } else {
+            return a.Rating - b.Rating; // Low to high
+          }
+        });
+        setClinicData(data);
+        setClinicInfo(data);
         originalClinicData = response.data;
       })
       .catch((error) => {
@@ -143,8 +144,6 @@ const ListClinics = () => {
   const handleUrgCheckboxChange = (event) => {
     const { checked } = event.target;
     setUrgentCareChecked(event.target.checked);
-    console.log("Urgent Care checked", checked);
-    console.log(originalClinicData);
   };
 
   const handle24CheckboxChange = (event) => {
@@ -230,6 +229,15 @@ const ListClinics = () => {
           <Typography variant="sub-h2-poppins-medium" color="almost-black">
             Specialties will be recommended for your pet’s needs.
           </Typography>
+
+          {pets.map((petSelectClinic) => (
+            <PetSelectionClinic
+              specialties={petSelectClinic.PreExistingMedical}
+              imgUrl={petSelectClinic.PetImageName}
+              clinicPetName={petSelectClinic.PetName}
+              onClick={handlePetSelectClinicClick}
+            />
+          ))}
         </div>
         <div className={styles.multiplePetSelection}>
           {/* {petData.map((pet, index) => (
@@ -271,6 +279,7 @@ const ListClinics = () => {
                   "Surgery",
                   "Ultrasound",
                 ]}
+                selectedValues={selectedOptions}
                 onSelect={handleSelectedOptions}
               />
             </div>
@@ -281,9 +290,15 @@ const ListClinics = () => {
                 <AutocompleteClinic
                   clinicInfo={clinicInfo}
                   handleSelection={(selectedClinic) => {
-                    console.log("Selected Clinic:", selectedClinic);
-                    console.log(selectedClinic.City);
-                    setselectedClinicName(selectedClinic.City);
+                    if (!selectedClinic) {
+                      // If selection is empty, call handleSelection with null or empty value
+                      setselectedClinicName(null); // You can also pass an empty string if that's what you prefer
+                    } else {
+                      setselectedClinicName(selectedClinic.City);
+                    }
+                    // console.log("Selected Clinic:", selectedClinic);
+                    // console.log(selectedClinic.City);
+                    // setselectedClinicName(selectedClinic.City);
                   }}
                 />
               )}
