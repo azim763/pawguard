@@ -2,7 +2,7 @@ import React ,{useState, useEffect}from "react";
 import Header from "../../components/Header/header";
 import Typography from "../../components/Typography/Typography";
 import ButtonGroup from "../../components/ButtonGroup/ButtonGroup";
-import PetSelectionPage from "../../components/PetSelection/PetSelection";
+import PetSelection from "../../components/PetSelection/PetSelection";
 import styles from "./insuranceSearch.module.css";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import Button from "../../components/Button/Button";
@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {getAllInsurancePlansRoute,searchPetsByUserIDRoute} from "../../utils/APIRoutes";
 import {getAllPetsRoute} from "../../utils/APIRoutes";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const InsuranceSearch = () => {
   const [pets,setPets] = useState([]);
@@ -18,7 +20,6 @@ const InsuranceSearch = () => {
   const [selectedAge, setSelectedAge] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [insurancePlans, setInsurancePlans] = useState([]);
-  const [filteredInsurancePlans, setFilteredInsurancePlans] = useState([]);
   const [selectedPetName, setSelectedPetName] = useState(""); 
   const [userId, setUserId] = useState(null); 
 
@@ -98,40 +99,69 @@ const InsuranceSearch = () => {
     setSelectedBreed(breed);
   };
 
-  const handleGetQuotesClick = () => {
-    if (selectedAge) {
-      axios
-        .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
-        .then((response) => {
-          const filteredPlans = response.data;
-  
-          // Sort the plans based on a criterion, e.g., InsurancePrice
-          filteredPlans.sort((planA, planB) => planA.InsurancePrice - planB.InsurancePrice);
-  
-          navigate('/insurances', { state: { filteredPlans } }); // Navigate to the correct route
-        })
-        .catch((error) => {
-          console.error("Error fetching insurance plans:", error);
-        });
-    } else {
-      alert("Please select an age before getting a quote.");
-    }
-  };
+const handleGetQuotesClick = () => {
+  if (selectedAge) {
+    axios
+      .get(`${getAllInsurancePlansRoute}?age=${selectedAge}`)
+      .then((response) => {
+        const plans = response.data;
 
-  const handlePetSelection = (petName) => {
+        if (Array.isArray(plans) && plans.length > 0) {
+          const groupedPlans = groupPlansByCompany(plans);
+
+          const selectedPlans = extractSixResults(groupedPlans);
+          navigate('/insurances', { state: { filteredPlans: selectedPlans } });
+        } else {
+          toast.warning('No insurance plans found for the selected age.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching insurance plans:', error);
+        toast.error('Error fetching insurance plans.');
+      });
+  } else {
+    toast.error('Please select an age before getting a quote.');
+  }
+};
+
+function extractSixResults(groupedPlans) {
+  const selectedPlans = [];
+  let count = 0;
+
+  for (const key in groupedPlans) {
+    if (count >= 6) {
+      break;
+    }
+
+    const companyPlans = groupedPlans[key];
+    if (companyPlans.length > 0) {
+      selectedPlans.push(companyPlans[0]);
+      count++;
+    }
+  }
+
+  return selectedPlans;
+}
+function groupPlansByCompany(plans) {
+  const groupedPlans = plans.reduce((groups, plan) => {
+    const key = plan.CompanyID;
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(plan);
+    return groups;
+  }, {});
+  return groupedPlans;
+}
+
+
+const handlePetSelection = (petName) => {
     setSelectedPetName(petName);
-  };
+};
 
-  // Fetch pets associated with the logged-in user
+
+//to fetch pet data
 useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
-  }, []);
-
-  //to fetch pet data
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
@@ -167,11 +197,11 @@ useEffect(() => {
   
     // Fetch data when the component mounts
     fetchData();
-  }, []);
+}, [selectedPetName]);
   
 
   //to fetch insuarnce plans
-  useEffect(() => {
+useEffect(() => {
     const fetchInsurancePlans = async () => {
       try {
         const response = await axios.get(getAllInsurancePlansRoute);
@@ -181,7 +211,7 @@ useEffect(() => {
       }
     };
     fetchInsurancePlans();
-  }, []);
+}, []);
 
   return (
     <div>
@@ -199,14 +229,14 @@ useEffect(() => {
 
       <div className={styles.petSelectionContainer}>
       {pets &&
-    Array.isArray(pets) &&
-    pets.map((pet) => (
-      <PetSelectionPage
-        key={pet._id}
-        imgUrl={pet.PetImageName}
-        petName={pet.PetName}
-        onClick={handlePetSelection} 
-      />
+        Array.isArray(pets) &&
+        pets.map((pet) => (
+          <PetSelection
+            key={pet._id}
+            imgUrl={pet.PetImageName}
+            petName={pet.PetName}
+            onClick={handlePetSelection} 
+          />
     ))}
 
       </div>
@@ -282,22 +312,6 @@ useEffect(() => {
             onClick={handleGetQuotesClick} 
           />
         </div>
-
-        {/* <div>
-          {filteredInsurancePlans.map((plan) => (
-            <div key={plan._id}>
-              <p>Plan Name: {plan.PlanName}</p>
-              <p>Price: {plan.InsurancePrice}</p>
-              <p>Annual Deductibel: {plan.AnnualDeductible}</p>
-              <p>Reimbursement: {(plan.Reimbursement)*100}</p>
-              <p>Annual Coverage: {plan.AnnualCoverage}</p>
-              <p>Insurance Price: {plan.InsurancePrice}</p>
-              <p>Covered Items: {plan.CoveredItems}</p>
-              <p>Not Covered Items: {plan.NotCoveredItems}</p>
-
-             </div>
-          ))}
-        </div> */}
       </div>
     </div>
   );

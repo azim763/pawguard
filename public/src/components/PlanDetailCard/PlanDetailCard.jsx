@@ -44,7 +44,6 @@ const PlanDetailCard = ({
           ${coverageNum}
         </Typography>
       </div>
-
       <div className={`${styles["detail-card-price"]}`}>
         <Typography
           variant="user-greeting-poppins-semibold"
@@ -53,11 +52,11 @@ const PlanDetailCard = ({
           ${price}{" "}
           {/* <sup style={{ fontSize: "30px", fontWeight: "500" }}>{price}</sup> */}
         </Typography>
-
         <Typography variant="textfield-poppins-regular" color="almost-black">
           per month
         </Typography>
       </div>
+
       {showButton && (
       <div className={`${styles["button-container"]}`}>
         <Button variant="light-blue" label="View Details" size="dk-sm" onClick={onClick} />

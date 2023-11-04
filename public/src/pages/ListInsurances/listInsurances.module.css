@@ -6,5 +6,17 @@
 .ListInsurancesBody{
     display: grid;
     row-gap: 0.05%;
-    /* margin-top: 5%; */
+    margin-top: 5%;
+}
+.heading{
+    display: grid;
+    grid-gap: 10%;
+}
+
+@media screen and (min-width: 700px) {
+    
+}
+
+@media screen and (min-width: 1000px) {
+
 }
