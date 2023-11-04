@@ -3,7 +3,7 @@ import styles from "./ImageDisplay.module.css"
 
 function ImageDisplay({ PetImageData, defaultImage }) {
   return (
-    <div>
+    <div className={styles.imageContainer}>
       {PetImageData ? (
         <img className={styles.imageDisplay} src={`data:image/jpeg;base64,${PetImageData}`} alt="Uploaded" />
       ) : (

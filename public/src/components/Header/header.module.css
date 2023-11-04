@@ -19,7 +19,7 @@ nav > div > svg {
   max-width: 225px;
 }
 
-.RightNav ul {
+.RightNav > ul {
   display: inline;
   height: 10vh;
   display: flex;
@@ -50,6 +50,35 @@ nav li a:hover {
   text-decoration: none;
 }
 
+.profileIcon > div:first-of-type {
+  display: flex;
+  align-items: center;
+}
+
+.profileIcon {
+  position: relative;
+}
+
+.profileMenu {
+  background-color: #FDFDFD;
+  position: absolute;
+  top: 50px;
+  right: 5px;
+}
+
+.profileMenu ul{
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px;
+}
+
+.profileMenu ul li:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
 @media only screen and (max-width: 768px) {
   nav div ul li {
     padding-top: 16px;
@@ -72,5 +101,17 @@ nav li a:hover {
     justify-content: center;
     transform: translateX(0); /* Slide the menu in from the right */
     transition: all 1s ease-in-out;
+  }
+
+  .profileMenu a div {
+    color: var(--pearl-blue);
+  }
+
+  .profileMenu button {
+    background-color: transparent !important;
+  }
+
+  .profileMenu button div {
+    color: var(--pearl-blue) !important;
   }
 }

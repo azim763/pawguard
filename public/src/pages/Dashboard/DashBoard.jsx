@@ -24,10 +24,8 @@ import PetSelection from "../../components/PetSelection/PetSelection";
 import Typography from "../../components/Typography/Typography";
 import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard";
 import DashAptCard from "../../components/DashAptCard/DashAptCard";
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-
 
 export default function Chat() {
   const [pets, setPets] = useState([]);
@@ -41,8 +39,9 @@ export default function Chat() {
   const [petLog, setPetLog] = useState([]);
 
   const currentDate = new Date(); // Get the current date
-  const formattedCurrentDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1
-    }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
+  const formattedCurrentDate = `${currentDate.getDate()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
   console.log(formattedCurrentDate);
 
   const filteredAppointment = appointments.filter((apt) => {
@@ -83,7 +82,7 @@ export default function Chat() {
             params: { userID: currentUser._id },
           });
           setPets(responsePets.data);
-          localStorage.setItem('petsData', JSON.stringify(responsePets.data));
+          localStorage.setItem("petsData", JSON.stringify(responsePets.data));
 
           if (responsePets.data.length > 0) {
             setSelectedPet(responsePets.data[0]);
@@ -118,7 +117,8 @@ export default function Chat() {
       try {
         const response = await axios.get(searchPetLogsByPetIDRoute, {
           params: { PetID: selectedPet._id },
-        });        setPetLog(response.data);
+        });
+        setPetLog(response.data);
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching pet foods:", error);
@@ -127,7 +127,6 @@ export default function Chat() {
 
     fetchData();
   }, [selectedPet]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -182,19 +181,15 @@ export default function Chat() {
     <div>
       <Header />
       <div className={styles.dashboardContainer}>
-        <Logout />
         <div className={styles.dashboardPetCard}>
           <Typography variant="h2-poppins-semibold" color="dark-blue">
             My Pets
           </Typography>
-          <div styles={{ marginTop: "50px" }}>
+          <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
             {pets &&
               pets.map((pet) => (
                 // Use a Link to navigate to individual profile PetPage
-                <Link
-                  to="/petPage"
-                  state={{ selectedPetID: pet._id }}
-                >
+                <Link to="/petPage" state={{ selectedPetID: pet._id }}>
                   <PetSelection
                     styles={{ marginBottom: "20px" }}
                     PetImageData={pet.PetImageName}
@@ -202,51 +197,53 @@ export default function Chat() {
                   />
                 </Link>
               ))}
-            <Link to="addPet">
-              <PlusSVG width="60" height="60" />
-            </Link>
           </div>
+          <Link to="addPet">
+            <PlusSVG width="60" height="60" />
+          </Link>
         </div>
 
         <div className={styles.middleContainer}>
           <div className={styles.middleTitle}>
-            <Typography variant="sub-h2-poppins-medium">
+            <Typography variant="sub-poppins-medium">
               {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
             </Typography>
 
             {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
           </div>
-          <div>
+          <div className={styles.petSummaryCards}>
             <DashMedicineCard numOfMedicine={filteredMedication.length} />
-          </div>
-          <div>
             <DashAptCard numOfApt={filteredAppointment.length} />
           </div>
           <div className={styles.dashboardGraph}>
-
             <Carousel
-             showStatus={false}
-             showIndicators={false}
+              showStatus={false}
+              showIndicators={false}
               renderArrowPrev={(clickHandler, hasPrev) => {
                 return (
                   <div
-                    className={`carousel-arrow carousel-arrow-left ${hasPrev ? '' : 'hidden'}`}
+                    className={`carousel-arrow carousel-arrow-left ${
+                      hasPrev ? "" : "hidden"
+                    }`}
                     onClick={clickHandler}
                   >
-                    {hasPrev ? 'Meal Record' : ''}
+                    {hasPrev ? "Meal Record" : ""}
                   </div>
                 );
               }}
               renderArrowNext={(clickHandler, hasNext) => {
                 return (
                   <div
-                    className={`carousel-arrow carousel-arrow-right ${hasNext ? '' : 'hidden'}`}
+                    className={`carousel-arrow carousel-arrow-right ${
+                      hasNext ? "" : "hidden"
+                    }`}
                     onClick={clickHandler}
                   >
-                    {hasNext ? 'Weight Record' : ''}
+                    {hasNext ? "Weight Record" : ""}
                   </div>
                 );
-              }}>
+              }}
+            >
               {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
               <div>
                 <Typography variant="body2-poppins-medium">

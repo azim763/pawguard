@@ -8,7 +8,7 @@ const ClinicContactCard = ({ clinicTel, clinicUrl }) => {
   return (
     <div className={`${styles["contact-card-wrapper"]}`}>
       <div className={`${styles["heading-wrapper"]}`}>
-        <Typography variant="sub-h1-poppins-semibold">Contacts</Typography>
+        <Typography variant="sub-poppins-medium">Contacts</Typography>
       </div>
       <div className={`${styles["phone-wrapper"]}`}>
         <PhoneSVG width="30" height="30" />

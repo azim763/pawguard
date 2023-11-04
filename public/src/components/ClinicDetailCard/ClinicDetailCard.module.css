@@ -1,7 +1,7 @@
 .clinicCard {
   background-color: var(--pearl-blue);
   border: 1px solid var(--border-grey);
-  max-width: 900px;
+  width: 100%;
   border-radius: 8px;
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -25,19 +25,22 @@
 .imageContainer img {
   width: 100%;
   height: 200px;
+  object-fit: cover;
 }
 
-.clinicRating {
-  align-self: flex-start;
+.clinicRating{
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-.clinicRating,
 .clinicAddress,
 .clinicOpen,
 .clinicSpecialties {
   grid-column: 1/-1;
-  display: grid !important; 
-  grid-template-columns: 0.2fr 1.5fr;
+  display: grid !important;
+  grid-template-columns: 0.1fr 2fr;
+  column-gap: 1rem;
   margin-bottom: 8px;
   align-items: center;
 }
@@ -71,3 +74,24 @@
 /* .clinicSpecialties ul {
   list-style: none;
 } */
+
+.listing {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.listingList {
+  margin: 8px 8px 8px 0;
+  display: flex;
+  align-items: center;
+}
+
+.listingList::before {
+  content: "\2000";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--almost-black);
+  display: inline-block;
+  margin-right: 8px;
+}

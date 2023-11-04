@@ -1,31 +1,57 @@
-main {
-    padding: 0 154px;
+.clinicsContainer {
+    padding: 13% 140px;
     border: 1px solid var(--off-white);
-
     border-radius: 50px 50px 0 0;
     background-color: var(--off-white);
-    margin:auto;
+    margin: auto;
     margin-top:-5%;
-
-  
+    display: grid;
 }
+
 .coverBackground{
-    background-image: url("../../assets/images/clinicImage.jpeg");
+    background-image: url("../../assets/images/clinicImage.webp");
     background-size:cover;
     background-blend-mode:multiply;
     height:50vh;
     background-position: fixed;
     overflow: hidden;
-
 }
+
+.clinicTitle{
+    display: grid;
+    row-gap: 1rem;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.dropDownClinics{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    grid-column: 1/-1;
+}
+
+.clinicCheckbox{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+
+.clinicButton{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .opaqueStyle{
     height: 50vh;
     background-color: rgba(0,0,0,0.6);
 }
+
 .title1{
     text-align: left;
     color: #FDFDFD;
 }
+
 .titleCenter{
     display: flex;
     flex-flow: column nowrap;
@@ -35,20 +61,17 @@ main {
     height: 50vh;
     align-content: center;
 }
+
 .clinicTag{
     color: #FDFDFD;
 }
-.dropDownClinics{
-    display:flex;
-    gap:1rem;
-    justify-content: center;
-    flex-grow: 1;
+
+.clinicSearch{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
 }
-.clincSearch{
-    display: flex;
-    flex-flow: column nowrap;
-    gap:2rem;
-}
+
 .multiplePetSelection{
     display: flex;
     flex-flow: row;

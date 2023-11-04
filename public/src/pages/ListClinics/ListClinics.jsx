@@ -14,12 +14,12 @@ import { searchPetsByUserIDRoute } from "../../utils/APIRoutes.js";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 import AutocompleteClinic from "../../components/AutocompleteClinic/AutocompleteClinic";
 import Dropdown from "../../components/Dropdown/Dropdown";
+import StarRating from "../../components/StarRating/StarRating";
+import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic";
 
 let originalClinicData = [];
 
 const ListClinics = () => {
-
-
   const [selectedPet, setSelectedPet] = useState(null);
   const [clinicData, setClinicData] = useState([]);
   const [urgentCareChecked, setUrgentCareChecked] = useState(false);
@@ -30,9 +30,13 @@ const ListClinics = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
 
-  const handleDropdownChange = (value) => {
-    console.log("Dropdown value changed:", value);
+  const handlePetSelectClinicClick = (specialties) => {
+    if (specialties === "" || specialties === null) setSelectedOptions([]);
+    else setSelectedOptions(specialties.split(","));
+  };
 
+  const handleDropdownChange = (value) => {
+    console.log(`handleDropdownChange: ${value}`);
     // Convert the value to a boolean if it's a string
     const isAscending = value === "true"; // Assuming "true" represents ascending order
 
@@ -40,23 +44,18 @@ const ListClinics = () => {
   };
 
   useEffect(() => {
+    console.log(`change sort: ${sort}`);
     // Sort the clinicData whenever the sorting criteria change (sort state changes)
     const sortedClinicData = [...clinicData];
     sortedClinicData.sort((a, b) => {
-      if (sort !== null) {
-        if (sort) {
-          return b.Rating - a.Rating; // High to low
-        } else {
-          return a.Rating - b.Rating; // Low to high
-        }
+      if (sort) {
+        return b.Rating - a.Rating; // High to low
+      } else {
+        return a.Rating - b.Rating; // Low to high
       }
-      return 0; // Default behavior when sort is not set
     });
     setClinicData(sortedClinicData);
   }, [sort]);
-  
-
-
 
   const handleSelectedOptions = (selectedValues) => {
     setSelectedOptions(selectedValues);
@@ -65,44 +64,36 @@ const ListClinics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedData = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
-        if (storedData) {
-          const data = JSON.parse(storedData);
-          const petData = localStorage.getItem('petsData');
-          
-          if (petData) {
-            // If petData exists in local storage, use it
-            const petArray = JSON.parse(petData);
-            setPets(petArray);
-  
-            if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]);
-            }
-          } else {
-            // Fetch pet data from the backend
-            const response = await axios.get(searchPetsByUserIDRoute, {
-              params: { userID: data._id },
-            });
-  
-            setPets(response.data);
-  
-            if (!selectedPet && response.data.length > 0) {
-              setSelectedPet(response.data[0]);
-            }
-          }
+        const storedData = localStorage.getItem(
+          process.env.REACT_APP_LOCALHOST_KEY
+        );
+        const data = JSON.parse(storedData);
+
+        console.log("getPetData");
+        // Fetch pet data from the backend
+        const response = await axios.get(searchPetsByUserIDRoute, {
+          params: { userID: data._id },
+        });
+
+        setPets(response.data);
+        if (!selectedPet && response.data.length > 0) {
+          setSelectedPet(response.data[0]);
+          setSelectedOptions(response.data[0].PreExistingMedical.split(","));
+          //
         }
+
+        console.log("sort data");
+        setSort(true);
       } catch (error) {
         // Handle any errors here
       }
     };
-  
+
     // Fetch data when the component mounts
     fetchData();
   }, []);
-  
 
   // const options = ["Dentistry", "Allergies"];
-
 
   const navigate = useNavigate();
   const petData = [
@@ -115,9 +106,15 @@ const ListClinics = () => {
     axios
       .get(getAllClinicsRoute)
       .then((response) => {
-        console.log(response.data);
-        setClinicData(response.data);
-        setClinicInfo(response.data)
+        const data = response.data.sort((a, b) => {
+          if (sort) {
+            return b.Rating - a.Rating; // High to low
+          } else {
+            return a.Rating - b.Rating; // Low to high
+          }
+        });
+        setClinicData(data);
+        setClinicInfo(data);
         originalClinicData = response.data;
       })
       .catch((error) => {
@@ -147,8 +144,6 @@ const ListClinics = () => {
   const handleUrgCheckboxChange = (event) => {
     const { checked } = event.target;
     setUrgentCareChecked(event.target.checked);
-    console.log("Urgent Care checked", checked);
-    console.log(originalClinicData);
   };
 
   const handle24CheckboxChange = (event) => {
@@ -159,28 +154,35 @@ const ListClinics = () => {
   };
 
   const sortBy = [
-    { value: true, label: 'SortBy:Rating from high to low' },
-    { value: false, label: 'SortBy:Rating from low to high' }
+    { value: true, label: "Sort by: Ratings High to Low" },
+    { value: false, label: "Sort by: Ratings  Low to High" },
   ];
 
   const onClickHandler = () => {
-    console.log(
-      originalClinicData
-    )
+    console.log(originalClinicData);
     const filteredResults = originalClinicData.filter((clinic) => {
       const matchesUrgentCare = !urgentCareChecked || clinic.UrgentCare;
       const matchesOpen24hrs = !open24hrsChecked || clinic.Open24;
-      const cityFilter = !selectedClinicName || clinic.City === selectedClinicName;
-      const specialtyFilter = selectedOptions.length === 0 || clinic.Specialty.split(',').some(word => selectedOptions.includes(word.trim()));
+      const cityFilter =
+        !selectedClinicName || clinic.City === selectedClinicName;
+      const specialtyFilter =
+        selectedOptions.length === 0 ||
+        clinic.Specialty.split(",").some((word) =>
+          selectedOptions.includes(word.trim())
+        );
 
       // Check if any filter is applied, and only apply relevant filters
-      return (!urgentCareChecked || matchesUrgentCare) && (!open24hrsChecked || matchesOpen24hrs) && (!selectedClinicName || cityFilter) && (selectedOptions.length === 0 || specialtyFilter);
+      return (
+        (!urgentCareChecked || matchesUrgentCare) &&
+        (!open24hrsChecked || matchesOpen24hrs) &&
+        (!selectedClinicName || cityFilter) &&
+        (selectedOptions.length === 0 || specialtyFilter)
+      );
     });
-    console.log("filteredResult", filteredResults)
+    console.log("filteredResult", filteredResults);
 
     setClinicData(filteredResults);
   };
-
 
   //     const matchesUrgentCare = urgentCareChecked ? clinic.UrgentCare : false;
   //     const matchesOpen24hrs = open24hrsChecked ? clinic.Open24 : false;
@@ -219,14 +221,23 @@ const ListClinics = () => {
           </Typography>
         </div>
       </div>
-      <main>
-        <div>
+      <div className={styles.clinicsContainer}>
+        <div className={styles.clinicTitle}>
           <Typography variant="h2-poppins-semibold" color="almost-black">
             Select the pet you would like to find clinics for.
           </Typography>
           <Typography variant="sub-h2-poppins-medium" color="almost-black">
             Specialties will be recommended for your pet’s needs.
           </Typography>
+
+          {pets.map((petSelectClinic) => (
+            <PetSelectionClinic
+              specialties={petSelectClinic.PreExistingMedical}
+              imgUrl={petSelectClinic.PetImageName}
+              clinicPetName={petSelectClinic.PetName}
+              onClick={handlePetSelectClinicClick}
+            />
+          ))}
         </div>
         <div className={styles.multiplePetSelection}>
           {/* {petData.map((pet, index) => (
@@ -241,83 +252,94 @@ const ListClinics = () => {
         </div>
         <div className={styles.clinicSearch}>
           <div className={styles.dropDownClinics}>
-            {/* <Dropdown
-              key="specialityDropDown"
-              // onChange={handleDropdownChange}
-              defaultValue="Allergies"
-              options={[
-                { value: "1", label: "Allergies" },
-                { value: "Cardiology", label: "Cardiology" },
-              ]}
-              size="large"
-            /> */}
-            <MultipleDropDown
-              options={[
-                "Arthritis XD",
-                "Bloodwork",
-                "Cardiology",
-                "Cytology",
-                "Dentistry",
-                "Dermatology",
-                "Endoscopy",
-                "Euthanasia",
-                "Internal-medicine",
-                "Laser-therapy",
-                "Microchipping",
-                "Neurology",
-                "Nutrition",
-                "Oncology",
-                "Radiography",
-                "Senior",
-                "Surgery",
-                "Ultrasound",
-              ]
-
-              }
-              onSelect={handleSelectedOptions}
-
-            />
-           
-            <Typography variant="body2-poppins-medium">City: </Typography>
-            {clinicInfo.length > 0 && (
-              <AutocompleteClinic
-                clinicInfo={clinicInfo}
-                handleSelection={(selectedClinic) => {
-                  console.log("Selected Clinic:", selectedClinic);
-                  console.log(selectedClinic.City);
-                  setselectedClinicName(selectedClinic.City)
-                }}
+            <div>
+              <div style={{ marginBottom: ".5rem" }}>
+                <Typography variant="body2-poppins-medium">
+                  Specialties
+                </Typography>
+              </div>
+              <MultipleDropDown
+                options={[
+                  "Arthritis XD",
+                  "Bloodwork",
+                  "Cardiology",
+                  "Cytology",
+                  "Dentistry",
+                  "Dermatology",
+                  "Endoscopy",
+                  "Euthanasia",
+                  "Internal-medicine",
+                  "Laser-therapy",
+                  "Microchipping",
+                  "Neurology",
+                  "Nutrition",
+                  "Oncology",
+                  "Radiography",
+                  "Senior",
+                  "Surgery",
+                  "Ultrasound",
+                ]}
+                selectedValues={selectedOptions}
+                onSelect={handleSelectedOptions}
               />
-            )}
+            </div>
+
+            <div>
+              <Typography variant="body2-poppins-medium">City Name </Typography>
+              {clinicInfo.length > 0 && (
+                <AutocompleteClinic
+                  clinicInfo={clinicInfo}
+                  handleSelection={(selectedClinic) => {
+                    if (!selectedClinic) {
+                      // If selection is empty, call handleSelection with null or empty value
+                      setselectedClinicName(null); // You can also pass an empty string if that's what you prefer
+                    } else {
+                      setselectedClinicName(selectedClinic.City);
+                    }
+                    // console.log("Selected Clinic:", selectedClinic);
+                    // console.log(selectedClinic.City);
+                    // setselectedClinicName(selectedClinic.City);
+                  }}
+                />
+              )}
+            </div>
           </div>
 
-          <Checkbox
-            id="urgCare"
-            label="Urgent Care"
-            onChangeHandler={handleUrgCheckboxChange}
-            value={urgentCareChecked}
-          />
-          <Checkbox
-            id="24hrs"
-            label="Open 24 hours"
-            onChangeHandler={handle24CheckboxChange}
-            value={open24hrsChecked}
-          />
+          <div className={styles.clinicCheckbox}>
+            <div style={{ marginRight: "50px" }}>
+              <Checkbox
+                id="urgCare"
+                label="Urgent Care"
+                onChangeHandler={handleUrgCheckboxChange}
+                value={urgentCareChecked}
+              />
+            </div>
+            <Checkbox
+              id="24hrs"
+              label="Open 24 hours"
+              onChangeHandler={handle24CheckboxChange}
+              value={open24hrsChecked}
+            />
+          </div>
 
-          <Button
-            variant="yellow"
-            label="Search"
-            size="dk-md-s"
-            onClickHandler={onClickHandler}
-          />
+          <div className={styles.clinicButton}>
+            <Button
+              variant="yellow"
+              label="Search"
+              size="dk-md-s"
+              onClickHandler={onClickHandler}
+            />
+          </div>
 
-<Dropdown
-              label="Sort By"
+          <div style={{ marginBottom: "10px", marginTop: "30px" }}>
+            <Dropdown
               id="sortBy"
               name="sortBy"
               options={sortBy}
               onChange={(selectedValue) => handleDropdownChange(selectedValue)}
+              size="round"
             />
+          </div>
         </div>
 
         {clinicData.length === 0 ? (
@@ -328,15 +350,16 @@ const ListClinics = () => {
               key={clinic._id}
               clinicName={clinic.Name}
               clinicRating={clinic.Rating}
+              clinicRatingStar={<StarRating rating={clinic.Rating} />}
               clinicAddress={clinic.Address}
               specialtiesString={clinic.Specialty}
               source={clinic.ImageUrl}
               open24={clinic.Open24 ? "Open 24" : "Not open 24"}
               handleClickDetails={() => handleClickDetails(clinic._id)}
             />
-          )))
-        }
-      </main>
+          ))
+        )}
+      </div>
     </div>
   );
 };
