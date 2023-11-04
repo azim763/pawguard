@@ -6,26 +6,28 @@ import Typography from "../Typography/Typography";
 import UserSVG from "../SVG/UserSVG";
 import Burger from "../Burger/Burger";
 import Logout from "../Logout";
+import { useLocation } from 'react-router-dom'
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const navigate = useNavigate();
-
+  const location = useLocation();
   // Function to handle the menu toggle based on Burger click
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
   useEffect(() => {
+
     const checkLoggedIn = async () => {
       const storedData = localStorage.getItem(
         process.env.REACT_APP_LOCALHOST_KEY
       );
-
       if (!storedData) {
-        navigate("/login");
+        if (!(location.pathname == '/getinsurances' || location.pathname == '/clinics'))
+          navigate("/login");
       } else {
         const userData = JSON.parse(storedData);
         setCurrentUser(userData);
@@ -102,7 +104,7 @@ const Header = () => {
           <div>
             <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
               <ul>
-              <li>
+                <li>
                   <NavLink to="/AboutUs">
                     <Typography variant="body1-poppins-semibold">
                       About Us
