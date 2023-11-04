@@ -1,0 +1,17 @@
+.petSelect {
+  width: 210px;
+  height: 248px;
+  display: grid;
+  justify-items: center;
+}
+
+.imageContainer {
+  width: 175px;
+  height: 175px;
+}
+
+.imageContainer img {
+  object-fit: cover;
+  width: 175px;
+  height: 175px;
+}

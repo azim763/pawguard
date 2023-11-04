@@ -50,6 +50,9 @@ const AddPet = () => {
     "Ultrasound",
   ];
 
+  const [selectedPreExistingMedical, setSelectedPreExistingMedical] = useState(
+    []
+  );
   const defaultGender = gender && gender.length > 0 ? gender[0].value : "";
   const defaultSpecies = petType && petType.length > 0 ? petType[0].value : "";
 
@@ -88,6 +91,15 @@ const AddPet = () => {
     setPetData({
       ...petData,
       [name]: value,
+    });
+  };
+
+  const handleMultipleDropdownChange = (e) => {
+    setSelectedPreExistingMedical(e);
+    console.log(e.join(","));
+    setPetData({
+      ...petData,
+      PreExistingMedical: e.join(","),
     });
   };
 
@@ -172,7 +184,10 @@ const AddPet = () => {
         <form action="/submit" method="post" onSubmit={onClickHandler}>
           <div>
             <ImageDisplay PetImageData={selectedImage} />
-            <SingleImageUpload label="Add Pet Image" onImageUpload={handleImageUpload} />
+            <SingleImageUpload
+              label="Add Pet Image"
+              onImageUpload={handleImageUpload}
+            />
           </div>
 
           <TextInput
@@ -257,6 +272,8 @@ const AddPet = () => {
           <MultipleDropDown
             label="Medical Necessities"
             options={preExistingMedical}
+            selectedValues={selectedPreExistingMedical}
+            onSelect={handleMultipleDropdownChange}
           />
           <div>
             <Typography variant="body2-poppins-medium">

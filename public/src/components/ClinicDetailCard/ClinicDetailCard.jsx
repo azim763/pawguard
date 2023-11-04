@@ -7,6 +7,7 @@ import ClockSVG from "../../components/SVG/ClockSVG";
 import SpecialtySVG from "../../components/SVG/SpecialtySVG";
 
 const ClinicDetailCard = ({
+  key,
   clinicName,
   clinicRating,
   clinicRatingStar,

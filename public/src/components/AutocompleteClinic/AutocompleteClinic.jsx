@@ -33,6 +33,7 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
                   borderColor: "var(--almost-black)",
                   padding: "0 12px",
                 }}
+                
               />
             </Typography>
           </div>
