@@ -9,7 +9,7 @@ import Header from "../../components/Header/header";
 import Button from "../../components/Button/Button";
 //import LogoSVG from '../../components/SVG/LogoSVG';
 import { useParams } from "react-router-dom";
-import { searchPetLogsByPetIDRoute,searchPetMedicationsByPetIDRoute,searchPetVaccinationsByPetIDRoute,searchPetFoodByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
+import { searchPetLogsByPetIDRoute, searchPetMedicationsByPetIDRoute, searchPetVaccinationsByPetIDRoute, searchPetFoodByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
 import { Cell } from 'recharts';
 
 const ExportpetLog = () => {
@@ -45,23 +45,6 @@ const ExportpetLog = () => {
 
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(getPetLogsByPetIDRoute + '/' + petID);
-  //       setPetLog(response.data);
-  //       console.log(pet);
-  //       setLoading(false);
-  //     }
-  //     catch (error) {
-  //       console.log("Error fetching data: ", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [petID]);
-
-  
   useEffect(() => {
     axios
       .get(searchPetLogsByPetIDRoute, {
@@ -98,6 +81,7 @@ const ExportpetLog = () => {
       })
       .then((response) => {
         setPetVaccines(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -105,29 +89,13 @@ const ExportpetLog = () => {
   }, [petID]);
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-
-  //       const response = await axios.get(getPetByIdRoute +'/'+petID );
-  //       setPets(response.data);
-
-  //        console.log(response.data);
-  //     setLoading(false);
-  //      } catch (error) {
-  //       console.log("Error fetching data: ", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [petID]);
 
 
   function userfrDateTime(isoString) {
 
     const dateTime = new Date(isoString);
 
-    const options = {
+    const optionsLong = {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -136,21 +104,37 @@ const ExportpetLog = () => {
       second: "2-digit",
       timeZoneName: "short",
     };
-
-    const userFriendlyDateTime = dateTime.toLocaleDateString("en-US", options);
+    const optionsShort = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric"
+    };
+    const userFriendlyDateTime = dateTime.toLocaleDateString("en-US", optionsShort);
     return userFriendlyDateTime;
   }
 
   /************************    Styles   ********************** */
 
+  const contentContainer = {
+    borderCollapse: 'collapse',
+    margin: '25px 0',
+    fontSize: '0.9em',
+    fontFamily: 'sans-serif',
+    minWidth: '400px',
+  //  boxShadow: '0 0 20px rgba(0, 0, 0, 0.15)',
+    width: '100%'
+}
 
 
   const myComponentStyle = {
     color: 'black',
-    lineHeight: 2,
+    lineHeight: 1.8,
     padding: '1.5em',
     innerWidth: '100%',
-    width:'600px'
+    width: '846px',
+    fontSize:'12px',
+    fontFamily: 'sans-serif',
+    margin: 'auto',
   }
   const logheaderStyle = {
     height: '20px',
@@ -160,30 +144,47 @@ const ExportpetLog = () => {
 
   const generalinfo = {
     backgroundColor: 'var(--pearl-blue)',
-    padding: '10px',
-    margin: '28px 0'
+    padding: '8px',
+    margin: '18px 0',
+    textAlign: 'center',
+    fontSize:'14px'
   }
-const contentContainer={
-  width: '100%'
 
-}
-const tdlabelsStyle={  width: '120px'}
-const tdvaluesStyle={  width: '170px'}
-const labelsStyle={
-  fontWeight: '500'
+   const preview = {
+    fontSize:'24px', 
+    margin:'Auto',
+    textAlign: 'center',
+    backgroundColor: '#ffe88d',
 
-}
-const valuesStyle={
-  fontWeight: '400'
+   }
+  const exportbutton = {
+    textAlign: 'center',  paddingBottom: '2rem',
+  }
+  // const contentContainer = {
+  //   width: '100%'
 
-}
+  // }
+  const tdlabelsStyle = { 
+   // width: '120px'
+   }
+  const tdvaluesStyle = {
+    //  width: '170px' 
+    }
+  const labelsStyle = {
+    fontWeight: '500',
+    fontSize:'10px'
+  }
+  const valuesStyle = {
+    fontWeight: '400',
+    fontSize:'11px'
+  }
   /******************************************************* */
   const generatePDF = () => {
 
     // var element = document.getElementById("export");
     var element = document.querySelector(".export");
 
-    var doc = new jsPDF("p", "pt", "letter");
+    var doc = new jsPDF("p", "pt", "A3");
 
     doc.html(element, {
       async callback(doc) {
@@ -203,6 +204,10 @@ const valuesStyle={
       </Typography>
       <Header />
 
+
+<div style={preview}>
+  Preview
+</div>
       <div className={styles.petLogContainer} class="export" style={myComponentStyle}>
         {/* <div className={styles.petLogContainer}   style={myComponentStyle}> */}
 
@@ -225,35 +230,35 @@ const valuesStyle={
                 <tr>
                   <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Name:</div>
-                    
+
                   </td>
                   <td style={tdvaluesStyle}>
-                  <div style={valuesStyle}>{pet.PetName}</div>
+                    <div style={valuesStyle}>{pet.PetName}</div>
                   </td>
                   <td style={tdlabelsStyle}>
-                  <div style={labelsStyle}>Height:</div>
-                  
+                    <div style={labelsStyle}>Height:</div>
+
                   </td>
                   <td>
-                  <div style={valuesStyle}>{pet.Height}</div>
+                    <div style={valuesStyle}>{pet.Height}</div>
                   </td>
 
                 </tr>
 
                 <tr>
                   <td style={tdlabelsStyle}>
-                  <div style={labelsStyle}>Breed:</div>
-                    
+                    <div style={labelsStyle}>Breed:</div>
+
                   </td>
                   <td>
-                  <div style={valuesStyle}>{pet.Breed}</div>
+                    <div style={valuesStyle}>{pet.Breed}</div>
                   </td>
                   <td style={tdlabelsStyle}>
-                  <div style={labelsStyle}>Weight:</div>
-                 
+                    <div style={labelsStyle}>Weight:</div>
+
                   </td>
                   <td>
- <div style={valuesStyle}>{pet.Weight}</div>
+                    <div style={valuesStyle}>{pet.Weight}</div>
                   </td>
 
                 </tr>
@@ -263,14 +268,14 @@ const valuesStyle={
                     Age:
                   </td>
                   <td>
-                  <div style={valuesStyle}>{pet.Age}</div>
+                    <div style={valuesStyle}>{pet.Age}</div>
                   </td>
                   <td style={tdlabelsStyle}>
                     Blood Group:
                   </td>
                   <td>
-   <div style={valuesStyle}>{pet.BloodType}</div>
-   
+                    <div style={valuesStyle}>{pet.BloodType}</div>
+
                   </td>
 
                 </tr>
@@ -280,7 +285,7 @@ const valuesStyle={
                     Gender:
                   </td>
                   <td>
-   <div style={valuesStyle}>{pet.Gender}</div>
+                    <div style={valuesStyle}>{pet.Gender}</div>
                   </td>
                   <td style={tdlabelsStyle}>
                     DOB:
@@ -297,36 +302,127 @@ const valuesStyle={
               Medication History
             </div>
             <div>
-            <table style={contentContainer}>
+              <table style={contentContainer}>
                 <tr>
                   <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Medication Name:</div>
-                    
+
                   </td>
-               
+  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Dosage:</div>
+
+                  </td>
+
                   <td style={tdlabelsStyle}>
-                  <div style={labelsStyle}>Date:</div>
-                  
+                    <div style={labelsStyle}>Date:</div>
+
                   </td>
-                
+
 
                 </tr>
 
+                {petMedications.map(log => (
+                  <tr key={log._id}>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.MedicineName}</div>
+                    </td> 
+                   <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.DosageAmount}</div>
+                    </td>
+
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{userfrDateTime(log.MedicationDate)}</div>
+                    </td>
+
+                  </tr>
+                ))}
+
+
+
+              </table>
+            </div>
+
+            <div style={generalinfo}>
+              Vaccination History
+            </div>
+            <div>
+              <table style={contentContainer}>
+                <tr>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Vaccination Name:</div>
+                  </td>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Date:</div>
+                  </td>
+                </tr>
                 {petVaccines.map(log => (
-                <tr key={log._id}>
-                  <td style={tdvaluesStyle}>
-                  <div style={valuesStyle}>{log.NameOfVaccination}</div>
+                  <tr key={log._id}>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.NameOfVaccination}</div>
+                    </td> 
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{userfrDateTime(log.VaccinationDate)}</div>
+                    </td>
+                  </tr>
+                ))}
+              </table>
+            </div>
+
+
+            <div style={generalinfo}>
+              Log History
+            </div>
+            <div>
+              <table style={contentContainer}>
+                <tr>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Log Date:</div>
                   </td>
-                  <td style={tdvaluesStyle}>
-                  <div style={valuesStyle}>{log.MedicationDate}</div>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Urine Amount:</div>
                   </td>
-
-                </tr>
-              ))}
-
-
-
-</table>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Stool Amount:</div>
+                  </td>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Stool Appearance:</div>
+                  </td>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Activity Level:</div>
+                  </td>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Wheight:</div>
+                  </td>
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Notes:</div>
+                  </td>
+               </tr>
+                {petLog.map(log => (
+                  <tr key={log._id}>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.LogDate}</div>
+                    </td> 
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.UrineAmount}</div>
+                    </td>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.StoolAmount}</div>
+                    </td>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.StoolAppearance}</div>
+                    </td>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.ActivityLevel}</div>
+                    </td>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.Wheight}</div>
+                    </td>
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.Notes}</div>
+                    </td>
+                  </tr>
+                ))}
+              </table>
             </div>
 
             <div style={generalinfo}>
@@ -355,46 +451,15 @@ const valuesStyle={
 
             <div>
             </div>
-            <ul >
-              {petLog.map(log => (
-                <li key={log._id}>
-                  <strong>Log Date:</strong> {log.LogDate} <br />
-                  <strong>Log UrineAmount:</strong> {log.UrineAmount} <br />
-                  <strong>StoolAmount:</strong> {log.StoolAmount} <br />
-                  <strong>StoolAppearance:</strong> {log.StoolAppearance} <br />
-                  <strong>Notes:</strong> {log.Notes} <br />
-                  <strong>Wheight:</strong> {log.Wheight} <br />
-                  <strong>ActivityLevel:</strong> {log.ActivityLevel} <br />
-                  <strong>StoolAppearance:</strong> {log.StoolAppearance} <br />
-
-                </li>
-              ))}
-            </ul>
-
-
-            <ul >
-              {petVaccines.map(log => (
-                <li key={log._id}>
-                  <strong>Medication Name:</strong> {log.NameOfVaccination} <br />
-                </li>
-              ))}
-            </ul>
-
-            <ul >
-
-              <li key={pet._id}>
-                <strong>Log Date:</strong> {pet.PetName} <br />
-
-              </li>
-
-            </ul>
+           
           </div>
 
         )}
 
       </div>
-      <Button onClickHandler={generatePDF} variant="yellow" type="submit" label={"Export"} size="dk-md-s" />
-
+      <div style={exportbutton}>
+      <Button onClickHandler={generatePDF} variant="yellow" type="submit" label={"Export"} size="dk-md-s"  />
+</div>
     </div>
 
   );
