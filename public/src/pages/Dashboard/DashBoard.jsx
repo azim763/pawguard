@@ -251,7 +251,7 @@ export default function Dashboard() {
                 </Typography>
                 {selectedPet && (
                   <Graph
-                    names={foods.map((food) => food.MealPerDay)}
+                    names={foods.map((food) => food.QuantityPerMeal)}
                     values={foods.map((food) => food.FoodDate)}
                   />
                 )}

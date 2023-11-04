@@ -14,6 +14,7 @@ import axios from 'axios';
 import FoodCard from '../../FoodCard/FoodCard.jsx';
 
 const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
+  const [foodDate, setFoodDate] = useState(new Date());
   const [foodForm, setFoodForm] = useState([])
   const MealPerDay = [
     { value: 1, label: '1' },
@@ -37,7 +38,9 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${searchPetFoodByPetIDRoute}/${SelectedPetID}`);
+        const response = await axios.get(searchPetFoodByPetIDRoute, {
+          params: { PetID: SelectedPetID },
+        });
         setFoodForm(response.data);
         console.log(response.data);
       } catch (error) {
@@ -71,11 +74,15 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
     });
   };
 
-  const handleDateChange = (value) => {
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    const [year, month, day] = value.split("T")[0].split("-");
+    const resultDate = `${day}-${month}-${year}`;
     setFoodData({
       ...foodData,
-      FoodDate: value,
+      [name]: resultDate,
     });
+    setFoodDate(value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,6 +90,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
     onFoodFormSubmit(foodData);
     console.log('foodData after submission:', foodData); // Log foodData after submitting
     setFoodForm((prevFoodForm) => [...prevFoodForm, foodData]);
+  };
+  const handleFoodDelete = (deletedLogId) => {
+    setFoodForm((prevFoodForm) =>
+    prevFoodForm.filter((log) => log._id !== deletedLogId)
+    );
   };
   
 
@@ -190,13 +202,13 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
           </div>
         </div>
 
-        {/* <Typography variant="body2-poppins-medium">Food Date</Typography>
+         <Typography variant="body2-poppins-medium">Food Date</Typography>
 
         <DatePicker
           onChange={handleDateChange}
           id="FoodDate"
-          value={foodData.FoodDate}
-        /> */}
+          value={foodDate}
+        /> 
 
         <div className={styles.buttonStyle}>
           <Button
@@ -212,11 +224,14 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
       <div className={foodCardStyles.cardStyle}>
         {foodForm.map((foodEntry) => (
           <FoodCard
-            key={foodEntry._id}
+            logId={foodEntry._id}
             FoodName={foodEntry.FoodName}
             MealPerDay={foodEntry.MealPerDay}
             QuantityPerMeal={foodEntry.QuantityPerMeal}
-            TypeOfFood={foodEntry.TypeOfFood}    />
+            TypeOfFood={foodEntry.TypeOfFood} 
+            FoodDate={foodEntry.FoodDate} 
+            onDelete={() => handleFoodDelete(foodEntry._id)}
+            />
         ))}
       </div>
     )}

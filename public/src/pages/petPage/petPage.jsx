@@ -329,7 +329,7 @@ const PetPage = () => {
                   dosage={medication.DosageAmount}
                   startDate={new Date(medication.MedicationDate)}
                   Period={medication.MedicationPeriod}
-                  medicationTime={medication.M}
+                  MedicineTime={medication.MedicineTime}
                   onDelete={() => handleMedicationDelete(medication._id)}
                   MedicationId={medication._id}
                 />
