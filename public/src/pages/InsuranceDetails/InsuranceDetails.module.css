@@ -1,6 +1,8 @@
-.InsuranceDetails,.InsuranceDetailsHeading{
+.InsuranceDetails{
   margin:20px;
 }
+
+
 .InsuranceDetailsSimilarPlans {
     background-color: var(--pearl-blue);
     box-sizing: border-box;
@@ -40,7 +42,8 @@
     display: flex;
     justify-content: center;
     /* gap: 20px; */
-  }    
+  }   
+   
 
   @media screen and (max-width: 500px) {
     .InsuranceCoverageCenterDiv{
@@ -96,7 +99,7 @@
 @media screen and (min-width: 1000px) {
     .InsuranceDetailsSimilarPlansBody {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-wrap: wrap;
     }
     
