@@ -10,10 +10,9 @@ import {
   searchPetsByUserIDRoute,
   searchPetFoodByPetIDRoute,
   host,
-  searchPetAppointmentsByPetIDRoute,
+  searchPetAppointmentsByUserIDRoute,
   searchPetMedicationsByPetIDRoute,
 } from "../../utils/APIRoutes";
-import Logout from "../../components/Logout";
 import Header from "../../components/Header/header";
 import DashCalendar from "../../components/Calendar/calendar";
 import Background from "../../assets/background2.gif";
@@ -131,8 +130,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseApt = await axios.get(searchPetAppointmentsByPetIDRoute, {
-          params: { PetID: selectedPet._id },
+        const responseApt = await axios.get(searchPetAppointmentsByUserIDRoute, {
+          params: { UserID: currentUser._id },
         });
         setAppointment(responseApt.data);
         console.log(responseApt.data);
@@ -271,7 +270,7 @@ export default function Dashboard() {
             </Carousel>
           </div>
         </div>
-        <DashCalendar petAppointments={appointments} />
+        {pets &&(<DashCalendar petAppointments={appointments} pet={pets} />)}
       </div>
     </div>
   );

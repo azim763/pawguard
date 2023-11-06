@@ -6,7 +6,7 @@ import styles from "./calendar.module.css";
 import "./calendar.css";
 import Typography from "../Typography/Typography";
 
-const DashCalendar = ({ petAppointments }) => {
+const DashCalendar = ({ petAppointments, pets }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   function formatDate(date) {
@@ -28,9 +28,29 @@ const DashCalendar = ({ petAppointments }) => {
     const formattedMonth = String(selectedMonth).padStart(2, "0");
     const selectedDateStr = `${formattedDay}-${formattedMonth}-${selectedYear}`;
 
-    const matchingEvents = petAppointments.filter(
-      (event) => event.AppointmentDate === selectedDateStr
-    );
+  
+    const petData = localStorage.getItem("petsData");
+    const petArray = JSON.parse(petData);
+    console.log(petArray);
+    console.log(petAppointments)
+    const petIdNameArray = [];
+
+    petArray.forEach((pet) => {
+      petIdNameArray.push({ id: pet._id, name: pet.PetName });
+    });
+    const matchingEvents = petAppointments
+    .filter((event) => event.AppointmentDate === selectedDateStr)
+    .map((event) => ({ ...event }));
+  
+  matchingEvents.forEach((event) => {
+    const petInfo = petIdNameArray.find((pet) => pet.id === event.PetID);
+
+    if (petInfo) {
+      event.PetName = petInfo.name;
+    } else {
+      event.PetName = "Unknown Pet";
+    }
+  });
 
     console.log(selectedDateStr);
     console.log(matchingEvents);
@@ -82,7 +102,7 @@ const DashCalendar = ({ petAppointments }) => {
           {getSelectedEvents().map((item, index) => (
             <div key={index}>
               <DashCalendarCard
-                petName="Oreo"
+                petName={item.PetName}
                 cardTime={item.AppointmentTime}
                 aptReason={item.AppointmentReason}
                 clinicName={item.ClinicName}
