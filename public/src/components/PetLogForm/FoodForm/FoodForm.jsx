@@ -229,7 +229,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
             MealPerDay={foodEntry.MealPerDay}
             QuantityPerMeal={foodEntry.QuantityPerMeal}
             TypeOfFood={foodEntry.TypeOfFood} 
-            FoodDate={foodEntry.FoodDate} 
+            KibbleDry={foodEntry.KibbleDry} 
+            Canned ={foodEntry.Canned}
+            SemiMoist ={foodEntry.SemiMoist}
+            Raw={foodEntry.Raw}
+            HomeCooked={foodEntry.HomeCooked}
             onDelete={() => handleFoodDelete(foodEntry._id)}
             />
         ))}

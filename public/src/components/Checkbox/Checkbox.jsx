@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Checkbox.module.css";
 import Typography from "../Typography/Typography";
 
-const Checkbox = ( { id, value, label, placeholder, disabled, required, onChangeHandler, variant, size } ) => {
+const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange, variant, size } ) => {
 
   // const onChangeHandler = (event) => {
   //   onChange(event.target.value);
@@ -20,7 +20,7 @@ const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        onChange={onChangeHandler}
+        onChange={onChange}
       />
       <div className={styles.checkboxLabel}>
         <Typography variant="body2-poppins-medium" color="almost-black">

@@ -11,10 +11,19 @@ Modal.setAppElement("#root");
 
 
 
-const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, TypeOfFood,FoodDate,logId,onDelete}) => {
+const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, KibbleDry,FoodDate,logId,onDelete,Canned,SemiMoist,Raw,HomeCooked}) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
- 
+  const foodTypes = [];
+  
+  if (KibbleDry) foodTypes.push("Kibble-Dry");
+  if (Canned) foodTypes.push("Canned");
+  if (SemiMoist) foodTypes.push("Semi-Moist");
+  if (HomeCooked) foodTypes.push("Home-Cooked");
+  if (Raw) foodTypes.push("Raw");
+
+  const foodType = foodTypes.join(', ');
+
   const handleDeleteClick = () => {
     // Open the delete confirmation modal
     setIsDeleteModalOpen(true);
@@ -60,7 +69,7 @@ const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, TypeOfFood,FoodDate,l
       </div>
       <div>
         <Typography variant="body1-poppins-semibold">Type</Typography>
-        <Typography variant="body3-poppins-regular">{TypeOfFood}</Typography>
+        <Typography variant="body3-poppins-regular">{foodType}</Typography>
       </div>
       <div>
         <Typography variant="body1-poppins-semibold">Date</Typography>
