@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 
 const SmPlanDetailCard = ({
   smSource,
+  planName,
   smAlt,
   smDeductibleNum,
   smReimbursementNum,
@@ -17,7 +18,13 @@ const SmPlanDetailCard = ({
     <div className={`${styles["plan-detail-card-wrapper"]}`}>
       <div className={`${styles["image-container"]}`}>
         <img src={smSource} alt={smAlt} />
+        <div
+          className={`${styles["image-info"]}`}
+        >
+          <Typography variant="sub-poppins-medium">{planName}</Typography>
+        </div>
       </div>
+      
 
       <div className={`${styles["detail-card-price"]}`}>
         <Typography variant="h1-poppins-semibold" color="almost-black">
@@ -34,7 +41,7 @@ const SmPlanDetailCard = ({
           variant="detailtext1-poppins-medium"
           color="small-text-gray"
         >
-          Reimbursement per year
+          Reimbursement <br /> per year
         </Typography>
         <Typography variant="sub-h2-poppins-medium" color="almost-black">
           {smReimbursementNum}%
@@ -46,7 +53,7 @@ const SmPlanDetailCard = ({
           variant="detailtext1-poppins-medium"
           color="small-text-gray"
         >
-          Annual Coverage per year
+          Annual Coverage <br /> per year
         </Typography>
         <Typography variant="sub-h2-poppins-medium" color="almost-black">
           {smCoverageNum}
@@ -58,7 +65,7 @@ const SmPlanDetailCard = ({
           variant="detailtext1-poppins-medium"
           color="small-text-gray"
         >
-          Annual Deductible per year
+          Annual Deductible <br /> per year
         </Typography>
         <Typography variant="sub-h2-poppins-medium" color="almost-black">
           ${smDeductibleNum}

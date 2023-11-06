@@ -20,25 +20,23 @@ const PlanDetailCard = ({
       </div>
       <div className={`${styles["detail-card-deductible"]}`}>
         <Typography variant="textfield-poppins-regular" color="small-text-gray">
-          Annual Deductible per year
+          Annual Deductible <br /> per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           ${deductibleNum}
         </Typography>
       </div>
-
       <div className={`${styles["detail-card-reimbursement"]}`}>
         <Typography variant="textfield-poppins-regular" color="small-text-gray">
-          Reimbursement per year
+          Reimbursement <br />per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           {reimbursementNum}%
         </Typography>
       </div>
-
       <div className={`${styles["detail-card-coverage"]}`}>
         <Typography variant="textfield-poppins-regular" color="small-text-gray">
-          Annual Coverage per year
+          Annual Coverage <br />per year
         </Typography>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           ${coverageNum}
@@ -56,7 +54,6 @@ const PlanDetailCard = ({
           per month
         </Typography>
       </div>
-
       {showButton && (
       <div className={`${styles["button-container"]}`}>
         <Button variant="light-blue" label="View Details" size="dk-sm" onClick={onClick} />

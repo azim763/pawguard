@@ -6,7 +6,7 @@ function InsuranceCard({title,text,subtitle,body}){
     return(
         <div className={styles.cardContainer}>
             <div className="card-title">
-            <Typography variant="sub-h1-poppins-semibold" color="almost-black">
+            <Typography variant="sub-poppins-medium" color="almost-black">
                 {title}
             </Typography>
             <div className={styles.titleBody}>
@@ -16,7 +16,7 @@ function InsuranceCard({title,text,subtitle,body}){
             </div>
             </div>
             <div className={styles.cardBody}>
-                <Typography variant="sub-h1-poppins-semibold" color="almost-black">
+                <Typography variant="body1-poppins-semibold" color="almost-black">
                     {subtitle}
                 </Typography>
                     <Typography variant="body3-poppins-regular" color="almost-black">

@@ -1,0 +1,30 @@
+.petSelection {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #f5f2f2;
+  margin: 5px;
+  border-radius: 10%;
+}
+
+.petSelection.selected {
+  background-color: #D4EAEE;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+}
+
+.imageWrapper {
+  width: 175px;
+  height: 175px;
+  overflow: hidden; /* Hide any overflow */
+}
+
+.imageWrapper img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}

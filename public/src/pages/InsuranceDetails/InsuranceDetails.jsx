@@ -58,11 +58,12 @@ const InsuranceDetails = () => {
 
   const handleViewDetailsClick = (_id) => {
     navigate(`/insurance/details/${_id}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div>
-      <Header/>
+      <Header id="top"/>
       <div>
         <div className={styles.InsuranceDetails}>
         <div className={styles.InsuranceDetailsHeading}>
@@ -70,7 +71,7 @@ const InsuranceDetails = () => {
             {" "}
             Coverage Details
           </Typography>
-          <Typography variant="sub-h3-poppins-regular" color="almost-black">
+          <Typography variant="body3-poppins-regular" color="almost-black">
           <p>Information may vary from the actual insurance policy provided by each company</p>
           </Typography>
         </div>
@@ -78,7 +79,7 @@ const InsuranceDetails = () => {
             <div>
              <PlanDetailCard
              source={planData.CompanyLogo}
-             alt={planData.CompanyLogo}
+             alt={planData.CompanyName}
              key={companyData._id}
              deductibleNum={companyData.AnnualDeductible}
              reimbursementNum={(companyData.Reimbursement)*100}
@@ -121,13 +122,14 @@ const InsuranceDetails = () => {
           </div>
           <div className={styles.InsuranceDetailsSimilarPlansBody}>
           {insurancePlans
-              .filter((plan) => plan.CompanyID !== currentCompanyID) // Filter out the current company's plan
-              .slice(0, 4)
+              .filter((plan) => plan.CompanyID == currentCompanyID) // Filter out plans from different companies
+              .slice(0, 3)
               .map((plan) => (
                 <SmPlanDetailCard
                   smSource={planData.CompanyLogo}
+                  planName={plan.PlanName}
                   key={plan._id}
-                  smAlt={planData.CompanyLogo}
+                  smAlt={planData.CompanyName}
                   smDeductibleNum={plan.AnnualDeductible}
                   smReimbursementNum={plan.Reimbursement * 100}
                   smCoverageNum={plan.AnnualCoverage}
