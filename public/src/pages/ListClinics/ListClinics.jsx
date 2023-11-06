@@ -30,9 +30,18 @@ const ListClinics = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
 
-  const handlePetSelectClinicClick = (specialties) => {
+  // const [selectedCards, setSelectedCards] = useState([]);
+
+  const handlePetSelectClinicClick = (id, specialties) => {
     if (specialties === "" || specialties === null) setSelectedOptions([]);
     else setSelectedOptions(specialties.split(","));
+
+    // setSelectedCards((prevSelectedCards) => {
+    //   const isSelected = prevSelectedCards.includes(id);
+    //   return isSelected
+    //     ? prevSelectedCards.filter((cardId) => cardId !== id)
+    //     : [...prevSelectedCards, id];
+    // });
   };
 
   const handleDropdownChange = (value) => {
@@ -78,6 +87,7 @@ const ListClinics = () => {
         setPets(response.data);
         if (!selectedPet && response.data.length > 0) {
           setSelectedPet(response.data[0]);
+          console.log(response.data[0]._id)
           setSelectedOptions(response.data[0].PreExistingMedical.split(","));
           //
         }
@@ -226,16 +236,18 @@ const ListClinics = () => {
           <Typography variant="h2-poppins-semibold" color="almost-black">
             Select the pet you would like to find clinics for.
           </Typography>
-          <Typography variant="sub-h2-poppins-medium" color="almost-black">
+          <Typography variant="body2-poppins-medium" color="almost-black">
             Specialties will be recommended for your pet’s needs.
           </Typography>
           <div className={styles.petSelection}>
             {pets.map((petSelectClinic) => (
               <PetSelectionClinic
+                // id={petSelectClinic._id}
                 specialties={petSelectClinic.PreExistingMedical}
                 imgUrl={petSelectClinic.PetImageName}
                 clinicPetName={petSelectClinic.PetName}
                 onClick={handlePetSelectClinicClick}
+                // selected={selectedCards.includes(petSelectClinic._id)}
               />
             ))}
           </div>

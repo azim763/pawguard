@@ -3,7 +3,7 @@ import styles from "./petSelection.module.css";
 import Typography from "../Typography/Typography";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 
-const PetSelection = ({ PetName, PetImageData, onClick }) => {
+const PetSelection = ({ PetName, PetImageData, onClick ,is }) => {
   return (
     <div
       className={styles.petCard}

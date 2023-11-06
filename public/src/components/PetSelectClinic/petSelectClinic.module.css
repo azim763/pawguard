@@ -3,6 +3,17 @@
   height: 248px;
   display: grid;
   justify-items: center;
+  border-radius: 10px;
+  background-color: var(--pearl-blue);
+}
+
+.petNotSelect {
+  width: 210px;
+  height: 248px;
+  display: grid;
+  justify-items: center;
+  border-radius: 10px;
+  background-color: transparent;
 }
 
 .imageContainer {
@@ -14,4 +25,6 @@
   object-fit: cover;
   width: 175px;
   height: 175px;
+  border-radius: 8px;
 }
+
