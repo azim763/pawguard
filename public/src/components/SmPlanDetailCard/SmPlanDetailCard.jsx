@@ -29,7 +29,7 @@ const SmPlanDetailCard = ({
       <div className={`${styles["detail-card-price"]}`}>
         <Typography variant="h1-poppins-semibold" color="almost-black">
           ${smPrice}{" "}
-          <sup style={{ fontSize: "30px", fontWeight: "500" }}>{smPrice}</sup>
+          {/* <sup style={{ fontSize: "30px", fontWeight: "500" }}>{smPrice}</sup> */}
         </Typography>
         <Typography variant="detailtext1-poppins-medium" color="almost-black">
           per month
