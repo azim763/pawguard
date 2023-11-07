@@ -32,7 +32,7 @@ const ListClinics = () => {
 
   // const [selectedCards, setSelectedCards] = useState([]);
 
-  const handlePetSelectClinicClick = (id, specialties) => {
+  const handlePetSelectClinicClick = (specialties) => {
     if (specialties === "" || specialties === null) setSelectedOptions([]);
     else setSelectedOptions(specialties.split(","));
 

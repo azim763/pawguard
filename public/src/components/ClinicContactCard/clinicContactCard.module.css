@@ -2,6 +2,7 @@
   width: 100%;
   height: 148px;
   display: grid;
+  grid-template-rows: .5fr 1fr 1fr;
 }
 
 .heading-wrapper {

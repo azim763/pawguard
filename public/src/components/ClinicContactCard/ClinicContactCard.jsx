@@ -6,7 +6,7 @@ import Typography from "../Typography/Typography";
 
 const ClinicContactCard = ({ clinicTel, clinicUrl }) => {
   return (
-    <div className={`${styles["contact-card-wrapper"]}`}>
+<div className={`${styles["contact-card-wrapper"]}`}>
       <div className={`${styles["heading-wrapper"]}`}>
         <Typography variant="sub-poppins-medium">Contacts</Typography>
       </div>
