@@ -9,17 +9,21 @@ const PetSelectionClinic = ({
   alt,
   onClick,
   clinicPetName,
-  selected,
+  // selected,
 }) => {
-  // const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const handleClick = () => {
-    onClick(specialties);
-    // setIsSelected(true);
+    if (isSelected) {
+      setIsSelected(false); // If it's already selected, unselect it
+    } else {
+      onClick(specialties); // Otherwise, select it
+      setIsSelected(true);
+    }
   };
 
   return (
     <div
-      className={selected ? styles.petSelect : styles.petNotSelect}
+      className={isSelected ? styles.petSelect : styles.petNotSelect}
       onClick={handleClick}
     >
       <div className={styles.imageContainer}>

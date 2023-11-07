@@ -22,7 +22,7 @@ const ClinicLocationCard = ({
       key: "2TseK96GRlPI1NdG2lpm0nMvDK4fwDWv",
       container: "map-container",
       center: [longitude, latitude],
-      zoom: 12,
+      zoom: 10,
     });
 
     //     var element = document.createElement("div")

@@ -13,15 +13,15 @@ const ClinicSpecialtiesCard = ({ specialtiesCardString }) => {
   return (
     <div className={`${styles["specialty-card-container"]}`}>
       <div className={`${styles["heading-container"]}`}>
-        <Typography variant="sub-h1-poppins-semibold">Specialties</Typography>
+        <Typography variant="sub-poppins-medium">Specialties</Typography>
       </div>
       <div className={`${styles["specialties-container"]}`}>
-        <ul style={{ paddingLeft: "5%" }}>
-        <Typography variant=".sub-poppins-medium">
+        <ul className={styles.specialtyList}>
           {specialtiesCardArray.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li className={styles.specialtyContent} key={index}>
+              <Typography variant="body2-poppins-medium">{item}</Typography>
+            </li>
           ))}
-          </Typography>
         </ul>
       </div>
     </div>
