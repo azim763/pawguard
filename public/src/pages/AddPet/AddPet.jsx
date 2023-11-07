@@ -17,13 +17,13 @@ const AddPet = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const petType = [
-    { value: "dog", label: "Dog" },
-    { value: "cat", label: "Cat" },
+    { value: "Dog", label: "Dog" },
+    { value: "Cat", label: "Cat" },
   ];
 
   const gender = [
-    { value: "M", label: "Male" },
-    { value: "F", label: "Female" },
+    { value: "Male", label: "Male" },
+    { value: "Female", label: "Female" },
   ];
 
   let bloodType;
