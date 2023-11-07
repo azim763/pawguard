@@ -9,6 +9,7 @@ import ClinicSpecialtiesCard from "../../components/ClinicSpecialtiesCard/Clinic
 import styles from "./individualClinic.module.css";
 import ClinicLocationCard from "../../components/ClinicLocationCard/ClinicLocationCard";
 import Aws from "../../components/ClinicOperationsHours/OperHrsCard";
+import StarRating from "../../components/StarRating/StarRating";
 
 const IndividualClinic = () => {
   const { clinicId } = useParams(); // Get the clinic ID from the URL
@@ -45,13 +46,23 @@ const IndividualClinic = () => {
       <div>
         <Header></Header>
       </div>
-      
-      <div style={{padding: "5%"}}>
-        <div style={{marginBottom: "20px"}}>
-          <Typography variant="h1-poppins-semibold">{clinicDetails.Name}</Typography>
+
+      <div className={styles.IndividualClinicContainer}>
+        <div style={{ marginBottom: "20px" }}>
+          <Typography variant="h1-poppins-semibold">
+            {clinicDetails.Name}
+          </Typography>
         </div>
+
+        <div className={styles.clinicRating}>
+          <Typography variant="body3-poppins-regular" color="dark-blue">
+            {clinicDetails.Rating}
+          </Typography>
+          <StarRating rating={clinicDetails.Rating} />
+        </div>
+
         {clinicDetails._id && (
-          <div className={styles.IndividualClinicContainer}>
+          <div className={styles.clinicDetailsContainer}>
             <div>
               <ClinicLocationCard
                 address={clinicDetails.Address}
@@ -82,8 +93,8 @@ const IndividualClinic = () => {
             <div className={styles.OpenHrs}>
               <Aws operationHrsString={clinicDetails.OpeningHours} />
             </div>
-      </div>
-      )}
+          </div>
+        )}
       </div>
     </div>
   );
