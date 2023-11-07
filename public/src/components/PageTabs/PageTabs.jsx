@@ -4,30 +4,53 @@ import styles from "./PageTabs.module.css";
 const { active } = styles;
 
 const PageTabs = ({ tabs, onTabChange }) => {
-  const [activeLink, setActiveLink] = useState(tabs[0]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-    onTabChange(link);
+  const handleTabChange = (index) => {
+    setActiveIndex(index);
+    onTabChange(tabs[index]);
   };
 
-  const isImageLink = (link) => {
-    // COME BACK FOR THIS
-    return link.endsWith(".jpg") || link.endsWith(".png") || link.endsWith(".jpeg");
+  const nextTab = () => {
+    const newIndex = (activeIndex + 1) % tabs.length;
+    handleTabChange(newIndex);
+  };
+
+  const prevTab = () => {
+    const newIndex = (activeIndex - 1 + tabs.length) % tabs.length;
+    handleTabChange(newIndex);
   };
 
   return (
-    <ul className={styles.pageTabs}>
-      {tabs.map((item, index) => (
-        <li key={index} className={activeLink === item ? active : ""}>
-          {isImageLink(item) ? (
-            <img src={item} onClick={() => handleLinkClick(item)} />
-          ) : (
-            <div onClick={() => handleLinkClick(item)}>{item}</div>
-          )}
-        </li>
-      ))}
-    </ul>
+    <div className={styles.pageTabs}>
+      <ul className={styles.desktopView}>
+        {tabs.map((tab, index) => (
+          <li
+            key={index}
+            className={`desktop-tab ${index === activeIndex ? active : ""}`}
+            onClick={() => handleTabChange(index)}
+          >
+            {tab}
+          </li>
+        ))}
+      </ul>
+
+      <div className={styles.mobileView}>
+        {tabs.length > 1 && (
+          <button className="arrow" onClick={prevTab}>&lt;</button>
+        )}
+
+        <div className={styles.mobileTabContent}>
+          <div className={`mobile-tab ${active}`}>
+            {tabs[activeIndex]}
+          </div>
+        </div>
+
+        {tabs.length > 1 && (
+          <button className="arrow" onClick={nextTab}>&gt;</button>
+        )}
+      </div>
+    </div>
   );
 };
 

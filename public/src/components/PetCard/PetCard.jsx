@@ -34,7 +34,7 @@ const handle = window.open(
       </div>
       <div className={styles.detailContainer}>
         <div>
-          <PawSVG width="41" height="40" />
+          <PawSVG className={styles.SVGIcons} />
         </div>
         <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Breed</Typography>
@@ -43,7 +43,7 @@ const handle = window.open(
       </div>
       <div className={styles.detailContainer}>
         <div>
-          <CakeSVG width="41" height="46" />
+          <CakeSVG className={styles.SVGIcons} />
         </div>
         <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Age</Typography>
@@ -52,7 +52,7 @@ const handle = window.open(
       </div>
       <div className={styles.detailContainer}>
         <div>
-          <HeightSVG width="41" height="43" />
+          <HeightSVG className={styles.SVGIcons} />
         </div>
         <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Height</Typography>
@@ -61,7 +61,7 @@ const handle = window.open(
       </div>
       <div className={styles.detailContainer}>
         <div>
-          <WeightSVG width="41" height="40" />
+          <WeightSVG className={styles.SVGIcons} />
         </div>
         <div className={styles.descriptionContainer}>
           <Typography variant="textfield-poppins-regular">Weight</Typography>
@@ -71,15 +71,15 @@ const handle = window.open(
 
       <div className={styles.actionContainer}>
         <div>
-          <PenSVG width="30" height="30" />
+          <PenSVG className={styles.SVGIcons} />
           <Typography variant="detailtext2-poppins-medium">edit </Typography>
         </div>
         <div>
-          <ArchiveSVG width="30" height="30" />
+          <ArchiveSVG className={styles.SVGIcons} />
           <Typography variant="detailtext2-poppins-medium">archive </Typography>
         </div>
         <a href={`/exportpetLog/${id}`} target="_blank" >
-          <ExportSVG width="28" height="29" />
+          <ExportSVG className={styles.SVGIcons} />
           <Typography variant="detailtext2-poppins-medium">
           export
           </Typography>

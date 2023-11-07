@@ -2,6 +2,9 @@
   display: grid;
   gap: 2rem;
 }
+.allTabs{
+  width: 80vw;
+}
 
 .petPageTabs {
   width: 100%;
@@ -44,5 +47,14 @@
   margin-top: 27px;
   margin-bottom: 30px;
   /* background-color: var(--white-white); */
+}
+
+@media only screen and  (max-width: 600px) {
+.petPageGrid{
+  width: 80vw;
+  grid-template-columns: 1fr;
+  }
+
+
 }
 

@@ -25,6 +25,10 @@
   grid-template-columns: 0.8fr 0.8fr;
   text-align: center;
 }
+.SVGIcons{
+  width: 41px;
+  height: 40px;
+}
 
 .actionContainer {
   display: grid;
@@ -32,4 +36,28 @@
   border-top: 1px solid;
   padding: 1rem;
   text-align: center;
+}
+
+
+@media only screen and (max-width:600px ) {
+  
+.petCardContainer{
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 80vw;
+  height:20vh;
+}
+.petCardContainer div img{
+  width:84px;
+  height: 84px;
+}
+.descriptionContainer{
+  width: 75px;
+  height: 28px;
+}
+.SVGIcons{
+  width: 14px;
+  height: 22px;
+}
+
+
 }

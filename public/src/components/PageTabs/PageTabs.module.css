@@ -1,18 +1,17 @@
-.pageTabs {
+/* .pageTabs {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid var(--dark-blue);
-}
+} */
 
 .pageTabs li {
   list-style-type: none;
   padding: 8px;
 }
 
-.pageTabs li div {
+.pageTabs ul li  {
   color: var(--dark-blue);
   cursor: pointer;
 }
@@ -21,4 +20,40 @@
   font-weight: bold;
   padding-bottom: 4px;
   border-bottom: 4px solid var(--light-blue);
+}
+
+/* Default styles for desktop view */
+.desktopView {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--dark-blue);
+
+}
+
+/* Styles for mobile view (hidden by default) */
+.mobileView {
+  display: none;
+}
+
+/* Media Query for mobile view */
+@media only screen and  (max-width: 600px) {
+  .desktopView {
+    display: none;
+  }
+
+  .mobileView{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+  }
+  .mobileTabContent{
+    flex-grow: 1;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    text-align: center;
+  }
 }
