@@ -7,37 +7,44 @@ import {
   searchPetsByUserIDRoute,
 } from "../../utils/APIRoutes.js";
 import FoodForm from '../../components/PetLogForm/FoodForm/FoodForm.jsx'
+import PetSelectionIndividualCard from '../../components/PetSelectionIndividualCard/PetSelectionIndividualCard.jsx'
 
 const Home = () => {
-  // const [pets, setPets] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const storedData = localStorage.getItem(
-  //         process.env.REACT_APP_LOCALHOST_KEY
-  //       );
-  //       if (storedData) {
-  //         const data = JSON.parse(storedData);
-  //         const response = await axios.get(searchPetsByUserIDRoute, {
-  //           params: { userID: data._id },
-  //         });
-  //         await setPets(response.data);
-  //         console.log(response.data); // Log the response data here
-  //       }
-  //     } catch (error) {
-  //       // Handle any errors here
-  //     }
-  //   };
-    
-  //   fetchData();
-  // }, []);
+  const [selectedPet, setSelectedPet] = useState(null);
 
+  
+
+  const pets = [
+    { imgUrl: 'image1.jpg', petName: 'Pet 1' },
+    { imgUrl: 'image2.jpg', petName: 'Pet 2' },
+    { imgUrl: 'image3.jpg', petName: 'Pet 3' },
+  ];
+  const handleSelectPet = (petName) => {
+    if (selectedPet === petName) {
+      // Deselect the current selection
+      setSelectedPet(null);
+    } else {
+      // Select the clicked pet
+      setSelectedPet(petName);
+    }
+  };
   return (
     <div>
       {/* {pets && <TotalPets pets={pets}></TotalPets>} */}
       <Header></Header>
       <FoodForm></FoodForm>
-    </div>
+      <div>
+      {pets.map((pet, index) => (
+        <PetSelectionIndividualCard
+          key={index}
+          imgUrl={pet.imgUrl}
+          petName={pet.petName}
+          isSelected={selectedPet === pet.petName}
+          onSelect={handleSelectPet}
+        />
+      ))}
+    </div>  
+      </div>
   )
 }
 
