@@ -92,13 +92,13 @@ const PetPage = () => {
     console.log(newPetLogData);
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
- 
+
   const handlePetLogDelete = (deletedLogId) => {
     setPetLog((prevPetLog) =>
       prevPetLog.filter((log) => log._id !== deletedLogId)
     );
   };
- 
+
   const handleVaccinationDelete = (deleteVaccinationId) => {
     setPetVaccines((prevVaccination) =>
       prevVaccination.filter((vaccine) => vaccine._id !== deleteVaccinationId)
@@ -277,7 +277,7 @@ const PetPage = () => {
             <PetLogform
               selectedPet={selectedPet}
               onPetLogSubmit={handlePetLogSubmit}
-              SelectedPetID ={selectedPet._id}
+              SelectedPetID={selectedPet._id}
             />
           )}
         </div>
@@ -327,7 +327,7 @@ const PetPage = () => {
                 <MedicineCard
                   medicineName={medication.MedicineName}
                   dosage={medication.DosageAmount}
-                  startDate={new Date(medication.MedicationDate)}
+                  startDate={medication.MedicationDate}
                   Period={medication.MedicationPeriod}
                   MedicineTime={medication.MedicineTime}
                   onDelete={() => handleMedicationDelete(medication._id)}
