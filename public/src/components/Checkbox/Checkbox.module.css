@@ -11,3 +11,13 @@ input[type="checkbox"] {
   display: flex;
   align-items: flex-end;
 }
+
+@media screen and (max-width: 400px) {
+  .checkboxStyle {
+    align-items: center;
+  }
+
+  .checkboxLabel{
+    margin-left: 15px;
+  }
+}

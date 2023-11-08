@@ -5,6 +5,7 @@
   justify-items: center;
   border-radius: 10px;
   background-color: var(--pearl-blue);
+  padding-top: 10px;
 }
 
 .petNotSelect {
@@ -28,3 +29,20 @@
   border-radius: 8px;
 }
 
+@media screen and (max-width: 500px) {
+  .imageContainer {
+    width: 134px;
+    height: 134px;
+  }
+
+  .imageContainer img {
+    width: 134px;
+    height: 134px;
+  }
+
+  .petSelect,
+  .petNotSelect {
+    width: 153px;
+    height: 185px;
+  }
+}
