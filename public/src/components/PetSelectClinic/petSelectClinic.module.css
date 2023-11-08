@@ -4,18 +4,23 @@
   display: grid;
   justify-items: center;
   border-radius: 10px;
-  background-color: var(--pearl-blue);
+  /* background-color: var(--pearl-blue); */
   padding-top: 10px;
 }
 
-.petNotSelect {
+.petSelect.selected{
+  background-color: var(--pearl-blue);
+  border: 1px solid var(--border-grey);
+}
+
+/* .petNotSelect {
   width: 210px;
   height: 248px;
   display: grid;
   justify-items: center;
   border-radius: 10px;
   background-color: transparent;
-}
+} */
 
 .imageContainer {
   width: 175px;
