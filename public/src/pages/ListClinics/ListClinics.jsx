@@ -87,7 +87,7 @@ const ListClinics = () => {
         setPets(response.data);
         if (!selectedPet && response.data.length > 0) {
           setSelectedPet(response.data[0]);
-          console.log(response.data[0]._id)
+          console.log(response.data[0]._id);
           setSelectedOptions(response.data[0].PreExistingMedical.split(","));
           //
         }
@@ -344,7 +344,7 @@ const ListClinics = () => {
             />
           </div>
 
-          <div style={{ marginBottom: "10px", marginTop: "30px" }}>
+          <div className={styles.dropDown}>
             <Dropdown
               id="sortBy"
               name="sortBy"

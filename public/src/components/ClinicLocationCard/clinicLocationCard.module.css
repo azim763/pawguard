@@ -58,7 +58,7 @@
 
 @media screen and (max-width: 400px) {
   .location-card-container {
-    width: 320px;
+   width: 320px;
     height: auto;
   }
 

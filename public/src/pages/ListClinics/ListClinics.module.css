@@ -1,5 +1,5 @@
 .clinicsContainer {
-  padding: 13% 140px;
+  padding: 15% 140px;
   border: 1px solid var(--off-white);
   border-radius: 50px 50px 0 0;
   background-color: var(--off-white);
@@ -22,6 +22,7 @@
   row-gap: 1rem;
   margin-bottom: 60px;
   text-align: center;
+  /* word-break: break-all; */
 }
 
 .dropDownClinics {
@@ -83,4 +84,116 @@
   margin: 5% 0 3% 0;
   justify-content: center;
   gap: 45px;
+}
+
+.dropDown {
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 900px) {
+  .clinicsContainer {
+    padding: 50px;
+    grid-template-columns: 1fr;
+  }
+
+  .clinicTitle {
+    margin-bottom: 45px;
+  }
+
+  .clinicSearch {
+    grid-template-columns: unset;
+    width: 100%;
+    row-gap: 20px;
+  }
+
+  .petSelection {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .dropDownClinics {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .clinicCheckbox {
+    row-gap: 1rem;
+  }
+
+  .clinicTitle {
+    width: 100%;
+  }
+
+  .clinicButton {
+    grid-row: 3;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .petSelection {
+    justify-content: center;
+  }
+
+  .clinicsContainer {
+    margin-top: unset;
+  }
+
+  .clinicsContainer {
+    padding: 20px;
+  }
+
+  .clinicButton {
+    justify-content: center;
+  }
+
+  .clinicButton button {
+    width: 100%;
+  }
+
+  .coverBackground {
+    background-color: var(--off-white);
+    background-image: unset;
+    height: unset;
+  }
+
+  .clinicTag {
+    display: none;
+  }
+
+  .titleCenter {
+    margin: 20px 20px 0 20px;
+    height: unset;
+  }
+
+  .title1 {
+    color: var(--almost-black);
+  }
+
+  .opaqueStyle {
+    height: unset;
+    background-color: var(--off-white);
+  }
+
+  .clinicCheckbox {
+    flex-flow: column;
+    align-items: flex-start;
+  }
+
+  .clinicsContainer {
+    display: block;
+  }
+  /* .clinicTitle {
+    width: 80vw;
+  }
+  
+  .clinicSearch {
+    width: 80vw;
+  }
+  
+  .clinicButton{
+    width: 80vw;
+  } */
 }
