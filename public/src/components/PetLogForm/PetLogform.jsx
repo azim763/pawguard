@@ -12,11 +12,15 @@ import {
 import axios from "axios";
 import CloseSVG from "./../SVG/CloseSVG"
 import FoodForm from "./FoodForm/FoodForm";
+import SingleImageUpload from "../SingleImageUpload/SingleImageUpload";
+import ImageDisplay from "../ImageDisplay/ImageDisplay";
 
 const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID }) => {
   // const [pets,setPets] =useState([]);
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
+  const [selectedImage, setSelectedImage] = useState(null);
+
 
   
   const handleFoodFormSubmit = async (foodData) => {
@@ -63,9 +67,20 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
     UrineAmount: "",
     StoolAmount: "",
     StoolAppearance: "",
-    PetImages: [],
+    PetImages: "",
     Notes: "",
   });
+
+  const handleImageUpload = (data) => {
+    // Handle the image data in the parent component
+    setFormData({
+      ...formData,
+      PetImages: data, // Use the 'data' parameter instead of 'imageData'
+    });
+    setSelectedImage(data);
+    console.log(data); // This logs the image data
+    console.log(formData); // This logs the petData with the updated PetImageName
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -231,6 +246,13 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
               value={formData.Notes}
               onChange={handleInputChange}
             />
+          <div className={styles.petLogImage}>
+              <ImageDisplay PetImageData={selectedImage} />
+              <SingleImageUpload
+              label="Add Pet Log Image"
+              onImageUpload={handleImageUpload}
+            />
+          </div>
             <div className={styles.buttonStyle}>
               <Button
                 variant="yellow"
