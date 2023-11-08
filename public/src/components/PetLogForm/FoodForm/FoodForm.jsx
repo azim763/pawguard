@@ -5,7 +5,7 @@ import Typography from '../../Typography/Typography';
 import DatePicker from '../../DatePicker/DatePicker';
 import Button from '../../Button/Button';
 import Checkbox from '../../Checkbox/Checkbox';
-import styles from "../../PetLogForm/PetLogForm.module.css"
+import styles from "../../PetLogForm/FoodForm/FoodForm.module.css"
 import foodCardStyles from '../../../pages/petPage/petPage.module.css'
 import {
   searchPetFoodByPetIDRoute,
@@ -99,10 +99,9 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   
 
   return (
-    <div>
+    <div className={styles.foodFromStyle}>
       <form onSubmit={handleSubmit}>
         <div className={styles.petLogFood}>
-          <div className={styles.sessionGap}>
             <TextInput
               size="md"
               id="FoodName"
@@ -112,8 +111,6 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
               value={foodData.FoodName}
               onChange={handleChange}
             />
-          </div>
-
           <div className={styles.petLogFoodAndQuantity}>
             <div style={{ marginRight: '50px' }}>
               <Dropdown
@@ -150,65 +147,72 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
         </div>
 
         <div className={styles.petLogCheckBox}>
-          <div className={styles.checkboxGap}>
-            <Checkbox
-              id="KibbleDry"
-              name="KibbleDry"
-              label="Kibble-Dry"
-              value="KibbleDry"
-              checked={foodData.KibbleDry}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.checkboxGap}>
-            <Checkbox
-              id="Canned"
-              name="Canned"
-              label="Canned"
-              value="Canned"
-              checked={foodData.Canned}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.checkboxGap}>
-            <Checkbox
-              id="SemiMoist"
-              name="SemiMoist"
-              label="Semi-Moist"
-              value="SemiMoist"
-              checked={foodData.SemiMoist}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.checkboxGap}>
-            <Checkbox
-              id="HomeCooked"
-              name="HomeCooked"
-              label="Home-Cooked"
-              value="HomeCooked"
-              checked={foodData.HomeCooked}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.checkboxGap}>
-            <Checkbox
-              id="Raw"
-              name="Raw"
-              label="Raw"
-              value="Raw"
-              checked={foodData.Raw}
-              onChange={handleChange}
-            />
+        <Typography variant="body2-poppins-medium">
+               Type Of Food
+              </Typography>
+          <div  className={styles.checkboxGap}>
+            <div>
+              <Checkbox
+                id="KibbleDry"
+                name="KibbleDry"
+                label="Kibble-Dry"
+                value="KibbleDry"
+                checked={foodData.KibbleDry}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Checkbox
+                id="Canned"
+                name="Canned"
+                label="Canned"
+                value="Canned"
+                checked={foodData.Canned}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Checkbox
+                id="SemiMoist"
+                name="SemiMoist"
+                label="Semi-Moist"
+                value="SemiMoist"
+                checked={foodData.SemiMoist}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Checkbox
+                id="HomeCooked"
+                name="HomeCooked"
+                label="Home-Cooked"
+                value="HomeCooked"
+                checked={foodData.HomeCooked}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Checkbox
+                id="Raw"
+                name="Raw"
+                label="Raw"
+                value="Raw"
+                checked={foodData.Raw}
+                onChange={handleChange}
+              />
+            </div>
           </div>
         </div>
 
-         <Typography variant="body2-poppins-medium">Food Date</Typography>
-
-        <DatePicker
-          onChange={handleDateChange}
-          id="FoodDate"
-          value={foodDate}
-        /> 
+         <div className={styles.foodDate}>
+           <Typography variant="body2-poppins-medium">Food Date</Typography>
+           
+                   <DatePicker
+            onChange={handleDateChange}
+            id="FoodDate"
+            value={foodDate}
+                   />
+         </div>
 
         <div className={styles.buttonStyle}>
           <Button

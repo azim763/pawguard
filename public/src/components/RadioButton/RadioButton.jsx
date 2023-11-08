@@ -7,7 +7,7 @@ const RadioButton = ({ label, checked, onChange }) => {
     onChange(!checked);
   };
   return (
-    <div>
+    <div className={styles.RadioButton}>
       <input type="radio" checked={checked} onChange={handleRadioChange} />
       <div className={styles.label}>
         <label>

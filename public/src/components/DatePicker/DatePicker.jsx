@@ -3,7 +3,7 @@ import styles from "./date-picker.module.css"
 
 const DatePicker = ({ id, value, onChange }) => {
   return (
-    <div>
+    <div className={styles.datestyle}>
       <input className={styles.input} type="date" id={id} value={value} name={id} onChange={onChange} />
     </div>
   );

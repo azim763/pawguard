@@ -2,6 +2,7 @@ nav {
   background-color: var(--dark-blue);
   color: var(--off-white);
   margin: 0 auto;
+  width: 100%;
 }
 nav > div {
   display: flex;

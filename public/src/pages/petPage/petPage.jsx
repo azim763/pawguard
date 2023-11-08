@@ -384,28 +384,37 @@ const PetPage = () => {
   console.log("Active Tab:", activeLink);
 
   return (
-    <div>
+    <div className={styles.petPageMain}>
       <Header> </Header>
       <div className={styles.petPageGrid}>
-        {selectedPet && (
-          <PetCard
-            src={selectedPet.PetImageName}
-            petBreed={selectedPet.Breed}
-            petAge={petAge !== "-" ? `${petAge} years` : "-"}
-            petHeight={selectedPet.Height}
-            petWeight={selectedPet.Weight}
-            id={selectedPet._id}
-          />
-        )}
-
-        <div className={styles.allTabs}>
-          <div className={styles.tabTitle}>
+      <div className={styles.tabTitle}>
             <Typography variant="large-h1-poppins-bold">
               {selectedPet.PetName}
             </Typography>
             {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
             <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
           </div>
+        <div className={styles.petCard}>
+          {selectedPet && (
+            <PetCard
+              src={selectedPet.PetImageName}
+              petBreed={selectedPet.Breed}
+              petAge={petAge !== "-" ? `${petAge} years` : "-"}
+              petHeight={selectedPet.Height}
+              petWeight={selectedPet.Weight}
+              id={selectedPet._id}
+            />
+          )}
+        </div>
+
+        <div className={styles.allTabs}>
+          {/* <div className={styles.tabTitle}>
+            <Typography variant="large-h1-poppins-bold">
+              {selectedPet.PetName}
+            </Typography>
+            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+            <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
+          </div> */}
 
           <div className={styles.petPageTab}>
             <PageTabs

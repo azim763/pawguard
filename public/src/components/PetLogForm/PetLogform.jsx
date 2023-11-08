@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../PetLogForm/PetLogForm.module.css";
 import TextInput from "../TextInput/TextInput";
-import Dropdown from "../Dropdown/Dropdown";
 import Typography from "../Typography/Typography";
 import DatePicker from "../DatePicker/DatePicker";
 import Button from "../Button/Button";
 import RadioButton from "../RadioButton/RadioButton";
-import Checkbox from "../Checkbox/Checkbox";
 import {
   createPetFoodRoute,
   createPetLogRoute,
-  searchPetsByUserIDRoute,
 } from "../../utils/APIRoutes";
-import TextArea from "../TextArea/TextArea";
 import axios from "axios";
 import CloseSVG from "./../SVG/CloseSVG"
 import FoodForm from "./FoodForm/FoodForm";
@@ -115,7 +111,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
   };
 
   return (
-    <div>
+    <div className={styles.petLogFormsAndFoodForm}>
       {/* <div>
         <PetLogCard />
       </div> */}
@@ -132,7 +128,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
               </Typography>
             </div>
             <div className={styles.petLogFormLine1}>
-              <div style={{ marginRight: "30px" }}>
+              <div className={styles.petLogDateStyle}>
                 <Typography variant="body2-poppins-medium">Date</Typography>
                 <DatePicker onChange={handleLogDateChange} id="LogDate" value={LogDate} />
 
@@ -159,47 +155,46 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
               </div>
             </div>
             <div className={styles.petLogRadioButtons}>
-              <div className={styles.sessionGap}>
-                <Typography variant="body2-poppins-medium">
-                  Activity Level
-                </Typography>
-                <div style={{ padding: "10px" }}>
-                  {options.map((option) => (
-                    <RadioButton
-                      key={option.value}
-                      label={option.label}
-                      checked={formData.ActivityLevel === option.value}
-                      onChange={() =>
-                        handleRadioChange(option.value, "ActivityLevel")
-                      }
-                    />
-                  ))}
+                <div className={styles.ActivityLevel}>
+                  <Typography variant="body2-poppins-medium">
+                    Activity Level
+                  </Typography>
+                  <div className={styles.ActivityLevelRadio}>
+                    {options.map((option) => (
+                      <RadioButton
+                        key={option.value}
+                        label={option.label}
+                        checked={formData.ActivityLevel === option.value}
+                        onChange={() =>
+                          handleRadioChange(option.value, "ActivityLevel")
+                        }
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.sessionGap}>
-                <Typography variant="body2-poppins-medium">
-                  Urine Amount
-                </Typography>
-
-                <div style={{ padding: "10px" }}>
-                  {options.map((option) => (
-                    <RadioButton
-                      key={option.value}
-                      label={option.label}
-                      checked={formData.UrineAmount === option.value}
-                      onChange={() =>
-                        handleRadioChange(option.value, "UrineAmount")
-                      }
-                    />
-                  ))}
+                <div className={styles.UrineAmount}>
+                  <Typography variant="body2-poppins-medium">
+                    Urine Amount
+                  </Typography>
+                  <div className={styles.UrineAmountRadio}>
+                    {options.map((option) => (
+                      <RadioButton
+                        key={option.value}
+                        label={option.label}
+                        checked={formData.UrineAmount === option.value}
+                        onChange={() =>
+                          handleRadioChange(option.value, "UrineAmount")
+                        }
+                      />
+                    ))}
+                                </div>
                 </div>
-              </div>
-              <div>
+              <div className={styles.StoolAmount}>
                 <Typography variant="body2-poppins-medium">
                   Stool Amount
                 </Typography>
 
-                <div style={{ padding: "10px" }}>
+                <div className={styles.StoolAmountRadio}>
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
