@@ -6,6 +6,7 @@
   margin: auto;
   margin-top: -5%;
   display: grid;
+  gap: 1rem;
 }
 
 .coverBackground {
@@ -20,7 +21,7 @@
 .clinicTitle {
   display: grid;
   row-gap: 1rem;
-  margin-bottom: 60px;
+  margin-bottom: 0;
   text-align: center;
   /* word-break: break-all; */
 }
@@ -81,9 +82,7 @@
 
 .petSelection {
   display: flex;
-  margin: 5% 0 3% 0;
   justify-content: center;
-  gap: 45px;
 }
 
 .dropDown {
@@ -91,15 +90,30 @@
   margin-top: 30px;
 }
 
+.addPetLink {
+  text-decoration: underline;
+  color: var(--dark-blue);
+}
+
+.addPetLink:hover {
+  text-decoration: none;
+  color: var(--dark-blue);
+}
+
+.addPetLink:active {
+  text-decoration: none;
+  color: var(--dark-blue);
+}
+
 @media screen and (max-width: 900px) {
   .clinicsContainer {
     padding: 50px;
     grid-template-columns: 1fr;
   }
-
+  /* 
   .clinicTitle {
-    margin-bottom: 45px;
-  }
+    margin-bottom: 0;
+  } */
 
   .clinicSearch {
     grid-template-columns: unset;
@@ -109,7 +123,6 @@
 
   .petSelection {
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
   }
 
@@ -134,7 +147,7 @@
 
 @media screen and (max-width: 600px) {
   .petSelection {
-    justify-content: center;
+    justify-content: left;
   }
 
   .clinicsContainer {
