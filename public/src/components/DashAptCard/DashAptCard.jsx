@@ -12,7 +12,7 @@ const DashAptCard = ({ numOfApt, ...props }) => {
       </div>
 
       <div>
-        <Typography variant="h2-poppins-semibold" color="almost-black">
+        <Typography variant="h1-poppins-semibold" color="almost-black">
           {numOfApt}
         </Typography>
 

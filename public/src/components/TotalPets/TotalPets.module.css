@@ -1,20 +1,39 @@
 .totalPets div img{
-    width: 60px;
-    height: 60px;
+    width: 41px;
+    height: 41px;
     border-radius: 1px solid ;
     border-radius: 50%;
     box-sizing: border-box;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .totalPets{
     display: flex;
     flex-flow: row;
+    gap: -20px;
+}
+
+.totalPets > div {
+    flex: 1;
+    margin: 0 -5px; /* Half of the negative gap value */
+  }
+
+.totalPets .active {
+    border: 2.5px solid var(--light-blue);
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
 @media screen and (min-width: 768px) {
     .totalPets div img{
-        width: 41px;
-        height: 41px;
+        width: 60px;
+        height: 60px;
     }
+
+    .totalPets > div {
+        flex: 1;
+        margin: 0 -10px; /* Half of the negative gap value */
+      }
 }
