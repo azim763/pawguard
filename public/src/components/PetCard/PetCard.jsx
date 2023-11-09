@@ -34,7 +34,7 @@ const PetCard = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isArchiveModalOpen, setIsArchiveModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -55,28 +55,28 @@ const PetCard = ({
 
   const handleArchiveClick = () => {
     // Handle archive action
-
-    handleMoreMenuClose();
+    setIsArchiveModalOpen(true);
+    // handleMoreMenuClose();
   };
 
-  const handleConfirmDelete = () => {
-    axios
-      .delete(`${deletePetAppointmentByIdRoute}/${AppointmentId}`)
-      .then((response) => {
-        console.log(`Log entry with ID ${AppointmentId} deleted successfully.`);
-        onDelete();
-      })
-      .catch((error) => {
-        console.error(
-          `Error deleting log entry with ID ${AppointmentId}:`,
-          error
-        );
-      });
-    setIsDeleteModalOpen(false);
+  const handleConfirmArchive = () => {
+    // axios
+    //   .delete(`${deletePetAppointmentByIdRoute}/${AppointmentId}`)
+    //   .then((response) => {
+    //     console.log(`Log entry with ID ${AppointmentId} deleted successfully.`);
+    //     onDelete();
+    //   })
+    //   .catch((error) => {
+    //     console.error(
+    //       `Error deleting log entry with ID ${AppointmentId}:`,
+    //       error
+    //     );
+    //   });
+    setIsArchiveModalOpen(false);
   };
-  const handleCancelDelete = () => {
+  const handleCancelArchive = () => {
     // Close the delete confirmation modal without performing the delete
-    setIsDeleteModalOpen(false);
+    setIsArchiveModalOpen(false);
   };
 
   const handleExportClick = () => {
@@ -140,10 +140,10 @@ const PetCard = ({
           <PenSVG className={styles.SVGIcons} />
           <Typography variant="detailtext2-poppins-medium">edit </Typography>
         </NavLink>
-        <NavLink to="">
-          <ArchiveSVG className={styles.SVGIcons} />
+        <div>
+          <ArchiveSVG  className={styles.SVGIcons} onClick={handleArchiveClick} />
           <Typography variant="detailtext2-poppins-medium">archive </Typography>
-        </NavLink>
+        </div>
         <div>
           <ExportSVG className={styles.SVGIcons} onClick={handleExportClick} />
           <Typography variant="detailtext2-poppins-medium">export</Typography>
@@ -164,7 +164,7 @@ const PetCard = ({
           onClose={handleMoreMenuClose}
         >
           <MenuItem>
-            <NavLink to={`/editPet/${id}`}>Edit</NavLink>
+            {/* <NavLink to={`/editPet/${id}`}>Edit</NavLink> */}
           </MenuItem>
           <MenuItem onClick={handleArchiveClick}>Archive</MenuItem>
           <MenuItem onClick={handleExportClick}>Export</MenuItem>
@@ -172,26 +172,30 @@ const PetCard = ({
       </div>
 
       <Modal
-        isOpen={isDeleteModalOpen}
+        isOpen={isArchiveModalOpen}
         contentLabel="Delete Confirmation"
-        onRequestClose={() => setIsDeleteModalOpen(false)}
+        onRequestClose={() => setIsArchiveModalOpen(false)}
         className={modalStyles.modal} // Apply the modal styles
         overlayClassName={modalStyles.overlay} // You can also style the overlay
       >
-        <Typography variant="sub-poppins-medium">Delete Entry</Typography>
+        <Typography variant="sub-poppins-medium">Archive Pet</Typography>
         <hr></hr>
         <Typography variant="body2-poppins-medium">
-          This entry will be removed.
+          This pet will be archived.
         </Typography>
         <div className={modalStyles.CardButtonGroup}>
           <Button
             variant="cancel-btn"
             size="dk-md-s"
-            onClick={handleCancelDelete}
+            onClick={handleCancelArchive}
           >
             Cancel
           </Button>
-          <Button variant="yellow" size="dk-md-s" onClick={handleConfirmDelete}>
+          <Button
+            variant="yellow"
+            size="dk-md-s"
+            onClick={handleConfirmArchive}
+          >
             Confirm
           </Button>
         </div>

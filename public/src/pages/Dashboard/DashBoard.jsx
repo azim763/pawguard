@@ -196,7 +196,7 @@ export default function Dashboard() {
       <Header />
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardPetCard}>
-          <Typography variant="h1-poppins-semibold" color="dark-blue">
+          <Typography variant="sub-poppins-medium" color="dark-blue">
             My Pets
           </Typography>
           <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
@@ -220,7 +220,7 @@ export default function Dashboard() {
 
         <div className={styles.middleContainer}>
           <div className={styles.middleTitle}>
-            <Typography variant="sub-poppins-medium">
+            <Typography variant="h1-poppins-semibold" color="dark-blue">
               {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
             </Typography>
 

@@ -393,7 +393,7 @@ const PetPage = () => {
             <Typography variant="large-h1-poppins-bold">
               {selectedPet.PetName}
             </Typography>
-            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+            {pets && <TotalPets pets={pets} selectedPet={selectedPet} onPetSelect={handlePetSelection} />}
             <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
           </div>
         <div className={styles.petCard}>
