@@ -132,3 +132,8 @@
   width: 80%;
 }
 }
+
+.petLogImage div img{
+  width:200px;
+  height: 200px;
+}

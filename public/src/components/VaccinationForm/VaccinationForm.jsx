@@ -115,34 +115,36 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
         <CloseSVG width="27" height="28" />
       </div>
       <form onSubmit={handleSubmit}>
-        <Dropdown
-          size="md"
-          label="Name of Vaccination"
-          defaultValue="Select Vaccine"
-          id="NameOfVaccination"
-          options={vaccines}
-          value={formData.NameOfVaccination}
-          onChange={(selectedValue) =>
-            handleDropdownChange("NameOfVaccination", selectedValue)
-          }
-          required={true}
-        />
-        {/* <TextInput
-          label="Name of Vaccination"
-          id="NameOfVaccination"
-          type="text"
-          name="NameOfVaccination"
-          onChange={handleInputChange}
-          value={formData.name}
-        /> */}
-        <div className={styles.fieldGap}>
-          <Typography variant="body2-poppins-medium">
-            <label htmlFor="">Date</label>
-          </Typography>
-          <DatePicker
-            id="VaccinationDate"
-            onChange={handleDateChange}
-          ></DatePicker>
+        <div className={styles.DropdownAndDatePicker}>
+          <Dropdown
+            size="md"
+            label="Name of Vaccination"
+            defaultValue="Select Vaccine"
+            id="NameOfVaccination"
+            options={vaccines}
+            value={formData.NameOfVaccination}
+            onChange={(selectedValue) =>
+              handleDropdownChange("NameOfVaccination", selectedValue)
+            }
+            required={true}
+          />
+          {/* <TextInput
+            label="Name of Vaccination"
+            id="NameOfVaccination"
+            type="text"
+            name="NameOfVaccination"
+            onChange={handleInputChange}
+            value={formData.name}
+          /> */}
+          <div className={styles.fieldGap}>
+            <Typography variant="body2-poppins-medium">
+              <label htmlFor="">Date</label>
+            </Typography>
+            <DatePicker
+              id="VaccinationDate"
+              onChange={handleDateChange}
+            ></DatePicker>
+          </div>
         </div>
         <div className={styles.vaccineButton}>
           <Button variant="yellow" label="Save" size="dk-md-s" />
