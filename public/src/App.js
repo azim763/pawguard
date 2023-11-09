@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
-
+import EditPet from "./pages/editPet/EditPet";
 import ListClinics from "./pages/ListClinics/ListClinics";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import InsuranceSearch from "./pages/InsuranceSearch/InsuranceSearch";
@@ -37,6 +37,7 @@ export default function App() {
         <Route path="/petPage" element={<PetPage />} />
         <Route path="/addPet" element={<AddPet />} />
         <Route path="/exportpetLog/:petID" element={<ExportpetLog />} />
+        <Route path="/editPet/:petID" element={<EditPet />} />
         
       </Routes>
     </BrowserRouter>

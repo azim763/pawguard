@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const PetSchema = new mongoose.Schema({
   UserID: {
     type: String,
-      required: true,
+    required: true,
   },
   PetName: { type: String, required: false },
   Gender: { type: String, required: false },
@@ -16,6 +16,7 @@ const PetSchema = new mongoose.Schema({
   PreExistingMedical: { type: String, required: false },
   PetImageName: { type: String, required: false },
   Description: { type: String, required: false },
+  Archive: { type: Boolean, default: false, required: false },
   timestamp: { type: Date, default: Date.now },
 });
 
