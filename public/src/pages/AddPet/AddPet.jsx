@@ -12,10 +12,19 @@ import DatePicker from "../../components/DatePicker/DatePicker";
 import Header from "../../components/Header/header";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const AddPet = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 5000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   const petType = [
     { value: "Dog", label: "Dog" },
     { value: "Cat", label: "Cat" },
@@ -103,6 +112,23 @@ const AddPet = () => {
     });
   };
 
+  const handleValidation = () => {
+    const { PetName, Height, Weight } = petData;
+    if (PetName.length < 1) {
+      console.log(PetName);
+      toast.error("Pet name is required.", toastOptions);
+      return false;
+    }
+    else if (isNaN(Height) || Height.length < 1 || Height.trim() == "") {
+      toast.error("Height is required and must be number.", toastOptions);
+      return false;
+    }
+    else if (isNaN(Weight) || Weight.length < 1 || Weight.trim() == " ") {
+      toast.error("Weight is required and must be number.", toastOptions);
+      return false;
+    } return true;
+  };
+
   if (petData.Species === "cat") {
     bloodType = [
       { value: "A", label: "A" },
@@ -160,12 +186,14 @@ const AddPet = () => {
       };
 
       setPetData(updatedPetData);
-
-      const response = await axios.post(createPetRoute, updatedPetData);
-
-      // Handle successful submission
-      console.log("Data submitted successfully:", response.data);
-      navigate("/");
+      if (handleValidation()) {
+        const response = await axios.post(createPetRoute, updatedPetData);
+        // Handle successful submission
+        console.log("Data submitted successfully:", response.data);
+        navigate("/");
+      } else {
+        //  console.error("tttttttt");
+      }
     } catch (error) {
       console.error("Error while submitting data:", error);
       // Handle the error, e.g., display an error message to the user.
@@ -195,7 +223,7 @@ const AddPet = () => {
             id="PetName"
             label="Name *"
             onChange={handleInputChange}
-            required={true}
+
           />
           <Dropdown
             size="md"
@@ -264,6 +292,7 @@ const AddPet = () => {
               id="Weight"
               label="Pet Weight *"
               placeholder="Eg: 7"
+              type="Number"
               onChange={handleInputChange}
               required={true}
             />
@@ -296,6 +325,7 @@ const AddPet = () => {
           />
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
