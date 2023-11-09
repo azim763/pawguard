@@ -12,6 +12,7 @@ nav > div {
   padding: 16px 12px;
   max-width: 1130px;
   margin: auto;
+  max-height: 12vh;
 }
 
 nav > div > svg {

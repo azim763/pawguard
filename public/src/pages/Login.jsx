@@ -108,7 +108,7 @@ export default function Login() {
 }
 
 const FormContainer = styled.div`
-  height: 90vh;
+  height: 88vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -139,7 +139,8 @@ const FormContainer = styled.div`
     // background-color: #fff;
     // border-radius: 2rem;
     padding: 5rem;
-    overflow: hidden;
+    overflow: scroll;
+    scrollbar-width: none;
   }
   input {
     background-color: transparent;
@@ -180,7 +181,7 @@ button{
   flex-direction: column;
   -moz-box-pack: center;
   justify-content: center;
-  height: 90vh;
+  height: 88vh;
 }
   .parent{
     display: grid;
@@ -189,7 +190,7 @@ button{
   }
   .bg-illustration {
     position: relative;
-    height: 90vh;
+    height: 88vh;
     width: 894px;
     background: url("${loginbackground}") no-repeat center center scroll;
     background-size: cover;
