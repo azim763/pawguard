@@ -11,6 +11,7 @@ import {
   searchPetFoodByPetIDRoute,
   host,
   searchPetAppointmentsByUserIDRoute,
+  searchPetMedicationsByUserIDRoute,
   searchPetMedicationsByPetIDRoute,
 } from "../../utils/APIRoutes";
 import Header from "../../components/Header/header";
@@ -36,12 +37,12 @@ export default function Dashboard() {
   const [appointments, setAppointment] = useState([]);
   const [medication, setMedication] = useState([]);
   const [petLog, setPetLog] = useState([]);
+  const [userMed, setUserMed] = useState([]);
 
   const currentDate = new Date(); // Get the current date
   const formattedCurrentDate = `${currentDate.getDate()}-${
     currentDate.getMonth() + 1
   }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
-  console.log(formattedCurrentDate);
 
   const filteredAppointment = appointments.filter((apt) => {
     const aptDateParts = apt.AppointmentDate.split("-");
@@ -63,7 +64,6 @@ export default function Dashboard() {
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
-    console.log(selectedPet);
   };
 
   useEffect(() => {
@@ -102,7 +102,6 @@ export default function Dashboard() {
           params: { PetID: selectedPet._id },
         });
         setFoods(responseFood.data);
-        console.log(responseFood.data);
       } catch (error) {
         console.error("Error fetching pet foods:", error);
       }
@@ -118,7 +117,6 @@ export default function Dashboard() {
           params: { PetID: selectedPet._id },
         });
         setPetLog(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching pet foods:", error);
       }
@@ -130,13 +128,31 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseApt = await axios.get(searchPetAppointmentsByUserIDRoute, {
-          params: { UserID: currentUser._id },
-        });
+        const responseApt = await axios.get(
+          searchPetAppointmentsByUserIDRoute,
+          {
+            params: { UserID: currentUser._id },
+          }
+        );
         setAppointment(responseApt.data);
-        console.log(responseApt.data);
       } catch (error) {
         console.error("Error fetching pet appointment:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
+          params: { UserID: currentUser._id },
+        });
+        setUserMed(userMed.data);
+        console.log(userMed.data);
+      } catch (error) {
+        console.error("Error fetching medication by user:", error);
       }
     };
 
@@ -150,7 +166,6 @@ export default function Dashboard() {
           params: { PetID: selectedPet._id },
         });
         setMedication(responseMed.data);
-        console.log(responseMed.data);
       } catch (error) {
         console.error("Error fetching pet medication:", error);
       }
@@ -181,7 +196,7 @@ export default function Dashboard() {
       <Header />
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardPetCard}>
-          <Typography variant="h2-poppins-semibold" color="dark-blue">
+          <Typography variant="h1-poppins-semibold" color="dark-blue">
             My Pets
           </Typography>
           <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
@@ -193,6 +208,7 @@ export default function Dashboard() {
                     styles={{ marginBottom: "20px" }}
                     PetImageData={pet.PetImageName}
                     PetName={pet.PetName}
+                    selectedPet={selectedPet}
                   />
                 </Link>
               ))}
@@ -208,7 +224,13 @@ export default function Dashboard() {
               {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
             </Typography>
 
-            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+            {pets && (
+              <TotalPets
+                pets={pets}
+                selectedPet={selectedPet}
+                onPetSelect={handlePetSelection}
+              />
+            )}
           </div>
           <div className={styles.petSummaryCards}>
             <DashMedicineCard numOfMedicine={filteredMedication.length} />
@@ -270,7 +292,13 @@ export default function Dashboard() {
             </Carousel>
           </div>
         </div>
-        {pets &&(<DashCalendar petAppointments={appointments} pet={pets} />)}
+        {pets && userMed && appointments && (
+          <DashCalendar
+            petAppointments={appointments}
+            petMedications={userMed}
+            pets={pets}
+          />
+        )}
       </div>
     </div>
   );

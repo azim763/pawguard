@@ -163,7 +163,7 @@ else if (password !== confirmPassword) {
 }
 
 const FormContainer = styled.div`
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -182,7 +182,7 @@ const FormContainer = styled.div`
     }
     h1 {
       color: #54656f;
-      text-transform: uppercase;
+     // text-transform: uppercase;
       font-size:2.2rem;
     }
   }
@@ -190,10 +190,12 @@ const FormContainer = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.2rem;
     // background-color: #fff;
     // border-radius: 2rem;
-    padding: 5rem;
+    padding: 2rem;
+    max-width: 600px;
+    overflow: hidden;
   }
   input {
     background-color: transparent;
@@ -234,7 +236,7 @@ button{
   flex-direction: column;
   -moz-box-pack: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
 }
   .parent{
     display: grid;
@@ -243,7 +245,7 @@ button{
   }
   .bg-illustration {
     position: relative;
-    height: 100vh;
+    height: 90vh;
     width: 894px;
     background: url("${loginbackground}") no-repeat center center scroll;
     background-size: cover;
@@ -282,7 +284,7 @@ button{
   @media only screen and (max-width: 960px)
   {
     .name{
-      gap: 2rem;
+      gap: 1.2rem;
       grid-template-columns: auto ;
     }
     .parent {
