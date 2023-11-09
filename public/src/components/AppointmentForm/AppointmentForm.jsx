@@ -15,7 +15,6 @@ import CloseSVG from "./../SVG/CloseSVG";
 
 const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
-  // const clinicData = ["Clinic A", "Clinic B", "Clinic C"];
   const [clinicData, setClinicData] = useState([]);
 
   useEffect(() => {

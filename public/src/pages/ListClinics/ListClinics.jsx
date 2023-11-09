@@ -29,19 +29,14 @@ const ListClinics = () => {
   const [selectedClinicName, setselectedClinicName] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
+  const [selectedCards, setSelectedCards] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState();
 
-  // const [selectedCards, setSelectedCards] = useState([]);
+  const handlePetSelectClinicClick = (specialties, petData) => {
+    setSelectedCards(petData);
 
-  const handlePetSelectClinicClick = (specialties) => {
     if (specialties === "" || specialties === null) setSelectedOptions([]);
     else setSelectedOptions(specialties.split(","));
-
-    // setSelectedCards((prevSelectedCards) => {
-    //   const isSelected = prevSelectedCards.includes(id);
-    //   return isSelected
-    //     ? prevSelectedCards.filter((cardId) => cardId !== id)
-    //     : [...prevSelectedCards, id];
-    // });
   };
 
   const handleDropdownChange = (value) => {
@@ -85,11 +80,14 @@ const ListClinics = () => {
         });
 
         setPets(response.data);
+        console.log(response.data);
+        setCurrentUserId(data._id);
+        console.log(data._id);
+
         if (!selectedPet && response.data.length > 0) {
           setSelectedPet(response.data[0]);
           console.log(response.data[0]._id);
           setSelectedOptions(response.data[0].PreExistingMedical.split(","));
-          //
         }
 
         console.log("sort data");
@@ -194,26 +192,6 @@ const ListClinics = () => {
     setClinicData(filteredResults);
   };
 
-  //     const matchesUrgentCare = urgentCareChecked ? clinic.UrgentCare : false;
-  //     const matchesOpen24hrs = open24hrsChecked ? clinic.Open24 : false;
-  //     if (urgentCareChecked && open24hrsChecked) {
-  //       return matchesUrgentCare && matchesOpen24hrs;
-  //     } else if (urgentCareChecked) {
-  //       return matchesUrgentCare;
-  //     } else if (open24hrsChecked) {
-  //       return matchesOpen24hrs;
-  //     } else {
-  //       return false;
-  //     }
-  //   });
-
-  //   setClinicData(
-  //     urgentCareChecked || open24hrsChecked ? clinicData : filteredResults
-  //   );
-  //   console.log(filteredResults);
-  //   console.log(clinicData);
-  // };
-
   return (
     <div>
       <Header />
@@ -233,23 +211,45 @@ const ListClinics = () => {
       </div>
       <div className={styles.clinicsContainer}>
         <div className={styles.clinicTitle}>
-          <Typography variant="h2-poppins-semibold" color="almost-black">
-            Select the pet you would like to find clinics for.
-          </Typography>
-          <Typography variant="body2-poppins-medium" color="almost-black">
-            Specialties will be recommended for your pet’s needs.
-          </Typography>
+          {currentUserId ? (
+            <>
+              <Typography variant="h2-poppins-semibold" color="almost-black">
+                Select the pet you would like to find clinics for.
+              </Typography>
+              <Typography variant="body2-poppins-medium" color="almost-black">
+                Specialties will be recommended for your pet’s needs.
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography variant="h2-poppins-semibold" color="almost-black">
+                Enter clinic specialties and city name
+              </Typography>
+              <Typography variant="body2-poppins-medium">
+                <Link to="/addPet" className={styles.addPetLink}>
+                  Sign in to select your pet
+                </Link>
+              </Typography>
+            </>
+          )}
           <div className={styles.petSelection}>
-            {pets.map((petSelectClinic) => (
-              <PetSelectionClinic
-                // id={petSelectClinic._id}
-                specialties={petSelectClinic.PreExistingMedical}
-                imgUrl={petSelectClinic.PetImageName}
-                clinicPetName={petSelectClinic.PetName}
-                onClick={handlePetSelectClinicClick}
-                // selected={selectedCards.includes(petSelectClinic._id)}
-              />
-            ))}
+            {currentUserId ? (
+              pets &&
+              Array.isArray(pets) &&
+              pets.map((petSelectClinic) => (
+                <div key={petSelectClinic._id}>
+                  <PetSelectionClinic
+                    specialties={petSelectClinic.PreExistingMedical}
+                    imgUrl={petSelectClinic.PetImageName}
+                    clinicPetName={petSelectClinic.PetName}
+                    selected={pets === selectedCards}
+                    onClick={handlePetSelectClinicClick}
+                  />
+                </div>
+              ))
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className={styles.multiplePetSelection}>
@@ -344,7 +344,7 @@ const ListClinics = () => {
             />
           </div>
 
-          <div className={styles.dropDown}>
+          <div style={{ marginBottom: "10px", marginTop: "30px" }}>
             <Dropdown
               id="sortBy"
               name="sortBy"

@@ -10,6 +10,7 @@ import CloseSVG from "./../SVG/CloseSVG";
 import TimePicker from "../TimePicker/TimePicker";
 
 const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
+  const [medicationDate, setMedicationDate] = useState(new Date());
   const [formData, setFormData] = useState({
     PetID: "",
     MedicineName: "",
@@ -29,7 +30,7 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
   const handleDateChange = (event) => {
     const value = event.target.value;
     const [year, month, day] = value.split("T")[0].split("-");
-    const medResultDate = new Date(year, month - 1, day);
+    const medResultDate = `${day}-${month}-${year}`;
     setFormData({
       ...formData,
       MedicationDate: medResultDate,
@@ -43,10 +44,11 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     if (selectedPet && selectedPet._id) {
-      const updatedFormData = { ...formData,
-         PetID: selectedPet._id,
-         UserID: storedData._id
-        };
+      const updatedFormData = {
+        ...formData,
+        PetID: selectedPet._id,
+        UserID: storedData._id,
+      };
       setFormData(updatedFormData);
 
       try {
@@ -56,8 +58,8 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-          // ...
-          onMedicationSubmit(updatedFormData);
+        // ...
+        onMedicationSubmit(updatedFormData);
       } catch (error) {
         console.error("Error submitting form:", error);
       }

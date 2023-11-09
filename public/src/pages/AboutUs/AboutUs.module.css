@@ -7,7 +7,8 @@
   background-color: var(--pearl-blue);
 }
 
-.abtUs1Description, .abtUs4 {
+.abtUs1Description,
+.abtUs4 {
   padding: 42px 20px;
 }
 
@@ -27,15 +28,16 @@
   padding-top: 16px;
 }
 
-.abtUs2Images > div,
-.abtUs3Images > div {
+.abtUs2Images > div {
   margin-top: 42px;
+  padding: 0 30px;
 }
 
 .abtUs3Images {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
+  gap: 21px;
+  margin-top: 32px;
 }
 
 .abtUs1Description > * {
@@ -52,6 +54,7 @@
   gap: 56px;
   max-width: 500px;
   margin: auto;
+  margin-top: 32px;
 }
 
 .abtUs4Info > div:first-of-type {
@@ -61,9 +64,8 @@
 
 .abtUs4 img {
   width: 100%;
-  max-width: 350px;
+  max-width: 450px;
 }
-
 
 textarea {
   width: 100%;
@@ -79,7 +81,6 @@ textarea {
   flex-flow: column wrap;
   max-width: 500px;
   gap: 16px;
-  
 }
 
 .abtUs4 button {
@@ -87,11 +88,18 @@ textarea {
 }
 
 @media screen and (min-width: 700px) {
+  .abtUs1 {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+  }
+
+  .abtUs1Description {
+    padding: 60px;
+  }
 
   .abtUs1 > div:last-of-type {
     max-width: 500px;
-    position: relative;
-  right: 0;
   }
 
   .abtUs2,
@@ -101,8 +109,14 @@ textarea {
   }
 
   .abtUs3Images {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .abtUs3Images > div:nth-child(n) {
+    justify-content: center;
+    flex-basis: calc(20% - 21px);
   }
 
   .abtUs2 > div:nth-child(2),
@@ -165,7 +179,6 @@ textarea {
     padding-bottom: 36px;
   }
 
-
   .abtUs4Info {
     padding-top: 24px;
     display: grid;
@@ -184,7 +197,6 @@ textarea {
     grid-column: 2/3;
   }
 
-
   .abtUs4Info > div:nth-child(2) {
     display: flex;
     flex-flow: column wrap;
@@ -201,48 +213,48 @@ textarea {
 }
 
 @media screen and (min-width: 1000px) {
-    .abtUs1 {
-    display: flex;
-    justify-content: space-between;
+  .abtUs1 {
+    flex-flow: row nowrap;
+    justify-content: center;
     align-items: end;
-    padding: 60px 0;
+    padding-top: 60px;
+    height: 585px;
   }
 
   .abtUs1Description {
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-self: flex-start;
     display: flex;
-    padding-right: 32px;
+    padding-left: 130px;
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    width: 55vw;
     gap: 36px;
+    width: 90%;
+    max-width: 700px;
   }
 
   .abtUs2,
   .abtUs3,
   .abtUs4 {
     width: 100%;
-    padding: 64px 152px;
+    padding: 64px 130px;
     margin: 0 auto;
   }
 
-  .abtUs1Description {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .abtUs1Description,
   .abtUs2,
   .abtUs3,
   .abtUs4 form {
     max-width: 1130px;
   }
 
-  .title1::before {
+  /* .title1::before {
     left: 80px;
   }
 
   .title1::after {
     right: 80px;
-  }
+  } */
 }
