@@ -26,7 +26,26 @@
   justify-content: end;
   grid-column: 1/-1;
 }
-
+/* 
 .fieldGap{
   margin-left: 40px;
+} */
+.DropdownAndDatePicker{
+  display: flex;
+  gap:2rem;
+  flex-direction: row;
+}
+
+@media only screen and  (max-width: 768px) {
+
+.vaccinationForm form{
+grid-template-columns: 1fr;
+}
+.DropdownAndDatePicker{
+  flex-direction: column;
+}
+.vaccineButton button{
+  width: 100%;
+}
+
 }

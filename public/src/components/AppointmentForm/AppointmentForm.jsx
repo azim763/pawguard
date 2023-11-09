@@ -98,7 +98,7 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
         <CloseSVG width="27" height="28" />
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={styles.clinicNameStyle}>
           <Typography variant="body2-poppins-medium">Clinic Name</Typography>
           {clinicData.length > 0 && (
             <AutocompleteComponent
@@ -121,7 +121,7 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
             />
           )}
         </div>
-        <div>
+        <div className={styles.TextInputStyle}>
           <TextInput
             id="AppointmentReason"
             label="Appointment Reason"
