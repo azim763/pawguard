@@ -12,7 +12,7 @@ const PetSelection = ({ PetName, PetImageData, onClick ,is }) => {
       <div className={styles.imageContainer}>
         <ImageDisplay PetImageData={PetImageData} />
       </div>
-      <Typography variant="sub-poppins-medium" color="dark-blue">{PetName}</Typography>
+      <Typography variant="body2-poppins-medium" color="almost-black">{PetName}</Typography>
     </div>
   );
 };
