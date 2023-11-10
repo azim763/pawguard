@@ -190,7 +190,7 @@ export default function Dashboard() {
 
           const targetDate = new Date(medDate);
           targetDate.setDate(medDate.getDate() + daysToAdd);
-          console.log(`med.MedicationDate: ${med.MedicationDate}`)
+          console.log(`med.MedicationDate: ${med.MedicationDate}`);
           console.log(`medDate: ${medDate}`);
           console.log(`daysToAdd: ${daysToAdd}`);
           console.log(`targetDate: ${targetDate}`);
@@ -294,7 +294,12 @@ export default function Dashboard() {
                             icon={faArrowLeft}
                             className={styles.marginIcon}
                           />
-                          Meal Record
+                          <Typography
+                            variant="detailtext2-poppins-medium"
+                            color="dark-blue"
+                          >
+                            Meal Record
+                          </Typography>
                         </div>
                         <hr className={styles.underline}></hr>
                       </>
@@ -323,7 +328,12 @@ export default function Dashboard() {
                     {hasNext ? (
                       <>
                         <div className={styles.graphNav}>
-                          Weight Record
+                          <Typography
+                            variant="detailtext2-poppins-medium"
+                            color="dark-blue"
+                          >
+                            Weight Record
+                          </Typography>
                           <FontAwesomeIcon
                             icon={faArrowRight}
                             className={styles.marginIconArr}
