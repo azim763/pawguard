@@ -26,6 +26,9 @@ import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard
 import DashAptCard from "../../components/DashAptCard/DashAptCard";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function Dashboard() {
   const [pets, setPets] = useState([]);
@@ -196,7 +199,7 @@ export default function Dashboard() {
       <Header />
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardPetCard}>
-          <Typography variant="h1-poppins-semibold" color="dark-blue">
+          <Typography variant="sub-poppins-medium" color="dark-blue">
             My Pets
           </Typography>
           <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
@@ -220,7 +223,7 @@ export default function Dashboard() {
 
         <div className={styles.middleContainer}>
           <div className={styles.middleTitle}>
-            <Typography variant="sub-poppins-medium">
+            <Typography variant="h1-poppins-semibold" color="dark-blue">
               {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
             </Typography>
 
@@ -247,8 +250,25 @@ export default function Dashboard() {
                       hasPrev ? "" : "hidden"
                     }`}
                     onClick={clickHandler}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      zIndex: "999",
+                      // textDecoration: "underline",
+                    }}
                   >
-                    {hasPrev ? "Meal Record" : ""}
+                    {hasPrev ? (
+                      <>
+                        <div className={styles.graphNav}>
+                          <FontAwesomeIcon icon={faArrowLeft} className = {styles.marginIcon}/>
+                          Meal Record
+                        </div>
+                        <hr className={styles.underline}></hr>
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 );
               }}
@@ -259,34 +279,75 @@ export default function Dashboard() {
                       hasNext ? "" : "hidden"
                     }`}
                     onClick={clickHandler}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      zIndex: "999",
+                      // textDecoration: "underline",
+                      marginBottom: "30px",
+                    }}
                   >
-                    {hasNext ? "Weight Record" : ""}
+                    {hasNext ? (
+                      <>
+                        <div className={styles.graphNav}>
+                          Weight Record
+                          <FontAwesomeIcon icon={faArrowRight} className = {styles.marginIconArr}/>
+                        </div>
+
+                        <hr className={styles.underline}></hr>
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 );
               }}
             >
               {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
               <div>
-                <Typography variant="body2-poppins-medium">
-                  Weekly Meal Record
-                </Typography>
-                {selectedPet && (
-                  <Graph
-                    names={foods.map((food) => food.QuantityPerMeal)}
-                    values={foods.map((food) => food.FoodDate)}
-                  />
-                )}
+                <div className={styles.graphTitle}>
+                  <Typography variant="body2-poppins-medium">
+                    Weekly Meal Record
+                  </Typography>
+                </div>
+                <div>
+                  {foods.length > 0 ? (
+                    selectedPet && (
+                      <div className={styles.graphContainerMain}>
+                        <Graph
+                          names={foods.map((food) => food.QuantityPerMeal)}
+                          values={foods.map((food) => food.FoodDate)}
+                        />
+                      </div>
+                    )
+                  ) : (
+                    <div className={styles.graphNoRecord}>
+                      No record available
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div>
-                <Typography variant="body2-poppins-medium">
-                  Weekly Weight Record
-                </Typography>
-                {selectedPet && (
-                  <Graph
-                    names={petLog.map((petLog) => petLog.Weight)}
-                    values={petLog.map((petLog) => petLog.LogDate)}
-                  />
+                <div className={styles.graphTitle}>
+                  <Typography variant="body2-poppins-medium">
+                    Weekly Weight Record
+                  </Typography>
+                </div>
+                {foods.length > 0 ? (
+                  selectedPet && (
+                    <div className={styles.graphContainerMain}>
+                      <Graph
+                        names={petLog.map((petLog) => petLog.Weight)}
+                        values={petLog.map((petLog) => petLog.LogDate)}
+                      />
+                    </div>
+                  )
+                ) : (
+                  <div className={styles.graphNoRecord}>
+                    No record available
+                  </div>
                 )}
               </div>
             </Carousel>
