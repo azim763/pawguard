@@ -20,7 +20,7 @@ import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic
 let originalClinicData = [];
 
 const ListClinics = () => {
-  const [selectedPet, setSelectedPet] = useState(null);
+  const [selectedPetId, setSelectedPetId] = useState(null);
   const [clinicData, setClinicData] = useState([]);
   const [urgentCareChecked, setUrgentCareChecked] = useState(false);
   const [open24hrsChecked, setOpen24hrsChecked] = useState(false);
@@ -29,11 +29,10 @@ const ListClinics = () => {
   const [selectedClinicName, setselectedClinicName] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
-  const [selectedCards, setSelectedCards] = useState(null);
   const [currentUserId, setCurrentUserId] = useState();
 
-  const handlePetSelectClinicClick = (specialties, petData) => {
-    setSelectedCards(petData);
+  const handlePetSelectClinicClick = (id, specialties) => {
+    setSelectedPetId(id);
 
     if (specialties === "" || specialties === null) setSelectedOptions([]);
     else setSelectedOptions(specialties.split(","));
@@ -84,9 +83,8 @@ const ListClinics = () => {
         setCurrentUserId(data._id);
         console.log(data._id);
 
-        if (!selectedPet && response.data.length > 0) {
-          setSelectedPet(response.data[0]);
-          console.log(response.data[0]._id);
+        if (!selectedPetId && response.data.length > 0) {
+          setSelectedPetId(response.data[0]._id);
           setSelectedOptions(response.data[0].PreExistingMedical.split(","));
         }
 
@@ -129,10 +127,6 @@ const ListClinics = () => {
         console.log("Error fetching data: ", error);
       });
   }, []);
-
-  const handlePetClick = (index) => {
-    setSelectedPet(index);
-  };
 
   const handleClickDetails = (clinicId) => {
     navigate(`/clinic/details/${clinicId}`);
@@ -239,10 +233,11 @@ const ListClinics = () => {
               pets.map((petSelectClinic) => (
                 <div key={petSelectClinic._id}>
                   <PetSelectionClinic
+                    id={petSelectClinic._id}
                     specialties={petSelectClinic.PreExistingMedical}
                     imgUrl={petSelectClinic.PetImageName}
                     clinicPetName={petSelectClinic.PetName}
-                    selected={pets === selectedCards}
+                    selected={petSelectClinic._id === selectedPetId}
                     onClick={handlePetSelectClinicClick}
                   />
                 </div>

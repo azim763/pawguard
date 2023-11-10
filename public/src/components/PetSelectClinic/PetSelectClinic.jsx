@@ -3,7 +3,7 @@ import styles from "./petSelectClinic.module.css";
 import Typography from "../Typography/Typography";
 
 const PetSelectionClinic = ({
-  // id,
+  id,
   specialties,
   imgUrl,
   alt,
@@ -16,7 +16,7 @@ const PetSelectionClinic = ({
     // if (isSelected) {
     //   setIsSelected(false); // If it's already selected, unselect it
     // } else {
-    onClick(specialties); // Otherwise, select it
+    onClick(id, specialties); // Otherwise, select it
     // setIsSelected(true);
     // }
   };
