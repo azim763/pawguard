@@ -8,6 +8,8 @@ import axios from "axios";
 import styles from "./MedicationForm.module.css";
 import CloseSVG from "./../SVG/CloseSVG";
 import TimePicker from "../TimePicker/TimePicker";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
   const [medicationDate, setMedicationDate] = useState(new Date());
@@ -18,6 +20,34 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
     MedicationPeriod: "",
     MedicationDate: "",
   });
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+  const validateForm = () => {
+    const { MedicineName, DosageAmount,MedicationPeriod,MedicationDate } = formData;
+    console.log(MedicineName);
+    if (MedicineName === "") {
+      console.log("errr");
+      toast.error("Medicine Name is required.", toastOptions);
+      return false;
+    } else if (DosageAmount === "") {
+      toast.error("Dosage Amount is required.", toastOptions);
+      return false;
+    }
+    else if (MedicationPeriod === "") {
+      toast.error("Medication Period is required.", toastOptions);
+      return false;
+    }
+    else if (MedicationDate === "") {
+      toast.error("Medication Date is required.", toastOptions);
+      return false;
+    }
+    return true;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +74,10 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     if (selectedPet && selectedPet._id) {
+
+      if (validateForm()){
+
+     
       const updatedFormData = {
         ...formData,
         PetID: selectedPet._id,
@@ -62,7 +96,10 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
         onMedicationSubmit(updatedFormData);
       } catch (error) {
         console.error("Error submitting form:", error);
+        toast.error("Error submitting form.", toastOptions);
+        }   
       }
+
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
@@ -126,6 +163,7 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
           <Button variant="yellow" label="Save" size="dk-md-s" />
         </div>
       </form>
+      <ToastContainer/>
     </div>
   );
 };

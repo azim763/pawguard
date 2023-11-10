@@ -25,6 +25,13 @@ const AddPet = () => {
     draggable: true,
     theme: "dark",
   };
+  const toastOptionsSuccess = {
+    position: "bottom-right",
+    autoClose: 5000,
+    pauseOnHover: false,
+    draggable: true,
+    theme: "light",
+  };
   const petType = [
     { value: "Dog", label: "Dog" },
     { value: "Cat", label: "Cat" },
@@ -189,14 +196,18 @@ const AddPet = () => {
       if (handleValidation()) {
         const response = await axios.post(createPetRoute, updatedPetData);
         // Handle successful submission
-        console.log("Data submitted successfully:", response.data);
+      toast.success("Pet profile created successfully.", toastOptionsSuccess);
+    //   console.log("Data submitted successfully:", response.data);
+   
+
         navigate("/");
       } else {
         //  console.error("tttttttt");
       }
     } catch (error) {
       console.error("Error while submitting data:", error);
-      // Handle the error, e.g., display an error message to the user.
+      toast.error("Error while submitting data.", toastOptions);
+         // Handle the error, e.g., display an error message to the user.
     }
   };
 
