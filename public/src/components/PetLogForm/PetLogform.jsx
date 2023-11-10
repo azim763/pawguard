@@ -38,7 +38,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
 
     if (selectedPet && selectedPet._id) {
 
-      if (validateForm()){
+    
 
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
       console.log("Updated food data:", updatedFoodData);
@@ -47,7 +47,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       console.log(response);
       console.log("Data submitted");
-      }
+    
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
@@ -59,6 +59,9 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
 
 
     if (selectedPet && selectedPet._id) {
+
+      if (validateForm()){
+
       const updatedFormData = { ...formData, PetID: selectedPet._id };
       console.log("Updated additional information data:", updatedFormData);
 
@@ -67,6 +70,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
       onPetLogSubmit(response.data);
       console.log(response);
       console.log("Data submitted");
+      }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
