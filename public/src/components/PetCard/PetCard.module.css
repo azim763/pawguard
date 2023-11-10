@@ -24,8 +24,10 @@
   display: grid;
   grid-template-columns: 0.8fr 0.8fr;
   text-align: center;
+  margin-bottom: 10px;
 }
-.SVGIcons{
+
+.SVGIcons {
   width: 41px;
   height: 40px;
 }
@@ -36,55 +38,52 @@
   border-top: 1px solid;
   padding: 1rem;
   text-align: center;
+ 
 }
 
-.actionContainerMobile{display: none;}
-
-
-@media only screen and (max-width:768px ) {
-  
-.petCardContainer{
-  grid-template-columns: 1fr 3fr 0.5fr;
-  grid-template-rows: 1fr;
-  width: 80vw;
-  height: 20vh;
-  gap:.5rem;
-}
-.petCardContainer div img{
-  width:20vw;
-  height: 20vh;
-  contain: cover;
-}
-.descriptionContainer{
-  width: 75px;
-  height: 28px;
-}
-.SVGIcons{
-  max-width: 30px;
-  max-height: 30px;
-}
-.actionContainer{
+.actionContainerMobile {
   display: none;
 }
-.actionContainerMobile{
-  align-self: start;
-  display: block;
-  grid-column: 3/4;
-  grid-row: 1/2;
-  justify-self: end;
 
-}
+@media only screen and (max-width: 768px) {
+  .petCardContainer {
+    grid-template-columns: 1fr 3fr 0.5fr;
+    grid-template-rows: 1fr;
+    width: 80vw;
+    height: 20vh;
+    gap: 0.5rem;
+  }
+  .petCardContainer div img {
+    width: 20vw;
+    height: 20vh;
+    contain: cover;
+  }
+  .descriptionContainer {
+    width: 75px;
+    height: 28px;
+  }
+  .SVGIcons {
+    max-width: 30px;
+    max-height: 30px;
+  }
+  .actionContainer {
+    display: none;
+  }
+  .actionContainerMobile {
+    align-self: start;
+    display: block;
+    grid-column: 3/4;
+    grid-row: 1/2;
+    justify-self: end;
+  }
 
-.commonDetailContainer{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap:2rem;
-
-}
-.detailContainer{
-  grid-template-columns: 1fr 1fr;
-  gap:8px;
-}
-
-
+  .commonDetailContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .detailContainer {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
 }
