@@ -65,11 +65,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
       [name]: value,
     });
   };
+
   const validateForm = () => {
     const { FoodName, MealPerDay, QuantityPerMeal,FoodDate } = foodData;
     if (FoodName === "") {
-      console.log("errr");
-      toast.error("Food Name is required.", toastOptions);
+       toast.error("Food Name is required.", toastOptions);
       return false;
     } else if (QuantityPerMeal === "") {
       toast.error("Quantity Per Meal is required.", toastOptions);
@@ -83,9 +83,9 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
       toast.error("Food Date is required.", toastOptions);
       return false;
     }
-
     return true;
   };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFoodData((foodData) => {

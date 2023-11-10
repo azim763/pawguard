@@ -14,6 +14,8 @@ import CloseSVG from "./../SVG/CloseSVG"
 import FoodForm from "./FoodForm/FoodForm";
 import SingleImageUpload from "../SingleImageUpload/SingleImageUpload";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID }) => {
   // const [pets,setPets] =useState([]);
@@ -21,7 +23,13 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
   const [LogDate, setLogDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
 
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   
   const handleFoodFormSubmit = async (foodData) => {
 
@@ -29,6 +37,9 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
     console.log("Food data before update:", foodData);
 
     if (selectedPet && selectedPet._id) {
+
+      if (validateForm()){
+
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
       console.log("Updated food data:", updatedFoodData);
 
@@ -36,6 +47,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       console.log(response);
       console.log("Data submitted");
+      }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
@@ -70,6 +82,31 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
     PetImages: "",
     Notes: "",
   });
+
+  const validateForm = () => {
+    const { Weight, ActivityLevel, UrineAmount,StoolAmount,StoolAppearance } = formData;
+    if (Weight === "") {
+      toast.error("Weight is required.", toastOptions);
+      return false;
+    } else if (ActivityLevel === "") {
+      toast.error("Activity Level is required.", toastOptions);
+      return false;
+    }
+    else if (UrineAmount === "") {
+      toast.error("Urine Amount is required.", toastOptions);
+      return false;
+    }
+    else if (StoolAmount === "") {
+      toast.error("Stool Amount is required.", toastOptions);
+      return false;
+    }
+    else if (StoolAppearance === "") {
+      toast.error("Stool Appearance is required.", toastOptions);
+      return false;
+    }
+    return true;
+  };
+  
 
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
@@ -263,7 +300,8 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
             </div>
           </div>
         </div>
-      </div>
+      </div>   
+       <ToastContainer />
     </div>
   );
 };
