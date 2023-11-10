@@ -10,12 +10,11 @@ import CloseSVG from "./../SVG/CloseSVG";
 import TimePicker from "../TimePicker/TimePicker";
 
 const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
-  const [medicationDate, setMedicationDate] = useState(new Date());
   const [formData, setFormData] = useState({
     PetID: "",
     MedicineName: "",
-    DosageAmount: "",
-    MedicationPeriod: "",
+    DosageAmount: 0,
+    MedicationPeriod: 0,
     MedicationDate: "",
   });
 
@@ -29,11 +28,18 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
 
   const handleDateChange = (event) => {
     const value = event.target.value;
-    const [year, month, day] = value.split("T")[0].split("-");
-    const medResultDate = `${day}-${month}-${year}`;
+    console.log("handleDateChange")
+
+    const date = new Date(value);
+    const now = new Date();
+    const timezoneOffset = now.getTimezoneOffset();
+    console.log(timezoneOffset)
+    date.setMinutes(date.getMinutes() + timezoneOffset);
+    console.log(date);
+
     setFormData({
       ...formData,
-      MedicationDate: medResultDate,
+      MedicationDate: date.toString(),
     });
     console.log("date is changing");
   };
@@ -49,6 +55,9 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
         PetID: selectedPet._id,
         UserID: storedData._id,
       };
+
+      console.log("updatedFormData")
+      console.log(updatedFormData)
       setFormData(updatedFormData);
 
       try {
