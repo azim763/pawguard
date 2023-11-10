@@ -28,9 +28,7 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
   };
   const validateForm = () => {
     const { MedicineName, DosageAmount,MedicationPeriod,MedicationDate } = formData;
-    console.log(MedicineName);
-    if (MedicineName === "") {
-      console.log("errr");
+     if (MedicineName === "") {
       toast.error("Medicine Name is required.", toastOptions);
       return false;
     } else if (DosageAmount === "") {

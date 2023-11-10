@@ -12,6 +12,8 @@ import {
 } from "../../../utils/APIRoutes.js";
 import axios from 'axios';
 import FoodCard from '../../FoodCard/FoodCard.jsx';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   const [foodDate, setFoodDate] = useState(new Date());
@@ -34,7 +36,13 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
     Raw: false,
     FoodDate: new Date(),
   });
-
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,7 +65,22 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
       [name]: value,
     });
   };
-
+  const validateForm = () => {
+    const { FoodName, MealPerDay, QuantityPerMeal } = foodData;
+    if (FoodName === "") {
+      console.log("errr");
+      toast.error("Food Name is required.", toastOptions);
+      return false;
+    } else if (QuantityPerMeal === "") {
+      toast.error("Quantity Per Meal is required.", toastOptions);
+      return false;
+    }
+    else if (MealPerDay === "") {
+      toast.error("Meal Per Day is required.", toastOptions);
+      return false;
+    }
+    return true;
+  };
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFoodData((foodData) => {
@@ -87,30 +110,32 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('foodData before submission:', foodData); // Log foodData before submitting
-    onFoodFormSubmit(foodData);
-    console.log('foodData after submission:', foodData); // Log foodData after submitting
-    setFoodForm((prevFoodForm) => [...prevFoodForm, foodData]);
+    if (validateForm()) {
+      onFoodFormSubmit(foodData);
+      console.log('foodData after submission:', foodData); // Log foodData after submitting
+      setFoodForm((prevFoodForm) => [...prevFoodForm, foodData]);
+    }
   };
   const handleFoodDelete = (deletedLogId) => {
     setFoodForm((prevFoodForm) =>
-    prevFoodForm.filter((log) => log._id !== deletedLogId)
+      prevFoodForm.filter((log) => log._id !== deletedLogId)
     );
   };
-  
+
 
   return (
     <div className={styles.foodFromStyle}>
       <form onSubmit={handleSubmit}>
         <div className={styles.petLogFood}>
-            <TextInput
-              size="md"
-              id="FoodName"
-              name="FoodName"
-              label="Food Name"
-              placeholder="Enter Food Name"
-              value={foodData.FoodName}
-              onChange={handleChange}
-            />
+          <TextInput
+            size="md"
+            id="FoodName"
+            name="FoodName"
+            label="Food Name"
+            placeholder="Enter Food Name"
+            value={foodData.FoodName}
+            onChange={handleChange}
+          />
           <div className={styles.petLogFoodAndQuantity}>
             <div style={{ marginRight: '50px' }}>
               <Dropdown
@@ -147,10 +172,10 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
         </div>
 
         <div className={styles.petLogCheckBox}>
-        <Typography variant="body2-poppins-medium">
-               Type Of Food
-              </Typography>
-          <div  className={styles.checkboxGap}>
+          <Typography variant="body2-poppins-medium">
+            Type Of Food
+          </Typography>
+          <div className={styles.checkboxGap}>
             <div>
               <Checkbox
                 id="KibbleDry"
@@ -204,15 +229,15 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
           </div>
         </div>
 
-         <div className={styles.foodDate}>
-           <Typography variant="body2-poppins-medium">Food Date</Typography>
-           
-                   <DatePicker
+        <div className={styles.foodDate}>
+          <Typography variant="body2-poppins-medium">Food Date</Typography>
+
+          <DatePicker
             onChange={handleDateChange}
             id="FoodDate"
             value={foodDate}
-                   />
-         </div>
+          />
+        </div>
 
         <div className={styles.buttonStyle}>
           <Button
@@ -223,27 +248,29 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
           />
         </div>
       </form>
-    
-    {foodForm.length > 0 && (
-      <div className={foodCardStyles.cardStyle}>
-        {foodForm.map((foodEntry) => (
-          <FoodCard
-            logId={foodEntry._id}
-            FoodName={foodEntry.FoodName}
-            MealPerDay={foodEntry.MealPerDay}
-            QuantityPerMeal={foodEntry.QuantityPerMeal}
-            TypeOfFood={foodEntry.TypeOfFood} 
-            KibbleDry={foodEntry.KibbleDry} 
-            Canned ={foodEntry.Canned}
-            SemiMoist ={foodEntry.SemiMoist}
-            Raw={foodEntry.Raw}
-            HomeCooked={foodEntry.HomeCooked}
-            onDelete={() => handleFoodDelete(foodEntry._id)}
+
+      {foodForm.length > 0 && (
+        <div className={foodCardStyles.cardStyle}>
+          {foodForm.map((foodEntry) => (
+            <FoodCard
+              logId={foodEntry._id}
+              FoodName={foodEntry.FoodName}
+              MealPerDay={foodEntry.MealPerDay}
+              QuantityPerMeal={foodEntry.QuantityPerMeal}
+              TypeOfFood={foodEntry.TypeOfFood}
+              KibbleDry={foodEntry.KibbleDry}
+              Canned={foodEntry.Canned}
+              SemiMoist={foodEntry.SemiMoist}
+              Raw={foodEntry.Raw}
+              HomeCooked={foodEntry.HomeCooked}
+              onDelete={() => handleFoodDelete(foodEntry._id)}
             />
-        ))}
-      </div>
-    )}
+          ))}
+        </div>
+      )}
+      <ToastContainer />
     </div>
+
   );
 
 };
