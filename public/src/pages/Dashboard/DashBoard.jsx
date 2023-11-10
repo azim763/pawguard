@@ -9,6 +9,7 @@ import {
   searchPetLogsByPetIDRoute,
   searchPetsByUserIDRoute,
   searchPetFoodByPetIDRoute,
+  searchPetAppointmentsByPetIDRoute,
   host,
   searchPetAppointmentsByUserIDRoute,
   searchPetMedicationsByUserIDRoute,
@@ -41,29 +42,26 @@ export default function Dashboard() {
   const [medication, setMedication] = useState([]);
   const [petLog, setPetLog] = useState([]);
   const [userMed, setUserMed] = useState([]);
+  const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
+    []
+  );
 
   const currentDate = new Date(); // Get the current date
   const formattedCurrentDate = `${currentDate.getDate()}-${
     currentDate.getMonth() + 1
   }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
 
-  const filteredAppointment = appointments.filter((apt) => {
-    const aptDateParts = apt.AppointmentDate.split("-");
-    const aptDate = new Date(
-      `${aptDateParts[2]}-${aptDateParts[1]}-${aptDateParts[0]}`
-    );
-    return aptDate >= currentDate; // Compare aptDate to currentDate
-  });
+  // const filteredMedication = medication.filter((med) => {
+  //   const medDate = new Date(med.MedicationDate);
+  //   const daysToAdd = parseInt(med.MedicationPeriod, 10);
 
-  const filteredMedication = medication.filter((med) => {
-    const medDate = new Date(med.MedicationDate);
-    const daysToAdd = med.MedicationPeriod;
-
-    const targetDate = new Date(medDate);
-    targetDate.setDate(medDate.getDate() + daysToAdd);
-
-    return targetDate >= currentDate;
-  });
+  //   const targetDate = new Date(medDate);
+  //   targetDate.setDate(medDate.getDate() + daysToAdd);
+  //   console.log(`medDate: ${medDate}`);
+  //   console.log(`daysToAdd: ${daysToAdd}`);
+  //   console.log(`targetDate: ${targetDate}`);
+  //   return targetDate >= currentDate;
+  // });
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -116,6 +114,24 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const responseAppointment = await axios.get(
+          searchPetAppointmentsByPetIDRoute,
+          {
+            params: { PetID: selectedPet._id },
+          }
+        );
+        setAppointmentsOfSelectedPet(responseAppointment.data);
+      } catch (error) {
+        console.error("Error fetching pet foods:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await axios.get(searchPetLogsByPetIDRoute, {
           params: { PetID: selectedPet._id },
         });
@@ -153,7 +169,6 @@ export default function Dashboard() {
           params: { UserID: currentUser._id },
         });
         setUserMed(userMed.data);
-        console.log(userMed.data);
       } catch (error) {
         console.error("Error fetching medication by user:", error);
       }
@@ -168,7 +183,21 @@ export default function Dashboard() {
         const responseMed = await axios.get(searchPetMedicationsByPetIDRoute, {
           params: { PetID: selectedPet._id },
         });
-        setMedication(responseMed.data);
+
+        const filteredMed = responseMed.data.filter((med) => {
+          const medDate = new Date(med.MedicationDate);
+          const daysToAdd = parseInt(med.MedicationPeriod, 10);
+
+          const targetDate = new Date(medDate);
+          targetDate.setDate(medDate.getDate() + daysToAdd);
+          console.log(`med.MedicationDate: ${med.MedicationDate}`)
+          console.log(`medDate: ${medDate}`);
+          console.log(`daysToAdd: ${daysToAdd}`);
+          console.log(`targetDate: ${targetDate}`);
+          console.log(`currentDate: ${currentDate}`);
+          return targetDate >= currentDate;
+        });
+        setMedication(filteredMed);
       } catch (error) {
         console.error("Error fetching pet medication:", error);
       }
@@ -236,8 +265,8 @@ export default function Dashboard() {
             )}
           </div>
           <div className={styles.petSummaryCards}>
-            <DashMedicineCard numOfMedicine={filteredMedication.length} />
-            <DashAptCard numOfApt={filteredAppointment.length} />
+            <DashMedicineCard numOfMedicine={medication.length} />
+            <DashAptCard numOfApt={appointmentsOfSelectedPet.length} />
           </div>
           <div className={styles.dashboardGraph}>
             <Carousel
@@ -261,7 +290,10 @@ export default function Dashboard() {
                     {hasPrev ? (
                       <>
                         <div className={styles.graphNav}>
-                          <FontAwesomeIcon icon={faArrowLeft} className = {styles.marginIcon}/>
+                          <FontAwesomeIcon
+                            icon={faArrowLeft}
+                            className={styles.marginIcon}
+                          />
                           Meal Record
                         </div>
                         <hr className={styles.underline}></hr>
@@ -292,7 +324,10 @@ export default function Dashboard() {
                       <>
                         <div className={styles.graphNav}>
                           Weight Record
-                          <FontAwesomeIcon icon={faArrowRight} className = {styles.marginIconArr}/>
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className={styles.marginIconArr}
+                          />
                         </div>
 
                         <hr className={styles.underline}></hr>
