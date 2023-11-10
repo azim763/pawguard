@@ -16,6 +16,8 @@ import AutocompleteClinic from "../../components/AutocompleteClinic/Autocomplete
 import Dropdown from "../../components/Dropdown/Dropdown";
 import StarRating from "../../components/StarRating/StarRating";
 import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 let originalClinicData = [];
 
@@ -220,8 +222,9 @@ const ListClinics = () => {
                 Enter clinic specialties and city name
               </Typography>
               <Typography variant="body2-poppins-medium">
-                <Link to="/addPet" className={styles.addPetLink}>
+                <Link to="/login" className={styles.addPetLink}>
                   Sign in to select your pet
+                  <FontAwesomeIcon className={styles.arrowContainer} icon={faChevronRight} />
                 </Link>
               </Typography>
             </>
@@ -351,7 +354,9 @@ const ListClinics = () => {
         </div>
 
         {clinicData.length === 0 ? (
-          <p>No results found.</p>
+          <div className={styles.noResultContainer}>
+          <Typography variant="body2-poppins-medium">No results found.</Typography>
+          </div>
         ) : (
           clinicData.map((clinic) => (
             <ClinicDetailCard
