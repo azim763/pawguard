@@ -8,11 +8,11 @@ const DashAptCard = ({ numOfApt, ...props }) => {
   return (
     <div className={`${styles["apt-card-container"]}`}>
       <div className={`${styles["icon-container"]}`}>
-        <DoctorSVG width="80" height="80" />
+        <DoctorSVG width="65" height="65" />
       </div>
 
       <div>
-        <Typography variant="h1-poppins-semibold" color="almost-black">
+        <Typography variant="h2-poppins-semibold" color="almost-black">
           {numOfApt}
         </Typography>
 

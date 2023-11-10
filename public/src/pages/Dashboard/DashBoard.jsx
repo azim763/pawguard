@@ -9,6 +9,7 @@ import {
   searchPetLogsByPetIDRoute,
   searchPetsByUserIDRoute,
   searchPetFoodByPetIDRoute,
+  searchPetAppointmentsByPetIDRoute,
   host,
   searchPetAppointmentsByUserIDRoute,
   searchPetMedicationsByUserIDRoute,
@@ -26,6 +27,9 @@ import DashMedicineCard from "../../components/DashMedicineCard/DashMedicineCard
 import DashAptCard from "../../components/DashAptCard/DashAptCard";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function Dashboard() {
   const [pets, setPets] = useState([]);
@@ -38,29 +42,26 @@ export default function Dashboard() {
   const [medication, setMedication] = useState([]);
   const [petLog, setPetLog] = useState([]);
   const [userMed, setUserMed] = useState([]);
+  const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
+    []
+  );
 
   const currentDate = new Date(); // Get the current date
   const formattedCurrentDate = `${currentDate.getDate()}-${
     currentDate.getMonth() + 1
   }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
 
-  const filteredAppointment = appointments.filter((apt) => {
-    const aptDateParts = apt.AppointmentDate.split("-");
-    const aptDate = new Date(
-      `${aptDateParts[2]}-${aptDateParts[1]}-${aptDateParts[0]}`
-    );
-    return aptDate >= currentDate; // Compare aptDate to currentDate
-  });
+  // const filteredMedication = medication.filter((med) => {
+  //   const medDate = new Date(med.MedicationDate);
+  //   const daysToAdd = parseInt(med.MedicationPeriod, 10);
 
-  const filteredMedication = medication.filter((med) => {
-    const medDate = new Date(med.MedicationDate);
-    const daysToAdd = med.MedicationPeriod;
-
-    const targetDate = new Date(medDate);
-    targetDate.setDate(medDate.getDate() + daysToAdd);
-
-    return targetDate >= currentDate;
-  });
+  //   const targetDate = new Date(medDate);
+  //   targetDate.setDate(medDate.getDate() + daysToAdd);
+  //   console.log(`medDate: ${medDate}`);
+  //   console.log(`daysToAdd: ${daysToAdd}`);
+  //   console.log(`targetDate: ${targetDate}`);
+  //   return targetDate >= currentDate;
+  // });
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -113,6 +114,24 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const responseAppointment = await axios.get(
+          searchPetAppointmentsByPetIDRoute,
+          {
+            params: { PetID: selectedPet._id },
+          }
+        );
+        setAppointmentsOfSelectedPet(responseAppointment.data);
+      } catch (error) {
+        console.error("Error fetching pet foods:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await axios.get(searchPetLogsByPetIDRoute, {
           params: { PetID: selectedPet._id },
         });
@@ -150,7 +169,6 @@ export default function Dashboard() {
           params: { UserID: currentUser._id },
         });
         setUserMed(userMed.data);
-        console.log(userMed.data);
       } catch (error) {
         console.error("Error fetching medication by user:", error);
       }
@@ -165,7 +183,21 @@ export default function Dashboard() {
         const responseMed = await axios.get(searchPetMedicationsByPetIDRoute, {
           params: { PetID: selectedPet._id },
         });
-        setMedication(responseMed.data);
+
+        const filteredMed = responseMed.data.filter((med) => {
+          const medDate = new Date(med.MedicationDate);
+          const daysToAdd = parseInt(med.MedicationPeriod, 10);
+
+          const targetDate = new Date(medDate);
+          targetDate.setDate(medDate.getDate() + daysToAdd);
+          console.log(`med.MedicationDate: ${med.MedicationDate}`)
+          console.log(`medDate: ${medDate}`);
+          console.log(`daysToAdd: ${daysToAdd}`);
+          console.log(`targetDate: ${targetDate}`);
+          console.log(`currentDate: ${currentDate}`);
+          return targetDate >= currentDate;
+        });
+        setMedication(filteredMed);
       } catch (error) {
         console.error("Error fetching pet medication:", error);
       }
@@ -196,7 +228,7 @@ export default function Dashboard() {
       <Header />
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardPetCard}>
-          <Typography variant="h1-poppins-semibold" color="dark-blue">
+          <Typography variant="sub-poppins-medium" color="dark-blue">
             My Pets
           </Typography>
           <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
@@ -220,7 +252,7 @@ export default function Dashboard() {
 
         <div className={styles.middleContainer}>
           <div className={styles.middleTitle}>
-            <Typography variant="sub-poppins-medium">
+            <Typography variant="h1-poppins-semibold" color="dark-blue">
               {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
             </Typography>
 
@@ -233,8 +265,8 @@ export default function Dashboard() {
             )}
           </div>
           <div className={styles.petSummaryCards}>
-            <DashMedicineCard numOfMedicine={filteredMedication.length} />
-            <DashAptCard numOfApt={filteredAppointment.length} />
+            <DashMedicineCard numOfMedicine={medication.length} />
+            <DashAptCard numOfApt={appointmentsOfSelectedPet.length} />
           </div>
           <div className={styles.dashboardGraph}>
             <Carousel
@@ -247,8 +279,28 @@ export default function Dashboard() {
                       hasPrev ? "" : "hidden"
                     }`}
                     onClick={clickHandler}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      zIndex: "999",
+                      // textDecoration: "underline",
+                    }}
                   >
-                    {hasPrev ? "Meal Record" : ""}
+                    {hasPrev ? (
+                      <>
+                        <div className={styles.graphNav}>
+                          <FontAwesomeIcon
+                            icon={faArrowLeft}
+                            className={styles.marginIcon}
+                          />
+                          Meal Record
+                        </div>
+                        <hr className={styles.underline}></hr>
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 );
               }}
@@ -259,34 +311,78 @@ export default function Dashboard() {
                       hasNext ? "" : "hidden"
                     }`}
                     onClick={clickHandler}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      zIndex: "999",
+                      // textDecoration: "underline",
+                      marginBottom: "30px",
+                    }}
                   >
-                    {hasNext ? "Weight Record" : ""}
+                    {hasNext ? (
+                      <>
+                        <div className={styles.graphNav}>
+                          Weight Record
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className={styles.marginIconArr}
+                          />
+                        </div>
+
+                        <hr className={styles.underline}></hr>
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 );
               }}
             >
               {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
               <div>
-                <Typography variant="body2-poppins-medium">
-                  Weekly Meal Record
-                </Typography>
-                {selectedPet && (
-                  <Graph
-                    names={foods.map((food) => food.QuantityPerMeal)}
-                    values={foods.map((food) => food.FoodDate)}
-                  />
-                )}
+                <div className={styles.graphTitle}>
+                  <Typography variant="body2-poppins-medium">
+                    Weekly Meal Record
+                  </Typography>
+                </div>
+                <div>
+                  {foods.length > 0 ? (
+                    selectedPet && (
+                      <div className={styles.graphContainerMain}>
+                        <Graph
+                          names={foods.map((food) => food.QuantityPerMeal)}
+                          values={foods.map((food) => food.FoodDate)}
+                        />
+                      </div>
+                    )
+                  ) : (
+                    <div className={styles.graphNoRecord}>
+                      No record available
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div>
-                <Typography variant="body2-poppins-medium">
-                  Weekly Weight Record
-                </Typography>
-                {selectedPet && (
-                  <Graph
-                    names={petLog.map((petLog) => petLog.Weight)}
-                    values={petLog.map((petLog) => petLog.LogDate)}
-                  />
+                <div className={styles.graphTitle}>
+                  <Typography variant="body2-poppins-medium">
+                    Weekly Weight Record
+                  </Typography>
+                </div>
+                {foods.length > 0 ? (
+                  selectedPet && (
+                    <div className={styles.graphContainerMain}>
+                      <Graph
+                        names={petLog.map((petLog) => petLog.Weight)}
+                        values={petLog.map((petLog) => petLog.LogDate)}
+                      />
+                    </div>
+                  )
+                ) : (
+                  <div className={styles.graphNoRecord}>
+                    No record available
+                  </div>
                 )}
               </div>
             </Carousel>

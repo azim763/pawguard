@@ -39,14 +39,15 @@ const PetPage = () => {
   const [selectedPet, setSelectedPet] = useState("");
   const [validPetAppointments, setValidPetAppointments] = useState([]);
 
-  console.log(pets);
 
-  const isValidCoordinate = (coord) => {
-    return (
-      typeof coord === "object" &&
-      !isNaN(coord.Latitude) &&
-      !isNaN(coord.Longitude)
-    );
+  const formatDate = (date) => {
+    console.log("formatDate");
+    console.log(date);
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getUTCFullYear();
+
+    return `${day}-${month}-${year}`;
   };
   const handleAppointmentDelete = (deletedAppointmentId) => {
     // Remove the appointment with the deleted ID from petAppointments
@@ -327,7 +328,7 @@ const PetPage = () => {
                 <MedicineCard
                   medicineName={medication.MedicineName}
                   dosage={medication.DosageAmount}
-                  startDate={medication.MedicationDate}
+                  startDate={formatDate(new Date(medication.MedicationDate))}
                   Period={medication.MedicationPeriod}
                   MedicineTime={medication.MedicineTime}
                   onDelete={() => handleMedicationDelete(medication._id)}

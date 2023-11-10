@@ -11,7 +11,7 @@
   border: solid 1px var(--border-grey);
   background-color: white;
   padding: 20px;
-  max-width: 450px;
+  max-width: 500px;
 }
 
 .dashboardPetCard {
@@ -30,6 +30,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  gap: 25px;
   /* display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
@@ -50,21 +51,22 @@
 .dashboardPetCard > a {
   grid-column: 2/3;
   grid-row: 1/2;
-  
 }
 
-.dashboardPetCard > div:first-of-type, .dashboardPetCard > a{
+.dashboardPetCard > div:first-of-type,
+.dashboardPetCard > a {
   justify-self: baseline;
 }
 
 .middleTitle {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .petSummaryCards {
   margin-top: 24px;
-  margin-bottom: 36px;
+  margin-bottom: 46px;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -72,8 +74,45 @@
 }
 
 .petSummaryCards > div {
-  max-width: 280px;
+  max-width: 270px;
   margin-top: 8px;
+}
+
+.graphTitle {
+  margin-bottom: 30px;
+  margin-top: 53px;
+}
+
+.graphContainerMain {
+  padding-right: 40px;
+}
+
+.graphNoRecord {
+  display: block;
+  margin: auto;
+  width: 300px;
+  padding-right: 0;
+}
+
+.graphNav {
+  display: flex;
+  align-items: center;
+}
+
+.underline {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  border-top: 0;
+  background-color: var(--almost-black);
+}
+
+.marginIcon{
+  margin-right: 10px;
+}
+
+.marginIconArr{
+  margin-left: 10px;
 }
 
 @media screen and (min-width: 810px) {
@@ -91,12 +130,11 @@
     grid-row: 1/3;
     display: flex;
     flex-flow: column nowrap;
-    
   }
 
   .petCardList {
     display: grid;
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 1fr);
 
     grid-column: 1/-1;
@@ -119,27 +157,40 @@
   }
 
   .dashboardContainer > div:last-of-type {
-    max-width: 600px ;
+    max-width: 600px;
     flex-grow: 1;
   }
-
 }
 
-@media screen and (min-width: 1099px) {
-.dashboardContainer {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: flex-start;
-  max-width: 1130px;
+@media screen and (min-width: 1195px) {
+  .dashboardContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    max-width: 1150px;
+  }
+
+  .dashboardContainer > div:last-of-type {
+    min-width: 265px;
+    max-width: 350px;
+  }
 }
 
-.dashboardContainer > div:last-of-type {
-  min-width: 265px;
-  max-width: 350px ;
-  
-}
-}
+@media screen and (max-width: 500px) {
+  .middleContainer {
+    width: 100%;
+  }
 
+  .middleTitle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .graphNoRecord {
+    width: 200px;
+  }
+}
 
 /* 
 
