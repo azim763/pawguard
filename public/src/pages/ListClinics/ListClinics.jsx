@@ -147,6 +147,8 @@ const ListClinics = () => {
 
   const handleUrgCheckboxChange = (event) => {
     const { checked } = event.target;
+    console.log("Open Urgent care checked", checked);
+
     setUrgentCareChecked(event.target.checked);
   };
 
@@ -321,14 +323,14 @@ const ListClinics = () => {
               <Checkbox
                 id="urgCare"
                 label="Urgent Care"
-                onChangeHandler={handleUrgCheckboxChange}
+                onChange={handleUrgCheckboxChange}
                 value={urgentCareChecked}
               />
             </div>
             <Checkbox
               id="24hrs"
               label="Open 24 hours"
-              onChangeHandler={handle24CheckboxChange}
+              onChange={handle24CheckboxChange}
               value={open24hrsChecked}
             />
           </div>
