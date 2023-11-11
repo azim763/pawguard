@@ -11,7 +11,11 @@ import TimePicker from "../TimePicker/TimePicker";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
+const MedicationForm = ({
+  selectedPet,
+  onMedicationSubmit,
+  getToggleProps,
+}) => {
   const [formData, setFormData] = useState({
     PetID: "",
     MedicineName: "",
@@ -27,19 +31,18 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
     theme: "dark",
   };
   const validateForm = () => {
-    const { MedicineName, DosageAmount,MedicationPeriod,MedicationDate } = formData;
-     if (MedicineName === "") {
+    const { MedicineName, DosageAmount, MedicationPeriod, MedicationDate } =
+      formData;
+    if (MedicineName === "") {
       toast.error("Medicine Name is required.", toastOptions);
       return false;
     } else if (DosageAmount === "") {
       toast.error("Dosage Amount is required.", toastOptions);
       return false;
-    }
-    else if (MedicationPeriod === "") {
+    } else if (MedicationPeriod === "") {
       toast.error("Medication Period is required.", toastOptions);
       return false;
-    }
-    else if (MedicationDate === "") {
+    } else if (MedicationDate === "") {
       toast.error("Medication Date is required.", toastOptions);
       return false;
     }
@@ -56,12 +59,12 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
 
   const handleDateChange = (event) => {
     const value = event.target.value;
-    console.log("handleDateChange")
+    console.log("handleDateChange");
 
     const date = new Date(value);
     const now = new Date();
     const timezoneOffset = now.getTimezoneOffset();
-    console.log(timezoneOffset)
+    console.log(timezoneOffset);
     date.setMinutes(date.getMinutes() + timezoneOffset);
     console.log(date);
 
@@ -78,35 +81,31 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     if (selectedPet && selectedPet._id) {
+      if (validateForm()) {
+        const updatedFormData = {
+          ...formData,
+          PetID: selectedPet._id,
+          UserID: storedData._id,
+        };
 
-      if (validateForm()){
+        console.log("updatedFormData");
+        console.log(updatedFormData);
+        setFormData(updatedFormData);
 
-     
-      const updatedFormData = {
-        ...formData,
-        PetID: selectedPet._id,
-        UserID: storedData._id,
-      };
-
-      console.log("updatedFormData")
-      console.log(updatedFormData)
-      setFormData(updatedFormData);
-
-      try {
-        const response = await axios.post(
-          createPetMedicationRoute,
-          updatedFormData
-        );
-        console.log("Form submitted with data:", updatedFormData);
-        console.log("Response from server:", response);
-        // ...
-        onMedicationSubmit(updatedFormData);
-      } catch (error) {
-        console.error("Error submitting form:", error);
-        toast.error("Error submitting form.", toastOptions);
-        }   
+        try {
+          const response = await axios.post(
+            createPetMedicationRoute,
+            updatedFormData
+          );
+          console.log("Form submitted with data:", updatedFormData);
+          console.log("Response from server:", response);
+          // ...
+          onMedicationSubmit(updatedFormData);
+        } catch (error) {
+          console.error("Error submitting form:", error);
+          toast.error("Error submitting form.", toastOptions);
+        }
       }
-
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
@@ -116,7 +115,9 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
     <div className={styles.medicineContainer}>
       <div className={styles.medicineTitle}>
         <Typography variant="h2-poppins-semibold">Add Medicine</Typography>
-        <CloseSVG width="27" height="28" />
+        <div {...getToggleProps()}>
+          <CloseSVG width="27" height="28" />
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
         <TextInput
@@ -170,7 +171,7 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
           <Button variant="yellow" label="Save" size="dk-md-s" />
         </div>
       </form>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
