@@ -2,8 +2,11 @@
   display: grid;
   width: 80%;
   grid-template-columns: 1fr 5fr;
-  justify-self: center;
+  grid-template-rows: .1fr 1fr;
   gap: 3rem;
+  row-gap: 0;
+  justify-self: center;
+  column-gap: 3rem;
 }
 
 .petCard {

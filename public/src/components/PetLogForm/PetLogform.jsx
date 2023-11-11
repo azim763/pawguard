@@ -20,12 +20,25 @@ const PetLogForm = ({
   onPetLogSubmit,
   onFoodFormSubmit,
   SelectedPetID,
-  getToggleProps
+  getToggleProps,
 }) => {
   // const [pets,setPets] =useState([]);
+
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const initialFormData = {
+    PetID: "",
+    Weight: 0,
+    ActivityLevel: "",
+    UrineAmount: "",
+    StoolAmount: "",
+    PetImages: "",
+    Notes: "",
+  };
+
+  const [formData, setFormData] = useState({ initialFormData });
 
   const toastOptions = {
     position: "bottom-right",
@@ -47,6 +60,7 @@ const PetLogForm = ({
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       console.log(response);
       console.log("Data submitted");
+      setFoodData("");
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
@@ -66,22 +80,12 @@ const PetLogForm = ({
         onPetLogSubmit(response.data);
         console.log(response);
         console.log("Data submitted");
+        setFormData(initialFormData);
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
   };
-
-  const [formData, setFormData] = useState({
-    PetID: "",
-    Weight: 0,
-    ActivityLevel: "",
-    UrineAmount: "",
-    StoolAmount: "",
-    StoolAppearance: "",
-    PetImages: "",
-    Notes: "",
-  });
 
   const validateForm = () => {
     const { Weight, ActivityLevel, UrineAmount, StoolAmount, StoolAppearance } =
@@ -98,10 +102,11 @@ const PetLogForm = ({
     } else if (StoolAmount === "") {
       toast.error("Stool Amount is required.", toastOptions);
       return false;
-    } else if (StoolAppearance === "") {
-      toast.error("Stool Appearance is required.", toastOptions);
-      return false;
     }
+    // } else if (StoolAppearance === "") {
+    //   toast.error("Stool Appearance is required.", toastOptions);
+    //   return false;
+    // }
     return true;
   };
 
@@ -118,10 +123,12 @@ const PetLogForm = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(e.target);
     setFormData({
       ...formData,
       [name]: value,
     });
+    console.log(value);
   };
 
   const handleRadioChange = (option, category) => {
@@ -174,7 +181,7 @@ const PetLogForm = ({
         <div className={styles.addPetForm}>
           <div className={styles.petLogFormGeneral}>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-h1-poppins-semibold">General</Typography>
+              <Typography variant="sub-poppins-medium">General</Typography>
             </div>
             <div className={styles.petLogFormLine1}>
               <div className={styles.petLogDateStyle}>
@@ -263,7 +270,7 @@ const PetLogForm = ({
           </div>
           <div>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-h1-poppins-semibold">Food </Typography>
+              <Typography variant="sub-poppins-medium">Food </Typography>
             </div>
             <div className={styles.sessionContainer}>
               <FoodForm
@@ -274,17 +281,18 @@ const PetLogForm = ({
           </div>
           <div className={styles.sessionContainer}>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-h1-poppins-semibold">
+              <Typography variant="sub-poppins-medium">
                 Additional Information
               </Typography>
             </div>
             <TextArea
-              name="Description"
-              id="Description"
+              label="Other Notes"
+              name="Notes"
+              id="Notes"
               cols="30"
               rows="10"
               placeholder="Enter Observations for your petAdd your pets"
-              onClickHandler={handleInputChange}
+              onChange={handleInputChange}
               value={formData.Notes}
               className={styles.petLogTextarea}
             />
