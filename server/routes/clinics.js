@@ -13,6 +13,6 @@ router.get("/allclinics", getAllClinics);
 router.post("/create", createClinic);
 router.get("/searchclinicsbyspecies/:species", searchClinicsBySpecies);
 router.get("/getclinicbyid/:id", getClinicById);
-router.get("/update/:id", updateClinicById);
+router.put("/update/:id", updateClinicById);
 router.delete("/delete/:id", deleteClinicById);
 module.exports = router;

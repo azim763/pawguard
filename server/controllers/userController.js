@@ -41,6 +41,22 @@ module.exports.register = async (req, res, next) => {
   }
 };
 
+  // Update a User by its ID
+  module.exports.updateUserById = async (req, res, next) => {
+    try {
+      const userId = req.params.id;
+      const updatedUserData = req.body;
+      return userId;
+      const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+      if (!updatedUser) {
+        return res.status(404).json({ msg: 'User not found' });
+      }
+      return res.json(updatedUser);
+    } catch (ex) {
+      next(ex);
+    }
+  };
+
 module.exports.getAllcnUsers = async (req, res, next) => {
   try {
     const users = await User.find({ _id: { $ne: req.params.id } }).select([

@@ -133,7 +133,8 @@ const AddPet = () => {
     else if (isNaN(Weight) || Weight.length < 1 || Weight.trim() == " ") {
       toast.error("Weight is required and must be number.", toastOptions);
       return false;
-    } return true;
+    } 
+    return true;
   };
 
   if (petData.Species === "cat") {

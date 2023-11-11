@@ -4,6 +4,7 @@ import SetAvatar from "./components/SetAvatar";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import sendEmail from "./pages/sendEmail";
 import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
@@ -17,6 +18,7 @@ import IndividualClinic from "./pages/IndividualClinic/IndividualClinic";
 import AddPet from "./pages/AddPet/AddPet";
 import ExportpetLog from "./pages/petLog/ExportpetLog";
 import Calendar from "./components/Calendar/calendar";
+import ChangePassword from "./pages/changePassword";
 
 export default function App() {
   return (
@@ -24,7 +26,9 @@ export default function App() {
       <Routes>
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/sendemail" element={<sendEmail />} />
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<DashBoard />} />
         <Route path="/getinsurances" element={<InsuranceSearch />} />
