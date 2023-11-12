@@ -21,6 +21,7 @@ const PetLogForm = ({
   onFoodFormSubmit,
   SelectedPetID,
   getToggleProps,
+  closePetLogForm,
 }) => {
   // const [pets,setPets] =useState([]);
 
@@ -88,8 +89,7 @@ const PetLogForm = ({
   };
 
   const validateForm = () => {
-    const { Weight, ActivityLevel, UrineAmount, StoolAmount, StoolAppearance } =
-      formData;
+    const { Weight, ActivityLevel, UrineAmount, StoolAmount } = formData;
     if (Weight === "") {
       toast.error("Weight is required.", toastOptions);
       return false;
@@ -175,7 +175,7 @@ const PetLogForm = ({
         <div className={styles.petLogTitle}>
           <Typography variant="h2-poppins-semibold">Add Pet Log</Typography>
           <div {...getToggleProps()}>
-            <CloseSVG width="27" height="28" />
+            <CloseSVG width="27" height="28" onClick={closePetLogForm}/>
           </div>
         </div>
         <div className={styles.addPetForm}>
@@ -201,7 +201,7 @@ const PetLogForm = ({
                     id="Weight"
                     name="Weight"
                     // label="Pet Weight"
-                    placeholder="Eg: 30"
+                    placeholder="30"
                     value={formData.Weight}
                     onChange={handleInputChange}
                   />
@@ -222,7 +222,11 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={option.label}
+                      label={
+                        <Typography variant="body3-poppins-regular">
+                          {option.label}
+                        </Typography>
+                      }
                       checked={formData.ActivityLevel === option.value}
                       onChange={() =>
                         handleRadioChange(option.value, "ActivityLevel")
@@ -239,7 +243,11 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={option.label}
+                      label={
+                        <Typography variant="body3-poppins-regular">
+                          {option.label}
+                        </Typography>
+                      }
                       checked={formData.UrineAmount === option.value}
                       onChange={() =>
                         handleRadioChange(option.value, "UrineAmount")
@@ -257,7 +265,11 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={option.label}
+                      label={
+                        <Typography variant="body3-poppins-regular">
+                          {option.label}
+                        </Typography>
+                      }
                       checked={formData.StoolAmount === option.value}
                       onChange={() =>
                         handleRadioChange(option.value, "StoolAmount")
@@ -285,17 +297,21 @@ const PetLogForm = ({
                 Additional Information
               </Typography>
             </div>
-            <TextArea
-              label="Other Notes"
-              name="Notes"
-              id="Notes"
-              cols="30"
-              rows="10"
-              placeholder="Enter Observations for your petAdd your pets"
-              onChange={handleInputChange}
-              value={formData.Notes}
-              className={styles.petLogTextarea}
-            />
+            <div>
+              <Typography variant="body2-poppins-medium">
+                Other Notes
+              </Typography>
+              <TextArea
+                name="Notes"
+                id="Notes"
+                cols="30"
+                rows="10"
+                placeholder="Enter Observations for your pet."
+                onChange={handleInputChange}
+                value={formData.Notes}
+                className={styles.petLogTextarea}
+              />
+            </div>
             {/* <TextInput
               id="Notes"
               name="Notes"

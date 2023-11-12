@@ -9,7 +9,7 @@
   padding: 0px 12px;
   border-radius: 8px;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   border: 1px solid var(--almost-black);    
   width: 210px;
   font-family: "Poppins";
@@ -18,7 +18,4 @@
   font-size: 16px;
   line-height: 19.4px;
   color: var(--small-text-gray);;
-}
-.datestyle{
-  
 }
