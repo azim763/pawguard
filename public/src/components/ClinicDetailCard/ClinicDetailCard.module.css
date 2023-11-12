@@ -98,6 +98,21 @@
   margin-right: 8px;
 }
 
+.locationSVG {
+  width: 23px;
+  height: 34px;
+}
+
+.clockSVG {
+  width: 26px;
+  height: 26px;
+}
+
+.specialtySVG {
+  width: 26px;
+  height: 26px;
+}
+
 @media screen and (max-width: 700px) {
   .clinicCard {
     grid-template-columns: auto;
@@ -138,5 +153,20 @@
   .clinicSpecialties,
   .clinicInfo {
     width: 100%;
+  }
+
+  .locationSVG {
+    width: 25px;
+    height: 27px;
+  }
+
+  .clockSVG {
+    width: 25px;
+    height: 25px;
+  }
+
+  .specialtySVG {
+    width: 25px;
+    height: 20px;
   }
 }
