@@ -55,7 +55,7 @@ const InsuranceSearch = () => {
     { value: 'Select the Breed', label: 'Select the Breed' },
     { value: 'BostonTerrier', label: 'Boston Terrier' },
     { value: 'Chihuahua', label: 'Chihuahua' },
-    { value: 'Dachshund', label: 'Dachshund' },
+    { value: 'Golden Retriever', label: 'Golden Retriever' },
     { value: 'FrenchBulldog', label: 'French Bulldog' },
     { value: 'GermanShepherdDog', label: 'German Shepherd Dog' },
     { value: 'Labradoodle', label: 'Labradoodle' },
@@ -68,6 +68,7 @@ const InsuranceSearch = () => {
     { value: 'ShihTzu', label: 'Shih Tzu' },
     { value: 'SiberianHusky', label: 'Siberian Husky' },
     { value: 'YorkshireTerrier', label: 'Yorkshire Terrier' },
+    
   ];
   
   const petAge = [
@@ -94,7 +95,8 @@ const InsuranceSearch = () => {
 
   const handlePetTypeChange = (type) => {
     setSelectedPetType(type);
-    setSelectedBreed(''); 
+console.log("In handle function"+type);//    setSelectedPetType(type);
+    // setSelectedBreed(''); 
   };
 
   const handlePetGenderChange = (gender) => {
@@ -103,6 +105,7 @@ const InsuranceSearch = () => {
 
   const handleBreedChange = (breed) => {
     setSelectedBreed(breed);
+    console.log("Here is teh Breed"+ breed);
   };
 
   const handleGetQuotesClick = async () => {
@@ -165,9 +168,20 @@ const handlePetSelection = async (petName) => {
   const selectedPetData = pets.find((pet) => pet.PetName === petName);
   setSelectedPet(selectedPetData);
   
-  // Fetch pet information when a pet is selected
    await fetchPetInfo(selectedPetData);
+  //  console.log("Here is data fetched Line 170: "+selectedPetData.Species+" + More data "+selectedPetData.Gender+ "  More data here tooo : "+selectedPetData.Breed);
    setPageTitle(`About Pet ${selectedPetData.PetName}`);
+  //  setSelectedAge(selectedPetData.age);
+    setSelectedPetType(selectedPetData.Species);
+    setSelectedGender(selectedPetData.Gender);
+    setSelectedBreed(selectedPetData.Breed);
+    handlePetTypeChange(selectedPetData.Species); // Automatically select the Type of Pet button
+    handlePetGenderChange(selectedPetData.Gender);
+    handleBreedChange(selectedPetData.Breed);
+  //  setSelectedPetType(selectedPetData.Species);
+  // setSelectedGender(selectedPetData.Gender);
+  // setSelectedAge(selectedPetData.Age); // Assuming "Age" is the correct property name
+  // setSelectedBreed(selectedPetData.Breed);
 
 };
 
@@ -176,12 +190,19 @@ const fetchPetInfo = async (selectedPetData) => {
     const response = await axios.get(`${getPetByIdRoute}/${selectedPetData._id}`);
     const petInfoData = response.data;
     setPetInfo(petInfoData);
-    
+
     // Autofill the form fields with the fetched pet information
     // setSelectedAge(petInfoData.age);
-    setSelectedPetType(petInfoData.Species);
-    setSelectedGender(petInfoData.Gender);
-    setSelectedBreed(petInfoData.Breed);
+    // setSelectedPetType(petInfoData.Species);
+    // setSelectedGender(petInfoData.Gender);
+    // setSelectedBreed(petInfoData.Breed);
+
+    // Assuming your button groups have the same values as the petInfoData properties
+    handlePetTypeChange(petInfoData.Species); 
+    console.log("Thsi si selcetd "+(petInfoData.Species)); 
+    
+    // Automatically select the Type of Pet button
+    handlePetGenderChange(petInfoData.Gender); // Automatically select the Pet Gender button
   } catch (error) {
     console.error("Error fetching pet info:", error);
   }
@@ -195,7 +216,7 @@ useEffect(() => {
       );
       const data = JSON.parse(storedData);
 
-      console.log("getPetData");
+      // console.log("getPetData");
       // Fetch pet data from the backend
       const response = await axios.get(searchPetsByUserIDRoute, {
         params: { userID: data._id },
@@ -204,14 +225,15 @@ useEffect(() => {
       setPets(response.data);
       if (!selectedPetName && response.data.length > 0) {
         setSelectedPetName(response.data[0]);
+        console.log(response.data[0]);
         // setSelectedOptions(response.data[0].PreExistingMedical.split(","));
         //
       }
 
-      console.log("sort data");
+      // console.log("sort data");
       // setSort(true);
     } catch (error) {
-      // Handle any errors here
+      console.log("Error fecthing Pet Data "+error);
     }
   };
 
@@ -266,7 +288,7 @@ useEffect(() => {
           <Typography variant="body2-poppins-medium" color="almost black">
             Type of Pet
           </Typography>
-          <ButtonGroup groupId="group1" buttons={["Cat", "Dog"]} onClick={handlePetTypeChange} selected={selectedPetType} />
+          <ButtonGroup groupId="group1" buttons={["cat", "dog"]} onClick={handlePetTypeChange} selected={selectedPetType} />
         </div>
 
         <div style={{ marginBottom: "40px" }}>
@@ -274,7 +296,7 @@ useEffect(() => {
             Pet's gender
           </Typography>
 
-          <ButtonGroup groupId="group2" buttons={["Male", "Female"]} onClick={handlePetGenderChange} selected={selectedGender} />
+          <ButtonGroup groupId="group2" buttons={["M", "F"]} onClick={handlePetGenderChange} selected={selectedGender} />
         </div>
 
         <div style={{ marginBottom: "40px" }}>
