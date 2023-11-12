@@ -1,3 +1,8 @@
+.plan-detail-card-wrapper img{
+  object-fit: contain;
+
+}
+
 .plan-detail-card-wrapper {
   border: 1px solid var(--border-grey);
   margin-bottom: 20px;
@@ -58,6 +63,7 @@
     column-gap: 10px; /* Reduce column gap */
     border-radius: 1.25rem;
     text-align: center;
+    /* object-fit: cover; */
   }
   
   .image-container {
