@@ -17,6 +17,7 @@ const AppointmentForm = ({
   selectedPet,
   onAppointmentSubmit,
   getToggleProps,
+  closeAptForm,
 }) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
   const [clinicData, setClinicData] = useState([]);
@@ -100,7 +101,7 @@ const AppointmentForm = ({
       <div className={styles.appointmentTitle}>
         <Typography variant="h2-poppins-semibold">Add Appointment</Typography>
         <div {...getToggleProps()}>
-          <CloseSVG width="27" height="28" />
+          <CloseSVG width="27" height="28" onClick={closeAptForm}/>
         </div>
       </div>
       <form onSubmit={handleSubmit}>

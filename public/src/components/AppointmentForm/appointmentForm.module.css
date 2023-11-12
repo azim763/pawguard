@@ -1,7 +1,8 @@
 .appointmentContainer {
   padding: 26px 20px;
   border-radius: 8px;
-  border: 1px solid var(--border-grey)
+  border: 1px solid var(--border-grey);
+  width: 100%;
 }
 
 .appointmentContainer form {
@@ -24,21 +25,20 @@
   grid-column: 1/-1;
 }
 
-.timepickerContainer{
-    width: 210px;
+.timepickerContainer {
+  width: 210px;
+}
+
+.TextInputStyle div input {
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .appointmentContainer form {
+    grid-template-columns: 1fr;
   }
 
-  @media only screen and  (max-width: 768px) {
-
-    .appointmentContainer form{
-      grid-template-columns: 1fr;
-    }
-   
-   .TextInputStyle div input{
+  .button button {
     width: 100%;
-   }
-   .button button{
-    width: 100%;
-   }
   }
-  
+}

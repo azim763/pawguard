@@ -128,7 +128,7 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight, id }) => {
           aria-controls="more-menu"
           aria-haspopup="true"
           onClick={handleMoreMenuClick}
-          style={{padding: "1px"}}
+          style={{padding: "3px"}}
         >
           <MoreVertIcon />
         </IconButton>
