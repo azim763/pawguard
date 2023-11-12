@@ -26,13 +26,15 @@ module.exports.register = async (req, res, next) => {
     const emailCheck = await User.findOne({ email });
     if (emailCheck)
       return res.json({ msg: "Email already used", status: false });
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedrecovery = await bcrypt.hash(email, 10);
+      const user = await User.create({
       firstname,
       lastname,
       email,
       username,
       password: hashedPassword,
+      PasswordRecoveryLink: hashedrecovery,
     });
     delete user.password;
     return res.json({ status: true, user });
@@ -41,18 +43,50 @@ module.exports.register = async (req, res, next) => {
   }
 };
 
+
+String.prototype.hashCode = function() {
+  var hash = 0,
+    i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr = this.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+}
+
   // Update a User by its ID
   module.exports.updateUserById = async (req, res, next) => {
-    try {
+    console.log(req);
+     try {
       const userId = req.params.id;
-      const updatedUserData = req.body;
-      return userId;
-      const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+ const emailCheck = await User.findOne({ userId });
+      const {  password,rec }  = req.body;
+
+const emailhash  = emailCheck.email.hashCode();
+
+// return res.json(emailhash+  "  ---  "  + rec);
+//return res.json(`${encodeURIComponent(emailhash)}  " -- " ${emailCheck.email}"  ---  "  ${ rec}`);
+//return res.json(`${emailhash}  "  ---  "  ${ rec}`);
+  const isrecValid = (rec==emailhash);
+
+ // return res.json(isrecValid);
+       if (!isrecValid)
+       {
+         return res.json({ msg: "Incorrect Password Recovery Link", status: false });
+       }
+else
+{
+      const hashedPassword = await bcrypt.hash(password, 10);
+      //return userId;
+      const updatedUser = await User.findByIdAndUpdate(userId, {  password: hashedPassword}, { new: true });
       if (!updatedUser) {
         return res.status(404).json({ msg: 'User not found' });
       }
       return res.json(updatedUser);
-    } catch (ex) {
+    } }
+    catch (ex) {
       next(ex);
     }
   };

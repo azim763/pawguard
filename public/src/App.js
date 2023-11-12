@@ -26,7 +26,8 @@ export default function App() {
       <Routes>
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
+        <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} />
+        {/* <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/sendemail" element={<sendEmail />} />
         <Route path="/setAvatar" element={<SetAvatar />} />

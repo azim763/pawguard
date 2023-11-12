@@ -3,12 +3,13 @@ const {
   register,
   getAllUsers,
   getAllcnUsers,
-  setAvatar,updateUserById,
+  setAvatar,
+  updateUserById,
   logOut,
 } = require("../controllers/userController");
-const {
-  sendmail
-} = require("../controllers/emailserver");
+// const {
+//   sendmail
+// } = require("../controllers/emailserver");
 const router = require("express").Router();
 
 router.post("/login", login);
