@@ -363,6 +363,7 @@ export default function Dashboard() {
                         <Graph
                           names={foods.map((food) => food.QuantityPerMeal)}
                           values={foods.map((food) => food.FoodDate)}
+                          label="Meal"
                         />
                       </div>
                     )
@@ -386,6 +387,7 @@ export default function Dashboard() {
                       <Graph
                         names={petLog.map((petLog) => petLog.Weight)}
                         values={petLog.map((petLog) => petLog.LogDate)}
+                        label="Weight"
                       />
                     </div>
                   )
