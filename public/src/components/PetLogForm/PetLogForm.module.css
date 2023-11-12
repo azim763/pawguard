@@ -15,7 +15,7 @@
 
 .petLogFormLine1 {
   display: flex;
-  gap:1rem;
+  gap: 1rem;
 }
 
 .petUnit {
@@ -33,8 +33,17 @@
   display: flex;
   flex-flow: column nowrap;
   margin-bottom: 36px;
-  gap:2rem;
-  
+  gap: 2rem;
+}
+
+.petLogTextarea {
+  width: 50%;
+}
+
+.petLogImage {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
 }
 
 /* .petLogRadioButtons div {
@@ -55,7 +64,7 @@
 
 .sessionContainer {
   display: grid;
-  gap:1rem;
+  gap: 1rem;
 }
 
 .petLogFoodLine2 {
@@ -68,8 +77,8 @@
   margin: 28px 0;
   width: 100%;
 }
-.sessionContainer .formSubheading{
-  margin:0;
+.sessionContainer .formSubheading {
+  margin: 0;
 }
 
 .petLogFoodAndQuantity {
@@ -88,52 +97,57 @@
   display: flex;
   justify-content: end;
 }
-.ActivityLevelRadio, .UrineAmountRadio, .StoolAmountRadio{
+.ActivityLevelRadio,
+.UrineAmountRadio,
+.StoolAmountRadio {
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   justify-content: space-between;
 }
-.ActivityLevel,.UrineAmount,.StoolAmount{
+.ActivityLevel,
+.UrineAmount,
+.StoolAmount {
   display: flex;
   flex-flow: column;
   gap: 1rem;
 }
 
-@media only screen and (max-width:768px ) {
-.formSubheading{
-  width: 82%;
-}
-.petLogFormLine1{
-  flex-flow: column;
-}
-.petLogDateStyle{
-  display: flex;
-  flex-direction: column;
-}
- .petLogDateStyle .date-picker_datestyle{
-  width: 50%;
+@media only screen and (max-width: 768px) {
+  .formSubheading {
+    width: 82%;
+  }
+  .petLogFormLine1 {
+    flex-flow: column;
+  }
+  .petLogDateStyle {
+    display: flex;
+    flex-direction: column;
+  }
+  .petLogDateStyle .date-picker_datestyle {
+    width: 50%;
+  }
+  .ActivityLevelRadio,
+  .UrineAmountRadio,
+  .StoolAmountRadio {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+  }
 
-}
-.ActivityLevelRadio, .UrineAmountRadio, .StoolAmountRadio{
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-}
-
-/* .petLogRadioButtons div div{
+  /* .petLogRadioButtons div div{
   flex-direction: column;
   align-items: flex-start;
   margin:0;
 } */
-.buttonStyle{
-  justify-content: start;
-}
-.buttonStyle Button{
-  width: 80%;
-}
+  .buttonStyle {
+    justify-content: start;
+  }
+  .buttonStyle Button {
+    width: 80%;
+  }
 }
 
-.petLogImage div img{
-  width:200px;
+.petLogImage div img {
+  width: 200px;
   height: 200px;
 }

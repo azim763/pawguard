@@ -39,7 +39,6 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight, id }) => {
 
   const handleArchiveClick = () => {
     // Handle archive action
-
     handleMoreMenuClose();
   };
 
@@ -55,82 +54,97 @@ const PetCard = ({ src, petBreed, petAge, petHeight, petWeight, id }) => {
         <ImageDisplay PetImageData={src} />
       </div>
       <div className={styles.commonDetailContainer}>
-        <div className={styles.detailContainer}>
-          <div>
-            <PawSVG className={styles.SVGIcons} />
-          </div>
-          <div className={styles.descriptionContainer}>
+        <div>
+          <PawSVG className={styles.SVGIcons} />
+        </div>
+        <div className={styles.descriptionContainer}>
+          <div className={styles.descriptionTitle}>
             <Typography variant="textfield-poppins-regular">Breed</Typography>
-            <Typography variant="body1-poppins-semibold">{petBreed}</Typography>
           </div>
+          <Typography variant="body1-poppins-semibold">{petBreed}</Typography>
         </div>
-        <div className={styles.detailContainer}>
-          <div>
-            <CakeSVG className={styles.SVGIcons} />
-          </div>
-          <div className={styles.descriptionContainer}>
-            <Typography variant="textfield-poppins-regular">Age</Typography>
-            <Typography variant="body1-poppins-semibold" color="dark-blue">{petAge}</Typography>
-          </div>
-        </div>
-        <div className={styles.detailContainer}>
-          <div>
-            <HeightSVG className={styles.SVGIcons} />
-          </div>
-          <div className={styles.descriptionContainer}>
-            <Typography variant="textfield-poppins-regular">Height</Typography>
-            <Typography variant="body1-poppins-semibold" color="dark-blue">{petHeight} in</Typography>
-          </div>
-        </div>
-        <div className={styles.detailContainer}>
-          <div>
-            <WeightSVG className={styles.SVGIcons} />
-          </div>
-          <div className={styles.descriptionContainer}>
-            <Typography variant="textfield-poppins-regular">Weight</Typography>
-            <Typography variant="body1-poppins-semibold" color="dark-blue">{petWeight} lb</Typography>
-          </div>
-        </div>
-      </div>
 
-      <div className={styles.actionContainer}>
-        <div>
-          <PenSVG className={styles.SVGIcons} />
-          <Typography variant="detailtext2-poppins-medium">edit </Typography>
+        <div className={styles.mobileCakeSVG}>
+          <CakeSVG className={styles.SVGIcons} />
         </div>
-        <div>
-          <ArchiveSVG className={styles.SVGIcons} />
-          <Typography variant="detailtext2-poppins-medium">archive </Typography>
-        </div>
-        <div>
-          <ExportSVG className={styles.SVGIcons} onClick={handleExportClick} />
-          <Typography variant="detailtext2-poppins-medium">
-            export
+        <div className={`${styles.descriptionContainer} ${styles.mobileAge}`}>
+          <div className={styles.descriptionTitle}>
+            <Typography variant="textfield-poppins-regular">Age</Typography>
+          </div>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">
+            {petAge}
           </Typography>
         </div>
-        
-      </div>
-      <div className={styles.actionContainerMobile}>
-          <IconButton
-            aria-controls="more-menu"
-            aria-haspopup="true"
-            onClick={handleMoreMenuClick}
+
+        <div className={styles.mobileHeightSVG}>
+          <HeightSVG
+            className={styles.SVGIcons}
+          />
+        </div>
+        <div className={styles.descriptionContainer}>
+          <div
+            className={`${styles.descriptionContainer} ${styles.mobileHeight}`}
           >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id="more-menu"
-            anchorEl={anchorEl}
-            open={moreMenuOpen}
-            onClose={handleMoreMenuClose}
-          >
-            <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-            <MenuItem onClick={handleArchiveClick}>Archive</MenuItem>
-            <MenuItem onClick={handleExportClick}>Export</MenuItem>
-          </Menu>
+            <div className={styles.descriptionTitle}>
+              <Typography variant="textfield-poppins-regular">Height</Typography>
+            </div>
+          </div>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">
+            {petHeight} in
+          </Typography>
+        </div>
+
+        <div>
+          <WeightSVG className={styles.SVGIcons} />
+        </div>
+        <div className={styles.descriptionContainer}>
+          <div className={styles.descriptionTitle}>
+            <Typography variant="textfield-poppins-regular">Weight</Typography>
+          </div>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">
+            {petWeight} lb
+          </Typography>
         </div>
       </div>
-      );
+      <div className={styles.actionContainer}>
+        <div>
+          <PenSVG className={styles.actionSVGIcons} />
+          <Typography variant="detailtext2-poppins-medium">Edit </Typography>
+        </div>
+        <div>
+          <ArchiveSVG className={styles.actionSVGIcons} />
+          <Typography variant="detailtext2-poppins-medium">Archive </Typography>
+        </div>
+        <div>
+          <ExportSVG
+            className={styles.actionSVGIcons}
+            onClick={handleExportClick}
+          />
+          <Typography variant="detailtext2-poppins-medium">Export</Typography>
+        </div>
+      </div>
+      <div className={styles.actionContainerMobile}>
+        <IconButton
+          aria-controls="more-menu"
+          aria-haspopup="true"
+          onClick={handleMoreMenuClick}
+          style={{padding: "1px"}}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="more-menu"
+          anchorEl={anchorEl}
+          open={moreMenuOpen}
+          onClose={handleMoreMenuClose}
+        >
+          <MenuItem onClick={handleEditClick}>Edit</MenuItem>
+          <MenuItem onClick={handleArchiveClick}>Archive</MenuItem>
+          <MenuItem onClick={handleExportClick}>Export</MenuItem>
+        </Menu>
+      </div>
+    </div>
+  );
 };
 
-      export default PetCard;
+export default PetCard;

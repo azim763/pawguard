@@ -5,23 +5,40 @@ import Typography from "../Typography/Typography";
 import DatePicker from "../DatePicker/DatePicker";
 import Button from "../Button/Button";
 import RadioButton from "../RadioButton/RadioButton";
-import {
-  createPetFoodRoute,
-  createPetLogRoute,
-} from "../../utils/APIRoutes";
+import { createPetFoodRoute, createPetLogRoute } from "../../utils/APIRoutes";
 import axios from "axios";
-import CloseSVG from "./../SVG/CloseSVG"
+import CloseSVG from "./../SVG/CloseSVG";
 import FoodForm from "./FoodForm/FoodForm";
 import SingleImageUpload from "../SingleImageUpload/SingleImageUpload";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TextArea from "../TextArea/TextArea";
 
-const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID }) => {
+const PetLogForm = ({
+  selectedPet,
+  onPetLogSubmit,
+  onFoodFormSubmit,
+  SelectedPetID,
+  getToggleProps,
+}) => {
   // const [pets,setPets] =useState([]);
+
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const initialFormData = {
+    PetID: "",
+    Weight: 0,
+    ActivityLevel: "",
+    UrineAmount: "",
+    StoolAmount: "",
+    PetImages: "",
+    Notes: "",
+  };
+
+  const [formData, setFormData] = useState({ initialFormData });
 
   const toastOptions = {
     position: "bottom-right",
@@ -30,16 +47,12 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
     draggable: true,
     theme: "dark",
   };
-  
-  const handleFoodFormSubmit = async (foodData) => {
 
+  const handleFoodFormSubmit = async (foodData) => {
     // Handle food form submission
     console.log("Food data before update:", foodData);
 
     if (selectedPet && selectedPet._id) {
-
-    
-
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
       console.log("Updated food data:", updatedFoodData);
 
@@ -47,7 +60,7 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
       console.log(response);
       console.log("Data submitted");
-    
+      setFoodData("");
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
@@ -57,60 +70,45 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
     // Handle additional information form submission
     console.log("Additional information data before update:", formData);
 
-
     if (selectedPet && selectedPet._id) {
+      if (validateForm()) {
+        const updatedFormData = { ...formData, PetID: selectedPet._id };
+        console.log("Updated additional information data:", updatedFormData);
 
-      if (validateForm()){
-
-      const updatedFormData = { ...formData, PetID: selectedPet._id };
-      console.log("Updated additional information data:", updatedFormData);
-
-      setFormData(updatedFormData);
-      const response = await axios.post(createPetLogRoute, updatedFormData);
-      onPetLogSubmit(response.data);
-      console.log(response);
-      console.log("Data submitted");
+        setFormData(updatedFormData);
+        const response = await axios.post(createPetLogRoute, updatedFormData);
+        onPetLogSubmit(response.data);
+        console.log(response);
+        console.log("Data submitted");
+        setFormData(initialFormData);
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
     }
   };
 
-  const [formData, setFormData] = useState({
-    PetID: "",
-    Weight: 0,
-    ActivityLevel: "",
-    UrineAmount: "",
-    StoolAmount: "",
-    StoolAppearance: "",
-    PetImages: "",
-    Notes: "",
-  });
-
   const validateForm = () => {
-    const { Weight, ActivityLevel, UrineAmount,StoolAmount,StoolAppearance } = formData;
+    const { Weight, ActivityLevel, UrineAmount, StoolAmount, StoolAppearance } =
+      formData;
     if (Weight === "") {
       toast.error("Weight is required.", toastOptions);
       return false;
     } else if (ActivityLevel === "") {
       toast.error("Activity Level is required.", toastOptions);
       return false;
-    }
-    else if (UrineAmount === "") {
+    } else if (UrineAmount === "") {
       toast.error("Urine Amount is required.", toastOptions);
       return false;
-    }
-    else if (StoolAmount === "") {
+    } else if (StoolAmount === "") {
       toast.error("Stool Amount is required.", toastOptions);
       return false;
     }
-    else if (StoolAppearance === "") {
-      toast.error("Stool Appearance is required.", toastOptions);
-      return false;
-    }
+    // } else if (StoolAppearance === "") {
+    //   toast.error("Stool Appearance is required.", toastOptions);
+    //   return false;
+    // }
     return true;
   };
-  
 
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
@@ -125,10 +123,12 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(e.target);
     setFormData({
       ...formData,
       [name]: value,
     });
+    console.log(value);
   };
 
   const handleRadioChange = (option, category) => {
@@ -174,20 +174,23 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
       <div className={styles.petLogContainer}>
         <div className={styles.petLogTitle}>
           <Typography variant="h2-poppins-semibold">Add Pet Log</Typography>
-          <CloseSVG width="27" height="28" />
+          <div {...getToggleProps()}>
+            <CloseSVG width="27" height="28" />
+          </div>
         </div>
         <div className={styles.addPetForm}>
           <div className={styles.petLogFormGeneral}>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-h1-poppins-semibold">
-                General
-              </Typography>
+              <Typography variant="sub-poppins-medium">General</Typography>
             </div>
             <div className={styles.petLogFormLine1}>
               <div className={styles.petLogDateStyle}>
                 <Typography variant="body2-poppins-medium">Date</Typography>
-                <DatePicker onChange={handleLogDateChange} id="LogDate" value={LogDate} />
-
+                <DatePicker
+                  onChange={handleLogDateChange}
+                  id="LogDate"
+                  value={LogDate}
+                />
               </div>
               <div>
                 <Typography variant="body2-poppins-medium">
@@ -211,40 +214,40 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
               </div>
             </div>
             <div className={styles.petLogRadioButtons}>
-                <div className={styles.ActivityLevel}>
-                  <Typography variant="body2-poppins-medium">
-                    Activity Level
-                  </Typography>
-                  <div className={styles.ActivityLevelRadio}>
-                    {options.map((option) => (
-                      <RadioButton
-                        key={option.value}
-                        label={option.label}
-                        checked={formData.ActivityLevel === option.value}
-                        onChange={() =>
-                          handleRadioChange(option.value, "ActivityLevel")
-                        }
-                      />
-                    ))}
-                  </div>
+              <div className={styles.ActivityLevel}>
+                <Typography variant="body2-poppins-medium">
+                  Activity Level
+                </Typography>
+                <div className={styles.ActivityLevelRadio}>
+                  {options.map((option) => (
+                    <RadioButton
+                      key={option.value}
+                      label={option.label}
+                      checked={formData.ActivityLevel === option.value}
+                      onChange={() =>
+                        handleRadioChange(option.value, "ActivityLevel")
+                      }
+                    />
+                  ))}
                 </div>
-                <div className={styles.UrineAmount}>
-                  <Typography variant="body2-poppins-medium">
-                    Urine Amount
-                  </Typography>
-                  <div className={styles.UrineAmountRadio}>
-                    {options.map((option) => (
-                      <RadioButton
-                        key={option.value}
-                        label={option.label}
-                        checked={formData.UrineAmount === option.value}
-                        onChange={() =>
-                          handleRadioChange(option.value, "UrineAmount")
-                        }
-                      />
-                    ))}
-                                </div>
+              </div>
+              <div className={styles.UrineAmount}>
+                <Typography variant="body2-poppins-medium">
+                  Urine Amount
+                </Typography>
+                <div className={styles.UrineAmountRadio}>
+                  {options.map((option) => (
+                    <RadioButton
+                      key={option.value}
+                      label={option.label}
+                      checked={formData.UrineAmount === option.value}
+                      onChange={() =>
+                        handleRadioChange(option.value, "UrineAmount")
+                      }
+                    />
+                  ))}
                 </div>
+              </div>
               <div className={styles.StoolAmount}>
                 <Typography variant="body2-poppins-medium">
                   Stool Amount
@@ -267,33 +270,57 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
           </div>
           <div>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-h1-poppins-semibold">Food </Typography>
+              <Typography variant="sub-poppins-medium">Food </Typography>
             </div>
             <div className={styles.sessionContainer}>
-              <FoodForm onFoodFormSubmit={handleFoodFormSubmit}  SelectedPetID={SelectedPetID}></FoodForm>
+              <FoodForm
+                onFoodFormSubmit={handleFoodFormSubmit}
+                SelectedPetID={SelectedPetID}
+              ></FoodForm>
             </div>
           </div>
           <div className={styles.sessionContainer}>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-h1-poppins-semibold">
+              <Typography variant="sub-poppins-medium">
                 Additional Information
               </Typography>
             </div>
-            <TextInput
+            <TextArea
+              label="Other Notes"
+              name="Notes"
+              id="Notes"
+              cols="30"
+              rows="10"
+              placeholder="Enter Observations for your petAdd your pets"
+              onChange={handleInputChange}
+              value={formData.Notes}
+              className={styles.petLogTextarea}
+            />
+            {/* <TextInput
               id="Notes"
               name="Notes"
               label="other Notes"
               placeholder="Enter Observations for your pet"
               value={formData.Notes}
               onChange={handleInputChange}
-            />
-          <div className={styles.petLogImage}>
+            /> */}
+            <div className={styles.petLogImage}>
+              <Typography variant="body2-poppins-medium">
+                Upload Images
+              </Typography>
+              <Typography
+                varient="textfield-poppins-regular"
+                color="small-text-gray"
+              >
+                Pet’s conditions (e.g. injuries, vomit)
+              </Typography>
+
               <ImageDisplay PetImageData={selectedImage} />
               <SingleImageUpload
-              label="Add Pet Log Image"
-              onImageUpload={handleImageUpload}
-            />
-          </div>
+                label="Add Pet Log Image"
+                onImageUpload={handleImageUpload}
+              />
+            </div>
             <div className={styles.buttonStyle}>
               <Button
                 variant="yellow"
@@ -304,8 +331,8 @@ const PetLogForm = ({ selectedPet, onPetLogSubmit,onFoodFormSubmit,SelectedPetID
             </div>
           </div>
         </div>
-      </div>   
-       <ToastContainer />
+      </div>
+      <ToastContainer />
     </div>
   );
 };
