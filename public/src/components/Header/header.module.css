@@ -103,6 +103,7 @@ nav li a:hover {
     justify-content: center;
     transform: translateX(0); /* Slide the menu in from the right */
     transition: all 1s ease-in-out;
+    z-index: 99;
   }
 
   .profileMenu a div {

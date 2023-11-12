@@ -49,15 +49,15 @@ const ClinicLocationCard = ({
         <Typography variant="sub-poppins-medium">Details</Typography>
       </div>
       <div className={`${styles["address-container"]}`}>
-        <LocationSVG width="23" height="34" />
+        <LocationSVG className={`${styles["locationIcon"]}`} />
         <Typography variant="body2-poppins-medium">{address}</Typography>
       </div>
       <div className={`${styles["hours-container"]}`}>
-        <ClockSVG width="26" height="27" />
+        <ClockSVG className={`${styles["clockIcon"]}`} />
         <Typography variant="body2-poppins-medium">{hours}</Typography>
       </div>
       <div className={`${styles["alert-container"]}`}>
-        <AlertSVG width="30" height="30" />
+        <AlertSVG className={`${styles["alertIcon"]}`} />
         <Typography variant="body2-poppins-medium">{urgentCare}</Typography>
       </div>
       <div id="map-container" className={`${styles["map-container"]}`}>
