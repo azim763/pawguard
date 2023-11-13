@@ -28,7 +28,37 @@ import Typography from "../../components/Typography/Typography";
 import { useCollapse } from "react-collapsed";
 
 const PetPage = () => {
+  const location = useLocation();
+  const { selectedPetID } = location.state || {};
+  const [pets, setPets] = useState([]);
+
+  const [petLog, setPetLog] = useState([]);
+  const [petAppointments, setPetAppointments] = useState([]);
+  const [petMedications, setPetMedications] = useState([]);
+  const [petVaccines, setPetVaccines] = useState([]);
+  const [selectedPet, setSelectedPet] = useState("");
+  const [validPetAppointments, setValidPetAppointments] = useState([]);
+  const [isVaccinationFormExpanded, setVaccinationFormExpanded] =
+    useState(false);
+
+  const [isMedicationFormExpanded, setMedicationFormExpanded] = useState(false);
+
+  const [isPetLogFormExpanded, setPetLogFormExpanded] = useState(false);
+
+  const [isAptFormExpanded, setAptFormExpanded] = useState(false);
+  const [selectedPetLog, setSelectedPetLog] = useState(null);
+  const [formMode, setFormMode] = useState("create");
+
+
   const petLogFormRef = useRef(null);
+
+  const handlePetLogClick = (log) => {
+    setSelectedPetLog(log);
+    setFormMode("view");
+    setPetLogFormExpanded(true);
+    petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
+    console.log(log);
+  };
   const handlePetLogButtonClick = () => {
     petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -81,24 +111,7 @@ const PetPage = () => {
     isExpanded: isVaccinationExpanded,
   } = useCollapse();
 
-  const location = useLocation();
-  const { selectedPetID } = location.state || {};
-  const [pets, setPets] = useState([]);
-
-  const [petLog, setPetLog] = useState([]);
-  const [petAppointments, setPetAppointments] = useState([]);
-  const [petMedications, setPetMedications] = useState([]);
-  const [petVaccines, setPetVaccines] = useState([]);
-  const [selectedPet, setSelectedPet] = useState("");
-  const [validPetAppointments, setValidPetAppointments] = useState([]);
-  const [isVaccinationFormExpanded, setVaccinationFormExpanded] =
-    useState(false);
-
-  const [isMedicationFormExpanded, setMedicationFormExpanded] = useState(false);
-
-  const [isPetLogFormExpanded, setPetLogFormExpanded] = useState(false);
-
-  const [isAptFormExpanded, setAptFormExpanded] = useState(false);
+ 
 
   const formatDate = (date) => {
     console.log("formatDate");
@@ -337,8 +350,8 @@ const PetPage = () => {
           {petLog.length > 0 ? (
             <div className={styles.cardStyle}>
               {petLog.map((log) => (
-                <div key={log._id}>
-                  <PetLogCard
+                <div key={log._id} onClick={() => handlePetLogClick(log)}>
+                  <PetLogCard 
                     PetLogDate={log.LogDate}
                     PetLogTime={log.timestamp}
                     logId={log._id}
@@ -369,7 +382,9 @@ const PetPage = () => {
                   SelectedPetID={selectedPet._id}
                   getToggleProps={getPetLogToggleProps}
                   closePetLogForm={closePetLogForm}
-                />
+                  selectedLog={selectedPetLog}
+                  formMode={formMode}
+                  />
               </div>
             </div>
           )}
@@ -547,6 +562,7 @@ const PetPage = () => {
               size="dk-md-s"
               {...getPetLogToggleProps()}
               onClick={(event) => {
+                setFormMode("create")
                 getPetLogToggleProps().onClick(event);
                 if (!isPetLogFormExpanded) {
                   setTimeout(() => {
