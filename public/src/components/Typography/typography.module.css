@@ -86,11 +86,7 @@
   color: var(--dark-blue);
 }
 
-.white{
-  color: #fff
-}
-
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
   .user-greeting-poppins-semibold {
     font-size: 32px;
     line-height: 48px;

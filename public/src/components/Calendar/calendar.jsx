@@ -150,11 +150,11 @@ const DashCalendar = ({ petAppointments, petMedications }) => {
 
       {selectedDate &&
         (getSelectedEvents().length > 0 || getUserMeds().length > 0) && (
-          <div>
+          <div style={{ padding: '12px'}}>
             <Typography
               variant="sub-poppins-medium"
               color="dark-blue"
-              style={{ textAlign: "center", margin: "24px 0" }}
+              style={{ textAlign: "center", margin: "12px 0" }}
             >
               {formatDate(selectedDate)}
             </Typography>

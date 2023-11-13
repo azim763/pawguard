@@ -16,21 +16,30 @@
 
 .dashboardPetCard {
   background-color: var(--pearl-blue) !important;
-  display: grid;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
-  grid-template-columns: 1fr 2fr;
-  padding: 12px;
   column-gap: 16px;
-  text-align: center;
   row-gap: 20px;
 }
 
+.dashboardPetCard > div:first-of-type {
+  order: 1;
+}
+.dashboardPetCard > div:last-of-type {
+  order: 3;
+  flex-basis: 100%;
+}
+
+.dashboardPetCard > a {
+  order: 2;
+}
+
 .petCardList {
-  grid-column: 1/-1;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  gap: 25px;
+  gap: 28px;
   /* display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
@@ -115,36 +124,104 @@
   margin-left: 10px;
 }
 
-@media screen and (min-width: 810px) {
+.graphTitle {
+  margin-bottom: 30px;
+  margin-top: 53px;
+}
+
+.graphContainerMain {
+  padding-right: 40px;
+}
+
+.graphNoRecord {
+  display: block;
+  margin: auto;
+  width: 300px;
+  padding-right: 0;
+}
+
+.graphNav {
+  display: flex;
+  align-items: center;
+}
+
+.underline {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  border-top: 0;
+  background-color: var(--almost-black);
+}
+
+.marginIcon{
+  margin-right: 10px;
+}
+
+.marginIconArr{
+  margin-left: 10px;
+}
+
+@media screen and (min-width: 768px) {
   .dashboardContainer {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: repeat(2, auto);
-    max-width: 810px;
-    margin: auto;
-    align-items: start;
+    padding: 45px 40px;
   }
 
-  .dashboardPetCard {
-    grid-column: 1/2;
-    grid-row: 1/3;
-    display: flex;
-    flex-flow: column nowrap;
+  .dashboardContainer > div:not(.petCardList) {
+    max-width: 100%;
+    width: 100%;
   }
 
   .petCardList {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 28px;
+  }
 
-    grid-column: 1/-1;
-    justify-content: space-between;
-    align-items: center;
+  .middleTitle {
+    padding-right: 12px;
+  }
+
+  .petSummaryCards {
+    justify-content: start;
+    gap: 28px;
+  }
+}
+
+@media screen and (min-width: 1215px) {
+  .dashboardPetCard {
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 158px !important;
+    padding: 40px 20px !important;
+  }
+
+  .dashboardPetCard > div:first-of-type {
+    order: 1;
+  }
+  .dashboardPetCard > div:last-of-type {
+    order: 2;
+  }
+  .dashboardPetCard > a {
+    order: 3;
+  }
+
+  .petCardList {
+    padding-top: 42px;
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .petCardList > a {
+    max-width: 100px;
   }
 
   .dashboardPetCard svg {
     width: 60px;
     height: 60px;
+  }
+
+  .middleContainer {
+    max-width: 600px !important;
   }
 
   .petSummaryCards {
@@ -192,64 +269,7 @@
   }
 }
 
-/* 
-
-
-
-@media screen and (min-width: 1099px) {
-  .middleContainer {
-    height: auto;
-    min-width: 550px;
-    max-width: 585px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    padding: 24px 20px;
-  }
-}
-
-
-
-
-
-
-.dashboardGraph {
-  grid-column: 1/-1;
-}
-
-@media only screen and (max-width: 1000px) {
-  .dashboardContainer {
-    flex-flow: column nowrap;
-  }
-
-  .dashboardContainer > div {
-    width: 100%;
-  }
-
-
-
-
-
-  .middleContainer {
-    gap: 24px;
-    padding: 24px 20px;
-  }
-
-  .petSummaryCards {
-    margin-top: 24px;
-    margin-bottom: 36px;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-  }
-
-  .middleTitle img {
-    max-width: 41px;
-    max-height: 41px;
-  }
-}
-
-.carouselArrowTop {
+/* .carouselArrowTop {
   cursor: pointer;
   text-align: center;
   position: absolute;

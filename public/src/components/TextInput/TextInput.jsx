@@ -10,7 +10,7 @@ const TextInput = ({
   onChange,
   variant,
   size,
-  required
+  required,
 }) => {
   return (
     <div>
