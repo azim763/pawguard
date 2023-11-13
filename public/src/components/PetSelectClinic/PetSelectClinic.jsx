@@ -29,7 +29,7 @@ const PetSelectionClinic = ({
       <div className={styles.imageContainer}>
         <img src={`data:image/jpeg;base64,${imgUrl}`} alt={alt} />
       </div>
-      <Typography variant="sub-poppins-medium">{clinicPetName}</Typography>
+      <Typography variant="h2-poppins-semibold">{clinicPetName}</Typography>
     </div>
   );
 };
