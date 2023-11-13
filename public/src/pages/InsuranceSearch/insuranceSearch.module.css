@@ -49,19 +49,25 @@
   text-align: center;
 }
 
-/* .buttonGroup{
-  display: flex;
-  justify-content: space-between;
-} */
+@media screen and (max-width: 933px) {
+  .insuranceFromTitle {
+    margin-top: 0;
+  }
+}
 
 @media screen and (max-width: 700px) {
+  .insuranceDropdown,
+  .insuranceDropdown select {
+    width: 100%;
+  }
+
   .insuranceSearchContainer {
     padding: 25px;
   }
 
-  .formContainer select {
+  /* .formContainer select {
     width: 385px;
-  }
+  } */
 
   .formContainer {
     gap: 12px;
@@ -72,20 +78,15 @@
   }
 
   .insuranceFromTitle {
-    margin: 50px 0;
+    margin: 0 0 50px 0;
     text-align: center;
   }
 }
 
-@media screen and (max-width: 450px) {
-
-  .petSelectionContainer {
+@media screen and (max-width: 500px) {
+  /* .petSelectionContainer {
     justify-content: left;
-  }
-
-  .formContainer select {
-    width: 315px;
-  }
+  } */
 
   .insuranceSearchContainer {
     padding: 40px 15px 40px 15px;
@@ -95,11 +96,6 @@
     justify-content: left;
     display: flex;
     margin-top: 33px;
-    margin-left: 170px;
-  }
-
-  .quoteButton button {
-    width: 150px;
   }
 
   .insuranceFromTitle {
@@ -108,5 +104,15 @@
 
   .addPetLink {
     margin: 50px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .quoteButton {
+    margin-left: 180px;
+  }
+
+  .quoteButton button {
+    width: 150px;
   }
 }

@@ -277,11 +277,13 @@ const InsuranceSearch = () => {
             </Link>
           </div>
         </div>
+
         <Typography variant="h2-poppins-semibold" color="almost-black">
           <div className={styles.insuranceFromTitle}>{pageTitle}</div>
         </Typography>
+
         <div className={styles.formContainer}>
-          <div>
+          <div className={styles.insuranceDropdown}>
             <Typography variant="body2-poppins-medium" color="almost black">
               Type of Pet
             </Typography>
@@ -303,6 +305,7 @@ const InsuranceSearch = () => {
               selected={selectedGender}
             />
           </div>
+
           <div className={styles.insuranceDropdown}>
             <Typography variant="body2-poppins-medium" color="almost black">
               Pet's age
