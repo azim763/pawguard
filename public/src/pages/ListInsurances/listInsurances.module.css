@@ -1,22 +1,38 @@
-.ListInsurances{
-    padding: 5%;
-    background-color: var(--off-white);
+.ListInsurances {
+  padding: 122px 7%;
+  background-color: var(--off-white);
 }
 
-.ListInsurancesBody{
-    display: grid;
-    row-gap: 0.05%;
-    margin-top: 5%;
-}
-.heading{
-    display: grid;
-    grid-gap: 10%;
+.ListInsurancesBody {
+  display: grid;
+  row-gap: 0.05%;
+  margin-top: 5%;
 }
 
-@media screen and (min-width: 700px) {
-    
+.heading {
+  display: grid;
+  grid-gap: 10%;
 }
 
-@media screen and (min-width: 1000px) {
-
+@media screen and (max-width: 1000px) {
+  .ListInsurancesBody {
+    padding: 0 20%;
+  }
 }
+
+@media screen and (max-width: 800px) {
+  .ListInsurancesBody {
+    padding: 0 8%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+    .ListInsurancesBody {
+      padding: 0 !important;
+    }
+  
+    .ListInsurances {
+      padding: 27px 20px;
+    }
+  }
+
