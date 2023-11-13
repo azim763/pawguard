@@ -38,3 +38,8 @@
   -webkit-box-shadow: none;
   border-radius: 50%;
 }
+
+.carousel-root {
+  max-width: 500px;
+  margin: auto;
+}

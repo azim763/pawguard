@@ -11,7 +11,7 @@
   border: solid 1px var(--border-grey);
   background-color: white;
   padding: 20px;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 .dashboardPetCard {
@@ -19,8 +19,7 @@
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  column-gap: 16px;
-  row-gap: 20px;
+  gap: 25px;
 }
 
 .dashboardPetCard > div:first-of-type {
@@ -87,42 +86,6 @@
   margin-top: 8px;
 }
 
-.graphTitle {
-  margin-bottom: 30px;
-  margin-top: 53px;
-}
-
-.graphContainerMain {
-  padding-right: 40px;
-}
-
-.graphNoRecord {
-  display: block;
-  margin: auto;
-  width: 300px;
-  padding-right: 0;
-}
-
-.graphNav {
-  display: flex;
-  align-items: center;
-}
-
-.underline {
-  height: 1px;
-  width: 100%;
-  margin: 0;
-  border-top: 0;
-  background-color: var(--almost-black);
-}
-
-.marginIcon{
-  margin-right: 10px;
-}
-
-.marginIconArr{
-  margin-left: 10px;
-}
 
 .graphTitle {
   margin-bottom: 30px;
@@ -161,10 +124,14 @@
   margin-left: 10px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 875px) {
   .dashboardContainer {
     padding: 45px 40px;
   }
+
+  .dashboardContainer > div:nth-of-type(2) {
+    padding: 20px 30px;
+}
 
   .dashboardContainer > div:not(.petCardList) {
     max-width: 100%;
@@ -184,10 +151,11 @@
   .petSummaryCards {
     justify-content: start;
     gap: 28px;
+    flex-flow: row nowrap;
   }
 }
 
-@media screen and (min-width: 1215px) {
+@media screen and (min-width: 1220px) {
   .dashboardPetCard {
     display: flex;
     flex-flow: column nowrap;
@@ -228,23 +196,13 @@
     justify-content: space-between;
   }
 
-  .middleContainer {
-    max-width: 600px !important;
-    flex-grow: 1;
-  }
-
-  .dashboardContainer > div:last-of-type {
-    max-width: 600px;
-    flex-grow: 1;
-  }
-}
-
-@media screen and (min-width: 1195px) {
   .dashboardContainer {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
-    max-width: 1150px;
+    max-width: 1130px;
+    margin: auto;
+    box-sizing: content-box;
   }
 
   .dashboardContainer > div:last-of-type {
@@ -256,12 +214,6 @@
 @media screen and (max-width: 500px) {
   .middleContainer {
     width: 100%;
-  }
-
-  .middleTitle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
   }
 
   .graphNoRecord {

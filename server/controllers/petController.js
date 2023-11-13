@@ -25,7 +25,7 @@ module.exports.createPet = async (req, res, next) => {
 module.exports.searchPetsByUserID = async (req, res, next) => {
     try {
       const userID = req.query.userID;
-      const pets = await Pet.find({ UserID: userID });
+      const pets = await Pet.find({ UserID: userID, Archive: { $ne: true } });
       return res.json(pets);
     } catch (ex) {
       next(ex);

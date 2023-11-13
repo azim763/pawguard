@@ -75,7 +75,6 @@ const PetCard = ({
   };
 
   const handleCancelArchive = () => {
-    // Close the delete confirmation modal without performing the delete
     setIsArchiveModalOpen(false);
   };
 
@@ -144,13 +143,13 @@ const PetCard = ({
         </div>
       </div>
       <div className={styles.actionContainer}>
-        <div>
+        <NavLink to={`editPage/${id}`}>
           <PenSVG className={styles.actionSVGIcons} />
-          <Typography variant="detailtext2-poppins-medium">Edit </Typography>
-        </div>
+          <Typography variant="detailtext2-poppins-medium">Edit</Typography>
+        </NavLink>
         <div>
-          <ArchiveSVG className={styles.actionSVGIcons} />
-          <Typography variant="detailtext2-poppins-medium">Archive </Typography>
+          <ArchiveSVG className={styles.actionSVGIcons} onClick={handleArchiveClick} />
+          <Typography variant="detailtext2-poppins-medium">Archive</Typography>
         </div>
         <div>
           <ExportSVG

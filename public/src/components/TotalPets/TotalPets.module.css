@@ -19,7 +19,7 @@
   margin: 0 -5px; /* Half of the negative gap value */
 }
 
-.totalPets .active {
+.totalPets .active > div {
   border: 2.5px solid var(--light-blue);
   border-radius: 50%;
   box-sizing: border-box;

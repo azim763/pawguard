@@ -74,7 +74,7 @@
   background-color: var(--pearl-blue);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 875px) {
 .calendar {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -82,7 +82,7 @@
 }
 }
 
-@media screen and (min-width: 1215px) {
+@media screen and (min-width: 1220px) {
   .calendar {
     grid-template-columns: 1fr;
   }
