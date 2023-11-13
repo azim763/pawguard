@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
@@ -16,7 +16,6 @@ import {
   searchPetMedicationsByPetIDRoute,
   searchPetAppointmentsByPetIDRoute,
   searchPetLogsByPetIDRoute,
-  searchPetFoodByPetIDRoute,
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
@@ -26,8 +25,62 @@ import TotalPets from "../../components/TotalPets/TotalPets";
 // import ImageDisplay from '../../components/ImageDisplay/ImageDisplay';
 import Map from "../../components/Map/Map";
 import Typography from "../../components/Typography/Typography";
+import { useCollapse } from "react-collapsed";
 
 const PetPage = () => {
+  const petLogFormRef = useRef(null);
+  const handlePetLogButtonClick = () => {
+    petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const appointmentFormRef = useRef(null);
+  const handleAppointmentButtonClick = () => {
+    appointmentFormRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
+
+  const medicationFormRef = useRef(null);
+  const handleMedicationButtonClick = () => {
+    medicationFormRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
+
+  const vaccincationFormRef = useRef(null);
+  const handleVaccincationButtonClick = () => {
+    vaccincationFormRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  };
+
+  const {
+    getCollapseProps: getPetLogCollapseProps,
+    getToggleProps: getPetLogToggleProps,
+    isExpanded: isPetLogExpanded,
+  } = useCollapse();
+
+  const {
+    getCollapseProps: getAppointmentCollapseProps,
+    getToggleProps: getAppointmentToggleProps,
+    isExpanded: isAppointmentExpanded,
+  } = useCollapse();
+
+  const {
+    getCollapseProps: getMedicationCollapseProps,
+    getToggleProps: getMedicationToggleProps,
+    isExpanded: isMedicationExpanded,
+  } = useCollapse();
+
+  const {
+    getCollapseProps: getVaccinationCollapseProps,
+    getToggleProps: getVaccinationToggleProps,
+    isExpanded: isVaccinationExpanded,
+  } = useCollapse();
+
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedPetID } = location.state || {};
@@ -39,15 +92,23 @@ const PetPage = () => {
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
   const [validPetAppointments, setValidPetAppointments] = useState([]);
+  const [isVaccinationFormExpanded, setVaccinationFormExpanded] =
+    useState(false);
 
-  console.log(pets);
+  const [isMedicationFormExpanded, setMedicationFormExpanded] = useState(false);
 
-  const isValidCoordinate = (coord) => {
-    return (
-      typeof coord === "object" &&
-      !isNaN(coord.Latitude) &&
-      !isNaN(coord.Longitude)
-    );
+  const [isPetLogFormExpanded, setPetLogFormExpanded] = useState(false);
+
+  const [isAptFormExpanded, setAptFormExpanded] = useState(false);
+
+  const formatDate = (date) => {
+    console.log("formatDate");
+    console.log(date);
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const year = date.getUTCFullYear();
+
+    return `${day}-${month}-${year}`;
   };
   const handleAppointmentDelete = (deletedAppointmentId) => {
     // Remove the appointment with the deleted ID from petAppointments
@@ -113,6 +174,22 @@ const PetPage = () => {
       )
     );
   };
+
+  const closeAptForm = () => {
+    setAptFormExpanded(false);
+  };
+
+  const closePetLogForm = () => {
+    setPetLogFormExpanded(false);
+  };
+
+  const closeMedForm = () => {
+    setMedicationFormExpanded(false);
+  };
+
+  const closeVacForm = ()=>{
+    setVaccinationFormExpanded(false);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -259,10 +336,10 @@ const PetPage = () => {
     PetLog: (
       <div>
         <div className={styles.getPetPage}>
-          {petLog.length > 0 && (
+          {petLog.length > 0 ? (
             <div className={styles.cardStyle}>
               {petLog.map((log) => (
-                <div>
+                <div key={log._id}>
                   <PetLogCard
                     PetLogDate={log.LogDate}
                     PetLogTime={log.timestamp}
@@ -272,28 +349,45 @@ const PetPage = () => {
                 </div>
               ))}
             </div>
+          ) : (
+            !isPetLogFormExpanded && (
+              <div className={styles.noLogImage}>
+                <div className={styles.noLogText}>
+                  <Typography variant="sub-poppins-medium" color="white">
+                    Add New Pet Log
+                  </Typography>
+                </div>
+              </div>
+            )
           )}
         </div>
         <div className={styles.postPetPage}>
           {selectedPet && selectedPet._id && (
-            <PetLogform
-              selectedPet={selectedPet}
-              onPetLogSubmit={handlePetLogSubmit}
-              SelectedPetID={selectedPet._id}
-            />
+            <div className="collapsible" ref={petLogFormRef}>
+              <div {...getPetLogCollapseProps()}>
+                <PetLogform
+                  selectedPet={selectedPet}
+                  onPetLogSubmit={handlePetLogSubmit}
+                  SelectedPetID={selectedPet._id}
+                  getToggleProps={getPetLogToggleProps}
+                  closePetLogForm={closePetLogForm}
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>
     ),
+
     Appointment: (
       <div>
         <div className={styles.getPetPage}>
-          {validPetAppointments.length > 0 && (
+          {validPetAppointments.length > 0 ? (
             <div>
-              <div styles={{ marginBottom: "27px", marginTop: "10px" }}>
+              <div style={{ marginBottom: "27px", marginTop: "10px" }}>
                 <Map coordinates={validPetAppointments} />
               </div>
-              <div className={styles.cardStyle}>
+              <div className={styles.aptStyle}>
                 {petAppointments.map((appointment, index) => (
                   <AppointmentCard
                     key={index}
@@ -307,14 +401,31 @@ const PetPage = () => {
                 ))}
               </div>
             </div>
+          ) : (
+            !isAptFormExpanded && (
+              <div className={`${styles.noLogImage} ${styles.noAptImage} `}>
+                <div className={styles.noLogText}>
+                  <Typography variant="sub-poppins-medium" color="white">
+                    Add Your Pet’s Vet Appointments
+                  </Typography>
+                </div>
+              </div>
+            )
           )}
         </div>
+
         <div className={styles.postPetPage}>
           {selectedPet && (
-            <AppointmentForm
-              selectedPet={selectedPet}
-              onAppointmentSubmit={handleAppointmentSubmit}
-            />
+            <div className="collapsible" ref={appointmentFormRef}>
+              <div {...getAppointmentCollapseProps()}>
+                <AppointmentForm
+                  selectedPet={selectedPet}
+                  onAppointmentSubmit={handleAppointmentSubmit}
+                  getToggleProps={getAppointmentToggleProps}
+                  closeAptForm={closeAptForm}
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -323,13 +434,14 @@ const PetPage = () => {
     Medication: (
       <div>
         <div className={styles.getPetPage}>
-          {petMedications.length > 0 && (
+          {petMedications.length > 0 ? (
             <div className={styles.cardStyle}>
               {petMedications.map((medication) => (
                 <MedicineCard
+                  key={medication._id}
                   medicineName={medication.MedicineName}
                   dosage={medication.DosageAmount}
-                  startDate={medication.MedicationDate}
+                  startDate={formatDate(new Date(medication.MedicationDate))}
                   Period={medication.MedicationPeriod}
                   MedicineTime={medication.MedicineTime}
                   onDelete={() => handleMedicationDelete(medication._id)}
@@ -337,14 +449,31 @@ const PetPage = () => {
                 />
               ))}
             </div>
+          ) : (
+            !isMedicationFormExpanded && (
+              <div className={`${styles.noLogImage} ${styles.noMedImage} `}>
+                <div className={styles.noLogText}>
+                  <Typography variant="sub-poppins-medium" color="white">
+                    Add Your Pet’s Medicine Details
+                  </Typography>
+                </div>
+              </div>
+            )
           )}
         </div>
+
         <div className={styles.postPetPage}>
           {selectedPet && (
-            <MedicationForm
-              selectedPet={selectedPet}
-              onMedicationSubmit={handleMedicationSubmit}
-            />
+            <div className="collapsible" ref={medicationFormRef}>
+              <div {...getMedicationCollapseProps()}>
+                <MedicationForm
+                  selectedPet={selectedPet}
+                  onMedicationSubmit={handleMedicationSubmit}
+                  getToggleProps={getMedicationToggleProps}
+                  closeMedForm={closeMedForm}
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -353,10 +482,11 @@ const PetPage = () => {
     Vaccination: (
       <div>
         <div className={styles.getPetPage}>
-          {petVaccines.length > 0 && (
+          {petVaccines.length > 0 ? (
             <div className={styles.cardStyle}>
               {petVaccines.map((vaccine) => (
                 <VaccinationCard
+                  key={vaccine._id}
                   VaccineName={vaccine.NameOfVaccination}
                   VaccineDate={new Date(vaccine.VaccinationDate)}
                   onDelete={() => handleVaccinationDelete(vaccine._id)}
@@ -364,14 +494,31 @@ const PetPage = () => {
                 />
               ))}
             </div>
+          ) : (
+            !isVaccinationFormExpanded && (
+              <div className={`${styles.noLogImage} ${styles.noVacImage} `}>
+                <div className={styles.noLogText}>
+                  <Typography variant="sub-poppins-medium" color="white">
+                    Record Your Pet’s Vaccinations
+                  </Typography>
+                </div>
+              </div>
+            )
           )}
         </div>
+
         <div className={styles.postPetPage}>
           {selectedPet && (
-            <VaccinationForm
-              selectedPet={selectedPet}
-              onVaccinationSubmit={handleVaccinationSubmit}
-            />
+            <div className="collapsible" ref={vaccincationFormRef}>
+              <div {...getVaccinationCollapseProps()}>
+                <VaccinationForm
+                  selectedPet={selectedPet}
+                  onVaccinationSubmit={handleVaccinationSubmit}
+                  getToggleProps={getVaccinationToggleProps}
+                  closeVacForm={closeVacForm}
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -389,13 +536,94 @@ const PetPage = () => {
     <div className={styles.petPageMain}>
       <Header> </Header>
       <div className={styles.petPageGrid}>
-      <div className={styles.tabTitle}>
-            <Typography variant="large-h1-poppins-bold">
-              {selectedPet.PetName}
-            </Typography>
-            {pets && <TotalPets pets={pets} selectedPet={selectedPet} onPetSelect={handlePetSelection} />}
-            <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
-          </div>
+        <div className={styles.tabTitle}>
+          <Typography variant="large-h1-poppins-bold">
+            {selectedPet.PetName}
+          </Typography>
+          {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+
+          {buttonLabel === "PetLog" && (
+            <Button
+              variant="yellow"
+              label={buttonLabel}
+              size="dk-md-s"
+              {...getPetLogToggleProps()}
+              onClick={(event) => {
+                getPetLogToggleProps().onClick(event);
+                if (!isPetLogFormExpanded) {
+                  setTimeout(() => {
+                    handlePetLogButtonClick();
+                  }, 300);
+                }
+
+                setPetLogFormExpanded(!isPetLogFormExpanded);
+
+                // if (isPetLogFormExpanded) {
+                //   setPetLogFormExpanded(true);
+                // } else {
+                //   setPetLogFormExpanded(false);
+                // }
+
+                console.log(isPetLogFormExpanded);
+              }}
+            />
+          )}
+
+          {buttonLabel === "Appointment" && (
+            <Button
+              variant="yellow"
+              label={buttonLabel}
+              size="dk-md-s"
+              {...getAppointmentToggleProps()}
+              onClick={(event) => {
+                getAppointmentToggleProps().onClick(event);
+                if (!isAppointmentExpanded) {
+                  setTimeout(() => {
+                    handleAppointmentButtonClick();
+                  }, 300);
+                }
+                setAptFormExpanded(!isAptFormExpanded);
+                console.log(isAptFormExpanded);
+              }}
+            />
+          )}
+
+          {buttonLabel === "Medication" && (
+            <Button
+              variant="yellow"
+              label={buttonLabel}
+              size="dk-md-s"
+              {...getMedicationToggleProps()}
+              onClick={(event) => {
+                getMedicationToggleProps().onClick(event);
+                if (!isMedicationExpanded) {
+                  setTimeout(() => {
+                    handleMedicationButtonClick();
+                  }, 300);
+                }
+                setMedicationFormExpanded(!isMedicationFormExpanded);
+              }}
+            />
+          )}
+
+          {buttonLabel === "Vaccination" && (
+            <Button
+              variant="yellow"
+              label={buttonLabel}
+              size="dk-md-s"
+              {...getVaccinationToggleProps()}
+              onClick={(event) => {
+                getVaccinationToggleProps().onClick(event);
+                if (!isVaccinationExpanded) {
+                  setTimeout(() => {
+                    handleVaccincationButtonClick();
+                  }, 300);
+                }
+                setVaccinationFormExpanded(!isVaccinationFormExpanded);
+              }}
+            />
+          )}
+        </div>
         <div className={styles.petCard}>
           {selectedPet && (
             <PetCard

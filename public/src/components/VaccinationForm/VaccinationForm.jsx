@@ -9,7 +9,7 @@ import axios from "axios";
 import CloseSVG from "../SVG/CloseSVG";
 import Dropdown from "../Dropdown/Dropdown";
 
-const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
+const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVacForm }) => {
   const [formData, setFormData] = useState({
     PetID: "",
     // NameOfVaccination: "",
@@ -112,37 +112,41 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit }) => {
     <div className={styles.vaccinationForm}>
       <div className={styles.vaccineTitle}>
         <Typography variant="h2-poppins-semibold">Add Vaccination</Typography>
-        <CloseSVG width="27" height="28" />
+        <div {...getToggleProps()}>
+          <CloseSVG width="27" height="28" onClick={closeVacForm}/>
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <Dropdown
-          size="md"
-          label="Name of Vaccination"
-          defaultValue="Select Vaccine"
-          id="NameOfVaccination"
-          options={vaccines}
-          value={formData.NameOfVaccination}
-          onChange={(selectedValue) =>
-            handleDropdownChange("NameOfVaccination", selectedValue)
-          }
-          required={true}
-        />
-        {/* <TextInput
-          label="Name of Vaccination"
-          id="NameOfVaccination"
-          type="text"
-          name="NameOfVaccination"
-          onChange={handleInputChange}
-          value={formData.name}
-        /> */}
-        <div className={styles.fieldGap}>
-          <Typography variant="body2-poppins-medium">
-            <label htmlFor="">Date</label>
-          </Typography>
-          <DatePicker
-            id="VaccinationDate"
-            onChange={handleDateChange}
-          ></DatePicker>
+        <div className={styles.DropdownAndDatePicker}>
+          <Dropdown
+            size="md"
+            label="Name of Vaccination"
+            defaultValue="Select Vaccination"
+            id="NameOfVaccination"
+            options={vaccines}
+            value={formData.NameOfVaccination}
+            onChange={(selectedValue) =>
+              handleDropdownChange("NameOfVaccination", selectedValue)
+            }
+            required={true}
+          />
+          {/* <TextInput
+            label="Name of Vaccination"
+            id="NameOfVaccination"
+            type="text"
+            name="NameOfVaccination"
+            onChange={handleInputChange}
+            value={formData.name}
+          /> */}
+          <div className={styles.fieldGap}>
+            <Typography variant="body2-poppins-medium">
+              <label htmlFor="">Date</label>
+            </Typography>
+            <DatePicker
+              id="VaccinationDate"
+              onChange={handleDateChange}
+            ></DatePicker>
+          </div>
         </div>
         <div className={styles.vaccineButton}>
           <Button variant="yellow" label="Save" size="dk-md-s" />

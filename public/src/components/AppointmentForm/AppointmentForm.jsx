@@ -13,7 +13,12 @@ import {
 import AutocompleteComponent from "../AutocompleteTextfield/AutocompleteTextfield";
 import CloseSVG from "./../SVG/CloseSVG";
 
-const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
+const AppointmentForm = ({
+  selectedPet,
+  onAppointmentSubmit,
+  getToggleProps,
+  closeAptForm,
+}) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
   const [clinicData, setClinicData] = useState([]);
 
@@ -66,11 +71,11 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     if (selectedPet && selectedPet._id) {
-      const updatedFormData = { ...formData, 
+      const updatedFormData = {
+        ...formData,
         PetID: selectedPet._id,
-        UserID: storedData._id
-
-       };
+        UserID: storedData._id,
+      };
       setFormData(updatedFormData);
       try {
         const response = await axios.post(
@@ -79,8 +84,8 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-          // ...
-          onAppointmentSubmit(updatedFormData);
+        // ...
+        onAppointmentSubmit(updatedFormData);
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -95,10 +100,12 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
     <div className={styles.appointmentContainer}>
       <div className={styles.appointmentTitle}>
         <Typography variant="h2-poppins-semibold">Add Appointment</Typography>
-        <CloseSVG width="27" height="28" />
+        <div {...getToggleProps()}>
+          <CloseSVG width="27" height="28" onClick={closeAptForm}/>
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={styles.clinicNameStyle}>
           <Typography variant="body2-poppins-medium">Clinic Name</Typography>
           {clinicData.length > 0 && (
             <AutocompleteComponent
@@ -121,7 +128,7 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
             />
           )}
         </div>
-        <div>
+        <div className={styles.TextInputStyle}>
           <TextInput
             id="AppointmentReason"
             label="Appointment Reason"
@@ -147,12 +154,7 @@ const AppointmentForm = ({ selectedPet, onAppointmentSubmit }) => {
           </div>
         </div>
         <div className={styles.button}>
-          <Button
-            type="submit"
-            variant="yellow"
-            label="Save"
-            size="dk-md-s"
-          />
+          <Button type="submit" variant="yellow" label="Save" size="dk-md-s" />
         </div>
       </form>
     </div>

@@ -3,13 +3,13 @@
   border: 1px solid var(--border-grey);
   border-radius: 8px;
   background-color: var(--white-white);
+  width: 100%;
 }
 
 .medicineContainer form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 35px;
-  row-gap: 36px;
+  gap: 2rem;
 }
 
 .medicineTitle {
@@ -35,5 +35,27 @@
 }
 
 .medTimePicker {
-  width: 252px;
+  width: 240px;
+}
+
+.dosageAm input, .medName input{
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .medicineContainer form {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonContainer button {
+    width: 100%;
+  }
+
+  .medicineContainer form > div:first-child div:last-child input {
+    width: 100% !important;
+  }
+
+  .medicineContainer .dosageAm input {
+    width: 95px;
+  }
 }

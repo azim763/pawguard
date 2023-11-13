@@ -13,6 +13,7 @@ nav > div {
   box-sizing: content-box;
   max-width: 1130px;
   margin: auto;
+  max-height: 12vh;
 }
 
 nav > div > svg {
@@ -106,6 +107,7 @@ nav li a:hover {
     justify-content: center;
     transform: translateX(0); /* Slide the menu in from the right */
     transition: all 1s ease-in-out;
+    z-index: 99;
   }
 
   .profileMenu a div {

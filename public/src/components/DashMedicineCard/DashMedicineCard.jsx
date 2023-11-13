@@ -8,7 +8,7 @@ const DashMedicineCard = ({ numOfMedicine, ...props }) => {
   return (
     <div className={`${styles["medicine-card-container"]}`}>
       <div className={`${styles["icon-container"]}`}>
-        <PillSVG width="70" height="70" />
+        <PillSVG width="50" height="50" />
       </div>
 
       <div>

@@ -16,11 +16,13 @@ import AutocompleteClinic from "../../components/AutocompleteClinic/Autocomplete
 import Dropdown from "../../components/Dropdown/Dropdown";
 import StarRating from "../../components/StarRating/StarRating";
 import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 let originalClinicData = [];
 
 const ListClinics = () => {
-  const [selectedPet, setSelectedPet] = useState(null);
+  const [selectedPetId, setSelectedPetId] = useState(null);
   const [clinicData, setClinicData] = useState([]);
   const [urgentCareChecked, setUrgentCareChecked] = useState(false);
   const [open24hrsChecked, setOpen24hrsChecked] = useState(false);
@@ -29,11 +31,10 @@ const ListClinics = () => {
   const [selectedClinicName, setselectedClinicName] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
-  const [selectedCards, setSelectedCards] = useState(null);
   const [currentUserId, setCurrentUserId] = useState();
 
-  const handlePetSelectClinicClick = (specialties, petData) => {
-    setSelectedCards(petData);
+  const handlePetSelectClinicClick = (id, specialties) => {
+    setSelectedPetId(id);
 
     if (specialties === "" || specialties === null) setSelectedOptions([]);
     else setSelectedOptions(specialties.split(","));
@@ -84,9 +85,8 @@ const ListClinics = () => {
         setCurrentUserId(data._id);
         console.log(data._id);
 
-        if (!selectedPet && response.data.length > 0) {
-          setSelectedPet(response.data[0]);
-          console.log(response.data[0]._id);
+        if (!selectedPetId && response.data.length > 0) {
+          setSelectedPetId(response.data[0]._id);
           setSelectedOptions(response.data[0].PreExistingMedical.split(","));
         }
 
@@ -130,10 +130,6 @@ const ListClinics = () => {
       });
   }, []);
 
-  const handlePetClick = (index) => {
-    setSelectedPet(index);
-  };
-
   const handleClickDetails = (clinicId) => {
     navigate(`/clinic/details/${clinicId}`);
   };
@@ -151,6 +147,8 @@ const ListClinics = () => {
 
   const handleUrgCheckboxChange = (event) => {
     const { checked } = event.target;
+    console.log("Open Urgent care checked", checked);
+
     setUrgentCareChecked(event.target.checked);
   };
 
@@ -197,10 +195,10 @@ const ListClinics = () => {
       <Header />
       <div className={styles.coverBackground}>
         <div className={styles.opaqueStyle}>
-          <Typography variant="h2-poppins-semibold" color="white-white">
+          <Typography variant="h1-poppins-semibold" color="white-white">
             <div className={styles.titleCenter}>
               <div className={styles.title1}>Find Your Clinic</div>
-              <Typography variant="sub-h1-poppins-semibold" color="white-white">
+              <Typography variant="sub-poppins-medium" color="white-white">
                 <div className={styles.clinicTag}>
                   Best clinics for your pets in Vancouver
                 </div>
@@ -226,8 +224,9 @@ const ListClinics = () => {
                 Enter clinic specialties and city name
               </Typography>
               <Typography variant="body2-poppins-medium">
-                <Link to="/addPet" className={styles.addPetLink}>
+                <Link to="/login" className={styles.addPetLink}>
                   Sign in to select your pet
+                  <FontAwesomeIcon className={styles.arrowContainer} icon={faChevronRight} />
                 </Link>
               </Typography>
             </>
@@ -239,10 +238,11 @@ const ListClinics = () => {
               pets.map((petSelectClinic) => (
                 <div key={petSelectClinic._id}>
                   <PetSelectionClinic
+                    id={petSelectClinic._id}
                     specialties={petSelectClinic.PreExistingMedical}
                     imgUrl={petSelectClinic.PetImageName}
                     clinicPetName={petSelectClinic.PetName}
-                    selected={pets === selectedCards}
+                    selected={petSelectClinic._id === selectedPetId}
                     onClick={handlePetSelectClinicClick}
                   />
                 </div>
@@ -323,14 +323,14 @@ const ListClinics = () => {
               <Checkbox
                 id="urgCare"
                 label="Urgent Care"
-                onChangeHandler={handleUrgCheckboxChange}
+                onChange={handleUrgCheckboxChange}
                 value={urgentCareChecked}
               />
             </div>
             <Checkbox
               id="24hrs"
               label="Open 24 hours"
-              onChangeHandler={handle24CheckboxChange}
+              onChange={handle24CheckboxChange}
               value={open24hrsChecked}
             />
           </div>
@@ -356,7 +356,9 @@ const ListClinics = () => {
         </div>
 
         {clinicData.length === 0 ? (
-          <p>No results found.</p>
+          <div className={styles.noResultContainer}>
+          <Typography variant="body2-poppins-medium">No results found.</Typography>
+          </div>
         ) : (
           clinicData.map((clinic) => (
             <ClinicDetailCard

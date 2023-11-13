@@ -18,6 +18,7 @@ const PetSchema = new mongoose.Schema({
   Description: { type: String, required: false },
   Archive: { type: Boolean, default: false, required: false },
   timestamp: { type: Date, default: Date.now },
+  Archive: { type: Boolean, default: false, required: false },
 });
 
 const Pet = mongoose.model("Pet", PetSchema);

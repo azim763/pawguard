@@ -9,6 +9,8 @@ import styles from "./textArea.module.css";
     maxLength,
     minLength,
     readOnly,
+    id,
+    name,
     ...props
   }) => {
 
@@ -18,6 +20,8 @@ import styles from "./textArea.module.css";
       label && styles["hover"]
     }`}
     onClick={onClickHandler}
+    id={id}
+    name={name}
     {...props}
     >
     </textarea>

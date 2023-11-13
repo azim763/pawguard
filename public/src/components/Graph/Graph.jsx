@@ -1,24 +1,34 @@
-import React from 'react'
-import { LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import styles from "./graph.module.css";
 
+const Graph = ({ names, values,label}) => {
+  const data = names.map((name, index) => ({
+    name,
+    value: values[index],
+  }));
 
-const Graph = ({ names, values }) => {
-    const data = names.map((name, index) => ({
-        name,
-        value: values[index],
-      }));
-    return (
-        <div>
-           <LineChart width={400} height={300} data={data}>
-    <Line type="monotone" dataKey="name" stroke="var(--salmon-pink)" />
-    <XAxis dataKey="value" />
-    <YAxis />
-    <Tooltip />
-    <Legend />
-</LineChart>
+  return (
+    <div className={styles.graphContainer}>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <Line type="monotone" dataKey={label} stroke="var(--salmon-pink)" />
+          <XAxis dataKey="value" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
-        </div>
-    )
-}
-
-export default Graph
+export default Graph;

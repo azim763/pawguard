@@ -9,6 +9,7 @@ const PhoneSVG = ({ width, height, fill, ...props }) => {
       height={height}
       //   30
       fill={fill}
+      viewBox="0 0 30 30"
       {...props}
     >
       <path

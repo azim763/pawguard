@@ -9,6 +9,7 @@ const ClockSVG = ({ width, height, fill, ...props }) => {
       height={height}
       //   27
       fill={fill}
+      viewBox="0 0 26 27"
       {...props}
     >
       <g clipPath="url(#clip0_1513_12607)">

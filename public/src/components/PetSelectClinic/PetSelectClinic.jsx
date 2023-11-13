@@ -3,7 +3,7 @@ import styles from "./petSelectClinic.module.css";
 import Typography from "../Typography/Typography";
 
 const PetSelectionClinic = ({
-  // id,
+  id,
   specialties,
   imgUrl,
   alt,
@@ -16,7 +16,7 @@ const PetSelectionClinic = ({
     // if (isSelected) {
     //   setIsSelected(false); // If it's already selected, unselect it
     // } else {
-    onClick(specialties); // Otherwise, select it
+    onClick(id, specialties); // Otherwise, select it
     // setIsSelected(true);
     // }
   };
@@ -29,7 +29,7 @@ const PetSelectionClinic = ({
       <div className={styles.imageContainer}>
         <img src={`data:image/jpeg;base64,${imgUrl}`} alt={alt} />
       </div>
-      <Typography variant="sub-poppins-medium">{clinicPetName}</Typography>
+      <Typography variant="h2-poppins-semibold">{clinicPetName}</Typography>
     </div>
   );
 };

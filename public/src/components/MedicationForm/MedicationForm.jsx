@@ -8,16 +8,47 @@ import axios from "axios";
 import styles from "./MedicationForm.module.css";
 import CloseSVG from "./../SVG/CloseSVG";
 import TimePicker from "../TimePicker/TimePicker";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
-  const [medicationDate, setMedicationDate] = useState(new Date());
+const MedicationForm = ({
+  selectedPet,
+  onMedicationSubmit,
+  getToggleProps,
+  closeMedForm,
+}) => {
   const [formData, setFormData] = useState({
     PetID: "",
     MedicineName: "",
-    DosageAmount: "",
-    MedicationPeriod: "",
+    DosageAmount: 0,
+    MedicationPeriod: 0,
     MedicationDate: "",
   });
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+  const validateForm = () => {
+    const { MedicineName, DosageAmount, MedicationPeriod, MedicationDate } =
+      formData;
+    if (MedicineName === "") {
+      toast.error("Medicine Name is required.", toastOptions);
+      return false;
+    } else if (DosageAmount === "") {
+      toast.error("Dosage Amount is required.", toastOptions);
+      return false;
+    } else if (MedicationPeriod === "") {
+      toast.error("Medication Period is required.", toastOptions);
+      return false;
+    } else if (MedicationDate === "") {
+      toast.error("Medication Date is required.", toastOptions);
+      return false;
+    }
+    return true;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,11 +60,18 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
 
   const handleDateChange = (event) => {
     const value = event.target.value;
-    const [year, month, day] = value.split("T")[0].split("-");
-    const medResultDate = `${day}-${month}-${year}`;
+    console.log("handleDateChange");
+
+    const date = new Date(value);
+    const now = new Date();
+    const timezoneOffset = now.getTimezoneOffset();
+    console.log(timezoneOffset);
+    date.setMinutes(date.getMinutes() + timezoneOffset);
+    console.log(date);
+
     setFormData({
       ...formData,
-      MedicationDate: medResultDate,
+      MedicationDate: date.toString(),
     });
     console.log("date is changing");
   };
@@ -44,24 +82,30 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     if (selectedPet && selectedPet._id) {
-      const updatedFormData = {
-        ...formData,
-        PetID: selectedPet._id,
-        UserID: storedData._id,
-      };
-      setFormData(updatedFormData);
+      if (validateForm()) {
+        const updatedFormData = {
+          ...formData,
+          PetID: selectedPet._id,
+          UserID: storedData._id,
+        };
 
-      try {
-        const response = await axios.post(
-          createPetMedicationRoute,
-          updatedFormData
-        );
-        console.log("Form submitted with data:", updatedFormData);
-        console.log("Response from server:", response);
-        // ...
-        onMedicationSubmit(updatedFormData);
-      } catch (error) {
-        console.error("Error submitting form:", error);
+        console.log("updatedFormData");
+        console.log(updatedFormData);
+        setFormData(updatedFormData);
+
+        try {
+          const response = await axios.post(
+            createPetMedicationRoute,
+            updatedFormData
+          );
+          console.log("Form submitted with data:", updatedFormData);
+          console.log("Response from server:", response);
+          // ...
+          onMedicationSubmit(updatedFormData);
+        } catch (error) {
+          console.error("Error submitting form:", error);
+          toast.error("Error submitting form.", toastOptions);
+        }
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
@@ -72,24 +116,28 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
     <div className={styles.medicineContainer}>
       <div className={styles.medicineTitle}>
         <Typography variant="h2-poppins-semibold">Add Medicine</Typography>
-        <CloseSVG width="27" height="28" />
+        <div {...getToggleProps()}>
+          <CloseSVG width="27" height="28" onClick={closeMedForm}/>
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <TextInput
-          id="MedicineName"
-          size="md"
-          label={
-            <Typography variant="body2-poppins-medium">
-              Medicine Name
-            </Typography>
-          }
-          placeholder="Enter Medicine Name"
-          onChange={handleInputChange}
-        />
-        <div>
+        <div className={styles.medName}>
+          <TextInput
+            id="MedicineName"
+            size="md"
+            label={
+              <Typography variant="body2-poppins-medium">
+                Medicine Name
+              </Typography>
+            }
+            placeholder="Enter Medicine Name"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={styles.dosageAm}>
           <Typography variant="body2-poppins-medium">Dosage Amount</Typography>
           <div className={styles.unitContainer}>
-            <TextInput id="DosageAmount" onChange={handleInputChange} />
+            <TextInput id="DosageAmount" onChange={handleInputChange} placeholder="20"/>
             <div style={{ marginLeft: "10px" }}>
               <Typography variant="textfield-poppins-regular">ml</Typography>
             </div>
@@ -110,6 +158,7 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
               size="small"
               id="MedicationPeriod"
               onChange={handleInputChange}
+              placeholder="15"
             />
             <div style={{ marginLeft: "10px" }}>
               <Typography variant="textfield-poppins-regular">days</Typography>
@@ -126,6 +175,7 @@ const MedicationForm = ({ selectedPet, onMedicationSubmit }) => {
           <Button variant="yellow" label="Save" size="dk-md-s" />
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

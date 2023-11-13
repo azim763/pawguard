@@ -6,7 +6,7 @@
   margin: auto;
   margin-top: -5%;
   display: grid;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .coverBackground {
@@ -105,15 +105,25 @@
   color: var(--dark-blue);
 }
 
+.arrowContainer{
+  margin-left: 5px;
+}
+
+.noResultContainer{
+  display: block;
+  margin: 50px auto;
+}
+
 @media screen and (max-width: 900px) {
   .clinicsContainer {
     padding: 50px;
     grid-template-columns: 1fr;
   }
-  /* 
-  .clinicTitle {
-    margin-bottom: 0;
-  } */
+
+  .noResultContainer{
+    display: block;
+    margin: 50px auto;
+  }
 
   .clinicSearch {
     grid-template-columns: unset;
@@ -198,6 +208,13 @@
   .clinicsContainer {
     display: block;
   }
+
+
+.phoneSVG{
+  width: 26;
+  height: 26;
+}
+
   /* .clinicTitle {
     width: 80vw;
   }

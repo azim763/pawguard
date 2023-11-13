@@ -13,6 +13,7 @@ module.exports.createPet = async (req, res, next) => {
   try {
     const petData = req.body;
     petData.timestamp = new Date();
+    petData.Archive = false;
     const pet = await Pet.create(petData);
     return res.json(pet);
   } catch (ex) {

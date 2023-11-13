@@ -91,50 +91,64 @@ const PetCard = ({
         <ImageDisplay PetImageData={src} />
       </div>
       <div className={styles.commonDetailContainer}>
-        <div className={styles.detailContainer}>
-          <div>
-            <PawSVG className={styles.SVGIcons} />
-          </div>
-          <div className={styles.descriptionContainer}>
-            <Typography variant="textfield-poppins-regular">Breed</Typography>
-            <Typography variant="body1-poppins-semibold">{petBreed}</Typography>
-          </div>
+        <div>
+          <PawSVG className={styles.SVGIcons} />
         </div>
-        <div className={styles.detailContainer}>
-          <div>
-            <CakeSVG className={styles.SVGIcons} />
+        <div className={styles.descriptionContainer}>
+          <div className={styles.descriptionTitle}>
+            <Typography variant="textfield-poppins-regular">Breed</Typography>
           </div>
-          <div className={styles.descriptionContainer}>
+          <Typography variant="body1-poppins-semibold">{petBreed}</Typography>
+        </div>
+
+        <div className={styles.mobileCakeSVG}>
+          <CakeSVG className={styles.SVGIcons} />
+        </div>
+        <div className={`${styles.descriptionContainer} ${styles.mobileAge}`}>
+          <div className={styles.descriptionTitle}>
             <Typography variant="textfield-poppins-regular">Age</Typography>
             <Typography variant="body1-poppins-semibold" color="dark-blue">
               {petAge}
             </Typography>
           </div>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">
+            {petAge}
+          </Typography>
         </div>
-        <div className={styles.detailContainer}>
-          <div>
-            <HeightSVG className={styles.SVGIcons} />
-          </div>
-          <div className={styles.descriptionContainer}>
-            <Typography variant="textfield-poppins-regular">Height</Typography>
-            <Typography variant="body1-poppins-semibold" color="dark-blue">
-              {petHeight} in
-            </Typography>
-          </div>
+
+        <div className={styles.mobileHeightSVG}>
+          <HeightSVG
+            className={styles.SVGIcons}
+          />
         </div>
-        <div className={styles.detailContainer}>
-          <div>
-            <WeightSVG className={styles.SVGIcons} />
+        <div className={styles.descriptionContainer}>
+          <div
+            className={`${styles.descriptionContainer} ${styles.mobileHeight}`}
+          >
+            <div className={styles.descriptionTitle}>
+              <Typography variant="textfield-poppins-regular">Height</Typography>
+            </div>
           </div>
-          <div className={styles.descriptionContainer}>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">
+            {petHeight} in
+          </Typography>
+        </div>
+
+        <div>
+          <WeightSVG className={styles.SVGIcons} />
+        </div>
+        <div className={styles.descriptionContainer}>
+          <div className={styles.descriptionTitle}>
             <Typography variant="textfield-poppins-regular">Weight</Typography>
             <Typography variant="body1-poppins-semibold" color="dark-blue">
               {petWeight} lb
             </Typography>
           </div>
+          <Typography variant="body1-poppins-semibold" color="dark-blue">
+            {petWeight} lb
+          </Typography>
         </div>
       </div>
-
       <div className={styles.actionContainer}>
         <NavLink to={`/editPet/${id}`}>
           <PenSVG className={styles.SVGIcons} />
@@ -145,8 +159,11 @@ const PetCard = ({
           <Typography variant="detailtext2-poppins-medium">archive </Typography>
         </div>
         <div>
-          <ExportSVG className={styles.SVGIcons} onClick={handleExportClick} />
-          <Typography variant="detailtext2-poppins-medium">export</Typography>
+          <ExportSVG
+            className={styles.actionSVGIcons}
+            onClick={handleExportClick}
+          />
+          <Typography variant="detailtext2-poppins-medium">Export</Typography>
         </div>
       </div>
       <div className={styles.actionContainerMobile}>
