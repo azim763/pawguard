@@ -24,11 +24,11 @@ const InsuranceSearch = () => {
   const [selectedBreed, setSelectedBreed] = useState("");
   const [selectedAge, setSelectedAge] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
-  const [insurancePlans, setInsurancePlans] = useState([]);
+  // const [insurancePlans, setInsurancePlans] = useState([]);
   const [selectedPetName, setSelectedPetName] = useState({});
   const [selectedPet, setSelectedPet] = useState(null);
   const [petInfo, setPetInfo] = useState(null);
-  const [userId, setUserId] = useState(null);
+  // const [userId, setUserId] = useState(null);
   const [pageTitle, setPageTitle] = useState("Tell us about your pet");
 
   const navigate = useNavigate();
@@ -107,7 +107,17 @@ const InsuranceSearch = () => {
   const handlePetGenderChange = (gender) => {
     const lowercaseGender = gender.toLowerCase(); // Convert to lowercase for case-insensitive comparison
     // Check if the lowercase gender is "m" or "f" and set the corresponding value
-    setSelectedGender(lowercaseGender === "m" ? "Male" : lowercaseGender === "f" ? "Female" : "");
+    if (selectedPet) {
+      // const lowercaseGender = gender.toLowerCase(); // Convert to lowercase for case-insensitive comparison
+      setSelectedPet({
+        ...selectedPet,
+        Gender: lowercaseGender === "m" ? "Male" : lowercaseGender === "f" ? "Female" : "",
+      });
+    } else {
+      // If no pet is selected, update the selectedGender state
+      // setSelectedGender(lowercaseGender === "m" ? "Male" : lowercaseGender === "f" ? "Female" : "");
+      setSelectedGender(lowercaseGender);
+    }
   };
 
   const handleBreedChange = (breed) => {
@@ -186,9 +196,11 @@ const InsuranceSearch = () => {
     setSelectedPetType(selectedPetData.Species);
     handlePetTypeChange(selectedPetData.Species);
     //pet gender
-    setSelectedGender(selectedPetData.Gender);
-    handlePetGenderChange(selectedPetData.Gender);
-    //pet breed
+    const lowercaseGender = selectedPetData.Gender ? selectedPetData.Gender.toLowerCase() : "";
+    
+    setSelectedGender(lowercaseGender === "m" ? "Male" : lowercaseGender === "f" ? "Female" : "");
+    // handlePetGenderChange();
+   //pet breed
     setSelectedBreed(selectedPetData.Breed);
     handleBreedChange(selectedPetData.Breed);
     //pet Age
@@ -234,6 +246,7 @@ const InsuranceSearch = () => {
 
           // setSelectedAge(selectedPetData.Birthday);
           console.log("Here is my Birth Date "+selectedAgeRange);
+          // setSelectedGender("");
         };
 
   const fetchPetInfo = async (selectedPetData) => {
@@ -283,7 +296,7 @@ const InsuranceSearch = () => {
 
     // Fetch data when the component mounts
     fetchData();
-  }, []);
+  }, [selectedPetName]);
 
   return (
     <div>
@@ -343,8 +356,8 @@ const InsuranceSearch = () => {
               groupId="group2"
               buttons={["Male", "Female"]}
               onClick={handlePetGenderChange}
-              selected={selectedGender}
-            />
+              selected={selectedGender.charAt(0).toUpperCase() + selectedGender.slice(1)}
+              />
           </div>
 
           <div className={styles.insuranceDropdown}>
