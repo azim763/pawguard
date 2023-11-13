@@ -18,14 +18,12 @@ import "react-toastify/dist/ReactToastify.css";
 const AddPet = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
-<<<<<<< HEAD
   const [selectedPreExistingMedical, setSelectedPreExistingMedical] = useState(
     []
   );
   // const [bloodType, setBloodType] = useState([]);
   // const [breedType, setBreedType] = useState([]);
 
-=======
   const toastOptions = {
     position: "bottom-right",
     autoClose: 5000,
@@ -40,7 +38,6 @@ const AddPet = () => {
     draggable: true,
     theme: "light",
   };
->>>>>>> main
   const petType = [
     { value: "Dog", label: "Dog" },
     { value: "Cat", label: "Cat" },
@@ -168,8 +165,6 @@ const AddPet = () => {
     });
   };
 
-<<<<<<< HEAD
-=======
   const handleValidation = () => {
     const { PetName, Height, Weight } = petData;
     if (PetName.length < 1) {
@@ -220,7 +215,6 @@ const AddPet = () => {
       { value: "Siberian Husky", label: "Siberian Husky" },
     ];
 
->>>>>>> main
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
     setPetData({
