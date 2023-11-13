@@ -73,3 +73,17 @@
   border-radius: 50%;
   background-color: var(--pearl-blue);
 }
+
+@media screen and (min-width: 875px) {
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 70px;
+}
+}
+
+@media screen and (min-width: 1220px) {
+  .calendar {
+    grid-template-columns: 1fr;
+  }
+}

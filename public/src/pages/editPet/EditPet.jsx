@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
-import { createPetRoute } from "../../utils/APIRoutes";
-import styles from "./AddPet.module.css";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import {
+  updatePetByIdRoute,
+  searchPetsByUserIDRoute,
+} from "../../utils/APIRoutes.js";
+import styles from "./EditPet.module.css";
 import SingleImageUpload from "../../components/SingleImageUpload/SingleImageUpload";
 import TextInput from "../../components/TextInput/TextInput";
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -12,32 +15,66 @@ import DatePicker from "../../components/DatePicker/DatePicker";
 import Header from "../../components/Header/header";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-const AddPet = () => {
+const EditPet = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedPreExistingMedical, setSelectedPreExistingMedical] = useState(
     []
   );
-  // const [bloodType, setBloodType] = useState([]);
-  // const [breedType, setBreedType] = useState([]);
+  const { petID } = useParams();
+  const [pets, setPets] = useState([]);
+  const [selectedPet, setSelectedPet] = useState("");
+  const originalValue = 'initial value';
+  const [editedValue, setEditedValue] = useState(originalValue);
+  
 
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 5000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
+  // Define a function to handle changes in the input
+  const handleChange = (event) => {
+    setEditedValue(event.target.value);
   };
-  const toastOptionsSuccess = {
-    position: "bottom-right",
-    autoClose: 5000,
-    pauseOnHover: false,
-    draggable: true,
-    theme: "light",
-  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedData = localStorage.getItem(
+          process.env.REACT_APP_LOCALHOST_KEY
+        );
+        if (storedData) {
+          const petData = localStorage.getItem("petsData");
+          if (petData) {
+            const petArray = JSON.parse(petData);
+            setPets(petArray);
+
+            if (!selectedPet && petArray.length > 0) {
+              setSelectedPet(petArray[0]); // Set the first pet by default
+            }
+
+            if (petID) {
+              // Find the pet with the matching ID and set it as the selectedPet
+              const matchingPet = petArray.find((pet) => pet._id === petID);
+              if (matchingPet) {
+                setSelectedPet(matchingPet);
+              }
+            }
+          } else {
+            const data = JSON.parse(storedData);
+            console.log(data);
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
+            setPets(response.data);
+            if (!selectedPet && response.data.length > 0) {
+              setSelectedPet(response.data[0]);
+            }
+          }
+        }
+      } catch (error) {}
+    };
+
+    fetchData();
+  }, [petID]);
+
   const petType = [
     { value: "Dog", label: "Dog" },
     { value: "Cat", label: "Cat" },
@@ -84,6 +121,13 @@ const AddPet = () => {
     "Ultrasound",
   ];
 
+  const petBday = selectedPet.Birthday;
+  const originalDate = new Date(petBday);
+
+  const formattedDate = `${originalDate.getFullYear()}-${String(
+    originalDate.getMonth() + 1
+  ).padStart(2, "0")}-${String(originalDate.getDate()).padStart(2, "0")}`;
+
   const [petData, setPetData] = useState({
     UserID: "",
     PetName: "",
@@ -98,7 +142,25 @@ const AddPet = () => {
     PetImageName: "",
     Description: "",
   });
-  
+
+  useEffect(() => {
+    if (selectedPet) {
+      setPetData({
+        ...petData,
+        PetName: selectedPet.PetName,
+        Gender: selectedPet.Gender,
+        Species: selectedPet.Species,
+        Breed: selectedPet.Breed,
+        Birthday: selectedPet.Birthday,
+        BloodType: selectedPet.BloodType,
+        Height: selectedPet.Height,
+        Weight: selectedPet.Weight,
+        PreExistingMedical: selectedPet.PreExistingMedical,
+        PetImageName: selectedPet.PetImageName,
+        Description: selectedPet.Description,
+      });
+    }
+  }, [selectedPet]);
 
   const handleDateChange = (event) => {
     setPetData({
@@ -108,11 +170,13 @@ const AddPet = () => {
   };
 
   const handleInputChange = (event) => {
-    console.log("change is changing okrrr");
-    setPetData({
-      ...petData,
-      [event.target.name]: event.target.value,
-    });
+    console.log("Input changed:", event.target.value);
+    // const { name, value } = event.target;
+  
+    // setPetData((prevPetData) => ({
+    //   ...prevPetData,
+    //   [name]: value,
+    // }));
   };
 
   if (petData.Species === "Cat") {
@@ -165,116 +229,55 @@ const AddPet = () => {
     });
   };
 
-  const handleValidation = () => {
-    const { PetName, Height, Weight } = petData;
-    if (PetName.length < 1) {
-      console.log(PetName);
-      toast.error("Pet name is required.", toastOptions);
-      return false;
-    }
-    else if (isNaN(Height) || Height.length < 1 || Height.trim() == "") {
-      toast.error("Height is required and must be number.", toastOptions);
-      return false;
-    }
-    else if (isNaN(Weight) || Weight.length < 1 || Weight.trim() == " ") {
-      toast.error("Weight is required and must be number.", toastOptions);
-      return false;
-    } 
-    return true;
-  };
-
-  if (petData.Species === "cat") {
-    bloodType = [
-      { value: "A", label: "A" },
-      { value: "B", label: "B" },
-      { value: "AB", label: "AB" },
-    ];
-  } else
-    bloodType = [
-      { value: "DEA1", label: "DEA 1" },
-      { value: "DEA3", label: "DEA 3" },
-      { value: "DEA4", label: "DEA 4" },
-      { value: "DEA5", label: "DEA 5" },
-      { value: "DEA7", label: "DEA 7" },
-    ];
-
-  if (petData.Species === "cat") {
-    breedType = [
-      { value: "Domestic Shorthair", label: "Domestic Shorthair" },
-      { value: "American Shorthair", label: "American Shorthair" },
-      { value: "Domestic Longhair", label: "Domestic Longhair" },
-      { value: "Ragdoll", label: "Ragdoll" },
-      { value: "Siamese", label: "Siamese" },
-    ];
-  } else
-    breedType = [
-      { value: "Beagle", label: "Beagle" },
-      { value: "Golden Retriever", label: "Golden Retriever" },
-      { value: "Poodle", label: "Poodle" },
-      { value: "Rottweiler", label: "Rottweiler" },
-      { value: "Siberian Husky", label: "Siberian Husky" },
-    ];
-
   const handleImageUpload = (data) => {
-    // Handle the image data in the parent component
     setPetData({
       ...petData,
-      PetImageName: data, // Use the 'data' parameter instead of 'imageData'
+      PetImageName: data,
     });
     setSelectedImage(data);
-    console.log(data); // This logs the image data
-    console.log(petData); // This logs the petData with the updated PetImageName
   };
-
-  // const defaultGender = gender && gender.length > 0 ? gender[0].value : "";
-  // const defaultSpecies = petType && petType.length > 0 ? petType[0].value : "";
 
   const onClickHandler = async (event) => {
     event.preventDefault();
+    console.log(petData);
 
-    try {
-      const storedData = await JSON.parse(
-        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-      );
+    // try {
+    //   const storedData = await JSON.parse(
+    //     localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    //   );
 
-      const updatedPetData = {
-        ...petData,
-        UserID: storedData._id,
-      };
+    //   const updatedPetData = {
+    //     ...petData,
+    //     UserID: storedData._id,
+    //   };
 
-      setPetData(updatedPetData);
-      if (handleValidation()) {
-        const response = await axios.post(createPetRoute, updatedPetData);
-        // Handle successful submission
-      toast.success("Pet profile created successfully.", toastOptionsSuccess);
+    //   setPetData(updatedPetData);
+
+    //   const response = await axios.put(updatePetByIdRoute, updatedPetData);
+
+    //   // Handle successful submission
     //   console.log("Data submitted successfully:", response.data);
-   
-
-        navigate("/");
-      } else {
-        //  console.error("tttttttt");
-      }
-    } catch (error) {
-      console.error("Error while submitting data:", error);
-      toast.error("Error while submitting data.", toastOptions);
-         // Handle the error, e.g., display an error message to the user.
-    }
+    //   navigate("/");
+    // } catch (error) {
+    //   console.error("Error while submitting data:", error);
+    //   // Handle the error, e.g., display an error message to the user.
+    // }
   };
 
   return (
     <div>
       <Header />
-      <div className={styles.addPetHeader}>
+      <div className={styles.editPetHeader}>
         <Typography variant="large-h1-poppins-bold" color="almost-black">
-          Add Pet
+          Edit Pet Details
         </Typography>
       </div>
-      <div className={styles.addPetForm}>
+      <div className={styles.editPetForm}>
         <form action="/submit" method="post" onSubmit={onClickHandler}>
-          <div className={styles.addPetImage}>
-            <ImageDisplay PetImageData={selectedImage} />
+          <div className={styles.editPetImage}>
+            <ImageDisplay PetImageData={selectedPet.PetImageName} />
             <SingleImageUpload
-              label="Add Pet Image"
+              label="Change Pet Image"
               onImageUpload={handleImageUpload}
             />
           </div>
@@ -283,14 +286,17 @@ const AddPet = () => {
             size="md"
             id="PetName"
             label="Name *"
+            propInputValue={selectedPet.PetName}
             onChange={handleInputChange}
-
+            required={true}
           />
+
           <Dropdown
             size="md"
             label="Type of pet *"
             id="petType"
             options={petType}
+            defaultValue={selectedPet.Species}
             onChange={(selectedValue) =>
               handleDropdownChange("Species", selectedValue)
             }
@@ -301,6 +307,7 @@ const AddPet = () => {
             label="Breed *"
             id="Breed"
             options={breedType}
+            defaultValue={selectedPet.Breed}
             onChange={(selectedValue) =>
               handleDropdownChange("Breed", selectedValue)
             }
@@ -311,6 +318,7 @@ const AddPet = () => {
             label="Gender *"
             id="Gender"
             options={gender}
+            defaultValue={selectedPet.Gender}
             onChange={(selectedValue) =>
               handleDropdownChange("Gender", selectedValue)
             }
@@ -320,7 +328,7 @@ const AddPet = () => {
             <Typography variant="body2-poppins-medium">Birthday</Typography>
             <DatePicker
               id="birthday"
-              value={petData.Birthday}
+              value={formattedDate}
               onChange={handleDateChange}
             />
           </div>
@@ -339,7 +347,7 @@ const AddPet = () => {
               size="sm"
               id="Height"
               label="Pet Height *"
-              placeholder="Eg: 11"
+              propInputValue={selectedPet.Height}
               onChange={handleInputChange}
               required={true}
             />
@@ -350,8 +358,7 @@ const AddPet = () => {
               size="sm"
               id="Weight"
               label="Pet Weight *"
-              placeholder="Eg: 7"
-              type="Number"
+              propInputValue={selectedPet.Weight}
               onChange={handleInputChange}
               required={true}
             />
@@ -360,7 +367,11 @@ const AddPet = () => {
           <MultipleDropDown
             label="Medical Necessities"
             options={preExistingMedical}
-            selectedValues={selectedPreExistingMedical}
+            selectedValues={
+              typeof selectedPet.PreExistingMedical === "string"
+                ? selectedPet.PreExistingMedical.split(",")
+                : []
+            }
             onSelect={handleMultipleDropdownChange}
           />
           <div>
@@ -372,21 +383,15 @@ const AddPet = () => {
               id="Description"
               cols="30"
               rows="10"
-              placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
+              defaultValue={selectedPet.Description}
               onChange={handleInputChange}
             ></textarea>
           </div>
-          <Button
-            type="submit"
-            variant="yellow"
-            label="Add Pet"
-            size="dk-md-s"
-          />
+          <Button type="submit" variant="yellow" label="Save" size="dk-md-s" />
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };
 
-export default AddPet;
+export default EditPet;

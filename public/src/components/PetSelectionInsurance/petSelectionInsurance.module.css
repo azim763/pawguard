@@ -29,14 +29,14 @@
   border-radius: 8px;
 }
 
-@media screen and (max-width: 450px){
-  .imageWrapper{
+@media screen and (max-width: 500px) {
+  .imageWrapper {
     width: 134px;
     height: 134px;
-}
+  }
 
-.petSelection{
-  width: 153px;
-  height: 185px;
-}
+  .petSelection {
+    width: 153px;
+    height: 185px;
+  }
 }

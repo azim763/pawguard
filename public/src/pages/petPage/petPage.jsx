@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -230,6 +230,7 @@ const PetPage = () => {
             }
           } else {
             const data = JSON.parse(storedData);
+            console.log(data);
             const response = await axios.get(searchPetsByUserIDRoute, {
               params: { userID: data._id },
             });

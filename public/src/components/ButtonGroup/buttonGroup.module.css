@@ -32,35 +32,25 @@
 /* mobile */
 
 @media screen and (max-width: 700px) {
-  /* .buttonGroup {
+  .buttonGroup {
     display: flex;
-    justify-content: space-between;
     gap: 5px;
-  } */
-
-  .inactive {
-    width: 190px;
-    /* margin: 0; */
+    width: 100%;
   }
 
+  .inactive,
   .active {
-    width: 190px;
-    /* margin: 0; */
+    width: 100%;
   }
 }
 
-
 @media screen and (max-width: 450px) {
-  /* .buttonGroup{
-    display: block;
-  } */
-
-
-  .inactive {
-    border-radius: 8px;
-    width: 150px;
+  .inactive,
+  .active {
+    /* border-radius: 8px; */
+    /* min-width: 150px; */
     height: 48px;
-    background-color: var(--white-white);
+    /* background-color: var(--white-white);
     color: var(--almost-black);
     border: 1px solid var(--almost-black);
     font-weight: 500;
@@ -70,13 +60,13 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 21.8px;
-    margin: 5px;
+    margin: 5px; */
   }
 
-  .active {
+  /* .active {
     background-color: var(--pearl-blue);
     border-radius: 8px;
-    width: 150px;
+    min-width: 150px;
     height: 48px;
     color: var(--almost-black);
     border: 1px solid var(--almost-black);
@@ -88,5 +78,5 @@
     font-size: 18px;
     line-height: 21.8px;
     margin: 5px;
-  }
+  } */
 }
