@@ -2,6 +2,10 @@
   margin:20px;
 }
 
+.insuranceDetailContainer{
+  padding: 15% 150px
+}
+
 
 .InsuranceDetailsSimilarPlans {
     background-color: var(--pearl-blue);
