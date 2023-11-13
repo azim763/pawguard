@@ -70,21 +70,18 @@ const InsuranceDetails = () => {
     <div>
       <Header id="top" />
       <div className={styles.insuranceDetailContainer}>
+        <div className={styles.InsuranceDetailsHeading}>
+          <Typography variant="h1-poppins-semibold">
+            Coverage Details
+          </Typography>
+          <Typography className={styles.subheadDetailTypo}>
+            Information may vary from the actual insurance policy provided by
+            each company
+          </Typography>
+        </div>
         <div className={styles.InsuranceDetails}>
-          <div className={styles.InsuranceDetailsHeading}>
-            <Typography variant="h1-poppins-semibold">
-              {" "}
-              Coverage Details
-            </Typography>
-            <Typography variant="sub-poppins-medium" color="small-text-gray">
-              <p>
-                Information may vary from the actual insurance policy provided
-                by each company
-              </p>
-            </Typography>
-          </div>
-          {companyData.CompanyID && (
-            <div>
+          <div className={styles.planDetailCard}>
+            {companyData.CompanyID && (
               <PlanDetailCard
                 source={planData.CompanyLogo}
                 alt={planData.CompanyName}
@@ -94,12 +91,10 @@ const InsuranceDetails = () => {
                 coverageNum={companyData.AnnualCoverage}
                 price={companyData.InsurancePrice}
                 CompanyID={companyData.CompanyID}
-                showButton={false}
+                // showButton={false}
               />
-            </div>
-          )}
+            )}
 
-          <div>
             {/* {companyData.CompanyID &&( */}
             <InsuranceCard
               title="Why Recommended"
@@ -111,42 +106,44 @@ const InsuranceDetails = () => {
           </div>
 
           <div className={styles.InsuranceCoverageCenterDiv}>
-            <div className={styles.InsuranceCoverageStyle}>
+            <div>
               <InsuranceCoverage descriptions={companyData.CoveredItems} />
+            </div>
+            <div>
               <InsuranceNotCovered descriptions={companyData.NotCoveredItems} />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Similar Plans Section */}
-        <div className={styles.InsuranceDetailsSimilarPlans}>
-          <div className={styles.InsuranceDetailsSimilarPlansHeading}>
-            <Typography
-              variant="h2-poppins-semibold"
-              style={{ gridColumn: "1/-1" }}
-            >
-              Compare to Similar Plans
-            </Typography>
-          </div>
-          <div className={styles.InsuranceDetailsSimilarPlansBody}>
-            {insurancePlans
-              .filter((plan) => plan.CompanyID == currentCompanyID) // Filter out plans from different companies
-              .slice(0, 3)
-              .map((plan) => (
-                <SmPlanDetailCard
-                  smSource={planData.CompanyLogo}
-                  planName={plan.PlanName}
-                  key={plan._id}
-                  smAlt={planData.CompanyName}
-                  smDeductibleNum={plan.AnnualDeductible}
-                  smReimbursementNum={plan.Reimbursement * 100}
-                  smCoverageNum={plan.AnnualCoverage}
-                  smPrice={plan.InsurancePrice}
-                  CompanyID={plan.CompanyID}
-                  onClick={() => handleViewDetailsClick(plan._id)}
-                />
-              ))}
-          </div>
+      {/* Similar Plans Section */}
+      <div className={styles.InsuranceDetailsSimilarPlans}>
+        <div className={styles.InsuranceDetailsSimilarPlansHeading}>
+          <Typography
+            variant="h2-poppins-semibold"
+            // style={{ gridColumn: "1/-1" }}
+          >
+            Compare to Similar Plans
+          </Typography>
+        </div>
+        <div className={styles.InsuranceDetailsSimilarPlansBody}>
+          {insurancePlans
+            .filter((plan) => plan.CompanyID == currentCompanyID) // Filter out plans from different companies
+            .slice(0, 3)
+            .map((plan) => (
+              <SmPlanDetailCard
+                smSource={planData.CompanyLogo}
+                planName={plan.PlanName}
+                key={plan._id}
+                smAlt={planData.CompanyName}
+                smDeductibleNum={plan.AnnualDeductible}
+                smReimbursementNum={plan.Reimbursement * 100}
+                smCoverageNum={plan.AnnualCoverage}
+                smPrice={plan.InsurancePrice}
+                CompanyID={plan.CompanyID}
+                onClick={() => handleViewDetailsClick(plan._id)}
+              />
+            ))}
         </div>
       </div>
     </div>

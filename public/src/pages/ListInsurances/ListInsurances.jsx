@@ -4,7 +4,7 @@ import Typography from "../../components/Typography/Typography";
 import PlanDetailCard from "../../components/PlanDetailCard/PlanDetailCard";
 import styles from "./listInsurances.module.css";
 import { getInsuranceCompanyByIdRoute } from "../../utils/APIRoutes";
-import axios from "axios";
+import axios from "axios"; 
 //for functioning of the button
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -55,7 +55,7 @@ const ListInsurances = () => {
             </Typography>
           </div>
           <div className={styles.subHeading}>
-            <Typography variant=".sub-poppins-medium" color="small-text-gray">
+            <Typography className={styles.subheadTypo}>
               Information may vary from the actual insurance policy provided by
               each company.
             </Typography>

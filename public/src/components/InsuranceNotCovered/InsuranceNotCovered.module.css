@@ -1,9 +1,13 @@
-.InsuranceNotCoveredheader{
-    color:var(--some-red)
+.InsuranceNotCoveredheader {
+  color: var(--some-red);
 }
 
+ul {
+  list-style-type: none;
+  line-height: 2.5;
+}
 
-ul{
-    list-style-type: none;
-    line-height: 2.5;
+.InsuranceNotCovered {
+  display: grid;
+  gap: 35px;
 }
