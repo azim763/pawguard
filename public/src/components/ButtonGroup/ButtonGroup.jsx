@@ -7,7 +7,7 @@ const ButtonGroup = ({ groupId, buttons, onClick, selected }) => {
   };
 
   return (
-    <div>
+    <div className={styles.buttonGroup}>
       {buttons.map((label, index) => (
         <button
           key={index}

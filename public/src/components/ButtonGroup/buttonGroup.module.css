@@ -10,11 +10,11 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  margin :5px;
+  margin: 5px;
 }
 
 .active {
-  background-color: #D4EAEE;
+  background-color: #d4eaee;
   border: 1px solid var(--almost-black);
   font-weight: 500;
   font-size: 24px;
@@ -31,7 +31,31 @@
 
 /* mobile */
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 700px) {
+  /* .buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+  } */
+
+  .inactive {
+    width: 190px;
+    /* margin: 0; */
+  }
+
+  .active {
+    width: 190px;
+    /* margin: 0; */
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  /* .buttonGroup{
+    display: block;
+  } */
+
+
   .inactive {
     border-radius: 8px;
     width: 150px;
@@ -46,10 +70,11 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 21.8px;
+    margin: 5px;
   }
 
   .active {
-    background-color: var(--light-blue);
+    background-color: var(--pearl-blue);
     border-radius: 8px;
     width: 150px;
     height: 48px;
@@ -62,5 +87,6 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 21.8px;
+    margin: 5px;
   }
 }

@@ -3,7 +3,7 @@
   height: 248px;
   display: grid;
   justify-items: center;
-  border-radius: 10px;
+  border-radius: 8px;
   /* background-color: var(--pearl-blue); */
   padding-top: 10px;
 }
