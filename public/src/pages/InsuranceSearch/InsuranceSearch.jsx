@@ -38,7 +38,7 @@ const InsuranceSearch = () => {
 
   const catBreeds = [
     { value: "Select the Breed", label: "Select the Breed" },
-    { value: "AmericanShortHair", label: "American ShortHair" },
+    { value: "American Shorthair", label: "American ShortHair" },
     { value: "Birman", label: "Birman" },
     { value: "DevonRex", label: "Devon Rex" },
     { value: "DomesticLongShortHair", label: "Domestic Long & Short Hair" },
@@ -56,6 +56,8 @@ const InsuranceSearch = () => {
 
   const dogBreeds = [
     { value: "Select the Breed", label: "Select the Breed" },
+    { value: "Beagle", label: "Beagle" },
+    { value: "Rottweiler", label: "Rottweiler" },
     { value: "BostonTerrier", label: "Boston Terrier" },
     { value: "Chihuahua", label: "Chihuahua" },
     { value: "Golden Retriever", label: "Golden Retriever" },
@@ -69,7 +71,7 @@ const InsuranceSearch = () => {
     { value: "Poodle", label: "Poodle" },
     { value: "Pug", label: "Pug" },
     { value: "ShihTzu", label: "Shih Tzu" },
-    { value: "SiberianHusky", label: "Siberian Husky" },
+    { value: "Siberian Husky", label: "Siberian Husky" },
     { value: "YorkshireTerrier", label: "Yorkshire Terrier" },
   ];
 
@@ -93,25 +95,29 @@ const InsuranceSearch = () => {
 
   const handlePetAgeChange = (age) => {
     setSelectedAge(age);
+    console.log("Here is my Age "+age);
   };
 
   const handlePetTypeChange = (type) => {
-    setSelectedPetType(type);
-    console.log("In handle function" + type); //    setSelectedPetType(type);
-    // setSelectedBreed('');
+    setSelectedPetType(type.toLowerCase());
+    console.log("In handle function" + type);
+    setSelectedBreed("");
   };
 
   const handlePetGenderChange = (gender) => {
-    setSelectedGender(gender);
+    const lowercaseGender = gender.toLowerCase(); // Convert to lowercase for case-insensitive comparison
+    // Check if the lowercase gender is "m" or "f" and set the corresponding value
+    setSelectedGender(lowercaseGender === "m" ? "Male" : lowercaseGender === "f" ? "Female" : "");
   };
 
   const handleBreedChange = (breed) => {
     setSelectedBreed(breed);
-    console.log("Here is teh Breed" + breed);
+    console.log("Here is the Breed" + breed);
   };
 
   const handleGetQuotesClick = async () => {
-    if (!selectedAge || !selectedPetType || !selectedGender || !selectedBreed) {
+    if (!selectedAge || !selectedPetType || !selectedGender || selectedBreed==="Select the Breed") {
+      console.log("Missing field: Age -", !selectedAge, " PetType -", !selectedPetType, " Gender -", !selectedGender, " Breed -", !selectedBreed);
       toast.error("Please select all the values before getting a quote.");
       return;
     }
@@ -173,20 +179,62 @@ const InsuranceSearch = () => {
     setSelectedPet(selectedPetData);
 
     await fetchPetInfo(selectedPetData);
-    //  console.log("Here is data fetched Line 170: "+selectedPetData.Species+" + More data "+selectedPetData.Gender+ "  More data here tooo : "+selectedPetData.Breed);
+
+    //title part /pet name
     setPageTitle(`About Pet ${selectedPetData.PetName}`);
-    //  setSelectedAge(selectedPetData.age);
+    //pet type
     setSelectedPetType(selectedPetData.Species);
+    handlePetTypeChange(selectedPetData.Species);
+    //pet gender
     setSelectedGender(selectedPetData.Gender);
-    setSelectedBreed(selectedPetData.Breed);
-    handlePetTypeChange(selectedPetData.Species); // Automatically select the Type of Pet button
     handlePetGenderChange(selectedPetData.Gender);
+    //pet breed
+    setSelectedBreed(selectedPetData.Breed);
     handleBreedChange(selectedPetData.Breed);
-    //  setSelectedPetType(selectedPetData.Species);
-    // setSelectedGender(selectedPetData.Gender);
-    // setSelectedAge(selectedPetData.Age); // Assuming "Age" is the correct property name
-    // setSelectedBreed(selectedPetData.Breed);
-  };
+    //pet Age
+     // Calculate age based on birthday
+        const birthdayDate = new Date(selectedPetData.Birthday);
+        const currentDate = new Date();
+        const ageInMilliseconds = currentDate - birthdayDate;
+        const ageInYears = Math.floor(ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000));
+
+        // Find the corresponding age range
+        let selectedAgeRange = "";
+        if (ageInYears <= 11 / 365.25) {
+          selectedAgeRange = "8 weeks - 11 months";
+        } else if (ageInYears <= 1) {
+          selectedAgeRange = "1 year";
+        } else if (ageInYears <= 2) {
+          selectedAgeRange = "2 year";
+        } else if (ageInYears <= 3) {
+          selectedAgeRange = "3 year";
+        } else if (ageInYears <= 4) {
+          selectedAgeRange = "4 year";
+        } else if (ageInYears <= 5) {
+          selectedAgeRange = "5 year";
+        } else if (ageInYears <= 6) {
+          selectedAgeRange = "6 year";
+        } else if (ageInYears <= 7) {
+          selectedAgeRange = "7 year";
+        } else if (ageInYears <= 8) {
+          selectedAgeRange = "8 year";
+        } else if (ageInYears <= 9) {
+          selectedAgeRange = "9 year";
+        } else if (ageInYears <= 10) {
+          selectedAgeRange = "10 year";
+        } else if (ageInYears <= 11) {
+          selectedAgeRange = "11 year";
+        } else if (ageInYears <= 12) {
+          selectedAgeRange = "12 year";
+        } else {
+          selectedAgeRange = "12 year+";
+        }
+
+        setSelectedAge(selectedAgeRange);
+
+          // setSelectedAge(selectedPetData.Birthday);
+          console.log("Here is my Birth Date "+selectedAgeRange);
+        };
 
   const fetchPetInfo = async (selectedPetData) => {
     try {
@@ -196,18 +244,10 @@ const InsuranceSearch = () => {
       const petInfoData = response.data;
       setPetInfo(petInfoData);
 
-      // Autofill the form fields with the fetched pet information
-      // setSelectedAge(petInfoData.age);
-      // setSelectedPetType(petInfoData.Species);
-      // setSelectedGender(petInfoData.Gender);
-      // setSelectedBreed(petInfoData.Breed);
-
-      // Assuming your button groups have the same values as the petInfoData properties
       handlePetTypeChange(petInfoData.Species);
-      console.log("Thsi si selcetd " + petInfoData.Species);
+      console.log("This is selcetd " + petInfoData.Species);
 
-      // Automatically select the Type of Pet button
-      handlePetGenderChange(petInfoData.Gender); // Automatically select the Pet Gender button
+      handlePetGenderChange(petInfoData.Gender);
     } catch (error) {
       console.error("Error fetching pet info:", error);
     }
@@ -221,7 +261,6 @@ const InsuranceSearch = () => {
         );
         const data = JSON.parse(storedData);
 
-        // console.log("getPetData");
         // Fetch pet data from the backend
         const response = await axios.get(searchPetsByUserIDRoute, {
           params: { userID: data._id },
@@ -289,9 +328,11 @@ const InsuranceSearch = () => {
             </Typography>
             <ButtonGroup
               groupId="group1"
-              buttons={["cat", "dog"]}
+              buttons={["Cat", "Dog"]}
               onClick={handlePetTypeChange}
-              selected={selectedPetType}
+              // selected={selectedPetType}
+              selected={selectedPetType.charAt(0).toUpperCase() + selectedPetType.slice(1)}
+
             />
           </div>
           <div className={styles.insuranceDropdown}>
@@ -300,7 +341,7 @@ const InsuranceSearch = () => {
             </Typography>
             <ButtonGroup
               groupId="group2"
-              buttons={["M", "F"]}
+              buttons={["Male", "Female"]}
               onClick={handlePetGenderChange}
               selected={selectedGender}
             />
@@ -332,7 +373,7 @@ const InsuranceSearch = () => {
                 onChange={handleBreedChange}
                 placeholder="Select a breed"
                 // defaultValue="Select a breed"
-                options={selectedPetType === "Cat" ? catBreeds : dogBreeds}
+                options={selectedPetType === "cat" ? catBreeds : dogBreeds}
                 size="ml"
               />
             </div>

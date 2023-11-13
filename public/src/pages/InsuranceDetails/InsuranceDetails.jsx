@@ -26,7 +26,53 @@ const InsuranceDetails = () => {
   const navigate = useNavigate();
 
   const [currentCompanyID, setCurrentCompanyID] = useState(null);
+  // const [insurancePlans, setInsurancePlans] = useState([]);
 
+//For Small Cards 
+  const fetchCompanyData = async (companyID) => {
+    try {
+      const response = await axios.get(`${getInsuranceCompanyByIdRoute}/${companyID}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching company data:", error);
+      return null;
+    }
+  };
+  const [insurancePlans, setInsurancePlans] = useState([]);
+
+  useEffect(() => {
+    const fetchSimilarPlans = async () => {
+      try {
+        const response = await axios.get(getAllInsurancePlansRoute);
+        const allInsurancePlans = response.data;
+
+        // Filter out plans from the current company and shuffle the array
+        const filteredPlans = allInsurancePlans
+          .filter((plan) => plan.CompanyID !== currentCompanyID)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3);
+
+        // Fetch additional company data for the filtered plans
+        const plansWithCompanyData = await Promise.all(
+          filteredPlans.map(async (plan) => {
+            const companyData = await fetchCompanyData(plan.CompanyID);
+            return { ...plan, companyData };
+          })
+        );
+
+        setInsurancePlans(plansWithCompanyData);
+      } catch (error) {
+        console.error("Error fetching similar plans:", error);
+      }
+    };
+
+    // Fetch similar plans only if the currentCompanyID is available
+    if (currentCompanyID) {
+      fetchSimilarPlans();
+    }
+  }, [currentCompanyID]);
+
+//For main part above   
   useEffect(() => {
     axios
       .get(`${getInsurancePlanByIdRoute}/${_id}`)
@@ -47,19 +93,6 @@ const InsuranceDetails = () => {
       });
   }, [_id, CompanyID]);
 
-  //For small cards
-  const [insurancePlans, setInsurancePlans] = useState([]);
-  useEffect(() => {
-    axios
-      .get(getAllInsurancePlansRoute)
-      .then((response) => {
-        setInsurancePlans(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching insurance plans:", error);
-      });
-  }, []);
 
   const handleViewDetailsClick = (_id) => {
     navigate(`/insurance/details/${_id}`);
@@ -127,23 +160,21 @@ const InsuranceDetails = () => {
           </Typography>
         </div>
         <div className={styles.InsuranceDetailsSimilarPlansBody}>
-          {insurancePlans
-            .filter((plan) => plan.CompanyID == currentCompanyID) // Filter out plans from different companies
-            .slice(0, 3)
-            .map((plan) => (
-              <SmPlanDetailCard
-                smSource={planData.CompanyLogo}
-                planName={plan.PlanName}
-                key={plan._id}
-                smAlt={planData.CompanyName}
-                smDeductibleNum={plan.AnnualDeductible}
-                smReimbursementNum={plan.Reimbursement * 100}
-                smCoverageNum={plan.AnnualCoverage}
-                smPrice={plan.InsurancePrice}
-                CompanyID={plan.CompanyID}
-                onClick={() => handleViewDetailsClick(plan._id)}
-              />
-            ))}
+            {insurancePlans
+              .map((plan, index) => (
+                <SmPlanDetailCard
+                  smSource={plan.companyData?.CompanyLogo}
+                  planName={plan.PlanName}
+                  key={index}
+                  smAlt={plan.companyData?.CompanyName}
+                  smDeductibleNum={plan.AnnualDeductible}
+                  smReimbursementNum={plan.Reimbursement * 100}
+                  smCoverageNum={plan.AnnualCoverage}
+                  smPrice={plan.InsurancePrice}
+                  CompanyID={plan.CompanyID}
+                  onClick={() => handleViewDetailsClick(plan._id)}
+                />
+              ))}
         </div>
       </div>
     </div>
