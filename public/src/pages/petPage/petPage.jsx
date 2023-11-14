@@ -58,6 +58,7 @@ const PetPage = () => {
     setPetLogFormExpanded(true);
     petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
     console.log(log);
+    
   };
   const handlePetLogButtonClick = () => {
     petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
