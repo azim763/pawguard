@@ -52,11 +52,17 @@ const PetPage = () => {
 
   const petLogFormRef = useRef(null);
 
-  const handlePetLogClick = (log) => {
+  const handlePetLogClick = (log,e) => {
     setSelectedPetLog(log);
     setFormMode("view");
-    setPetLogFormExpanded(true);
-    petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
+    getPetLogToggleProps().onClick(e);
+    if (!isPetLogExpanded) {
+      setTimeout(() => {
+        handlePetLogButtonClick();
+      }, 300);
+    }
+
+    setPetLogFormExpanded(!isPetLogExpanded);
     console.log(log);
     
   };
@@ -352,7 +358,7 @@ const PetPage = () => {
           {petLog.length > 0 ? (
             <div className={styles.cardStyle}>
               {petLog.map((log) => (
-                <div key={log._id} onClick={() => handlePetLogClick(log)}>
+                <div key={log._id} onClick={(e) => handlePetLogClick(log,e)}>
                   <PetLogCard 
                     PetLogDate={log.LogDate}
                     PetLogTime={log.timestamp}
@@ -568,13 +574,13 @@ const PetPage = () => {
               onClick={(event) => {
                 setFormMode("create")
                 getPetLogToggleProps().onClick(event);
-                if (!isPetLogFormExpanded) {
+                if (!isPetLogExpanded) {
                   setTimeout(() => {
                     handlePetLogButtonClick();
                   }, 300);
                 }
 
-                setPetLogFormExpanded(!isPetLogFormExpanded);
+                setPetLogFormExpanded(!isPetLogExpanded);
 
                 // if (isPetLogFormExpanded) {
                 //   setPetLogFormExpanded(true);
