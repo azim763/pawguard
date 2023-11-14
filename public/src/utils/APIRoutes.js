@@ -33,6 +33,9 @@ export const searchPetsByUserIDRoute = `${host}/api/pets/searchpetsbyuserid`;
 export const getPetByIdRoute = `${host}/api/pets/getpetbyid`;
 export const updatePetByIdRoute = `${host}/api/pets/update`;
 export const deletePetByIdRoute = `${host}/api/pets/delete`;
+export const archivePetRoute = `${host}/api/pets/archive`;
+export const patchPetRoute = `${host}/api/pets/patch`;
+
 
 export const getAllPetAppointmentsRoute = `${host}/api/petappointments/allpetappointments`;
 export const createPetAppointmentRoute = `${host}/api/petappointments/create`;

@@ -187,9 +187,9 @@ const PetPage = () => {
     setMedicationFormExpanded(false);
   };
 
-  const closeVacForm = ()=>{
+  const closeVacForm = () => {
     setVaccinationFormExpanded(false);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -531,6 +531,44 @@ const PetPage = () => {
   };
 
   console.log("Active Tab:", activeLink);
+  const handlePetArchive = (petId) => {
+    const petDataString = localStorage.getItem("petsData");
+
+    if (petDataString) {
+      try {
+        // Parse the petData into an array
+        const petData = JSON.parse(petDataString);
+  
+        // Filter out the pet with the specified ID
+        const updatedPetData = petData.filter((pet) => pet._id !== petId);
+  
+        // Convert the updated petData back to a string
+        const updatedPetDataString = JSON.stringify(updatedPetData);
+  
+        // Update localStorage with the modified data
+        localStorage.setItem("petsData", updatedPetDataString);
+      } catch (error) {
+        console.error('Error parsing or updating petsData:', error);
+      }
+    }
+    // Find the index of the pet to be archived
+    const indexToRemove = pets.findIndex((pet) => pet._id === petId);
+
+    // Filter out the pet with the specified ID
+    const updatedPets = pets.filter((pet) => pet._id !== petId);
+
+    // Set the updated pets array
+    setPets(updatedPets);
+
+    // Determine the index of the next pet to select
+    const nextPetIndex =
+      indexToRemove < updatedPets.length ? indexToRemove : indexToRemove - 1;
+
+    // Set the selected pet to the next pet in the array
+    setSelectedPet(updatedPets[nextPetIndex]);
+
+    console.log(updatedPets[nextPetIndex]);
+  };
 
   return (
     <div className={styles.petPageMain}>
@@ -540,7 +578,13 @@ const PetPage = () => {
           <Typography variant="large-h1-poppins-bold">
             {selectedPet.PetName}
           </Typography>
-          {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
+          {pets && (
+            <TotalPets
+              pets={pets}
+              selectedPet={selectedPet}
+              onPetSelect={handlePetSelection}
+            />
+          )}
 
           {buttonLabel === "PetLog" && (
             <Button
@@ -633,6 +677,7 @@ const PetPage = () => {
               petHeight={selectedPet.Height}
               petWeight={selectedPet.Weight}
               id={selectedPet._id}
+              onArchive={() => handlePetArchive(selectedPet._id)}
             />
           )}
         </div>

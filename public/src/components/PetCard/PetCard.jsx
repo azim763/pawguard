@@ -16,7 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import axios from "axios";
-import { deletePetAppointmentByIdRoute } from "../../utils/APIRoutes.js";
+import { archivePetRoute } from "../../utils/APIRoutes.js";
 import Button from "../Button/Button";
 import Modal from "react-modal";
 import modalStyles from "../Modal/Modal.module.css";
@@ -29,8 +29,7 @@ const PetCard = ({
   petHeight,
   petWeight,
   id,
-  onDelete,
-  AppointmentId,
+  onArchive,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
@@ -59,18 +58,18 @@ const PetCard = ({
   };
 
   const handleConfirmArchive = () => {
-    // axios
-    //   .delete(`${deletePetAppointmentByIdRoute}/${AppointmentId}`)
-    //   .then((response) => {
-    //     console.log(`Log entry with ID ${AppointmentId} deleted successfully.`);
-    //     onDelete();
-    //   })
-    //   .catch((error) => {
-    //     console.error(
-    //       `Error deleting log entry with ID ${AppointmentId}:`,
-    //       error
-    //     );
-    //   });
+    axios
+      .patch(`${archivePetRoute}/${id}`)
+      .then((response) => {
+        console.log(`Pet with ID ${id} has been archived successfully.`);
+        onArchive();
+      })
+      .catch((error) => {
+        console.error(
+          `Error archiving pet with ID ${id}:`,
+          error
+        );
+      });
     setIsArchiveModalOpen(false);
   };
 
@@ -143,12 +142,12 @@ const PetCard = ({
         </div>
       </div>
       <div className={styles.actionContainer}>
-        <NavLink to={`editPage/${id}`}>
+        <NavLink to={`/editPet/${id}`}>
           <PenSVG className={styles.actionSVGIcons} />
           <Typography variant="detailtext2-poppins-medium">Edit</Typography>
         </NavLink>
-        <div>
-          <ArchiveSVG className={styles.actionSVGIcons} onClick={handleArchiveClick} />
+        <div onClick={handleArchiveClick}>
+          <ArchiveSVG className={styles.actionSVGIcons}/>
           <Typography variant="detailtext2-poppins-medium">Archive</Typography>
         </div>
         <div>
