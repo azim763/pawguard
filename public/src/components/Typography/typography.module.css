@@ -86,42 +86,46 @@
   color: var(--dark-blue);
 }
 
+.white {
+  color: #fff;
+}
+
 @media screen and (max-width: 768px) {
   .user-greeting-poppins-semibold {
     font-size: 32px;
     line-height: 48px;
   }
-  
+
   .large-h1-poppins-bold {
     font-size: 24px;
     line-height: 36px;
   }
-  
+
   .h1-poppins-semibold {
     font-size: 24px;
     line-height: 36px;
   }
-  
+
   .h2-poppins-semibold {
     font-size: 22px;
     line-height: 33px;
   }
-  
+
   .sub-poppins-medium {
     font-size: 20px;
     line-height: 30px;
   }
-  
+
   .body1-poppins-semibold {
     font-size: 16px;
     line-height: 24px;
   }
-  
+
   .body2-poppins-medium {
     font-size: 16px;
     line-height: 24px;
   }
-  
+
   .body3-poppins-regular {
     font-size: 16px;
     line-height: 21px;

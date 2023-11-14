@@ -253,7 +253,6 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
           <DatePicker
             onChange={handleDateChange}
             id="FoodDate"
-            value={foodDate}
           />
         </div>
 

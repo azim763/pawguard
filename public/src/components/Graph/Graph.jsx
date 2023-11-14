@@ -20,7 +20,7 @@ const Graph = ({ names, values,label}) => {
     <div className={styles.graphContainer}>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <Line type="monotone" dataKey={label} stroke="var(--salmon-pink)" />
+          <Line type="monotone" dataKey="name" name ={label} stroke="var(--salmon-pink)" />
           <XAxis dataKey="value" />
           <YAxis />
           <Tooltip />

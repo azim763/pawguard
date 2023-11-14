@@ -37,6 +37,8 @@ const ListInsurances = () => {
         console.error("Error fetching company details:", error);
       });
   }, [filteredPlans]);
+  
+  const sortedPlans = [...filteredPlans].sort((a, b) => a.InsurancePrice - b.InsurancePrice);
 
   const handleViewDetailsClick = (_id) => {
     console.log("This is provided to or next page" + _id);
@@ -63,7 +65,7 @@ const ListInsurances = () => {
         </div>
 
         <div className={styles.ListInsurancesBody}>
-          {filteredPlans.map((plan, index) => (
+          {sortedPlans.map((plan, index) => (
             <PlanDetailCard
               source={companyDetailsMap[plan.CompanyID]?.CompanyLogo}
               alt={companyDetailsMap[plan.CompanyID]?.CompanyName}

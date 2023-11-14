@@ -142,7 +142,6 @@ const AppointmentForm = ({
           <DatePicker
             onChange={handleDateChange}
             id="AppointmentDate"
-            value={appointmentDate}
           />
         </div>
         <div>
