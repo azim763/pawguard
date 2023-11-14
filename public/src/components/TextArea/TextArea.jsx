@@ -22,6 +22,7 @@ import styles from "./textArea.module.css";
     onClick={onClickHandler}
     id={id}
     name={name}
+    value={value}
     {...props}
     >
     </textarea>

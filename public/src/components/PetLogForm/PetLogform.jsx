@@ -337,16 +337,28 @@ const PetLogForm = ({
               <Typography variant="body2-poppins-medium">
                 Other Notes
               </Typography>
-              <TextArea
-                name="Notes"
-                id="Notes"
-                cols="30"
-                rows="10"
-                placeholder="Enter Observations for your pet."
-                onChange={handleInputChange}
-                value={formData.Notes}
-                className={styles.petLogTextarea}
-              />
+              {formMode === 'create' && (
+                <TextArea
+                  name="Notes"
+                  id="Notes"
+                  cols="30"
+                  rows="10"
+                  placeholder="Enter Observations for your pet."
+                  onChange={handleInputChange}
+                  className={styles.petLogTextarea}
+                />)}
+              {formMode === 'view' && selectedLog && selectedLog.Notes && (
+                <TextArea
+                  name="Notes"
+                  id="Notes"
+                  cols="30"
+                  rows="10"
+                  placeholder="Enter Observations for your pet."
+                  onChange={handleInputChange}
+                  value={selectedLog.Notes}
+                  className={styles.petLogTextarea}
+                />
+              )}
             </div>
             {/* <TextInput
               id="Notes"
@@ -366,12 +378,18 @@ const PetLogForm = ({
               >
                 Pet’s conditions (e.g. injuries, vomit)
               </Typography>
-
+              {formMode === 'create' && (
+                  <div>
               <ImageDisplay PetImageData={selectedImage} />
               <SingleImageUpload
                 label="Add Pet Log Image"
                 onImageUpload={handleImageUpload}
               />
+              </div>
+              )}
+              {formMode === 'view' && selectedLog && selectedLog.Notes && (
+                <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
+              )}
             </div>
             <div className={styles.buttonStyle}>
               {formMode === "create" ?

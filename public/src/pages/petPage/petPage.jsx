@@ -363,7 +363,7 @@ const PetPage = () => {
               ))}
             </div>
           ) : (
-            !isPetLogFormExpanded && (
+            !selectedPet && !selectedPet._id && !isPetLogFormExpanded && (
               <div className={styles.noLogImage}>
                 <div className={styles.noLogText}>
                   <Typography variant="sub-poppins-medium" color="white">
@@ -548,7 +548,9 @@ const PetPage = () => {
   console.log("Active Tab:", activeLink);
 
   return (
-    <div className={styles.petPageMain}>
+    
+      <div className={styles.petPageMain}>
+    
       <Header> </Header>
       <div className={styles.petPageGrid}>
         <div className={styles.tabTitle}>
