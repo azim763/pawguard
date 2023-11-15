@@ -198,7 +198,7 @@ const AddPet = () => {
       { value: "DEA7", label: "DEA 7" },
     ];
 
-  if (petData.Species === "cat") {
+  if (petData.Species === "Cat") {
     breedType = [
       { value: "Domestic Shorthair", label: "Domestic Shorthair" },
       { value: "American Shorthair", label: "American Shorthair" },
@@ -320,7 +320,6 @@ const AddPet = () => {
             <Typography variant="body2-poppins-medium">Birthday</Typography>
             <DatePicker
               id="birthday"
-              value={petData.Birthday}
               onChange={handleDateChange}
             />
           </div>
