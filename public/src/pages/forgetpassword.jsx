@@ -18,6 +18,10 @@ const ForgetPassword = () => {
  // const location = useLocation();
 // const { userID } = useParams();
   //const { rec } = useParams();
+
+  const [loading, setLoading] = useState(false);
+
+
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -71,6 +75,9 @@ const ForgetPassword = () => {
 
   const sendEmail = async (event) => {
     event.preventDefault();
+
+    setLoading(true);
+
  try {
     const { email } = values;
     // console.log(email); 
@@ -107,6 +114,7 @@ const host = window.location.origin;
       toast.error("Email is not valid.", toastOptions);
       console.error('Error sending email:', error);
     }
+    setLoading(false);
   };
 
   return (
@@ -127,7 +135,10 @@ const host = window.location.origin;
                 name="email"
                 onChange={(e) => handleChange(e)}
               />
-              <Button variant="yellow" type="submit" label={"Send"} size="dk-md-s" />
+              {loading ? (
+          <p>Sending Email...</p>
+        ) : (
+              <Button variant="yellow" type="submit" label={"Send"} size="dk-md-s" />)}
               <span>
                 Back to ? <Link to="/login">Login.</Link>
               </span>
