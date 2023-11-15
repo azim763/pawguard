@@ -105,13 +105,50 @@
   color: var(--dark-blue);
 }
 
-.arrowContainer{
+.arrowContainer {
   margin-left: 5px;
 }
 
-.noResultContainer{
+.noResultContainer {
   display: block;
   margin: 50px auto;
+}
+
+.specialtiesContainer {
+  margin-bottom: 0.5rem;
+}
+
+.individualClinicContainer {
+  border: 1px solid black;
+  border-radius: 8px;
+  /* position: fixed; */
+  z-index: 99;
+  position: fixed;
+  bottom: 0;
+  top: 20%;
+  background-color: var(--off-white);
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  /* animation: slide-up 1s ease; */
+  left: 0;
+  right: 0;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.closeIcon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 900px) {
@@ -120,7 +157,7 @@
     grid-template-columns: 1fr;
   }
 
-  .noResultContainer{
+  .noResultContainer {
     display: block;
     margin: 50px auto;
   }
@@ -152,6 +189,11 @@
   .clinicButton {
     grid-row: 3;
     width: 100%;
+  }
+
+  .individualClinicContainer {
+    border-radius: 50px 50px 0 0;
+    border: 1px solid black;
   }
 }
 
@@ -209,11 +251,18 @@
     display: block;
   }
 
+  .phoneSVG {
+    width: 26;
+    height: 26;
+  }
 
-.phoneSVG{
-  width: 26;
-  height: 26;
-}
+  .specialtiesContainer {
+    margin-top: 2rem;
+  }
+
+  .opaqueStyle {
+    margin-bottom: 1rem;
+  }
 
   /* .clinicTitle {
     width: 80vw;

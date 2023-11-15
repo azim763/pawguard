@@ -18,10 +18,14 @@ import StarRating from "../../components/StarRating/StarRating";
 import PetSelectionClinic from "../../components/PetSelectClinic/PetSelectClinic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import IndividualClinic from "./../IndividualClinic/IndividualClinic";
+import { getClinicByIdRoute } from "../../utils/APIRoutes";
+import CloseSVG from "../../components/SVG/CloseSVG";
 
 let originalClinicData = [];
 
 const ListClinics = () => {
+  const [clinicDetails, setClinicDetails] = useState();
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [clinicData, setClinicData] = useState([]);
   const [urgentCareChecked, setUrgentCareChecked] = useState(false);
@@ -32,6 +36,8 @@ const ListClinics = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [sort, setSort] = useState(true);
   const [currentUserId, setCurrentUserId] = useState();
+  const [individualClinicId, setIndividualClinicId] = useState();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handlePetSelectClinicClick = (id, specialties) => {
     setSelectedPetId(id);
@@ -103,12 +109,12 @@ const ListClinics = () => {
 
   // const options = ["Dentistry", "Allergies"];
 
-  const navigate = useNavigate();
-  const petData = [
-    { imgUrl: "https://picsum.photos/200", petName: "Pet 1", index: 1 },
-    { imgUrl: "https://picsum.photos/200", petName: "Pet 2", index: 2 },
-    // Add more pet data as needed
-  ];
+  // const navigate = useNavigate();
+  // const petData = [
+  //   { imgUrl: "https://picsum.photos/200", petName: "Pet 1", index: 1 },
+  //   { imgUrl: "https://picsum.photos/200", petName: "Pet 2", index: 2 },
+  //   // Add more pet data as needed
+  // ];
 
   useEffect(() => {
     axios
@@ -131,7 +137,21 @@ const ListClinics = () => {
   }, []);
 
   const handleClickDetails = (clinicId) => {
-    navigate(`/clinic/details/${clinicId}`);
+    console.log("clinicId");
+    console.log(clinicId);
+    // navigate(`/clinic/details/${clinicId}`);
+    axios
+      .get(`${getClinicByIdRoute}/${clinicId}`)
+      .then((response) => {
+        console.log("response.data");
+        console.log(response.data);
+        setClinicDetails(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
+
+    setIsVisible(true);
   };
 
   // const onCheckHandler = (event) => {
@@ -226,7 +246,10 @@ const ListClinics = () => {
               <Typography variant="body2-poppins-medium">
                 <Link to="/login" className={styles.addPetLink}>
                   Sign in to select your pet
-                  <FontAwesomeIcon className={styles.arrowContainer} icon={faChevronRight} />
+                  <FontAwesomeIcon
+                    className={styles.arrowContainer}
+                    icon={faChevronRight}
+                  />
                 </Link>
               </Typography>
             </>
@@ -266,7 +289,7 @@ const ListClinics = () => {
         <div className={styles.clinicSearch}>
           <div className={styles.dropDownClinics}>
             <div>
-              <div style={{ marginBottom: ".5rem" }}>
+              <div className={styles.specialtiesContainer}>
                 <Typography variant="body2-poppins-medium">
                   Specialties
                 </Typography>
@@ -357,7 +380,9 @@ const ListClinics = () => {
 
         {clinicData.length === 0 ? (
           <div className={styles.noResultContainer}>
-          <Typography variant="body2-poppins-medium">No results found.</Typography>
+            <Typography variant="body2-poppins-medium">
+              No results found.
+            </Typography>
           </div>
         ) : (
           clinicData.map((clinic) => (
@@ -373,6 +398,16 @@ const ListClinics = () => {
               handleClickDetails={() => handleClickDetails(clinic._id)}
             />
           ))
+        )}
+
+        {isVisible && (
+          <div className={styles.individualClinicContainer}>
+            <CloseSVG
+              className={styles.closeIcon}
+              // onClick={closeClinicDetails}
+            />
+            <IndividualClinic clinicDetails={clinicDetails} />
+          </div>
         )}
       </div>
     </div>
