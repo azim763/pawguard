@@ -19,6 +19,7 @@ import AddPet from "./pages/AddPet/AddPet";
 import ExportpetLog from "./pages/petLog/ExportpetLog";
 import Calendar from "./components/Calendar/calendar";
 import ChangePassword from "./pages/changePassword";
+import Forgetpassword from "./pages/forgetpassword";
 
 export default function App() {
   return (
@@ -27,6 +28,8 @@ export default function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/register" element={<Register />} />
         <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} />
+        <Route path="/forgetpassword" element={<Forgetpassword />} />
+        {/* <Route path="/sendemail" element={<Forgetpassword />} /> */}
         {/* <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/sendemail" element={<sendEmail />} />

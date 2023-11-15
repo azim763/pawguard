@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import {
-  updatePetByIdRoute,
-  searchPetsByUserIDRoute,
-} from "../../utils/APIRoutes.js";
+import { patchPetRoute, getPetByIdRoute } from "../../utils/APIRoutes.js";
 import styles from "./EditPet.module.css";
 import SingleImageUpload from "../../components/SingleImageUpload/SingleImageUpload";
 import TextInput from "../../components/TextInput/TextInput";
@@ -25,51 +22,17 @@ const EditPet = () => {
   const { petID } = useParams();
   const [pets, setPets] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
-  const originalValue = 'initial value';
-  const [editedValue, setEditedValue] = useState(originalValue);
-  
-
-  // Define a function to handle changes in the input
-  const handleChange = (event) => {
-    setEditedValue(event.target.value);
-  };
+  const originalValue = "initial value";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const storedData = localStorage.getItem(
-          process.env.REACT_APP_LOCALHOST_KEY
+        const response = await axios.get(`${getPetByIdRoute}/${petID}`
         );
-        if (storedData) {
-          const petData = localStorage.getItem("petsData");
-          if (petData) {
-            const petArray = JSON.parse(petData);
-            setPets(petArray);
-
-            if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]); // Set the first pet by default
-            }
-
-            if (petID) {
-              // Find the pet with the matching ID and set it as the selectedPet
-              const matchingPet = petArray.find((pet) => pet._id === petID);
-              if (matchingPet) {
-                setSelectedPet(matchingPet);
-              }
-            }
-          } else {
-            const data = JSON.parse(storedData);
-            console.log(data);
-            const response = await axios.get(searchPetsByUserIDRoute, {
-              params: { userID: data._id },
-            });
-            setPets(response.data);
-            if (!selectedPet && response.data.length > 0) {
-              setSelectedPet(response.data[0]);
-            }
-          }
-        }
-      } catch (error) {}
+        setSelectedPet(response.data);
+      } catch (error) {
+        console.error("Error fetching pet data:", error);
+      }
     };
 
     fetchData();
@@ -128,20 +91,7 @@ const EditPet = () => {
     originalDate.getMonth() + 1
   ).padStart(2, "0")}-${String(originalDate.getDate()).padStart(2, "0")}`;
 
-  const [petData, setPetData] = useState({
-    UserID: "",
-    PetName: "",
-    Gender: gender[0].value,
-    Species: petType[0].value,
-    Breed: breedType[0].value,
-    Birthday: "",
-    BloodType: bloodType[0].value,
-    Height: "",
-    Weight: "",
-    PreExistingMedical: "",
-    PetImageName: "",
-    Description: "",
-  });
+  const [petData, setPetData] = useState({});
 
   useEffect(() => {
     if (selectedPet) {
@@ -171,12 +121,17 @@ const EditPet = () => {
 
   const handleInputChange = (event) => {
     console.log("Input changed:", event.target.value);
-    // const { name, value } = event.target;
-  
-    // setPetData((prevPetData) => ({
-    //   ...prevPetData,
-    //   [name]: value,
-    // }));
+    setPetData({
+      ...petData,
+      [event.target.name]: event.target.value,
+    });
+    const updatedSelectedPet = {
+      ...selectedPet,
+      [event.target.name]: event.target.value,
+    };
+
+    // Update the selectedPet state
+    setSelectedPet(updatedSelectedPet);
   };
 
   if (petData.Species === "Cat") {
@@ -212,12 +167,10 @@ const EditPet = () => {
   }
 
   const handleDropdownChange = (name, value) => {
-    console.log("dropdown is dropping");
     setPetData({
       ...petData,
       [name]: value,
     });
-    console.log(petData);
   };
 
   const handleMultipleDropdownChange = (e) => {
@@ -241,27 +194,14 @@ const EditPet = () => {
     event.preventDefault();
     console.log(petData);
 
-    // try {
-    //   const storedData = await JSON.parse(
-    //     localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    //   );
-
-    //   const updatedPetData = {
-    //     ...petData,
-    //     UserID: storedData._id,
-    //   };
-
-    //   setPetData(updatedPetData);
-
-    //   const response = await axios.put(updatePetByIdRoute, updatedPetData);
-
-    //   // Handle successful submission
-    //   console.log("Data submitted successfully:", response.data);
-    //   navigate("/");
-    // } catch (error) {
-    //   console.error("Error while submitting data:", error);
-    //   // Handle the error, e.g., display an error message to the user.
-    // }
+    axios
+      .patch(`${patchPetRoute}/${selectedPet._id}`, petData)
+      .then((response) => {
+        console.log(`Pet with ID ${selectedPet._id} has been updated!`);
+      })
+      .catch((error) => {
+        console.error(`Error editing pet with ID ${selectedPet._id}:`, error);
+      });
   };
 
   return (
@@ -307,7 +247,7 @@ const EditPet = () => {
             label="Breed *"
             id="Breed"
             options={breedType}
-            defaultValue={selectedPet.Breed}
+            setSelectedOption={selectedPet.Breed}
             onChange={(selectedValue) =>
               handleDropdownChange("Breed", selectedValue)
             }

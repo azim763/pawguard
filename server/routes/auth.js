@@ -5,6 +5,7 @@ const {
   getAllcnUsers,
   setAvatar,
   updateUserById,
+  sendemail,
   logOut,
 } = require("../controllers/userController");
 // const {
@@ -19,5 +20,5 @@ router.get("/alluserscn/:id", getAllcnUsers);
 router.post("/setavatar/:id", setAvatar);
 router.get("/logout/:id", logOut);
 router.put("/update/:id", updateUserById);
-// router.post("/sendEmail", sendmail);
+router.post("/sendemail", sendemail);
 module.exports = router;

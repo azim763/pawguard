@@ -98,6 +98,8 @@ export default function Login() {
           <span>
             Don't have an account ? <Link to="/register">Create One.</Link>
           </span>
+          <span> <Link to="/forgetpassword">Forget Password</Link>
+          </span>
         </form>
         </div>
         </div> 
@@ -171,7 +173,7 @@ button{
 {
 
   background-color: var(--off-white);
-  min-width: 480px;
+  min-width: 280px;
   justify-content: center;
   display: flex;
   gap: 1rem;

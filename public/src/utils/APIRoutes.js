@@ -2,7 +2,7 @@ export const host = "http://localhost:5000";
 export const loginRoute = `${host}/api/auth/login`;
 export const registerRoute = `${host}/api/auth/register`;
 export const changepasswordRoute = `${host}/api/auth/update`;
-export const sendmail = `${host}/api/auth/sendemail`;
+export const sendmailRoute = `${host}/api/auth/sendemail`;
 export const logoutRoute = `${host}/api/auth/logout`;
 export const allUsersRoute = `${host}/api/auth/allusers`;
 export const setAvatarRoute = `${host}/api/auth/setavatar`;
@@ -33,6 +33,9 @@ export const searchPetsByUserIDRoute = `${host}/api/pets/searchpetsbyuserid`;
 export const getPetByIdRoute = `${host}/api/pets/getpetbyid`;
 export const updatePetByIdRoute = `${host}/api/pets/update`;
 export const deletePetByIdRoute = `${host}/api/pets/delete`;
+export const archivePetRoute = `${host}/api/pets/archive`;
+export const patchPetRoute = `${host}/api/pets/patch`;
+
 
 export const getAllPetAppointmentsRoute = `${host}/api/petappointments/allpetappointments`;
 export const createPetAppointmentRoute = `${host}/api/petappointments/create`;
