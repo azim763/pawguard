@@ -11,26 +11,34 @@
   border: solid 1px var(--border-grey);
   background-color: white;
   padding: 20px;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 .dashboardPetCard {
   background-color: var(--pearl-blue) !important;
-  display: grid;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
-  grid-template-columns: 1fr 2fr;
-  padding: 12px;
-  column-gap: 16px;
-  text-align: center;
-  row-gap: 20px;
+  gap: 25px;
+}
+
+.dashboardPetCard > div:first-of-type {
+  order: 1;
+}
+.dashboardPetCard > div:last-of-type {
+  order: 3;
+  flex-basis: 100%;
+}
+
+.dashboardPetCard > a {
+  order: 2;
 }
 
 .petCardList {
-  grid-column: 1/-1;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  gap: 25px;
+  gap: 28px;
   /* display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
@@ -78,6 +86,7 @@
   margin-top: 8px;
 }
 
+
 .graphTitle {
   margin-bottom: 30px;
   margin-top: 53px;
@@ -115,31 +124,63 @@
   margin-left: 10px;
 }
 
-@media screen and (min-width: 810px) {
+@media screen and (min-width: 875px) {
   .dashboardContainer {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: repeat(2, auto);
-    max-width: 810px;
-    margin: auto;
-    align-items: start;
+    padding: 45px 40px;
   }
 
-  .dashboardPetCard {
-    grid-column: 1/2;
-    grid-row: 1/3;
-    display: flex;
-    flex-flow: column nowrap;
+  .dashboardContainer > div:nth-of-type(2) {
+    padding: 20px 30px;
+}
+
+  .dashboardContainer > div:not(.petCardList) {
+    max-width: 100%;
+    width: 100%;
   }
 
   .petCardList {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 28px;
+  }
 
-    grid-column: 1/-1;
-    justify-content: space-between;
-    align-items: center;
+  .middleTitle {
+    padding-right: 12px;
+  }
+
+  .petSummaryCards {
+    justify-content: start;
+    gap: 28px;
+    flex-flow: row nowrap;
+  }
+}
+
+@media screen and (min-width: 1220px) {
+  .dashboardPetCard {
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 158px !important;
+    padding: 40px 20px !important;
+  }
+
+  .dashboardPetCard > div:first-of-type {
+    order: 1;
+  }
+  .dashboardPetCard > div:last-of-type {
+    order: 2;
+  }
+  .dashboardPetCard > a {
+    order: 3;
+  }
+
+  .petCardList {
+    padding-top: 42px;
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .petCardList > a {
+    max-width: 100px;
   }
 
   .dashboardPetCard svg {
@@ -147,27 +188,21 @@
     height: 60px;
   }
 
+  .middleContainer {
+    max-width: 600px !important;
+  }
+
   .petSummaryCards {
     justify-content: space-between;
   }
 
-  .middleContainer {
-    max-width: 600px !important;
-    flex-grow: 1;
-  }
-
-  .dashboardContainer > div:last-of-type {
-    max-width: 600px;
-    flex-grow: 1;
-  }
-}
-
-@media screen and (min-width: 1195px) {
   .dashboardContainer {
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
-    max-width: 1150px;
+    max-width: 1130px;
+    margin: auto;
+    box-sizing: content-box;
   }
 
   .dashboardContainer > div:last-of-type {
@@ -181,75 +216,12 @@
     width: 100%;
   }
 
-  .middleTitle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
   .graphNoRecord {
     width: 200px;
   }
 }
 
-/* 
-
-
-
-@media screen and (min-width: 1099px) {
-  .middleContainer {
-    height: auto;
-    min-width: 550px;
-    max-width: 585px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    padding: 24px 20px;
-  }
-}
-
-
-
-
-
-
-.dashboardGraph {
-  grid-column: 1/-1;
-}
-
-@media only screen and (max-width: 1000px) {
-  .dashboardContainer {
-    flex-flow: column nowrap;
-  }
-
-  .dashboardContainer > div {
-    width: 100%;
-  }
-
-
-
-
-
-  .middleContainer {
-    gap: 24px;
-    padding: 24px 20px;
-  }
-
-  .petSummaryCards {
-    margin-top: 24px;
-    margin-bottom: 36px;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-  }
-
-  .middleTitle img {
-    max-width: 41px;
-    max-height: 41px;
-  }
-}
-
-.carouselArrowTop {
+/* .carouselArrowTop {
   cursor: pointer;
   text-align: center;
   position: absolute;

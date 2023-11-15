@@ -208,6 +208,13 @@
   .clinicsContainer {
     display: block;
   }
+
+
+.phoneSVG{
+  width: 26;
+  height: 26;
+}
+
   /* .clinicTitle {
     width: 80vw;
   }

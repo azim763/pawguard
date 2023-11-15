@@ -9,7 +9,7 @@ import axios from "axios";
 import CloseSVG from "../SVG/CloseSVG";
 import Dropdown from "../Dropdown/Dropdown";
 
-const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps }) => {
+const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVacForm }) => {
   const [formData, setFormData] = useState({
     PetID: "",
     // NameOfVaccination: "",
@@ -113,7 +113,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps }) => {
       <div className={styles.vaccineTitle}>
         <Typography variant="h2-poppins-semibold">Add Vaccination</Typography>
         <div {...getToggleProps()}>
-          <CloseSVG width="27" height="28" />
+          <CloseSVG width="27" height="28" onClick={closeVacForm}/>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -121,7 +121,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps }) => {
           <Dropdown
             size="md"
             label="Name of Vaccination"
-            defaultValue="Select Vaccine"
+            defaultValue="Select Vaccination"
             id="NameOfVaccination"
             options={vaccines}
             value={formData.NameOfVaccination}

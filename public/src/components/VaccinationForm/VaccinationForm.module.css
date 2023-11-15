@@ -2,6 +2,7 @@
   padding: 26px 20px;
   border-radius: 8px;
   border: 1px solid var(--border-grey);
+  width: 100%;
 }
 
 .vaccinationForm form {
@@ -32,20 +33,35 @@
 } */
 .DropdownAndDatePicker{
   display: flex;
-  gap:2rem;
+  gap: 2rem;
   flex-direction: row;
 }
 
-@media only screen and  (max-width: 768px) {
+.vaccinationForm form input{
+  width: 100%;
+}
+
+.vaccinationForm form select{
+  width: 250px;
+}
+
+
+@media screen and  (max-width: 768px) {
 
 .vaccinationForm form{
 grid-template-columns: 1fr;
 }
+
 .DropdownAndDatePicker{
   flex-direction: column;
 }
+
 .vaccineButton button{
   width: 100%;
+}
+
+.vaccinationForm form select{
+  width: 80%;
 }
 
 }

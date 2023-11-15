@@ -10,7 +10,7 @@ const EarthSVG = ({ width, height, fill, ...props }) => {
       height={height}
       // 30
       viewBox="0 0 30 30"
-      fill="none"
+      fill={fill}
     >
       <g clipPath="url(#clip0_1513_12621)">
         <path

@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import modalStyles from "../Modal/Modal.module.css";
 Modal.setAppElement("#root");
 
-const PetLogCard = ({ PetLogDate, PetLogTime, logId, onDelete }) => {
+const PetLogCard = ({ PetLogDate, PetLogTime, logId, onDelete, onClick  }) => {
   const date = new Date(PetLogTime);
   const hours = String(date.getHours()).padStart(2, "0");
   const minutes = String(date.getMinutes()).padStart(2, "0");

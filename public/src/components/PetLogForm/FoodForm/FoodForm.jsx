@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import TextInput from '../../TextInput/TextInput';
-import Dropdown from '../../Dropdown/Dropdown';
-import Typography from '../../Typography/Typography';
-import DatePicker from '../../DatePicker/DatePicker';
-import Button from '../../Button/Button';
-import Checkbox from '../../Checkbox/Checkbox';
-import styles from "../../PetLogForm/FoodForm/FoodForm.module.css"
-import foodCardStyles from '../../../pages/petPage/petPage.module.css'
-import {
-  searchPetFoodByPetIDRoute,
-} from "../../../utils/APIRoutes.js";
-import axios from 'axios';
-import FoodCard from '../../FoodCard/FoodCard.jsx';
+import React, { useState, useEffect } from "react";
+import TextInput from "../../TextInput/TextInput";
+import Dropdown from "../../Dropdown/Dropdown";
+import Typography from "../../Typography/Typography";
+import DatePicker from "../../DatePicker/DatePicker";
+import Button from "../../Button/Button";
+import Checkbox from "../../Checkbox/Checkbox";
+import styles from "../../PetLogForm/FoodForm/FoodForm.module.css";
+import foodCardStyles from "../../../pages/petPage/petPage.module.css";
+import { searchPetFoodByPetIDRoute } from "../../../utils/APIRoutes.js";
+import axios from "axios";
+import FoodCard from "../../FoodCard/FoodCard.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   const [foodDate, setFoodDate] = useState(new Date());
-  const [foodForm, setFoodForm] = useState([])
+  const [foodForm, setFoodForm] = useState([]);
   const MealPerDay = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-    { value: 4, label: '4' },
+    { value: 1, label: "1" },
+    { value: 2, label: "2" },
+    { value: 3, label: "3" },
+    { value: 4, label: "4" },
   ];
 
   const [foodData, setFoodData] = useState({
-    FoodName: '',
-    MealPerDay: '',
-    QuantityPerMeal: '',
+    FoodName: "",
+    MealPerDay: "",
+    QuantityPerMeal: "",
     KibbleDry: false,
     Canned: false,
     SemiMoist: false,
@@ -67,19 +65,17 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   };
 
   const validateForm = () => {
-    const { FoodName, MealPerDay, QuantityPerMeal,FoodDate } = foodData;
+    const { FoodName, MealPerDay, QuantityPerMeal, FoodDate } = foodData;
     if (FoodName === "") {
-       toast.error("Food Name is required.", toastOptions);
+      toast.error("Food Name is required.", toastOptions);
       return false;
     } else if (QuantityPerMeal === "") {
       toast.error("Quantity Per Meal is required.", toastOptions);
       return false;
-    }
-    else if (MealPerDay === "") {
+    } else if (MealPerDay === "") {
       toast.error("Meal Per Day is required.", toastOptions);
       return false;
-    }
-    else if (FoodDate.toString() === "") {
+    } else if (FoodDate.toString() === "") {
       toast.error("Food Date is required.", toastOptions);
       return false;
     }
@@ -89,7 +85,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFoodData((foodData) => {
-      if (type === 'checkbox') {
+      if (type === "checkbox") {
         return {
           ...foodData,
           [name]: checked,
@@ -114,10 +110,10 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('foodData before submission:', foodData); // Log foodData before submitting
+    console.log("foodData before submission:", foodData); // Log foodData before submitting
     if (validateForm()) {
       onFoodFormSubmit(foodData);
-      console.log('foodData after submission:', foodData); // Log foodData after submitting
+      console.log("foodData after submission:", foodData); // Log foodData after submitting
       setFoodForm((prevFoodForm) => [...prevFoodForm, foodData]);
     }
   };
@@ -127,22 +123,23 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
     );
   };
 
-
   return (
     <div className={styles.foodFromStyle}>
       <form onSubmit={handleSubmit}>
         <div className={styles.petLogFood}>
-          <TextInput
-            size="md"
-            id="FoodName"
-            name="FoodName"
-            label="Food Name"
-            placeholder="Enter Food Name"
-            value={foodData.FoodName}
-            onChange={handleChange}
-          />
+          <div className={styles.petLogFoodName}>
+            <TextInput
+              size="md"
+              id="FoodName"
+              name="FoodName"
+              label="Food Name"
+              placeholder="Enter Food Name"
+              value={foodData.FoodName}
+              onChange={handleChange}
+            />
+          </div>
           <div className={styles.petLogFoodAndQuantity}>
-            <div style={{ marginRight: '50px' }}>
+            <div>
               <Dropdown
                 size="small"
                 label="Meals per Day"
@@ -151,7 +148,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
                 options={MealPerDay}
                 value={foodData.MealPerDay}
                 onChange={(selectedValue) =>
-                  handleDropdownChange('MealPerDay', selectedValue)
+                  handleDropdownChange("MealPerDay", selectedValue)
                 }
               />
             </div>
@@ -177,15 +174,17 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
         </div>
 
         <div className={styles.petLogCheckBox}>
-          <Typography variant="body2-poppins-medium">
-            Type Of Food
-          </Typography>
+          <Typography variant="body2-poppins-medium">Type Of Food</Typography>
           <div className={styles.checkboxGap}>
             <div>
               <Checkbox
                 id="KibbleDry"
                 name="KibbleDry"
-                label="Kibble-Dry"
+                label={
+                  <Typography variant="body3-poppins-regular">
+                    Kibble-Dry
+                  </Typography>
+                }
                 value="KibbleDry"
                 checked={foodData.KibbleDry}
                 onChange={handleChange}
@@ -195,7 +194,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
               <Checkbox
                 id="Canned"
                 name="Canned"
-                label="Canned"
+                label={
+                  <Typography variant="body3-poppins-regular">
+                    Canned
+                  </Typography>
+                }
                 value="Canned"
                 checked={foodData.Canned}
                 onChange={handleChange}
@@ -205,7 +208,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
               <Checkbox
                 id="SemiMoist"
                 name="SemiMoist"
-                label="Semi-Moist"
+                label={
+                  <Typography variant="body3-poppins-regular">
+                    Semi-Moist
+                  </Typography>
+                }
                 value="SemiMoist"
                 checked={foodData.SemiMoist}
                 onChange={handleChange}
@@ -215,7 +222,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
               <Checkbox
                 id="HomeCooked"
                 name="HomeCooked"
-                label="Home-Cooked"
+                label={
+                  <Typography variant="body3-poppins-regular">
+                    Home-Cooked
+                  </Typography>
+                }
                 value="HomeCooked"
                 checked={foodData.HomeCooked}
                 onChange={handleChange}
@@ -225,7 +236,9 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
               <Checkbox
                 id="Raw"
                 name="Raw"
-                label="Raw"
+                label={
+                  <Typography variant="body3-poppins-regular">Raw</Typography>
+                }
                 value="Raw"
                 checked={foodData.Raw}
                 onChange={handleChange}
@@ -240,7 +253,6 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
           <DatePicker
             onChange={handleDateChange}
             id="FoodDate"
-            value={foodDate}
           />
         </div>
 
@@ -250,6 +262,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
             label="Add Food"
             size="dk-md-s"
             type="submit"
+            // className={styles.buttonWidth}
           />
         </div>
       </form>
@@ -268,6 +281,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
               SemiMoist={foodEntry.SemiMoist}
               Raw={foodEntry.Raw}
               HomeCooked={foodEntry.HomeCooked}
+              FoodDate={foodEntry.FoodDate}
               onDelete={() => handleFoodDelete(foodEntry._id)}
             />
           ))}
@@ -275,9 +289,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
       )}
       <ToastContainer />
     </div>
-
   );
-
 };
 
 export default FoodForm;

@@ -4,7 +4,7 @@
 }
 
 .addPetImage div img{
-    width:325px;
+    width: 100%;
 }
 .addPetForm form > div:first-of-type {
     text-align: center;

@@ -55,7 +55,7 @@ const ClinicDetailCard = ({
             {clinicRatingStar}
         </div>
         <div className={styles.clinicAddress}>
-          <LocationSVG width="25" height="34" />
+          <LocationSVG className={styles.locationSVG} />
           <div className="add-description">
             <Typography variant="body3-poppins-regular" color="almost-black">
               {clinicAddress}
@@ -64,7 +64,7 @@ const ClinicDetailCard = ({
         </div>
 
         <div className={styles.clinicOpen}>
-          <ClockSVG width="26" height="27" />
+          <ClockSVG className={styles.clockSVG}/>
           <div className="open-description">
             <Typography variant="body3-poppins-regular" color="almost-black">
               {open24}
@@ -73,7 +73,7 @@ const ClinicDetailCard = ({
         </div>
 
         <div className={styles.clinicSpecialties}>
-          <SpecialtySVG width="26" height="26" />
+          <SpecialtySVG className={styles.specialtySVG} />
           <ul className={styles.listing}>
             {specialtiesArray.map((item, index) => (
               <Typography variant="body3-poppins-regular" color="almost-black">

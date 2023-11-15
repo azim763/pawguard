@@ -18,6 +18,12 @@ import "react-toastify/dist/ReactToastify.css";
 const AddPet = () => {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedPreExistingMedical, setSelectedPreExistingMedical] = useState(
+    []
+  );
+  // const [bloodType, setBloodType] = useState([]);
+  // const [breedType, setBreedType] = useState([]);
+
   const toastOptions = {
     position: "bottom-right",
     autoClose: 5000,
@@ -37,13 +43,25 @@ const AddPet = () => {
     { value: "Cat", label: "Cat" },
   ];
 
+  let bloodType = [
+    { value: "DEA1", label: "DEA 1" },
+    { value: "DEA3", label: "DEA 3" },
+    { value: "DEA4", label: "DEA 4" },
+    { value: "DEA5", label: "DEA 5" },
+    { value: "DEA7", label: "DEA 7" },
+  ];
+  let breedType = [
+    { value: "Beagle", label: "Beagle" },
+    { value: "Golden Retriever", label: "Golden Retriever" },
+    { value: "Poodle", label: "Poodle" },
+    { value: "Rottweiler", label: "Rottweiler" },
+    { value: "Siberian Husky", label: "Siberian Husky" },
+  ];
+
   const gender = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
   ];
-
-  let bloodType;
-  let breedType;
 
   const preExistingMedical = [
     "Arthritis XD",
@@ -66,26 +84,21 @@ const AddPet = () => {
     "Ultrasound",
   ];
 
-  const [selectedPreExistingMedical, setSelectedPreExistingMedical] = useState(
-    []
-  );
-  const defaultGender = gender && gender.length > 0 ? gender[0].value : "";
-  const defaultSpecies = petType && petType.length > 0 ? petType[0].value : "";
-
   const [petData, setPetData] = useState({
     UserID: "",
     PetName: "",
-    Gender: defaultGender,
-    Species: defaultSpecies,
-    Breed: "Beagle",
+    Gender: gender[0].value,
+    Species: petType[0].value,
+    Breed: breedType[0].value,
     Birthday: "",
-    BloodType: "DEA1",
+    BloodType: bloodType[0].value,
     Height: "",
     Weight: "",
     PreExistingMedical: "",
     PetImageName: "",
     Description: "",
   });
+  
 
   const handleDateChange = (event) => {
     setPetData({
@@ -102,12 +115,45 @@ const AddPet = () => {
     });
   };
 
+  if (petData.Species === "Cat") {
+    bloodType = [
+      { value: "A", label: "A" },
+      { value: "B", label: "B" },
+      { value: "AB", label: "AB" },
+    ];
+
+    breedType = [
+      { value: "Domestic Shorthair", label: "Domestic Shorthair" },
+      { value: "American Shorthair", label: "American Shorthair" },
+      { value: "Domestic Longhair", label: "Domestic Longhair" },
+      { value: "Ragdoll", label: "Ragdoll" },
+      { value: "Siamese", label: "Siamese" },
+    ];
+  } else {
+    bloodType = [
+      { value: "DEA1", label: "DEA 1" },
+      { value: "DEA3", label: "DEA 3" },
+      { value: "DEA4", label: "DEA 4" },
+      { value: "DEA5", label: "DEA 5" },
+      { value: "DEA7", label: "DEA 7" },
+    ];
+
+    breedType = [
+      { value: "Beagle", label: "Beagle" },
+      { value: "Golden Retriever", label: "Golden Retriever" },
+      { value: "Poodle", label: "Poodle" },
+      { value: "Rottweiler", label: "Rottweiler" },
+      { value: "Siberian Husky", label: "Siberian Husky" },
+    ];
+  }
+
   const handleDropdownChange = (name, value) => {
     console.log("dropdown is dropping");
     setPetData({
       ...petData,
       [name]: value,
     });
+    console.log(petData);
   };
 
   const handleMultipleDropdownChange = (e) => {
@@ -179,6 +225,9 @@ const AddPet = () => {
     console.log(data); // This logs the image data
     console.log(petData); // This logs the petData with the updated PetImageName
   };
+
+  // const defaultGender = gender && gender.length > 0 ? gender[0].value : "";
+  // const defaultSpecies = petType && petType.length > 0 ? petType[0].value : "";
 
   const onClickHandler = async (event) => {
     event.preventDefault();
@@ -252,7 +301,6 @@ const AddPet = () => {
             label="Breed *"
             id="Breed"
             options={breedType}
-            value={breedType[0]}
             onChange={(selectedValue) =>
               handleDropdownChange("Breed", selectedValue)
             }
@@ -282,7 +330,6 @@ const AddPet = () => {
             label="Blood type"
             id="BloodType"
             options={bloodType}
-            value={bloodType[0]}
             onChange={(selectedValue) =>
               handleDropdownChange("BloodType", selectedValue)
             }
@@ -296,7 +343,7 @@ const AddPet = () => {
               onChange={handleInputChange}
               required={true}
             />
-            <Typography variant="body2-poppins-medium">in</Typography>
+            <Typography variant="textfield-poppins-regular">in</Typography>
           </div>
           <div className={styles.petWeight}>
             <TextInput
@@ -308,7 +355,7 @@ const AddPet = () => {
               onChange={handleInputChange}
               required={true}
             />
-            <Typography variant="body2-poppins-medium">lbs</Typography>
+            <Typography variant="textfield-poppins-regular">lbs</Typography>
           </div>
           <MultipleDropDown
             label="Medical Necessities"

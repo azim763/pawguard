@@ -25,7 +25,7 @@ const PetSelectionInsurance = ({
         <div
           className={styles.petInfo}
         >
-          <Typography variant="sub-poppins-medium">{PetName}</Typography>
+          <Typography variant="h2-poppins-semibold">{PetName}</Typography>
         </div>
       </div>
     </div>

@@ -3,9 +3,11 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@material-ui/core": "^4.12.4",
     "downshift": "^8.2.2",
     "html-webpack-plugin": "^5.5.3",
     "jspdf": "^2.5.1",
+    "react-collapsed": "^4.1.1",
     "react-modal": "^3.16.1",
     "react-responsive-carousel": "^3.2.23",
     "source-map-loader": "^4.0.1"

@@ -195,10 +195,10 @@ const ListClinics = () => {
       <Header />
       <div className={styles.coverBackground}>
         <div className={styles.opaqueStyle}>
-          <Typography variant="h2-poppins-semibold" color="white-white">
+          <Typography variant="h1-poppins-semibold" color="white-white">
             <div className={styles.titleCenter}>
               <div className={styles.title1}>Find Your Clinic</div>
-              <Typography variant="sub-h1-poppins-semibold" color="white-white">
+              <Typography variant="sub-poppins-medium" color="white-white">
                 <div className={styles.clinicTag}>
                   Best clinics for your pets in Vancouver
                 </div>

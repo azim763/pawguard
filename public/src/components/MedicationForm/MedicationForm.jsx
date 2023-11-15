@@ -15,6 +15,7 @@ const MedicationForm = ({
   selectedPet,
   onMedicationSubmit,
   getToggleProps,
+  closeMedForm,
 }) => {
   const [formData, setFormData] = useState({
     PetID: "",
@@ -116,25 +117,27 @@ const MedicationForm = ({
       <div className={styles.medicineTitle}>
         <Typography variant="h2-poppins-semibold">Add Medicine</Typography>
         <div {...getToggleProps()}>
-          <CloseSVG width="27" height="28" />
+          <CloseSVG width="27" height="28" onClick={closeMedForm}/>
         </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <TextInput
-          id="MedicineName"
-          size="md"
-          label={
-            <Typography variant="body2-poppins-medium">
-              Medicine Name
-            </Typography>
-          }
-          placeholder="Enter Medicine Name"
-          onChange={handleInputChange}
-        />
-        <div>
+        <div className={styles.medName}>
+          <TextInput
+            id="MedicineName"
+            size="md"
+            label={
+              <Typography variant="body2-poppins-medium">
+                Medicine Name
+              </Typography>
+            }
+            placeholder="Enter Medicine Name"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className={styles.dosageAm}>
           <Typography variant="body2-poppins-medium">Dosage Amount</Typography>
           <div className={styles.unitContainer}>
-            <TextInput id="DosageAmount" onChange={handleInputChange} />
+            <TextInput id="DosageAmount" onChange={handleInputChange} placeholder="20"/>
             <div style={{ marginLeft: "10px" }}>
               <Typography variant="textfield-poppins-regular">ml</Typography>
             </div>
@@ -155,6 +158,7 @@ const MedicationForm = ({
               size="small"
               id="MedicationPeriod"
               onChange={handleInputChange}
+              placeholder="15"
             />
             <div style={{ marginLeft: "10px" }}>
               <Typography variant="textfield-poppins-regular">days</Typography>

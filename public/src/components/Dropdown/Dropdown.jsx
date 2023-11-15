@@ -31,7 +31,7 @@ const Dropdown = ({
         required={required}
       >
         {defaultValue && (
-          <option value="defaultValue" disabled selected>
+          <option value="defaultValue" selected>
             {defaultValue}
           </option>
         )}

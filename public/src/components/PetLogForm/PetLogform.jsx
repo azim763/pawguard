@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../PetLogForm/PetLogForm.module.css";
 import TextInput from "../TextInput/TextInput";
 import Typography from "../Typography/Typography";
@@ -21,12 +21,16 @@ const PetLogForm = ({
   onFoodFormSubmit,
   SelectedPetID,
   getToggleProps,
+  closePetLogForm,
+  selectedLog,
+  formMode
 }) => {
   // const [pets,setPets] =useState([]);
 
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
+
 
   const initialFormData = {
     PetID: "",
@@ -39,6 +43,10 @@ const PetLogForm = ({
   };
 
   const [formData, setFormData] = useState({ initialFormData });
+
+  // useEffect(() => {
+  //   setFormMode(selectedLog ? "edit" : "delete");
+  // }, [selectedLog]);
 
   const toastOptions = {
     position: "bottom-right",
@@ -88,8 +96,7 @@ const PetLogForm = ({
   };
 
   const validateForm = () => {
-    const { Weight, ActivityLevel, UrineAmount, StoolAmount, StoolAppearance } =
-      formData;
+    const { Weight, ActivityLevel, UrineAmount, StoolAmount } = formData;
     if (Weight === "") {
       toast.error("Weight is required.", toastOptions);
       return false;
@@ -173,9 +180,11 @@ const PetLogForm = ({
       </div> */}
       <div className={styles.petLogContainer}>
         <div className={styles.petLogTitle}>
-          <Typography variant="h2-poppins-semibold">Add Pet Log</Typography>
+          <Typography variant="h2-poppins-semibold">
+            {formMode === "create" ? "Add Pet Log" : selectedLog && selectedLog.LogDate}
+          </Typography>
           <div {...getToggleProps()}>
-            <CloseSVG width="27" height="28" />
+            <CloseSVG width="27" height="28" onClick={closePetLogForm} />
           </div>
         </div>
         <div className={styles.addPetForm}>
@@ -186,25 +195,49 @@ const PetLogForm = ({
             <div className={styles.petLogFormLine1}>
               <div className={styles.petLogDateStyle}>
                 <Typography variant="body2-poppins-medium">Date</Typography>
-                <DatePicker
-                  onChange={handleLogDateChange}
-                  id="LogDate"
-                  value={LogDate}
-                />
+                {formMode === "create" ? (
+                  <DatePicker
+                    onChange={handleLogDateChange}
+                    id="LogDate"
+                    key="createMode" // Add a key for create mode
+                  />
+                ) : selectedLog && selectedLog.LogDate ? (
+                  <DatePicker
+                    onChange={handleLogDateChange}
+                    id="LogDate"
+                    value={selectedLog.LogDate}
+                    key="viewMode" // Add a key for view mode
+                  />
+                ) : null}
+
+
               </div>
               <div>
                 <Typography variant="body2-poppins-medium">
                   Pet Weight
                 </Typography>
                 <div className={styles.petUnit}>
-                  <TextInput
-                    id="Weight"
-                    name="Weight"
-                    // label="Pet Weight"
-                    placeholder="Eg: 30"
-                    value={formData.Weight}
-                    onChange={handleInputChange}
-                  />
+                  {formMode === "create" ? (
+                    <TextInput
+                      id="Weight"
+                      name="Weight"
+                      // label="Pet Weight"
+                      placeholder="30"
+                      onChange={handleInputChange}
+                      key="createMode"
+                    />
+                  ) : selectedLog && selectedLog.Weight ? (
+                    <TextInput
+                      id="Weight"
+                      name="Weight"
+                      // label="Pet Weight"
+                      placeholder="30"
+                      propInputValue={selectedLog.Weight}
+                      onChange={handleInputChange}
+                      key="viewMode"
+                    />
+                  ) : null}
+
                   <div className={styles.unitGap}>
                     <Typography variant="textfield-poppins-regular">
                       lbs
@@ -219,16 +252,22 @@ const PetLogForm = ({
                   Activity Level
                 </Typography>
                 <div className={styles.ActivityLevelRadio}>
+
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={option.label}
-                      checked={formData.ActivityLevel === option.value}
-                      onChange={() =>
-                        handleRadioChange(option.value, "ActivityLevel")
+                      label={
+                        <Typography variant="body3-poppins-regular">
+                          {option.label}
+                        </Typography>
                       }
+                      checked={formData.ActivityLevel === option.value}
+                      onChange={() => handleRadioChange(option.value, "ActivityLevel")}
+                      readOnly={formMode === "view"}
+                      readOnlyValue={selectedLog && selectedLog.ActivityLevel === option.value}
                     />
                   ))}
+
                 </div>
               </div>
               <div className={styles.UrineAmount}>
@@ -239,11 +278,15 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={option.label}
-                      checked={formData.UrineAmount === option.value}
-                      onChange={() =>
-                        handleRadioChange(option.value, "UrineAmount")
+                      label={
+                        <Typography variant="body3-poppins-regular">
+                          {option.label}
+                        </Typography>
                       }
+                      checked={formData.UrineAmount === option.value}
+                      onChange={() => handleRadioChange(option.value, "UrineAmount")}
+                      readOnly={formMode === "view"}
+                      readOnlyValue={selectedLog && selectedLog.UrineAmount === option.value}
                     />
                   ))}
                 </div>
@@ -254,14 +297,19 @@ const PetLogForm = ({
                 </Typography>
 
                 <div className={styles.StoolAmountRadio}>
+
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={option.label}
-                      checked={formData.StoolAmount === option.value}
-                      onChange={() =>
-                        handleRadioChange(option.value, "StoolAmount")
+                      label={
+                        <Typography variant="body3-poppins-regular">
+                          {option.label}
+                        </Typography>
                       }
+                      checked={formData.StoolAmount === option.value}
+                      onChange={() => handleRadioChange(option.value, "StoolAmount")}
+                      readOnly={formMode === "view"}
+                      readOnlyValue={selectedLog && selectedLog.StoolAmount === option.value}
                     />
                   ))}
                 </div>
@@ -285,17 +333,33 @@ const PetLogForm = ({
                 Additional Information
               </Typography>
             </div>
-            <TextArea
-              label="Other Notes"
-              name="Notes"
-              id="Notes"
-              cols="30"
-              rows="10"
-              placeholder="Enter Observations for your petAdd your pets"
-              onChange={handleInputChange}
-              value={formData.Notes}
-              className={styles.petLogTextarea}
-            />
+            <div>
+              <Typography variant="body2-poppins-medium">
+                Other Notes
+              </Typography>
+              {formMode === 'create' && (
+                <TextArea
+                  name="Notes"
+                  id="Notes"
+                  cols="30"
+                  rows="10"
+                  placeholder="Enter Observations for your pet."
+                  onChange={handleInputChange}
+                  className={styles.petLogTextarea}
+                />)}
+              {formMode === 'view' && selectedLog && selectedLog.Notes && (
+                <TextArea
+                  name="Notes"
+                  id="Notes"
+                  cols="30"
+                  rows="10"
+                  placeholder="Enter Observations for your pet."
+                  onChange={handleInputChange}
+                  value={selectedLog.Notes}
+                  className={styles.petLogTextarea}
+                />
+              )}
+            </div>
             {/* <TextInput
               id="Notes"
               name="Notes"
@@ -314,20 +378,34 @@ const PetLogForm = ({
               >
                 Pet’s conditions (e.g. injuries, vomit)
               </Typography>
-
+              {formMode === 'create' && (
+                  <div>
               <ImageDisplay PetImageData={selectedImage} />
               <SingleImageUpload
                 label="Add Pet Log Image"
                 onImageUpload={handleImageUpload}
               />
+              </div>
+              )}
+              {formMode === 'view' && selectedLog && selectedLog.Notes && (
+                <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
+              )}
             </div>
             <div className={styles.buttonStyle}>
-              <Button
-                variant="yellow"
-                label="save"
-                size="dk-md-s"
-                onClick={handleAdditionalInfoSubmit}
-              />
+              {formMode === "create" ?
+                <Button
+                  variant="yellow"
+                  label="save"
+                  size="dk-md-s"
+                  onClick={handleAdditionalInfoSubmit}
+                /> :
+                <Button
+                  variant="yellow"
+                  label="delete"
+                  size="dk-md-s"
+                  onClick={handleAdditionalInfoSubmit}
+                />}
+
             </div>
           </div>
         </div>
