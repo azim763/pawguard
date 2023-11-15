@@ -49,6 +49,7 @@ const EditPet = () => {
     { value: "DEA5", label: "DEA 5" },
     { value: "DEA7", label: "DEA 7" },
   ];
+
   let breedType = [
     { value: "Beagle", label: "Beagle" },
     { value: "Golden Retriever", label: "Golden Retriever" },
@@ -84,11 +85,11 @@ const EditPet = () => {
   ];
 
   const petBday = selectedPet.Birthday;
-  const originalDate = new Date(petBday);
 
-  const formattedDate = `${originalDate.getFullYear()}-${String(
+  const originalDate = new Date(petBday);
+  const formattedDate = `${String(originalDate.getDate()).padStart(2, "0")}-${String(
     originalDate.getMonth() + 1
-  ).padStart(2, "0")}-${String(originalDate.getDate()).padStart(2, "0")}`;
+  ).padStart(2, "0")}-${originalDate.getFullYear()}`;
 
   console.log(formattedDate);
   
@@ -102,7 +103,7 @@ const EditPet = () => {
         Gender: selectedPet.Gender,
         Species: selectedPet.Species,
         Breed: selectedPet.Breed,
-        Birthday: formattedDate,
+        Birthday: selectedPet.Birthday,
         BloodType: selectedPet.BloodType,
         Height: selectedPet.Height,
         Weight: selectedPet.Weight,
@@ -118,6 +119,11 @@ const EditPet = () => {
       ...petData,
       Birthday: event.target.value,
     });
+    const updatedSelectedPet = {
+      ...selectedPet,
+      Birthday: event.target.value,
+    };
+    setSelectedPet(updatedSelectedPet)
   };
 
   const handleInputChange = (event) => {
@@ -130,8 +136,6 @@ const EditPet = () => {
       ...selectedPet,
       [event.target.name]: event.target.value,
     };
-
-    // Update the selectedPet state
     setSelectedPet(updatedSelectedPet);
   };
 
@@ -172,6 +176,7 @@ const EditPet = () => {
       ...petData,
       [name]: value,
     });
+    
   };
 
   const handleMultipleDropdownChange = (e) => {
@@ -188,6 +193,11 @@ const EditPet = () => {
       ...petData,
       PetImageName: data,
     });
+    const updatedSelectedPet = {
+      ...selectedPet,
+      PetImageName: data,
+    };
+    setSelectedPet(updatedSelectedPet);
     setSelectedImage(data);
   };
 
