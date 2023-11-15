@@ -319,10 +319,10 @@ const PetPage = () => {
   }, [selectedPet._id]);
 
   const tabToButtonLabel = {
-    PetLog: "PetLog",
-    Medication: "Medication",
-    Appointment: "Appointment",
-    Vaccination: "Vaccination",
+    PetLog: "Add PetLog",
+    Medication: "Add Medication",
+    Appointment: "Add Appointment",
+    Vaccination: "Add Vaccination",
   };
 
   const [activeLink, setActiveLink] = useState("PetLog");
@@ -565,7 +565,7 @@ const PetPage = () => {
           </Typography>
           {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
 
-          {buttonLabel === "PetLog" && (
+          {buttonLabel === "Add PetLog" && (
             <Button
               variant="yellow"
               label={buttonLabel}
@@ -593,7 +593,7 @@ const PetPage = () => {
             />
           )}
 
-          {buttonLabel === "Appointment" && (
+          {buttonLabel === "Add Appointment" && (
             <Button
               variant="yellow"
               label={buttonLabel}
@@ -612,7 +612,7 @@ const PetPage = () => {
             />
           )}
 
-          {buttonLabel === "Medication" && (
+          {buttonLabel === "Add Medication" && (
             <Button
               variant="yellow"
               label={buttonLabel}
@@ -630,7 +630,7 @@ const PetPage = () => {
             />
           )}
 
-          {buttonLabel === "Vaccination" && (
+          {buttonLabel === "Add Vaccination" && (
             <Button
               variant="yellow"
               label={buttonLabel}
