@@ -227,7 +227,7 @@ button{
 {
 
   background-color: var(--off-white);
-  min-width: 480px;
+  min-width: 320px;
   justify-content: center;
   display: flex;
   gap: 1rem;

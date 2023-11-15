@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { changepasswordRoute } from "../utils/APIRoutes";
+import { sendmailRoute } from "../utils/APIRoutes";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,11 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 import Button from "../components/Button/Button";
 import Header from "../components/Header/header";
 import loginbackground from "../assets/images/loginback.jpeg";
+import { useLocation } from 'react-router-dom'
 
-const ChangePassword = () => {
+//console.log("hi");
+const ForgetPassword = () => {
   const navigate = useNavigate();
-  const { userID } = useParams();
-  const { rec } = useParams();
+ // const location = useLocation();
+// const { userID } = useParams();
+  //const { rec } = useParams();
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -22,10 +25,9 @@ const ChangePassword = () => {
     draggable: true,
     theme: "dark",
   };
- 
+  //console.log("hi2");
   const [values, setValues] = useState({
-    password: "",
-    confirmPassword: "",
+    email: ""
   });
 
   const handleChange = (event) => {
@@ -33,91 +35,105 @@ const ChangePassword = () => {
   };
 
   const handleValidation = () => {
-    const { password, confirmNewPassword } = values;
-  // console.log(password);
-  //   console.log(confirmNewPassword);
-  //   console.log((password == confirmNewPassword));
-  
-   if (password !== confirmNewPassword) {
-      toast.error(
-        "Password and confirm password should be same.",
-        toastOptions
-      );
+    const { email } = values;
+    // console.log(password);
+    //   console.log(confirmNewPassword);
+    //   console.log((password == confirmNewPassword));
+    if (email === "") {
+      toast.error("Email is required.", toastOptions);
       return false;
     }
-    else if (password.length < 8) {
-      toast.error(
-        "Password should be equal or greater than 8 characters.",
-        toastOptions
-      );
-      return false;
-    }
-     return true;
+
+    return true;
   };
- // const [oldPassword, setOldPassword] = useState('');
+  // const [oldPassword, setOldPassword] = useState('');
 
-  const handleChangePassword = async (event) => {
-    // Check if the new password and confirm new password match
+//   const handleChangePassword = async (event) => {
+//     // Check if the new password and confirm new password match
 
+//     event.preventDefault();
+//     const { email } = values;
+
+
+//     try {
+//       if (handleValidation()) {
+
+
+// //   sendmail
+
+
+//       }
+//     } catch (error) {
+//       console.error('Error sending Email:', error.message);
+//     }
+//   };
+
+
+  const sendEmail = async (event) => {
     event.preventDefault();
-    const {  password } = values;
+ try {
+    const { email } = values;
+    // console.log(email); 
+    //  const { data } = await axios.post(`${sendmailRoute}`, {
+    //   email,
+    // });
+    // console.log(data); 
 
-    
-    try {
+
+const host = window.location.origin;
+    console.log(email); 
+  console.log(host);
    if (handleValidation()) {
-         const response = await axios.put(`${changepasswordRoute}/${userID}`, {
-          password ,rec
-       });
-     console.log( response);
-   
-   if (response.data.status === false) {
-    toast.error(response.data.msg, toastOptions);
-  }else{
-       toast.success("Password updated successfully", toastOptions);
-// navigate("/login"); 
-}
+    console.log(email); 
+  //  console.log(userID); 
+      const response = await axios.post(`${sendmailRoute}`, {
+        email , host
+     });
 
-  
-  }} catch (error) {
-      console.error('Error updating password:', error.message);
+     if (response.data.status === false) {
+      toast.error(response.data.msg, toastOptions);
+    }
+    else{
+      
+     toast.success(response.data.msg, toastOptions);
+
     }
 
+   console.log(response.data); 
+  }
+
+
+    } catch (error) {
+      toast.error("Email is not valid.", toastOptions);
+      console.error('Error sending email:', error);
+    }
   };
 
   return (
     <>
-<Header/>
+      <Header />
       <FormContainer>
-
-
-      <div class="parent clearfix">
-    <div class="bg-illustration">
-    </div>
-<div class="signinup">
-        <form action="" onSubmit={(event) => handleChangePassword(event)}>
-          <div className="brand">
-            <h1>Password Recovery</h1>
+        <div class="parent clearfix">
+          <div class="bg-illustration">
           </div>
-          <input
-            type="password"
-            placeholder="New password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-           
-          />
-          <input
-            type="password"
-            placeholder="Confirm new password"
-            name="confirmNewPassword"
-            onChange={(e) => handleChange(e)}
-            />
-          <Button variant="yellow" type="submit" label={"Change Password"} size="dk-md-s" />
-          <span>
-          Back to ? <Link to="/login">Login.</Link>
-          </span>
-        </form>
+          <div class="signinup">
+            <form action="" onSubmit={(event) => sendEmail(event)}>
+              <div className="brand">
+                <h1>Password Recovery</h1>
+              </div>
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                onChange={(e) => handleChange(e)}
+              />
+              <Button variant="yellow" type="submit" label={"Send"} size="dk-md-s" />
+              <span>
+                Back to ? <Link to="/login">Login.</Link>
+              </span>
+            </form>
+          </div>
         </div>
-        </div> 
       </FormContainer>
       <ToastContainer />
     </>
@@ -250,6 +266,6 @@ button{
   }
 `;
 
-export default ChangePassword;
+export default ForgetPassword;
 
 
