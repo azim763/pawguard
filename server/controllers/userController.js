@@ -60,13 +60,13 @@ String.prototype.hashCode = function () {
 module.exports.updateUserById = async (req, res, next) => {
 //  console.log(req);
   try {
-    const userId = req.params.id;
-    const emailCheck = await User.findOne({ userId });
+    const _id = req.params.id;
+    const emailCheck = await User.findOne({ _id });
     const { password, rec } = req.body;
 
     const emailhash = emailCheck.email.hashCode();
 
-    // return res.json(emailhash+  "  ---  "  + rec);
+    // return res.json(emailhash+ " --- "+req.params.id+" -- "+  emailCheck.email+ "  ---  "  + rec);
     //return res.json(`${encodeURIComponent(emailhash)}  " -- " ${emailCheck.email}"  ---  "  ${ rec}`);
     //return res.json(`${emailhash}  "  ---  "  ${ rec}`);
     const isrecValid = (rec == emailhash);
@@ -76,7 +76,7 @@ module.exports.updateUserById = async (req, res, next) => {
     else {
       const hashedPassword = await bcrypt.hash(password, 10);
       //return userId;
-      const updatedUser = await User.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
+      const updatedUser = await User.findByIdAndUpdate(_id, { password: hashedPassword }, { new: true });
       if (!updatedUser) {
         return res.status(404).json({ msg: 'User not found' });
       }
