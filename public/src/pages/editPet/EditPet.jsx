@@ -22,7 +22,6 @@ const EditPet = () => {
   const { petID } = useParams();
   const [pets, setPets] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
-  const originalValue = "initial value";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,6 +90,8 @@ const EditPet = () => {
     originalDate.getMonth() + 1
   ).padStart(2, "0")}-${String(originalDate.getDate()).padStart(2, "0")}`;
 
+  console.log(formattedDate);
+  
   const [petData, setPetData] = useState({});
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const EditPet = () => {
         Gender: selectedPet.Gender,
         Species: selectedPet.Species,
         Breed: selectedPet.Breed,
-        Birthday: selectedPet.Birthday,
+        Birthday: formattedDate,
         BloodType: selectedPet.BloodType,
         Height: selectedPet.Height,
         Weight: selectedPet.Weight,
