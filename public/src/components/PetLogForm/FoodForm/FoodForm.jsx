@@ -13,7 +13,7 @@ import FoodCard from "../../FoodCard/FoodCard.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
+const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate }) => {
   const [foodDate, setFoodDate] = useState(new Date());
   const [foodForm, setFoodForm] = useState([]);
   const MealPerDay = [
@@ -110,13 +110,26 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("foodData before submission:", foodData); // Log foodData before submitting
+  
+    // Check if logDate exists, if not, set it to today's date
+    const updatedLogDate = logDate ? logDate : new Date().toLocaleDateString("en-GB");
+  
+    // Update the foodData object with logDate before submitting
+    const updatedFoodData = {
+      ...foodData,
+      FoodDate: updatedLogDate,
+    };
+  
+    console.log("foodData before submission:", updatedFoodData); // Log foodData before submitting
+  
     if (validateForm()) {
-      onFoodFormSubmit(foodData);
-      console.log("foodData after submission:", foodData); // Log foodData after submitting
-      setFoodForm((prevFoodForm) => [...prevFoodForm, foodData]);
+      onFoodFormSubmit(updatedFoodData);
+  
+      console.log("foodData after submission:", updatedFoodData); // Log foodData after submitting
+      setFoodForm((prevFoodForm) => [...prevFoodForm, updatedFoodData]);
     }
   };
+  
   const handleFoodDelete = (deletedLogId) => {
     setFoodForm((prevFoodForm) =>
       prevFoodForm.filter((log) => log._id !== deletedLogId)
@@ -247,14 +260,14 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
           </div>
         </div>
 
-        <div className={styles.foodDate}>
+        {/* <div className={styles.foodDate}>
           <Typography variant="body2-poppins-medium">Food Date</Typography>
 
           <DatePicker
             onChange={handleDateChange}
             id="FoodDate"
           />
-        </div>
+        </div> */}
 
         <div className={styles.buttonStyle}>
           <Button
@@ -262,29 +275,39 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID }) => {
             label="Add Food"
             size="dk-md-s"
             type="submit"
-            // className={styles.buttonWidth}
+          // className={styles.buttonWidth}
           />
         </div>
       </form>
-
       {foodForm.length > 0 && (
         <div className={foodCardStyles.cardStyle}>
-          {foodForm.map((foodEntry) => (
-            <FoodCard
-              logId={foodEntry._id}
-              FoodName={foodEntry.FoodName}
-              MealPerDay={foodEntry.MealPerDay}
-              QuantityPerMeal={foodEntry.QuantityPerMeal}
-              TypeOfFood={foodEntry.TypeOfFood}
-              KibbleDry={foodEntry.KibbleDry}
-              Canned={foodEntry.Canned}
-              SemiMoist={foodEntry.SemiMoist}
-              Raw={foodEntry.Raw}
-              HomeCooked={foodEntry.HomeCooked}
-              FoodDate={foodEntry.FoodDate}
-              onDelete={() => handleFoodDelete(foodEntry._id)}
-            />
-          ))}
+          {foodForm.map((foodEntry) => {
+            // Check if FoodDate matches logDate or is today's date
+            const today = new Date();
+            const isToday = today.toLocaleDateString("en-GB") === new Date(foodEntry.FoodDate).toLocaleDateString("en-GB");
+            const matchesLogDate = foodEntry.FoodDate === logDate;
+
+            if (matchesLogDate || isToday) {
+              return (
+                <FoodCard
+                  logId={foodEntry._id}
+                  FoodName={foodEntry.FoodName}
+                  MealPerDay={foodEntry.MealPerDay}
+                  QuantityPerMeal={foodEntry.QuantityPerMeal}
+                  TypeOfFood={foodEntry.TypeOfFood}
+                  KibbleDry={foodEntry.KibbleDry}
+                  Canned={foodEntry.Canned}
+                  SemiMoist={foodEntry.SemiMoist}
+                  Raw={foodEntry.Raw}
+                  HomeCooked={foodEntry.HomeCooked}
+                  FoodDate={foodEntry.FoodDate}
+                  onDelete={() => handleFoodDelete(foodEntry._id)}
+                />
+              );
+            }
+
+            return null; // Skip rendering if FoodDate doesn't match logDate or is not today
+          })}
         </div>
       )}
       <ToastContainer />
