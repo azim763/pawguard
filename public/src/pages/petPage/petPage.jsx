@@ -63,7 +63,6 @@ const PetPage = () => {
     }
 
     setPetLogFormExpanded(!isPetLogExpanded);
-    console.log(log);
     
   };
   const handlePetLogButtonClick = () => {
@@ -121,8 +120,7 @@ const PetPage = () => {
  
 
   const formatDate = (date) => {
-    console.log("formatDate");
-    console.log(date);
+  
     const day = String(date.getUTCDate()).padStart(2, "0");
     const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-based
     const year = date.getUTCFullYear();
@@ -169,8 +167,7 @@ const PetPage = () => {
     ]);
   };
   const handlePetLogSubmit = (newPetLogData) => {
-    console.log("newPetLogData");
-    console.log(newPetLogData);
+   
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
 
@@ -237,7 +234,6 @@ const PetPage = () => {
             }
           } else {
             const data = JSON.parse(storedData);
-            console.log(data);
             const response = await axios.get(searchPetsByUserIDRoute, {
               params: { userID: data._id },
             });
@@ -267,7 +263,6 @@ const PetPage = () => {
           params: { PetID: selectedPet._id },
         });
         setPetLog(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
@@ -284,7 +279,6 @@ const PetPage = () => {
       .then((response) => {
         setPetAppointments(response.data);
         setValidPetAppointments(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -298,7 +292,6 @@ const PetPage = () => {
       })
       .then((response) => {
         setPetMedications(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -551,7 +544,6 @@ const PetPage = () => {
     setButtonLabel(tabToButtonLabel[link]);
   };
 
-  console.log("Active Tab:", activeLink);
   const handlePetArchive = (petId) => {
     const petDataString = localStorage.getItem("petsData");
 
@@ -588,7 +580,6 @@ const PetPage = () => {
     // Set the selected pet to the next pet in the array
     setSelectedPet(updatedPets[nextPetIndex]);
 
-    console.log(updatedPets[nextPetIndex]);
   };
 
   return (
@@ -632,7 +623,6 @@ const PetPage = () => {
                 //   setPetLogFormExpanded(false);
                 // }
 
-                console.log(isPetLogFormExpanded);
               }}
             />
           )}
@@ -651,7 +641,6 @@ const PetPage = () => {
                   }, 300);
                 }
                 setAptFormExpanded(!isAptFormExpanded);
-                console.log(isAptFormExpanded);
               }}
             />
           )}

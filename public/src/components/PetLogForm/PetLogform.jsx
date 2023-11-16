@@ -30,6 +30,7 @@ const PetLogForm = ({
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
+  
 
 
   const initialFormData = {
@@ -124,8 +125,6 @@ const PetLogForm = ({
       PetImages: data, // Use the 'data' parameter instead of 'imageData'
     });
     setSelectedImage(data);
-    console.log(data); // This logs the image data
-    console.log(formData); // This logs the petData with the updated PetImageName
   };
 
   const handleInputChange = (e) => {
@@ -321,10 +320,11 @@ const PetLogForm = ({
               <Typography variant="sub-poppins-medium">Food </Typography>
             </div>
             <div className={styles.sessionContainer}>
-              <FoodForm
+              {(selectedLog&&selectedLog.LogDate &&<FoodForm
                 onFoodFormSubmit={handleFoodFormSubmit}
                 SelectedPetID={SelectedPetID}
-              ></FoodForm>
+                logDate ={selectedLog.LogDate}
+              ></FoodForm>)}
             </div>
           </div>
           <div className={styles.sessionContainer}>
