@@ -5,7 +5,7 @@
 }
 
 .IndividualClinicContainer {
-  padding: 15% 140px;
+  padding: 60px 120px;
 }
 
 .OpenHrs {
@@ -28,11 +28,7 @@
   grid-row: 3;
 }
 
-@media screen and (max-width: 1000px) {
-  .IndividualClinicContainer {
-    padding: 80px 60px;
-  }
-
+@media screen and (max-width: 1100px) {
   .clinicDetailsContainer {
     grid-template-columns: 1fr;
     /* grid-template-rows: repeat(4, 1fr); */
@@ -53,8 +49,14 @@
   }
 }
 
+@media screen and (max-width: 900px) {
+  .IndividualClinicContainer {
+    padding: 40px 70px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .IndividualClinicContainer {
-    padding: 80px 20px;
+    padding: 40px 20px;
   }
 }

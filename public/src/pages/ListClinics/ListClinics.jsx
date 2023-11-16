@@ -136,34 +136,53 @@ const ListClinics = () => {
       });
   }, []);
 
+  const scrollPosition = window.scrollY;
+
+  const closeClinicDetails = () => {
+    setIsVisible(false);
+
+    document.body.style.position = "";
+    setIsVisible(false);
+
+    document.body.style.overflow = "auto";
+   
+    document.body.classList.toggle("overlay-invisible");
+
+    setTimeout(() => {
+      document.body.classList.remove("overlay-visible");
+    }, 10000);
+
+    // document.body.classList.remove("overlay-visible");
+  };
+
   const handleClickDetails = (clinicId) => {
-    console.log("clinicId");
-    console.log(clinicId);
-    // navigate(`/clinic/details/${clinicId}`);
     axios
       .get(`${getClinicByIdRoute}/${clinicId}`)
       .then((response) => {
-        console.log("response.data");
-        console.log(response.data);
         setClinicDetails(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
       });
 
-    setIsVisible(true);
-  };
+    // Toggle the visibility of the overlay
+    setIsVisible(!isVisible);
 
-  // const onCheckHandler = (event) => {
-  //   const { id, checked } = event.target;
-  //   if (id === "urgCare") {
-  //     setUrgentCareChecked(checked);
-  //     console.log("Urgent Care checked:", checked);
-  //   } else if (id === "24hrs") {
-  //     setOpen24hrsChecked(checked);
-  //     console.log("Open 24 Hours checked:", checked);
-  //   }
-  // };
+    // Toggle the body class to freeze the background
+    document.body.classList.toggle("overlay-visible");
+
+    // Set the body style to disable/enable scrolling
+    document.body.style.overflow = isVisible ? "auto" : "hidden";
+
+    // Set the body style to fix the background at the current scroll position
+    if (isVisible) {
+      const scrollPosition = window.scrollY;
+
+      document.body.style.overflow = "hidden";
+      document.body.style.top = `-${scrollPosition}px`;
+      document.body.style.position = "fixed";
+    }
+  };
 
   const handleUrgCheckboxChange = (event) => {
     const { checked } = event.target;
@@ -213,70 +232,73 @@ const ListClinics = () => {
   return (
     <div>
       <Header />
-      <div className={styles.coverBackground}>
-        <div className={styles.opaqueStyle}>
-          <Typography variant="h1-poppins-semibold" color="white-white">
-            <div className={styles.titleCenter}>
-              <div className={styles.title1}>Find Your Clinic</div>
-              <Typography variant="sub-poppins-medium" color="white-white">
-                <div className={styles.clinicTag}>
-                  Best clinics for your pets in Vancouver
-                </div>
-              </Typography>
-            </div>
-          </Typography>
-        </div>
-      </div>
-      <div className={styles.clinicsContainer}>
-        <div className={styles.clinicTitle}>
-          {currentUserId ? (
-            <>
-              <Typography variant="h2-poppins-semibold" color="almost-black">
-                Select the pet you would like to find clinics for.
-              </Typography>
-              <Typography variant="body2-poppins-medium" color="almost-black">
-                Specialties will be recommended for your pet’s needs.
-              </Typography>
-            </>
-          ) : (
-            <>
-              <Typography variant="h2-poppins-semibold" color="almost-black">
-                Enter clinic specialties and city name
-              </Typography>
-              <Typography variant="body2-poppins-medium">
-                <Link to="/login" className={styles.addPetLink}>
-                  Sign in to select your pet
-                  <FontAwesomeIcon
-                    className={styles.arrowContainer}
-                    icon={faChevronRight}
-                  />
-                </Link>
-              </Typography>
-            </>
-          )}
-          <div className={styles.petSelection}>
-            {currentUserId ? (
-              pets &&
-              Array.isArray(pets) &&
-              pets.map((petSelectClinic) => (
-                <div key={petSelectClinic._id}>
-                  <PetSelectionClinic
-                    id={petSelectClinic._id}
-                    specialties={petSelectClinic.PreExistingMedical}
-                    imgUrl={petSelectClinic.PetImageName}
-                    clinicPetName={petSelectClinic.PetName}
-                    selected={petSelectClinic._id === selectedPetId}
-                    onClick={handlePetSelectClinicClick}
-                  />
-                </div>
-              ))
-            ) : (
-              <></>
-            )}
+      <div
+        className={isVisible ? styles.overlayVisable : styles.overlayInVisable}
+      >
+        <div className={styles.coverBackground}>
+          <div className={styles.opaqueStyle}>
+            <Typography variant="h1-poppins-semibold" color="white-white">
+              <div className={styles.titleCenter}>
+                <div className={styles.title1}>Find Your Clinic</div>
+                <Typography variant="sub-poppins-medium" color="white-white">
+                  <div className={styles.clinicTag}>
+                    Best clinics for your pets in Vancouver
+                  </div>
+                </Typography>
+              </div>
+            </Typography>
           </div>
         </div>
-        <div className={styles.multiplePetSelection}>
-          {/* {petData.map((pet, index) => (
+        <div className={styles.clinicsContainer}>
+          <div className={styles.clinicTitle}>
+            {currentUserId ? (
+              <>
+                <Typography variant="h2-poppins-semibold" color="almost-black">
+                  Select the pet you would like to find clinics for.
+                </Typography>
+                <Typography variant="body2-poppins-medium" color="almost-black">
+                  Specialties will be recommended for your pet’s needs.
+                </Typography>
+              </>
+            ) : (
+              <>
+                <Typography variant="h2-poppins-semibold" color="almost-black">
+                  Enter clinic specialties and city name
+                </Typography>
+                <Typography variant="body2-poppins-medium">
+                  <Link to="/login" className={styles.addPetLink}>
+                    Sign in to select your pet
+                    <FontAwesomeIcon
+                      className={styles.arrowContainer}
+                      icon={faChevronRight}
+                    />
+                  </Link>
+                </Typography>
+              </>
+            )}
+            <div className={styles.petSelection}>
+              {currentUserId ? (
+                pets &&
+                Array.isArray(pets) &&
+                pets.map((petSelectClinic) => (
+                  <div key={petSelectClinic._id}>
+                    <PetSelectionClinic
+                      id={petSelectClinic._id}
+                      specialties={petSelectClinic.PreExistingMedical}
+                      imgUrl={petSelectClinic.PetImageName}
+                      clinicPetName={petSelectClinic.PetName}
+                      selected={petSelectClinic._id === selectedPetId}
+                      onClick={handlePetSelectClinicClick}
+                    />
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+          <div className={styles.multiplePetSelection}>
+            {/* {petData.map((pet, index) => (
             <PetSelection
               key={index}
               imgUrl={pet.imgUrl}
@@ -285,134 +307,141 @@ const ListClinics = () => {
             // onClick={() => handlePetClick(index)}
             />
           ))} */}
-        </div>
-        <div className={styles.clinicSearch}>
-          <div className={styles.dropDownClinics}>
-            <div>
-              <div className={styles.specialtiesContainer}>
-                <Typography variant="body2-poppins-medium">
-                  Specialties
-                </Typography>
-              </div>
-              <MultipleDropDown
-                options={[
-                  "Arthritis XD",
-                  "Bloodwork",
-                  "Cardiology",
-                  "Cytology",
-                  "Dentistry",
-                  "Dermatology",
-                  "Endoscopy",
-                  "Euthanasia",
-                  "Internal-medicine",
-                  "Laser-therapy",
-                  "Microchipping",
-                  "Neurology",
-                  "Nutrition",
-                  "Oncology",
-                  "Radiography",
-                  "Senior",
-                  "Surgery",
-                  "Ultrasound",
-                ]}
-                selectedValues={selectedOptions}
-                onSelect={handleSelectedOptions}
-              />
-            </div>
-
-            <div>
-              <Typography variant="body2-poppins-medium">City Name </Typography>
-              {clinicInfo.length > 0 && (
-                <AutocompleteClinic
-                  clinicInfo={clinicInfo}
-                  handleSelection={(selectedClinic) => {
-                    if (!selectedClinic) {
-                      // If selection is empty, call handleSelection with null or empty value
-                      setselectedClinicName(null); // You can also pass an empty string if that's what you prefer
-                    } else {
-                      setselectedClinicName(selectedClinic.City);
-                    }
-                    // console.log("Selected Clinic:", selectedClinic);
-                    // console.log(selectedClinic.City);
-                    // setselectedClinicName(selectedClinic.City);
-                  }}
+          </div>
+          <div className={styles.clinicSearch}>
+            <div className={styles.dropDownClinics}>
+              <div>
+                <div className={styles.specialtiesContainer}>
+                  <Typography variant="body2-poppins-medium">
+                    Specialties
+                  </Typography>
+                </div>
+                <MultipleDropDown
+                  options={[
+                    "Arthritis XD",
+                    "Bloodwork",
+                    "Cardiology",
+                    "Cytology",
+                    "Dentistry",
+                    "Dermatology",
+                    "Endoscopy",
+                    "Euthanasia",
+                    "Internal-medicine",
+                    "Laser-therapy",
+                    "Microchipping",
+                    "Neurology",
+                    "Nutrition",
+                    "Oncology",
+                    "Radiography",
+                    "Senior",
+                    "Surgery",
+                    "Ultrasound",
+                  ]}
+                  selectedValues={selectedOptions}
+                  onSelect={handleSelectedOptions}
                 />
-              )}
-            </div>
-          </div>
+              </div>
 
-          <div className={styles.clinicCheckbox}>
-            <div style={{ marginRight: "50px" }}>
+              <div>
+                <Typography variant="body2-poppins-medium">
+                  City Name{" "}
+                </Typography>
+                {clinicInfo.length > 0 && (
+                  <AutocompleteClinic
+                    clinicInfo={clinicInfo}
+                    handleSelection={(selectedClinic) => {
+                      if (!selectedClinic) {
+                        // If selection is empty, call handleSelection with null or empty value
+                        setselectedClinicName(null); // You can also pass an empty string if that's what you prefer
+                      } else {
+                        setselectedClinicName(selectedClinic.City);
+                      }
+                      // console.log("Selected Clinic:", selectedClinic);
+                      // console.log(selectedClinic.City);
+                      // setselectedClinicName(selectedClinic.City);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className={styles.clinicCheckbox}>
+              <div style={{ marginRight: "50px" }}>
+                <Checkbox
+                  id="urgCare"
+                  label="Urgent Care"
+                  onChange={handleUrgCheckboxChange}
+                  value={urgentCareChecked}
+                />
+              </div>
               <Checkbox
-                id="urgCare"
-                label="Urgent Care"
-                onChange={handleUrgCheckboxChange}
-                value={urgentCareChecked}
+                id="24hrs"
+                label="Open 24 hours"
+                onChange={handle24CheckboxChange}
+                value={open24hrsChecked}
               />
             </div>
-            <Checkbox
-              id="24hrs"
-              label="Open 24 hours"
-              onChange={handle24CheckboxChange}
-              value={open24hrsChecked}
-            />
+
+            <div className={styles.clinicButton}>
+              <Button
+                variant="yellow"
+                label="Search"
+                size="dk-md-s"
+                onClickHandler={onClickHandler}
+              />
+            </div>
+
+            <div style={{ marginBottom: "10px", marginTop: "30px" }}>
+              <Dropdown
+                id="sortBy"
+                name="sortBy"
+                options={sortBy}
+                onChange={(selectedValue) =>
+                  handleDropdownChange(selectedValue)
+                }
+                size="round"
+              />
+            </div>
           </div>
 
-          <div className={styles.clinicButton}>
-            <Button
-              variant="yellow"
-              label="Search"
-              size="dk-md-s"
-              onClickHandler={onClickHandler}
-            />
-          </div>
-
-          <div style={{ marginBottom: "10px", marginTop: "30px" }}>
-            <Dropdown
-              id="sortBy"
-              name="sortBy"
-              options={sortBy}
-              onChange={(selectedValue) => handleDropdownChange(selectedValue)}
-              size="round"
-            />
-          </div>
+          {clinicData.length === 0 ? (
+            <div className={styles.noResultContainer}>
+              <Typography variant="body2-poppins-medium">
+                No results found.
+              </Typography>
+            </div>
+          ) : (
+            clinicData.map((clinic) => (
+              <ClinicDetailCard
+                key={clinic._id}
+                clinicName={clinic.Name}
+                clinicRating={clinic.Rating}
+                clinicRatingStar={<StarRating rating={clinic.Rating} />}
+                clinicAddress={clinic.Address}
+                specialtiesString={clinic.Specialty}
+                source={clinic.ImageUrl}
+                open24={clinic.Open24 ? "Open 24" : "Not open 24"}
+                handleClickDetails={() => handleClickDetails(clinic._id)}
+              />
+            ))
+          )}
         </div>
-
-        {clinicData.length === 0 ? (
-          <div className={styles.noResultContainer}>
-            <Typography variant="body2-poppins-medium">
-              No results found.
-            </Typography>
-          </div>
-        ) : (
-          clinicData.map((clinic) => (
-            <ClinicDetailCard
-              key={clinic._id}
-              clinicName={clinic.Name}
-              clinicRating={clinic.Rating}
-              clinicRatingStar={<StarRating rating={clinic.Rating} />}
-              clinicAddress={clinic.Address}
-              specialtiesString={clinic.Specialty}
-              source={clinic.ImageUrl}
-              open24={clinic.Open24 ? "Open 24" : "Not open 24"}
-              handleClickDetails={() => handleClickDetails(clinic._id)}
-            />
-          ))
-        )}
-        {isVisible && (
-          <div className={styles.individualClinicContainer}>
-            {clinicDetails != null && (
-              <>
+      </div>
+      {isVisible && (
+        <div className={styles.individualClinicContainer}>
+          {clinicDetails != null && (
+            <div>
+              <div className={styles.closeIconContainer}>
                 <CloseSVG
                   className={styles.closeIcon}
-                  // onClick={closeClinicDetails}
+                  onClick={closeClinicDetails}
                 />
-                <IndividualClinic clinicDetails={clinicDetails} />
-              </>
-            )}
-          </div>
-        )}
-      </div>
+              </div>
+              <IndividualClinic clinicDetails={clinicDetails} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
