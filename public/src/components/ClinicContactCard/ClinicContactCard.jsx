@@ -16,7 +16,7 @@ const ClinicContactCard = ({ clinicTel, clinicUrl }) => {
       </div>
       <div className={`${styles["clinic-url-wrapper"]}`}>
         <EarthSVG width="30" height="30"/>
-        <Typography variant="body2-poppins-medium">{clinicUrl}</Typography>
+        <Typography variant="body2-poppins-medium"><a href={clinicUrl}>{clinicUrl}</a></Typography>
       </div>
     </div>
   );
