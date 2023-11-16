@@ -1,5 +1,5 @@
 .clinicsContainer {
-  padding: 15% 140px;
+  padding: 15% 120px;
   border: 1px solid var(--off-white);
   border-radius: 50px 50px 0 0;
   background-color: var(--off-white);
@@ -119,13 +119,13 @@
 }
 
 .individualClinicContainer {
-  /* border: 1px solid black; */
+  border: 1px solid var(--border-grey);
   border-radius: 8px;
   /* position: fixed; */
   z-index: 99;
   position: fixed;
   bottom: 0;
-  top: 20%;
+  top: 100px;
   background-color: var(--off-white);
   overflow-y: auto;
   width: 100%;
@@ -134,6 +134,7 @@
   left: 0;
   right: 0;
   border-radius: 50px 50px 0 0;
+  padding-top: 30px;
 }
 
 @keyframes slide-up {
@@ -145,11 +146,53 @@
   }
 }
 
+/* @keyframes slideOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.overlay-invisible .individualClinicContainer {
+  animation: slideOut 1s ease-out;
+} */
+
+.overlay-visible {
+  top: 0;
+  transition: top 1s ease-out; 
+}
+
+.overlay-invisible {
+  top: 100%; 
+  transition: top 1s ease-out; 
+}
+
 .closeIcon {
   width: 30px;
   height: 30px;
+}
+
+.closeIconContainer {
   display: flex;
   justify-content: flex-end;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.overlayVisable {
+  top: 100px;
+
+  background-blend-mode: multiply;
+
+  background-color: rgba(43, 43, 43, 0.6);
+
+  opacity: 40%;
+}
+
+.overlay-invisible {
+  background-color: unset;
 }
 
 @media screen and (max-width: 900px) {

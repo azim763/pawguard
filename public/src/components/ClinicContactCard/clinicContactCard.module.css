@@ -30,6 +30,15 @@
   height: 30px;
 } */
 
+.urlContainer {
+  text-decoration: underline;
+  color: var(--dark-blue);
+}
+
+.urlContainer:hover {
+  color: var(--almost-black);
+}
+
 @media screen and (max-width: 400px) {
   /* .earthIcon {
     width: 26px;
