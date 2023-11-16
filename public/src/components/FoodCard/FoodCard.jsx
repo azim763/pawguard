@@ -71,10 +71,10 @@ const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, KibbleDry,FoodDate,lo
         <Typography variant="body1-poppins-semibold">Type</Typography>
         <Typography variant="body3-poppins-regular">{foodType}</Typography>
       </div>
-      <div>
+      {/* <div>
         <Typography variant="body1-poppins-semibold">Date</Typography>
         <Typography variant="body3-poppins-regular">{FoodDate}</Typography>
-      </div>
+      </div> */}
       <Modal
         isOpen={isDeleteModalOpen}
         contentLabel="Delete Confirmation"
