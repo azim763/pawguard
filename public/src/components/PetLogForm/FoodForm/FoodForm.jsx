@@ -110,22 +110,15 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    // Check if logDate exists, if not, set it to today's date
     const updatedLogDate = logDate ? logDate : new Date().toLocaleDateString("en-GB");
-  
-    // Update the foodData object with logDate before submitting
     const updatedFoodData = {
       ...foodData,
       FoodDate: updatedLogDate,
     };
-  
-    console.log("foodData before submission:", updatedFoodData); // Log foodData before submitting
-  
+    console.log("foodData before submission:", updatedFoodData);
     if (validateForm()) {
       onFoodFormSubmit(updatedFoodData);
-  
-      console.log("foodData after submission:", updatedFoodData); // Log foodData after submitting
+      console.log("foodData after submission:", updatedFoodData); 
       setFoodForm((prevFoodForm) => [...prevFoodForm, updatedFoodData]);
     }
   };
@@ -282,7 +275,6 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate }) => {
       {foodForm.length > 0 && (
         <div className={foodCardStyles.cardStyle}>
           {foodForm.map((foodEntry) => {
-            // Check if FoodDate matches logDate or is today's date
             const today = new Date();
             const isToday = today.toLocaleDateString("en-GB") === new Date(foodEntry.FoodDate).toLocaleDateString("en-GB");
             const matchesLogDate = foodEntry.FoodDate === logDate;
@@ -306,7 +298,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate }) => {
               );
             }
 
-            return null; // Skip rendering if FoodDate doesn't match logDate or is not today
+            return null; 
           })}
         </div>
       )}
