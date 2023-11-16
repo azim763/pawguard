@@ -25,7 +25,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
 
   const [foodData, setFoodData] = useState({
     FoodName: "",
-    MealPerDay: "",
+    MealPerDay: 1,
     QuantityPerMeal: "",
     KibbleDry: false,
     Canned: false,
