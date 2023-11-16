@@ -30,7 +30,8 @@ const PetLogForm = ({
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState(new Date());
   const [selectedImage, setSelectedImage] = useState(null);
-  
+  const isDisabled = true;
+
 
 
   const initialFormData = {
@@ -205,6 +206,8 @@ const PetLogForm = ({
                     onChange={handleLogDateChange}
                     id="LogDate"
                     value={selectedLog.LogDate}
+                    disabled={isDisabled}
+
                     key="viewMode" // Add a key for view mode
                   />
                 ) : null}
@@ -231,6 +234,7 @@ const PetLogForm = ({
                       name="Weight"
                       // label="Pet Weight"
                       placeholder="30"
+                      disabled={isDisabled}
                       propInputValue={selectedLog.Weight}
                       onChange={handleInputChange}
                       key="viewMode"
@@ -320,11 +324,23 @@ const PetLogForm = ({
               <Typography variant="sub-poppins-medium">Food </Typography>
             </div>
             <div className={styles.sessionContainer}>
-              {(selectedLog&&selectedLog.LogDate &&<FoodForm
-                onFoodFormSubmit={handleFoodFormSubmit}
-                SelectedPetID={SelectedPetID}
-                logDate ={selectedLog.LogDate}
-              ></FoodForm>)}
+            {formMode === 'create' && selectedLog && selectedLog.LogDate && (
+                <FoodForm
+                  onFoodFormSubmit={handleFoodFormSubmit}
+                  SelectedPetID={SelectedPetID}
+                  logDate={selectedLog.LogDate}
+                  formMode={formMode}
+
+                />
+              )}
+              {formMode === 'view' && selectedLog && selectedLog.LogDate && (
+                <FoodForm
+                  onFoodFormSubmit={handleFoodFormSubmit}
+                  SelectedPetID={SelectedPetID}
+                  logDate={selectedLog.LogDate}
+                />
+              )}
+
             </div>
           </div>
           <div className={styles.sessionContainer}>
@@ -357,6 +373,7 @@ const PetLogForm = ({
                   onChange={handleInputChange}
                   value={selectedLog.Notes}
                   className={styles.petLogTextarea}
+                  disabled={isDisabled}
                 />
               )}
             </div>
@@ -379,13 +396,13 @@ const PetLogForm = ({
                 Pet’s conditions (e.g. injuries, vomit)
               </Typography>
               {formMode === 'create' && (
-                  <div>
-              <ImageDisplay PetImageData={selectedImage} />
-              <SingleImageUpload
-                label="Add Pet Log Image"
-                onImageUpload={handleImageUpload}
-              />
-              </div>
+                <div>
+                  <ImageDisplay PetImageData={selectedImage} />
+                  <SingleImageUpload
+                    label="Add Pet Log Image"
+                    onImageUpload={handleImageUpload}
+                  />
+                </div>
               )}
               {formMode === 'view' && selectedLog && selectedLog.Notes && (
                 <ImageDisplay PetImageData={selectedLog.PetImages[0]} />

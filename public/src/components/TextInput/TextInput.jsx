@@ -11,6 +11,7 @@ const TextInput = ({
   variant,
   size,
   required,
+  disabled
 }) => {
   return (
     <div>
@@ -28,6 +29,7 @@ const TextInput = ({
           placeholder={placeholder}
           onChange={onChange}
           required={required}
+          disabled={disabled}
         ></input>
       </Typography>
     </div>
