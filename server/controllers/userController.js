@@ -60,13 +60,13 @@ String.prototype.hashCode = function () {
 module.exports.updateUserById = async (req, res, next) => {
 //  console.log(req);
   try {
-    const userId = req.params.id;
-    const emailCheck = await User.findOne({ userId });
+    const _id = req.params.id;
+    const emailCheck = await User.findOne({ _id });
     const { password, rec } = req.body;
 
     const emailhash = emailCheck.email.hashCode();
 
-    // return res.json(emailhash+  "  ---  "  + rec);
+    // return res.json(emailhash+ " --- "+req.params.id+" -- "+  emailCheck.email+ "  ---  "  + rec);
     //return res.json(`${encodeURIComponent(emailhash)}  " -- " ${emailCheck.email}"  ---  "  ${ rec}`);
     //return res.json(`${emailhash}  "  ---  "  ${ rec}`);
     const isrecValid = (rec == emailhash);
@@ -76,7 +76,7 @@ module.exports.updateUserById = async (req, res, next) => {
     else {
       const hashedPassword = await bcrypt.hash(password, 10);
       //return userId;
-      const updatedUser = await User.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
+      const updatedUser = await User.findByIdAndUpdate(_id, { password: hashedPassword }, { new: true });
       if (!updatedUser) {
         return res.status(404).json({ msg: 'User not found' });
       }
@@ -88,27 +88,17 @@ module.exports.updateUserById = async (req, res, next) => {
   }
 };
 
-
-
 module.exports.sendemail = async (req, res, next) => {
  try {
-   //  const uId = req.params.id;
-    // const { firstname, lastname, username, email, password } = req.body;
-  const { email,host } = req.body;
+   const { email,host } = req.body;
     const userbyemail = await User.findOne({ email });
 if (!userbyemail)
       return res.status(404).json({ msg: 'User not found' });
-
     const userId = userbyemail._id;
-  
-    
     const emailhash = userbyemail.email.hashCode();
-
     var nodemailer = require('nodemailer');
-
     var transporter = nodemailer.createTransport({
       service: 'myvclass.ir',
-
       host:'mail.myvclass.ir',
     //  port: 587,
       port: 465,
@@ -122,28 +112,22 @@ if (!userbyemail)
      });
    
     mailOptions = {
-    //  from: 'info@myvclass.ir',
       from:  {
         name: 'PawGuard',
         address: 'info@myvclass.ir'
     },
       to: email,
       subject: 'Pawguard Password Recovery',
-   //   text: 'http://localhost:3000/changepassword/654f64b0b9e6aeaea1f28d46/-747234125',
-   html:`<a href="${host}/changepassword/${userId}/${emailhash}"> Click to set new password </a>`,
-   // html: '<a href="http://localhost:3000/changepassword/654f64b0b9e6aeaea1f28d46/-747234125"> recover </a>'
-    };
+    html:`<a href="${host}/changepassword/${userId}/${emailhash}"> Click to set new password </a>`,
+     };
    
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
         return res.json(error);
-
-     //   console.log(error);
-      } else {
+       } else {
         return res.json({ status: true, msg: 'The password recovery link has been sent successfully!' });
       //    return res.json(status ,info.response.status);
-      //   console.log('Email sent: ' + info.response);
-      }
+       }
     }); 
  
  
