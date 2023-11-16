@@ -399,14 +399,17 @@ const ListClinics = () => {
             />
           ))
         )}
-
         {isVisible && (
           <div className={styles.individualClinicContainer}>
-            <CloseSVG
-              className={styles.closeIcon}
-              // onClick={closeClinicDetails}
-            />
-            <IndividualClinic clinicDetails={clinicDetails} />
+            {clinicDetails != null && (
+              <>
+                <CloseSVG
+                  className={styles.closeIcon}
+                  // onClick={closeClinicDetails}
+                />
+                <IndividualClinic clinicDetails={clinicDetails} />
+              </>
+            )}
           </div>
         )}
       </div>
