@@ -46,22 +46,10 @@ export default function Dashboard() {
     []
   );
 
-  const currentDate = new Date(); // Get the current date
+  const currentDate = new Date();
   const formattedCurrentDate = `${currentDate.getDate()}-${
     currentDate.getMonth() + 1
-  }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
-
-  // const filteredMedication = medication.filter((med) => {
-  //   const medDate = new Date(med.MedicationDate);
-  //   const daysToAdd = parseInt(med.MedicationPeriod, 10);
-
-  //   const targetDate = new Date(medDate);
-  //   targetDate.setDate(medDate.getDate() + daysToAdd);
-  //   console.log(`medDate: ${medDate}`);
-  //   console.log(`daysToAdd: ${daysToAdd}`);
-  //   console.log(`targetDate: ${targetDate}`);
-  //   return targetDate >= currentDate;
-  // });
+  }-${currentDate.getFullYear()}`;
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -190,11 +178,6 @@ export default function Dashboard() {
 
           const targetDate = new Date(medDate);
           targetDate.setDate(medDate.getDate() + daysToAdd);
-          // console.log(`med.MedicationDate: ${med.MedicationDate}`);
-          // console.log(`medDate: ${medDate}`);
-          // console.log(`daysToAdd: ${daysToAdd}`);
-          // console.log(`targetDate: ${targetDate}`);
-          // console.log(`currentDate: ${currentDate}`);
           return targetDate >= currentDate;
         });
         setMedication(filteredMed);
