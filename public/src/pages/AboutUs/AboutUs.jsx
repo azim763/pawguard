@@ -33,7 +33,7 @@ const AboutUs = () => {
   };
 
   return (
-    <div className={styles.AboutUspage}>
+    <div className={styles.AboutUsPage}>
       <Header />
       <div className={styles.abtUsBody}>
         <div className={styles.abtUs1}>

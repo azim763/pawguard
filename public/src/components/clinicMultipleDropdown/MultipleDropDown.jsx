@@ -11,7 +11,7 @@ export default function MultipleDropDown({
   placeholder,
 }) {
   const handleSelectionChange = (selectedList) => {
-    onSelect(selectedList); // Call the callback function in the parent component
+    onSelect(selectedList);
   };
 
   return (
@@ -35,17 +35,21 @@ export default function MultipleDropDown({
             lineHeight: "19.4px",
           },
           chips: {
-            background: "var(--dark-blue)",
+            color: "var(--dark-blue)",
+            backgroundColor: "var(--accent-blue)",
             fontSize: "18px",
             // display: 'inline-block',
-            marginLeft: "5px",
+            margin: "0px",
+            borderRadius: '8px',
+            padding: '8px',
           },
           multiselectContainer: {
             color: "black",
             display: "inline-block",
             margin: "0",
+            marginTop: "7px",
             height: "auto",
-            paddingLeft: "5px",
+            // paddingLeft: "5px",
           },
           searchBox: {
             // fontSize: "20px",
@@ -58,6 +62,7 @@ export default function MultipleDropDown({
             lineHeight: "19.4px",
             display: "flex",
             flexFlow: "wrap",
+            padding: "12px"
           },
           optionContainer: {
             maxHeight: "500px",

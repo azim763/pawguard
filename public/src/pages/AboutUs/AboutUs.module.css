@@ -1,12 +1,17 @@
+.abtUs1 {
+  background-color: var(--pearl-blue);
+  padding-top: 80px;
+}
+
+.abtUs1 > div:last-of-type {
+  text-align: right;
+}
 
 
 .abtUs1 img {
   width: 100%;
+  max-width: 450px;
   height: auto;
-}
-
-.abtUs1 {
-  background-color: var(--pearl-blue);
 }
 
 .abtUs2 span, 
@@ -27,14 +32,13 @@
 .abtUs4 > div:first-of-type > hr {
   border: 1.5px solid var(--almost-black) !important;
   position:absolute;
-  top: 2px;
+  top: -4px;
   width: 60%;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.abtUs1Description,
-.abtUs4 {
+.abtUs1Description {
   padding: 42px 20px;
 }
 
@@ -127,6 +131,7 @@ textarea {
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-end;
+    padding-top: 0;
   }
 
   .abtUs2,

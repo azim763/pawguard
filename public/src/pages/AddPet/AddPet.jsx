@@ -10,6 +10,7 @@ import Button from "../../components/Button/Button";
 import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Header from "../../components/Header/header";
+import ImageSVG from "../../components/SVG/ImageSVG";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
 import { ToastContainer, toast } from "react-toastify";
@@ -21,8 +22,6 @@ const AddPet = () => {
   const [selectedPreExistingMedical, setSelectedPreExistingMedical] = useState(
     []
   );
-  // const [bloodType, setBloodType] = useState([]);
-  // const [breedType, setBreedType] = useState([]);
 
   const toastOptions = {
     position: "bottom-right",
@@ -98,7 +97,6 @@ const AddPet = () => {
     PetImageName: "",
     Description: "",
   });
-  
 
   const handleDateChange = (event) => {
     setPetData({
@@ -171,15 +169,13 @@ const AddPet = () => {
       console.log(PetName);
       toast.error("Pet name is required.", toastOptions);
       return false;
-    }
-    else if (isNaN(Height) || Height.length < 1 || Height.trim() == "") {
+    } else if (isNaN(Height) || Height.length < 1 || Height.trim() == "") {
       toast.error("Height is required and must be number.", toastOptions);
       return false;
-    }
-    else if (isNaN(Weight) || Weight.length < 1 || Weight.trim() == " ") {
+    } else if (isNaN(Weight) || Weight.length < 1 || Weight.trim() == " ") {
       toast.error("Weight is required and must be number.", toastOptions);
       return false;
-    } 
+    }
     return true;
   };
 
@@ -226,9 +222,6 @@ const AddPet = () => {
     console.log(petData); // This logs the petData with the updated PetImageName
   };
 
-  // const defaultGender = gender && gender.length > 0 ? gender[0].value : "";
-  // const defaultSpecies = petType && petType.length > 0 ? petType[0].value : "";
-
   const onClickHandler = async (event) => {
     event.preventDefault();
 
@@ -246,9 +239,8 @@ const AddPet = () => {
       if (handleValidation()) {
         const response = await axios.post(createPetRoute, updatedPetData);
         // Handle successful submission
-      toast.success("Pet profile created successfully.", toastOptionsSuccess);
-    //   console.log("Data submitted successfully:", response.data);
-   
+        toast.success("Pet profile created successfully.", toastOptionsSuccess);
+        //   console.log("Data submitted successfully:", response.data);
 
         navigate("/");
       } else {
@@ -257,7 +249,7 @@ const AddPet = () => {
     } catch (error) {
       console.error("Error while submitting data:", error);
       toast.error("Error while submitting data.", toastOptions);
-         // Handle the error, e.g., display an error message to the user.
+      // Handle the error, e.g., display an error message to the user.
     }
   };
 
@@ -272,7 +264,9 @@ const AddPet = () => {
       <div className={styles.addPetForm}>
         <form action="/submit" method="post" onSubmit={onClickHandler}>
           <div className={styles.addPetImage}>
-            <ImageDisplay PetImageData={selectedImage} />
+            <div className={styles.imageUpload}>
+              <ImageSVG />
+            </div>
             <SingleImageUpload
               label="Add Pet Image"
               onImageUpload={handleImageUpload}
@@ -284,7 +278,6 @@ const AddPet = () => {
             id="PetName"
             label="Name *"
             onChange={handleInputChange}
-
           />
           <Dropdown
             size="md"
@@ -318,10 +311,7 @@ const AddPet = () => {
           />
           <div>
             <Typography variant="body2-poppins-medium">Birthday</Typography>
-            <DatePicker
-              id="birthday"
-              onChange={handleDateChange}
-            />
+            <DatePicker id="birthday" onChange={handleDateChange} />
           </div>
 
           <Dropdown
@@ -366,14 +356,16 @@ const AddPet = () => {
             <Typography variant="body2-poppins-medium">
               <label htmlFor="Description">Pet Notes</label>
             </Typography>
-            <textarea
-              name="Description"
-              id="Description"
-              cols="30"
-              rows="10"
-              placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
-              onChange={handleInputChange}
-            ></textarea>
+            <Typography variant="textfield-poppins-regular">
+              <textarea
+                name="Description"
+                id="Description"
+                cols="30"
+                rows="10"
+                placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
+                onChange={handleInputChange}
+              ></textarea>
+            </Typography>
           </div>
           <Button
             type="submit"
