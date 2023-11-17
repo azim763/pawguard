@@ -129,6 +129,12 @@ textarea {
     align-items: flex-end;
   }
 
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 {
+    padding: 130px 20px 0; 
+  }
+
   .abtUs1Description {
     padding: 60px;
   }
@@ -158,10 +164,6 @@ textarea {
     padding: 0;
   }
 
-  .abtUs3 {
-    padding-bottom: 96px;
-  }
-
   .aboutusProfile {
     display: flex;
     flex-flow: column;
@@ -179,6 +181,10 @@ textarea {
   .abtUs3Images1 {
     padding-bottom: 36px;
   }
+
+  .abtUs4 {
+    padding-bottom: 40px;
+  }
 }
 
 @media screen and (min-width: 810px) {
@@ -190,7 +196,7 @@ textarea {
     row-gap: 35px;
     padding: 0 30px;
     max-width: 100%;
-    margin: 70px auto 180px;
+    margin: 70px auto 100px;
   }
 
   .abtUs3Images > div:nth-child(n) {
@@ -264,6 +270,10 @@ textarea {
     width: 100%;
     padding: 130px 130px 0;
     margin: 0 auto;
+  }
+
+  .abtUs4 {
+    padding: 130px 130px 70px;
   }
 
 

@@ -33,7 +33,7 @@
   transform: rotate(-45deg) translate(4px, -15px);
 }
 
-@media only screen and (min-width: 870px) {
+@media only screen and (min-width: 768px) {
 
     .Burger {
         display: none;
