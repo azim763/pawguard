@@ -23,6 +23,7 @@ import styles from "./textArea.module.css";
     id={id}
     name={name}
     value={value}
+    disabled={props.disabled}
     {...props}
     >
     </textarea>

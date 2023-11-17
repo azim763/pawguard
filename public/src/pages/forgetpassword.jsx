@@ -96,7 +96,7 @@ const host = window.location.origin;
       const response = await axios.post(`${sendmailRoute}`, {
         email , host
      });
-
+//console.log(response.data);
      if (response.data.status === false) {
       toast.error(response.data.msg, toastOptions);
     }

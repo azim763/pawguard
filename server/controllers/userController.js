@@ -43,107 +43,94 @@ module.exports.register = async (req, res, next) => {
   }
 };
 
-
 String.prototype.hashCode = function () {
   var hash = 0,
-    i, chr;
+    i,
+    chr;
   if (this.length === 0) return hash;
   for (i = 0; i < this.length; i++) {
     chr = this.charCodeAt(i);
-    hash = ((hash << 5) - hash) + chr;
+    hash = (hash << 5) - hash + chr;
     hash |= 0; // Convert to 32bit integer
   }
   return hash;
-}
+};
 
 // Update a User by its ID
 module.exports.updateUserById = async (req, res, next) => {
-//  console.log(req);
+  //  console.log(req);
   try {
-    const userId = req.params.id;
-    const emailCheck = await User.findOne({ userId });
+    const _id = req.params.id;
+    const emailCheck = await User.findOne({ _id });
     const { password, rec } = req.body;
 
     const emailhash = emailCheck.email.hashCode();
 
-    // return res.json(emailhash+  "  ---  "  + rec);
+    // return res.json(emailhash+ " --- "+req.params.id+" -- "+  emailCheck.email+ "  ---  "  + rec);
     //return res.json(`${encodeURIComponent(emailhash)}  " -- " ${emailCheck.email}"  ---  "  ${ rec}`);
     //return res.json(`${emailhash}  "  ---  "  ${ rec}`);
-    const isrecValid = (rec == emailhash);
+    const isrecValid = rec == emailhash;
     if (!isrecValid) {
-      return res.json({ msg: "Incorrect Password Recovery Link", status: false });
-    }
-    else {
+      return res.json({
+        msg: "Incorrect Password Recovery Link",
+        status: false,
+      });
+    } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       //return userId;
-      const updatedUser = await User.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
+      const updatedUser = await User.findByIdAndUpdate(_id, { password: hashedPassword }, { new: true });
       if (!updatedUser) {
-        return res.status(404).json({ msg: 'User not found' });
+        return res.status(404).json({ msg: "User not found" });
       }
       return res.json(updatedUser);
     }
-  }
-  catch (ex) {
+  } catch (ex) {
     next(ex);
   }
 };
 
-
-
 module.exports.sendemail = async (req, res, next) => {
+
  try {
-   //  const uId = req.params.id;
-    // const { firstname, lastname, username, email, password } = req.body;
-  const { email,host } = req.body;
+   const { email,host } = req.body;
     const userbyemail = await User.findOne({ email });
 if (!userbyemail)
       return res.status(404).json({ msg: 'User not found' });
-
     const userId = userbyemail._id;
-  
-    
     const emailhash = userbyemail.email.hashCode();
-
     var nodemailer = require('nodemailer');
-
     var transporter = nodemailer.createTransport({
       service: 'myvclass.ir',
-
       host:'mail.myvclass.ir',
     //  port: 587,
+
       port: 465,
-    //  service: process.env.SMTP_SERVICE,
+      //  service: process.env.SMTP_SERVICE,
       secure: true,
-      domain:'myvclass.ir',
+      domain: "myvclass.ir",
       auth: {
-        user: 'info@myvclass.ir',
-        pass: 'Inff00@763'
+        user: "info@myvclass.ir",
+        pass: "Inff00@763",
       },
-     });
-   
+    });
+
     mailOptions = {
-    //  from: 'info@myvclass.ir',
       from:  {
         name: 'PawGuard',
         address: 'info@myvclass.ir'
     },
       to: email,
       subject: 'Pawguard Password Recovery',
-   //   text: 'http://localhost:3000/changepassword/654f64b0b9e6aeaea1f28d46/-747234125',
-   html:`<a href="${host}/changepassword/${userId}/${emailhash}"> Click to set new password </a>`,
-   // html: '<a href="http://localhost:3000/changepassword/654f64b0b9e6aeaea1f28d46/-747234125"> recover </a>'
-    };
+    html:`<a href="${host}/changepassword/${userId}/${emailhash}"> Click to set new password </a>`,
+     };
    
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
         return res.json(error);
-
-     //   console.log(error);
-      } else {
+       } else {
         return res.json({ status: true, msg: 'The password recovery link has been sent successfully!' });
       //    return res.json(status ,info.response.status);
-      //   console.log('Email sent: ' + info.response);
-      }
+       }
     }); 
  
  
@@ -164,59 +151,56 @@ if (!userbyemail)
     //   },
     // };
 
-  //  return res.json(email);
+    //  return res.json(email);
     // Create a transporter with the SMTP configuration
 
-   // return res.json(transporter);
+    // return res.json(transporter);
 
-//    var transporter = nodemailer.createTransport({
-//     service: 'gmail',
-//     auth: {
-//       user: 'mazhan.technology@gmail.com',
-//       pass: 'Mazhan_Tech763'
-//     }
-//   });
-//   //return res.json(smtpConfig);
-//   return transporter;
-//     transporter.sendMail(mailOptions, function(error, info){
-//       if (error) {
-//         return res.json(error);
-//         console.log(error);
-//       } else {
-//         return res.json(info.response);
-//         console.log('Email sent: ' + info.response);
-//       }
-//     });
+    //    var transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //       user: 'mazhan.technology@gmail.com',
+    //       pass: 'Mazhan_Tech763'
+    //     }
+    //   });
+    //   //return res.json(smtpConfig);
+    //   return transporter;
+    //     transporter.sendMail(mailOptions, function(error, info){
+    //       if (error) {
+    //         return res.json(error);
+    //         console.log(error);
+    //       } else {
+    //         return res.json(info.response);
+    //         console.log('Email sent: ' + info.response);
+    //       }
+    //     });
 
-//   //  const transporter = nodemailer.createTransport(smtpConfig);
-//  return res.json(transporter);
-//     // Email content
-//     const mailOptions = {
-//       from: 'mazhan.technology@gmail.com',
-//       to: email,
-//       subject: 'Subject of the email',
-//       text: 'Body of the email',
-//     };
-   
- 
-//     // Send the email
-//     const info = await transporter.sendMail(mailOptions);
+    //   //  const transporter = nodemailer.createTransport(smtpConfig);
+    //  return res.json(transporter);
+    //     // Email content
+    //     const mailOptions = {
+    //       from: 'mazhan.technology@gmail.com',
+    //       to: email,
+    //       subject: 'Subject of the email',
+    //       text: 'Body of the email',
+    //     };
 
-//  //   console.log('Email sent:', info);
-//  return res.json(info);
+    //     // Send the email
+    //     const info = await transporter.sendMail(mailOptions);
 
-//     // Return a success message
-//     return res.json({ msg: 'Email sent successfully' });
-//   } catch (error) {
-//     console.error('Error sending email:', error.message);
-//     return res.status(500).json({ error: 'Internal Server Error' });
- }
- catch (error) {
-  next(error);
-  return res.json(error);
- }
+    //  //   console.log('Email sent:', info);
+    //  return res.json(info);
+
+    //     // Return a success message
+    //     return res.json({ msg: 'Email sent successfully' });
+    //   } catch (error) {
+    //     console.error('Error sending email:', error.message);
+    //     return res.status(500).json({ error: 'Internal Server Error' });
+  } catch (error) {
+    next(error);
+    return res.json(error);
+  }
 };
-
 
 module.exports.getAllcnUsers = async (req, res, next) => {
   try {
@@ -233,7 +217,6 @@ module.exports.getAllcnUsers = async (req, res, next) => {
     next(ex);
   }
 };
-
 
 module.exports.getAllUsers = async (req, res, next) => {
   try {
@@ -281,4 +264,3 @@ module.exports.logOut = (req, res, next) => {
     next(ex);
   }
 };
-
