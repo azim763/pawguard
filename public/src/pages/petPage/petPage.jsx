@@ -26,6 +26,8 @@ import TotalPets from "../../components/TotalPets/TotalPets";
 import Map from "../../components/Map/Map";
 import Typography from "../../components/Typography/Typography";
 import { useCollapse } from "react-collapsed";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 const PetPage = () => {
   const location = useLocation();
@@ -38,32 +40,50 @@ const PetPage = () => {
   const [petVaccines, setPetVaccines] = useState([]);
   const [selectedPet, setSelectedPet] = useState("");
   const [validPetAppointments, setValidPetAppointments] = useState([]);
-  const [isVaccinationFormExpanded, setVaccinationFormExpanded] =
-    useState(false);
 
-  const [isMedicationFormExpanded, setMedicationFormExpanded] = useState(false);
-
-  const [isPetLogFormExpanded, setPetLogFormExpanded] = useState(false);
-
-  const [isAptFormExpanded, setAptFormExpanded] = useState(false);
   const [selectedPetLog, setSelectedPetLog] = useState(null);
   const [formMode, setFormMode] = useState("create");
-
+  const [isLoadingData, setLoadingData] = useState(false);
 
   const petLogFormRef = useRef(null);
 
-  const handlePetLogClick = (log,e) => {
-    setSelectedPetLog(log);
+  const {
+    getCollapseProps: getPetLogCollapseProps,
+    getToggleProps: getPetLogToggleProps,
+    isExpanded: isPetLogFormExpanded,
+    setExpanded: setPetLogFormExpanded,
+  } = useCollapse();
+
+  const {
+    getCollapseProps: getAppointmentCollapseProps,
+    getToggleProps: getAppointmentToggleProps,
+    isExpanded: isAppointmentFormExpanded,
+    setExpanded: setAppointmentFormExpanded,
+  } = useCollapse();
+
+  const {
+    getCollapseProps: getMedicationCollapseProps,
+    getToggleProps: getMedicationToggleProps,
+    isExpanded: isMedicationFormExpanded,
+    setExpanded: setMedicationFormExpanded,
+  } = useCollapse();
+
+  const {
+    getCollapseProps: getVaccinationCollapseProps,
+    getToggleProps: getVaccinationToggleProps,
+    isExpanded: isVaccinationFormExpanded,
+    setExpanded: setVaccinationFormExpanded,
+  } = useCollapse();
+
+  const handlePetLogClick = (log) => {
     setFormMode("view");
-    getPetLogToggleProps().onClick(e);
-    if (!isPetLogExpanded) {
+    setSelectedPetLog(log);
+    setPetLogFormExpanded(true);
+    if (!isPetLogFormExpanded) {
       setTimeout(() => {
         handlePetLogButtonClick();
       }, 300);
     }
-
-    setPetLogFormExpanded(!isPetLogExpanded);
-    
   };
   const handlePetLogButtonClick = () => {
     petLogFormRef.current.scrollIntoView({ behavior: "smooth" });
@@ -93,34 +113,7 @@ const PetPage = () => {
     });
   };
 
-  const {
-    getCollapseProps: getPetLogCollapseProps,
-    getToggleProps: getPetLogToggleProps,
-    isExpanded: isPetLogExpanded,
-  } = useCollapse();
-
-  const {
-    getCollapseProps: getAppointmentCollapseProps,
-    getToggleProps: getAppointmentToggleProps,
-    isExpanded: isAppointmentExpanded,
-  } = useCollapse();
-
-  const {
-    getCollapseProps: getMedicationCollapseProps,
-    getToggleProps: getMedicationToggleProps,
-    isExpanded: isMedicationExpanded,
-  } = useCollapse();
-
-  const {
-    getCollapseProps: getVaccinationCollapseProps,
-    getToggleProps: getVaccinationToggleProps,
-    isExpanded: isVaccinationExpanded,
-  } = useCollapse();
-
- 
-
   const formatDate = (date) => {
-  
     const day = String(date.getUTCDate()).padStart(2, "0");
     const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-based
     const year = date.getUTCFullYear();
@@ -167,7 +160,6 @@ const PetPage = () => {
     ]);
   };
   const handlePetLogSubmit = (newPetLogData) => {
-   
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
   };
 
@@ -192,7 +184,7 @@ const PetPage = () => {
   };
 
   const closeAptForm = () => {
-    setAptFormExpanded(false);
+    setAppointmentFormExpanded(false);
   };
 
   const closePetLogForm = () => {
@@ -253,18 +245,29 @@ const PetPage = () => {
   }, [selectedPetID]);
 
   const handlePetSelection = (pet) => {
-    setSelectedPet(pet);
+    if (selectedPet != pet) {
+      setPetLogFormExpanded(false);
+      setAppointmentFormExpanded(false);
+      setMedicationFormExpanded(false);
+      setVaccinationFormExpanded(false);
+      setSelectedPet(pet);
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoadingData(true);
+        const petId = selectedPet._id;
         const response = await axios.get(searchPetLogsByPetIDRoute, {
-          params: { PetID: selectedPet._id },
+          params: { PetID: petId },
         });
+
         setPetLog(response.data);
       } catch (error) {
         console.log("Error fetching data: ", error);
+      } finally {
+        setLoadingData(false);
       }
     };
 
@@ -351,8 +354,8 @@ const PetPage = () => {
           {petLog.length > 0 ? (
             <div className={styles.cardStyle}>
               {petLog.map((log) => (
-                <div key={log._id} onClick={(e) => handlePetLogClick(log,e)}>
-                  <PetLogCard 
+                <div key={log._id} onClick={(e) => handlePetLogClick(log)}>
+                  <PetLogCard
                     PetLogDate={log.LogDate}
                     PetLogTime={log.timestamp}
                     logId={log._id}
@@ -362,15 +365,13 @@ const PetPage = () => {
               ))}
             </div>
           ) : (
-            !selectedPet && !selectedPet._id && !isPetLogFormExpanded && (
-              <div className={styles.noLogImage}>
-                <div className={styles.noLogText}>
-                  <Typography variant="sub-poppins-medium" color="white">
-                    Add New Pet Log
-                  </Typography>
-                </div>
+            <div className={styles.noLogImage}>
+              <div className={styles.noLogText}>
+                <Typography variant="sub-poppins-medium" color="white">
+                  Add New Pet Log
+                </Typography>
               </div>
-            )
+            </div>
           )}
         </div>
         <div className={styles.postPetPage}>
@@ -381,11 +382,16 @@ const PetPage = () => {
                   selectedPet={selectedPet}
                   onPetLogSubmit={handlePetLogSubmit}
                   SelectedPetID={selectedPet._id}
-                  getToggleProps={getPetLogToggleProps}
+                  getToggleProps={() =>
+                    getPetLogToggleProps({
+                      onClick: () =>
+                        setPetLogFormExpanded((prevExpanded) => !prevExpanded),
+                    })
+                  }
                   closePetLogForm={closePetLogForm}
                   selectedLog={selectedPetLog}
                   formMode={formMode}
-                  />
+                />
               </div>
             </div>
           )}
@@ -416,7 +422,7 @@ const PetPage = () => {
               </div>
             </div>
           ) : (
-            !isAptFormExpanded && (
+            !isAppointmentFormExpanded && (
               <div className={`${styles.noLogImage} ${styles.noAptImage} `}>
                 <div className={styles.noLogText}>
                   <Typography variant="sub-poppins-medium" color="white">
@@ -435,7 +441,14 @@ const PetPage = () => {
                 <AppointmentForm
                   selectedPet={selectedPet}
                   onAppointmentSubmit={handleAppointmentSubmit}
-                  getToggleProps={getAppointmentToggleProps}
+                  getToggleProps={() =>
+                    getAppointmentToggleProps({
+                      onClick: () =>
+                        setAppointmentFormExpanded(
+                          (prevExpanded) => !prevExpanded
+                        ),
+                    })
+                  }
                   closeAptForm={closeAptForm}
                 />
               </div>
@@ -551,17 +564,17 @@ const PetPage = () => {
       try {
         // Parse the petData into an array
         const petData = JSON.parse(petDataString);
-  
+
         // Filter out the pet with the specified ID
         const updatedPetData = petData.filter((pet) => pet._id !== petId);
-  
+
         // Convert the updated petData back to a string
         const updatedPetDataString = JSON.stringify(updatedPetData);
-  
+
         // Update localStorage with the modified data
         localStorage.setItem("petsData", updatedPetDataString);
       } catch (error) {
-        console.error('Error parsing or updating petsData:', error);
+        console.error("Error parsing or updating petsData:", error);
       }
     }
     // Find the index of the pet to be archived
@@ -579,142 +592,138 @@ const PetPage = () => {
 
     // Set the selected pet to the next pet in the array
     setSelectedPet(updatedPets[nextPetIndex]);
-
   };
 
   return (
-    
+    <LoadingOverlay
+      active={isLoadingData}
+      spinner={<LoadPage />}
+      // text="Loading your content..."
+    >
       <div className={styles.petPageMain}>
-    
-      <Header> </Header>
-      <div className={styles.petPageGrid}>
-        <div className={styles.tabTitle}>
-          <Typography variant="large-h1-poppins-bold">
-            {selectedPet.PetName}
-          </Typography>
-          {pets && (
-            <TotalPets
-              pets={pets}
-              selectedPet={selectedPet}
-              onPetSelect={handlePetSelection}
-            />
-          )}
+        <Header> </Header>
 
-          {buttonLabel === "Add PetLog" && (
-            <Button
-              variant="yellow"
-              label={buttonLabel}
-              size="dk-md-s"
-              {...getPetLogToggleProps()}
-              onClick={(event) => {
-                setFormMode("create")
-                getPetLogToggleProps().onClick(event);
-                if (!isPetLogExpanded) {
-                  setTimeout(() => {
-                    handlePetLogButtonClick();
-                  }, 300);
-                }
-
-                setPetLogFormExpanded(!isPetLogExpanded);
-
-                // if (isPetLogFormExpanded) {
-                //   setPetLogFormExpanded(true);
-                // } else {
-                //   setPetLogFormExpanded(false);
-                // }
-
-              }}
-            />
-          )}
-
-          {buttonLabel === "Add Appointment" && (
-            <Button
-              variant="yellow"
-              label={buttonLabel}
-              size="dk-md-s"
-              {...getAppointmentToggleProps()}
-              onClick={(event) => {
-                getAppointmentToggleProps().onClick(event);
-                if (!isAppointmentExpanded) {
-                  setTimeout(() => {
-                    handleAppointmentButtonClick();
-                  }, 300);
-                }
-                setAptFormExpanded(!isAptFormExpanded);
-              }}
-            />
-          )}
-
-          {buttonLabel === "Add Medication" && (
-            <Button
-              variant="yellow"
-              label={buttonLabel}
-              size="dk-md-s"
-              {...getMedicationToggleProps()}
-              onClick={(event) => {
-                getMedicationToggleProps().onClick(event);
-                if (!isMedicationExpanded) {
-                  setTimeout(() => {
-                    handleMedicationButtonClick();
-                  }, 300);
-                }
-                setMedicationFormExpanded(!isMedicationFormExpanded);
-              }}
-            />
-          )}
-
-          {buttonLabel === "Add Vaccination" && (
-            <Button
-              variant="yellow"
-              label={buttonLabel}
-              size="dk-md-s"
-              {...getVaccinationToggleProps()}
-              onClick={(event) => {
-                getVaccinationToggleProps().onClick(event);
-                if (!isVaccinationExpanded) {
-                  setTimeout(() => {
-                    handleVaccincationButtonClick();
-                  }, 300);
-                }
-                setVaccinationFormExpanded(!isVaccinationFormExpanded);
-              }}
-            />
-          )}
-        </div>
-        <div className={styles.petCard}>
-          {selectedPet && (
-            <PetCard
-              src={selectedPet.PetImageName}
-              petBreed={selectedPet.Breed}
-              petAge={petAge !== "-" ? `${petAge} years` : "-"}
-              petHeight={selectedPet.Height}
-              petWeight={selectedPet.Weight}
-              id={selectedPet._id}
-              onArchive={() => handlePetArchive(selectedPet._id)}
-            />
-          )}
-        </div>
-
-        <div className={styles.allTabs}>
-          {/* <div className={styles.tabTitle}>
+        <div className={styles.petPageGrid}>
+          <div className={styles.tabTitle}>
             <Typography variant="large-h1-poppins-bold">
               {selectedPet.PetName}
             </Typography>
-            {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />}
-            <Button variant="yellow" label={buttonLabel} size="dk-md-s" />
-          </div> */}
+            {pets && (
+              <TotalPets
+                pets={pets}
+                selectedPet={selectedPet}
+                onPetSelect={handlePetSelection}
+              />
+            )}
 
-          <div className={styles.petPageTab}>
-            <PageTabs
-              tabs={Object.keys(tabContents)}
-              activeTab={activeLink}
-              onTabChange={handleLinkClick}
-            />
-            <div className={styles.tabContent}>{tabContents[activeLink]}</div>
+            {buttonLabel === "Add PetLog" && (
+              <Button
+                variant="yellow"
+                label={buttonLabel}
+                size="dk-md-s"
+                {...getPetLogToggleProps({
+                  onClick: () =>
+                    setPetLogFormExpanded((prevExpanded) => !prevExpanded),
+                })}
+                onClick={(event) => {
+                  setFormMode("create");
+                  setPetLogFormExpanded(!isPetLogFormExpanded);
+                  if (!isPetLogFormExpanded) {
+                    setTimeout(() => {
+                      handlePetLogButtonClick();
+                    }, 300);
+                  }
+                }}
+              />
+            )}
+
+            {buttonLabel === "Add Appointment" && (
+              <Button
+                variant="yellow"
+                label={buttonLabel}
+                size="dk-md-s"
+                {...getAppointmentToggleProps({
+                  onClick: () =>
+                    setAppointmentFormExpanded((prevExpanded) => !prevExpanded),
+                })}
+                onClick={(event) => {
+                  setAppointmentFormExpanded(!isAppointmentFormExpanded);
+                  if (!isAppointmentFormExpanded) {
+                    setTimeout(() => {
+                      handleAppointmentButtonClick();
+                    }, 300);
+                  }
+                }}
+              />
+            )}
+
+            {buttonLabel === "Add Medication" && (
+              <Button
+                variant="yellow"
+                label={buttonLabel}
+                size="dk-md-s"
+                {...getMedicationToggleProps({
+                  onClick: () =>
+                    setMedicationFormExpanded((prevExpanded) => !prevExpanded),
+                })}
+                onClick={(event) => {
+                  setMedicationFormExpanded(!isMedicationFormExpanded);
+                  if (!isMedicationFormExpanded) {
+                    setTimeout(() => {
+                      handleMedicationButtonClick();
+                    }, 300);
+                  }
+                }}
+              />
+            )}
+
+            {buttonLabel === "Add Vaccination" && (
+              <Button
+                variant="yellow"
+                label={buttonLabel}
+                size="dk-md-s"
+                {...getVaccinationToggleProps({
+                  onClick: () =>
+                    setVaccinationFormExpanded((prevExpanded) => !prevExpanded),
+                })}
+                onClick={(event) => {
+                  setVaccinationFormExpanded(!isVaccinationFormExpanded);
+                  if (!isVaccinationFormExpanded) {
+                    setTimeout(() => {
+                      handleVaccincationButtonClick();
+                    }, 300);
+                  }
+                }}
+              />
+            )}
+          </div>
+          <div className={styles.petCard}>
+            {selectedPet && (
+              <PetCard
+                src={selectedPet.PetImageName}
+                petBreed={selectedPet.Breed}
+                petAge={petAge !== "-" ? `${petAge} years` : "-"}
+                petHeight={selectedPet.Height}
+                petWeight={selectedPet.Weight}
+                id={selectedPet._id}
+                onArchive={() => handlePetArchive(selectedPet._id)}
+              />
+            )}
+          </div>
+
+          <div className={styles.allTabs}>
+            <div className={styles.petPageTab}>
+              <PageTabs
+                tabs={Object.keys(tabContents)}
+                activeTab={activeLink}
+                onTabChange={handleLinkClick}
+              />
+              <div className={styles.tabContent}>{tabContents[activeLink]}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </LoadingOverlay>
   );
 };
 

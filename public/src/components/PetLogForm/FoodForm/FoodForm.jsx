@@ -14,7 +14,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
-  const [foodDate, setFoodDate] = useState(new Date());
   const [foodForm, setFoodForm] = useState([]);
   const MealPerDay = [
     { value: 1, label: "1" },
@@ -98,19 +97,13 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
     });
   };
 
-  // const handleDateChange = (e) => {
-  //   const { name, value } = e.target;
-  //   const [year, month, day] = value.split("T")[0].split("-");
-  //   const resultDate = `${day}-${month}-${year}`;
-  //   setFoodData({
-  //     ...foodData,
-  //     [name]: resultDate,
-  //   });
-  //   setFoodDate(value);
-  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedLogDate = logDate ? logDate : new Date().toLocaleDateString("en-GB");
+    const today = new Date();
+    const formattedToday = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+
+    const updatedLogDate = logDate ? logDate : formattedToday;
     const updatedFoodData = {
       ...foodData,
       FoodDate: updatedLogDate,
@@ -285,9 +278,11 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
   <div className={foodCardStyles.cardStyle}>
     {foodForm.map((foodEntry) => {
       const today = new Date();
-      const isToday = today.toLocaleDateString("en-GB") === new Date(foodEntry.FoodDate).toLocaleDateString("en-GB");
+      const formattedToday = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+      const formattedFoodDate = `${new Date(foodEntry.FoodDate).getDate().toString().padStart(2, '0')}-${(new Date(foodEntry.FoodDate).getMonth() + 1).toString().padStart(2, '0')}-${new Date(foodEntry.FoodDate).getFullYear()}`;
+      const isToday = formattedToday === formattedFoodDate;
       const matchesLogDate = foodEntry.FoodDate === logDate;
-
+      
       if (matchesLogDate || isToday) {
         return (
           <FoodCard
