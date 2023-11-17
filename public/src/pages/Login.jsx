@@ -10,7 +10,7 @@ import Button from "../components/Button/Button";
 import Header from "../components/Header/header";
 import loginbackground from "../assets/images/loginback.jpeg";
 import Typography from "../components/Typography/Typography";
-import styles from "./login.module.css"
+import styles from "./login.module.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -67,96 +67,104 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className={styles.signUpContainer}>
       <Header />
       <FormContainer>
-        <div class="parent clearfix">
-          <div class="bg-illustration"></div>
-          <div class="signinup">
-            <form action="" onSubmit={(event) => handleSubmit(event)}>
-              <div className="brand">
-                {/* <img src={Logo} alt="logo" /> */}
-                <Typography variant="h2-poppins-semibold" color="almost-black">
-                  Sign In
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="body2-poppins-medium">Email</Typography>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  name="username"
-                  onChange={(e) => handleChange(e)}
-                  min="3"
-                />
-              </div>
-              <div>
-                <Typography variant="body2-poppins-medium">Password</Typography>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-              {/* <button type="submit">Log In</button> */}
-              {/* <Button color={"red"} text={"Add"} onClick={"onAdd"} /> */}
+        <div class="bg-illustration"></div>
+        <div class="signinup">
+          <form action="" onSubmit={(event) => handleSubmit(event)}>
+            <div className="brand">
+              {/* <img src={Logo} alt="logo" /> */}
+              <Typography variant="h2-poppins-semibold" color="almost-black">
+                Sign In
+              </Typography>
+            </div>
+            <div className={styles.usernameContainer}>
+              <Typography variant="body2-poppins-medium">Username</Typography>
+              <input
+                type="text"
+                placeholder="Enter your username"
+                name="username"
+                onChange={(e) => handleChange(e)}
+                min="3"
+              />
+            </div>
+            <div className={styles.pwContainer}>
+              <Typography variant="body2-poppins-medium">Password</Typography>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            {/* <button type="submit">Log In</button> */}
+            {/* <Button color={"red"} text={"Add"} onClick={"onAdd"} /> */}
+            <div className={styles.forgetPW}>
+              <Typography variant="body1-poppins-semibold">
+                <Link to="/forgetpassword">Forget Password</Link>
+              </Typography>
+            </div>
+            <div className={styles.submitContainer}>
               <Button
                 variant="yellow"
                 type="submit"
                 label={"Log In"}
                 size="dk-md"
               />
-              <span>
-                Don't have an account ? <Link to="/register">Create One.</Link>
-              </span>
-              <span>
-                {" "}
-                <Link to="/forgetpassword">Forget Password</Link>
-              </span>
-            </form>
-          </div>
+            </div>
+            <div className={styles.createAcContainer}>
+              <Typography variant="body2-poppins-medium">
+                Don't have an account ?{" "}
+              </Typography>
+              <Typography variant="body1-poppins-semibold">
+                <Link to="/register">Create One.</Link>
+              </Typography>
+            </div>
+          </form>
         </div>
       </FormContainer>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
 const FormContainer = styled.div`
-  height: 88vh;
+  height: 100%;
   width: 100vw;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  // flex-direction: column;
+  grid-template-columns: 1fr 1fr;
   justify-content: center;
   gap: 1rem;
 //  align-items: center;
  // background-color: #dedfdc;
  
+ @media screen and (max-width: 960px)
+ {
+  grid-template-columns: 1fr;
+ }
+
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    margin-bottom: 30px;
     img {
       height: 5rem;
-    }
-    h1 {
-      color: #54656f;
-    //  text-transform: uppercase;
-      font-size:2.2rem;
     }
   }
 
   form {
     display: grid;
     // flex-direction: column;
-    gap: 1.2rem;
+    gap: 12px;
     // background-color: #fff;
     // border-radius: 2rem;
-    padding: 5rem;
-    overflow: scroll;
-    scrollbar-width: none;
+    // padding: 5rem;
+    // overflow: scroll;
+    // scrollbar-width: none;
   }
   input {
     background-color: transparent;
@@ -171,46 +179,41 @@ const FormContainer = styled.div`
       outline: none;
     }
   }
-  span {
-    color: #54656f;
-    text-transform: uppercase;
-    a {
-      color: #1F3E5B;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  }
-button{
-  margin: auto;
-}
+
 .signinup
 {
-
   background-color: var(--off-white);
   min-width: 280px;
   justify-content: center;
-  display: flex;
+  display: grid;
+  grid-template-column: 1fr 1fr
   gap: 1rem;
+  padding: 0 30px;
   -moz-box-align: center;
   align-items: center;
  // background-color: rgb(222, 223, 220);
   flex-direction: column;
   -moz-box-pack: center;
   justify-content: center;
-  height: 88vh;
+  // height: 88vh;
 }
   .parent{
     display: grid;
 
   grid-template-columns: auto 1fr;
   }
+
   .bg-illustration {
     position: relative;
-    height: 88vh;
-    width: 894px;
+    height: 100%;
+    // grid-rows: 1/-1
+    // width: 50vw;
     background: url("${loginbackground}") no-repeat center center scroll;
     background-size: cover;
     float: left;
+  background-position: center;
+  overflow: hidden;
+    
     -webkit-animation: bgslide 2.3s forwards;
             animation: bgslide 2.3s forwards;
   }
@@ -225,15 +228,21 @@ button{
   }
   @media only screen and (min-width: 960px) and (max-width: 1680px) {
     .bg-illustration {
-      width: 50vw;
+      // width: 50vw;
       -webkit-animation: none;
               animation: none;
     }
   
     .signinup {
-      width: 50vw;
+      // width: 50vw;
     }
   }
+  }
+
+  @media screen and (max-width: 1150px) {
+    .signinup{
+      padding: 0 20px;
+    }
   }
 
   @media only screen and (max-width: 960px)
@@ -243,8 +252,12 @@ button{
       grid-template-columns: auto ;
     }
     .bg-illustration {
-      
      display: none;
     }
+
+    .signinup{
+      padding: 0 20%;
+    }
+
   }
 `;
