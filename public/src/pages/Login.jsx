@@ -9,6 +9,8 @@ import { loginRoute } from "../utils/APIRoutes";
 import Button from "../components/Button/Button";
 import Header from "../components/Header/header";
 import loginbackground from "../assets/images/loginback.jpeg";
+import Typography from "../components/Typography/Typography";
+import styles from "./login.module.css"
 
 export default function Login() {
   const navigate = useNavigate();
@@ -66,43 +68,55 @@ export default function Login() {
 
   return (
     <>
-<Header/>
+      <Header />
       <FormContainer>
-
-
-      <div class="parent clearfix">
-    <div class="bg-illustration">
-    </div>
-<div class="signinup">
-        <form action="" onSubmit={(event) => handleSubmit(event)}>
-          <div className="brand">
-            {/* <img src={Logo} alt="logo" /> */}
-            <h1>Sign In</h1>
+        <div class="parent clearfix">
+          <div class="bg-illustration"></div>
+          <div class="signinup">
+            <form action="" onSubmit={(event) => handleSubmit(event)}>
+              <div className="brand">
+                {/* <img src={Logo} alt="logo" /> */}
+                <Typography variant="h2-poppins-semibold" color="almost-black">
+                  Sign In
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">Email</Typography>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  onChange={(e) => handleChange(e)}
+                  min="3"
+                />
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">Password</Typography>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              {/* <button type="submit">Log In</button> */}
+              {/* <Button color={"red"} text={"Add"} onClick={"onAdd"} /> */}
+              <Button
+                variant="yellow"
+                type="submit"
+                label={"Log In"}
+                size="dk-md"
+              />
+              <span>
+                Don't have an account ? <Link to="/register">Create One.</Link>
+              </span>
+              <span>
+                {" "}
+                <Link to="/forgetpassword">Forget Password</Link>
+              </span>
+            </form>
           </div>
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-            min="3"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          {/* <button type="submit">Log In</button> */}
-          {/* <Button color={"red"} text={"Add"} onClick={"onAdd"} /> */}
-          <Button variant="yellow" type="submit" label={"Log In"} size="dk-md-s" />
-          <span>
-            Don't have an account ? <Link to="/register">Create One.</Link>
-          </span>
-          <span> <Link to="/forgetpassword">Forget Password</Link>
-          </span>
-        </form>
         </div>
-        </div> 
       </FormContainer>
       <ToastContainer />
     </>
@@ -135,8 +149,8 @@ const FormContainer = styled.div`
   }
 
   form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    // flex-direction: column;
     gap: 1.2rem;
     // background-color: #fff;
     // border-radius: 2rem;
