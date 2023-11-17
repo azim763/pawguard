@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Downshift from "downshift";
 import Typography from "../Typography/Typography";
+import LocationSVG from "../SVG/LocationSVG";
 
 const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
   // Use a Set to keep track of unique clinic cities
@@ -25,7 +26,9 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
           <div {...getRootProps({}, { suppressRefError: true })}>
             <Typography variant="textfield-poppins-regular">
               <input
-                {...getInputProps()}
+                {...getInputProps({
+                  placeholder: "E.g. Vancouver",
+                })}
                 style={{
                   width: "100%",
                   height: "54px",
@@ -33,7 +36,6 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
                   borderColor: "var(--almost-black)",
                   padding: "0 12px",
                 }}
-                
               />
             </Typography>
           </div>

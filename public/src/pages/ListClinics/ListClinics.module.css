@@ -4,9 +4,19 @@
   border-radius: 50px 50px 0 0;
   background-color: var(--off-white);
   margin: auto;
-  margin-top: -5%;
+  margin-top: -100px;
   display: grid;
-  gap: 2rem;
+  /* gap: 2rem; */
+}
+.Loader{
+  height: 100vh
+}
+.multiplePetSelection {
+  margin-bottom: 2rem;
+}
+
+.dropDownClinics input{
+  padding-left: 5px;
 }
 
 .coverBackground {
@@ -14,7 +24,7 @@
   background-size: cover;
   background-blend-mode: multiply;
   height: 50vh;
-  background-position: fixed;
+  background-position: center;
   overflow: hidden;
 }
 
@@ -119,7 +129,7 @@
 }
 
 .individualClinicContainer {
-  border: 1px solid var(--border-grey);
+  /* border: 1px solid var(--border-grey); */
   border-radius: 8px;
   /* position: fixed; */
   z-index: 99;
@@ -135,6 +145,7 @@
   right: 0;
   border-radius: 50px 50px 0 0;
   padding-top: 30px;
+  /* padding-bottom: 50px; */
 }
 
 @keyframes slide-up {
@@ -161,12 +172,12 @@
 
 .overlay-visible {
   top: 0;
-  transition: top 1s ease-out; 
+  transition: top 1s ease-out;
 }
 
 .overlay-invisible {
-  top: 100%; 
-  transition: top 1s ease-out; 
+  top: 100%;
+  transition: top 1s ease-out;
 }
 
 .closeIcon {
@@ -183,12 +194,9 @@
 
 .overlayVisable {
   top: 100px;
-
   background-blend-mode: multiply;
-
-  background-color: rgba(43, 43, 43, 0.6);
-
-  opacity: 40%;
+  filter: grayscale(60%) brightness(69%) contrast(66%);
+  /* opacity: 40%; */
 }
 
 .overlay-invisible {
@@ -241,22 +249,6 @@
     justify-content: left;
   }
 
-  .clinicsContainer {
-    margin-top: unset;
-  }
-
-  .clinicsContainer {
-    padding: 20px;
-  }
-
-  .clinicButton {
-    justify-content: center;
-  }
-
-  .clinicButton button {
-    width: 100%;
-  }
-
   .coverBackground {
     background-color: var(--off-white);
     background-image: unset;
@@ -265,6 +257,10 @@
 
   .clinicTag {
     display: none;
+  }
+
+  .clinicsContainer {
+    margin-top: unset;
   }
 
   .titleCenter {
@@ -281,6 +277,18 @@
     background-color: var(--off-white);
   }
 
+  .clinicsContainer {
+    padding: 20px;
+  }
+
+  .clinicButton {
+    justify-content: center;
+  }
+
+  .clinicButton button {
+    width: 100%;
+  }
+
   .clinicCheckbox {
     flex-flow: column;
     align-items: flex-start;
@@ -293,10 +301,6 @@
   .phoneSVG {
     width: 26;
     height: 26;
-  }
-
-  .specialtiesContainer {
-    margin-top: 2rem;
   }
 
   .opaqueStyle {

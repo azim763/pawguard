@@ -1,9 +1,14 @@
+
 .dashboardContainer {
   display: flex;
   flex-flow: column;
   align-items: center;
   gap: 12px;
-  padding: 45px 20px;
+  padding: 125px 20px 45px;
+}
+
+.middleContainer {
+  width: 100%;
 }
 
 .dashboardContainer > div {
@@ -11,7 +16,7 @@
   border: solid 1px var(--border-grey);
   background-color: white;
   padding: 20px;
-  max-width: 450px;
+  max-width: 550px;
 }
 
 .dashboardPetCard {
@@ -37,18 +42,12 @@
 .petCardList {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
-  gap: 28px;
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1.5rem;
-  
-  
-  align-items: center; */
+  /* justify-content: space-between; */
+  gap: 20px;
 }
 
 .petCardList > a {
-  flex-basis: calc(33.33% - 28px);
+  flex-basis: calc(25% - 15px);
 }
 
 .dashboardPetCard svg {
@@ -76,13 +75,13 @@
   margin-top: 24px;
   margin-bottom: 46px;
   display: flex;
+  column-gap: 24px;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }
 
 .petSummaryCards > div {
-  max-width: 270px;
   margin-top: 8px;
 }
 
@@ -124,7 +123,7 @@
   margin-left: 10px;
 }
 
-@media screen and (min-width: 875px) {
+@media screen and (min-width: 768px) {
   .dashboardContainer {
     padding: 45px 40px;
   }
@@ -188,10 +187,6 @@
     height: 60px;
   }
 
-  .middleContainer {
-    max-width: 600px !important;
-  }
-
   .petSummaryCards {
     justify-content: space-between;
   }
@@ -200,21 +195,21 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
-    max-width: 1130px;
+    max-width: 1440px;
     margin: auto;
     box-sizing: content-box;
   }
 
   .dashboardContainer > div:last-of-type {
     min-width: 265px;
-    max-width: 350px;
+    max-width: 450px;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .middleContainer {
+  /* .middleContainer {
     width: 100%;
-  }
+  } */
 
   .graphNoRecord {
     width: 200px;

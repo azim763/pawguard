@@ -81,6 +81,14 @@
   line-height: 50.8px;
 }
 
+
+@media screen and (max-width: 1250px) {
+  .plan-detail-card-wrapper {
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .detailTypo {
     font-weight: 500;

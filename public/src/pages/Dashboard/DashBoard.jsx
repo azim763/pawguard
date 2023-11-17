@@ -30,6 +30,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 export default function Dashboard() {
   const [pets, setPets] = useState([]);
@@ -45,23 +47,12 @@ export default function Dashboard() {
   const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
     []
   );
+  const [isLoadingData, setLoadingData] = useState(false);
 
-  const currentDate = new Date(); // Get the current date
+  const currentDate = new Date();
   const formattedCurrentDate = `${currentDate.getDate()}-${
     currentDate.getMonth() + 1
-  }-${currentDate.getFullYear()}`; // Format it as "dd-mm-yyyy"
-
-  // const filteredMedication = medication.filter((med) => {
-  //   const medDate = new Date(med.MedicationDate);
-  //   const daysToAdd = parseInt(med.MedicationPeriod, 10);
-
-  //   const targetDate = new Date(medDate);
-  //   targetDate.setDate(medDate.getDate() + daysToAdd);
-  //   console.log(`medDate: ${medDate}`);
-  //   console.log(`daysToAdd: ${daysToAdd}`);
-  //   console.log(`targetDate: ${targetDate}`);
-  //   return targetDate >= currentDate;
-  // });
+  }-${currentDate.getFullYear()}`;
 
   const handlePetSelection = (pet) => {
     setSelectedPet(pet);
@@ -78,6 +69,7 @@ export default function Dashboard() {
     const fetchData = async () => {
       if (currentUser) {
         try {
+          setLoadingData(true);
           const responsePets = await axios.get(searchPetsByUserIDRoute, {
             params: { userID: currentUser._id },
           });
@@ -89,6 +81,8 @@ export default function Dashboard() {
           }
         } catch (error) {
           console.error("Error fetching pets:", error);
+        } finally {
+          setLoadingData(false);
         }
       }
     };
@@ -190,11 +184,6 @@ export default function Dashboard() {
 
           const targetDate = new Date(medDate);
           targetDate.setDate(medDate.getDate() + daysToAdd);
-          console.log(`med.MedicationDate: ${med.MedicationDate}`);
-          console.log(`medDate: ${medDate}`);
-          console.log(`daysToAdd: ${daysToAdd}`);
-          console.log(`targetDate: ${targetDate}`);
-          console.log(`currentDate: ${currentDate}`);
           return targetDate >= currentDate;
         });
         setMedication(filteredMed);
@@ -219,151 +208,179 @@ export default function Dashboard() {
         setCurrentUser(userData);
       }
     };
-
     checkLoggedIn();
   }, []);
 
   return (
-    <div>
-      <Header />
-      <div className={styles.dashboardContainer}>
-        <div className={styles.dashboardPetCard}>
-          <Typography variant="sub-poppins-medium" color="dark-blue">
-            My Pets
-          </Typography>
-          <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
-            {pets &&
-              pets.map((pet) => (
-                // Use a Link to navigate to individual profile PetPage
-                <Link to="/petPage" state={{ selectedPetID: pet._id }}>
-                  <PetSelection
-                    styles={{ marginBottom: "20px" }}
-                    PetImageData={pet.PetImageName}
-                    PetName={pet.PetName}
-                    selectedPet={selectedPet}
-                  />
-                </Link>
-              ))}
-          </div>
-          <Link to="addPet">
-            <PlusSVG width="60" height="60" />
-          </Link>
-        </div>
-
-        <div className={styles.middleContainer}>
-          <div className={styles.middleTitle}>
-            <Typography variant="h1-poppins-semibold" color="dark-blue">
-              {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
+    <LoadingOverlay
+      active={isLoadingData}
+      spinner={<LoadPage />}
+      // text="Loading your content..."
+    >
+      <div>
+        <Header />
+        <div className={styles.dashboardContainer}>
+          <div className={styles.dashboardPetCard}>
+            <Typography variant="sub-poppins-medium" color="dark-blue">
+              My Pets
             </Typography>
-
-            {pets && (
-              <TotalPets
-                pets={pets}
-                selectedPet={selectedPet}
-                onPetSelect={handlePetSelection}
-              />
-            )}
+            <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
+              {pets &&
+                pets.map((pet) => (
+                  // Use a Link to navigate to individual profile PetPage
+                  <Link to="/petPage" state={{ selectedPetID: pet._id }}>
+                    <PetSelection
+                      styles={{ marginBottom: "20px" }}
+                      PetImageData={pet.PetImageName}
+                      PetName={pet.PetName}
+                      selectedPet={selectedPet}
+                    />
+                  </Link>
+                ))}
+            </div>
+            <Link to="addPet">
+              <PlusSVG width="60" height="60" />
+            </Link>
           </div>
-          <div className={styles.petSummaryCards}>
-            <DashMedicineCard numOfMedicine={medication.length} />
-            <DashAptCard numOfApt={appointmentsOfSelectedPet.length} />
-          </div>
-          <div className={styles.dashboardGraph}>
-            <Carousel
-              showStatus={false}
-              showIndicators={false}
-              renderArrowPrev={(clickHandler, hasPrev) => {
-                return (
-                  <div
-                    className={`carousel-arrow carousel-arrow-left ${
-                      hasPrev ? "" : "hidden"
-                    }`}
-                    onClick={clickHandler}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      zIndex: "999",
-                      // textDecoration: "underline",
-                    }}
-                  >
-                    {hasPrev ? (
-                      <>
-                        <div className={styles.graphNav}>
-                          <FontAwesomeIcon
-                            icon={faArrowLeft}
-                            className={styles.marginIcon}
-                          />
-                          <Typography
-                            variant="detailtext2-poppins-medium"
-                            color="dark-blue"
-                          >
-                            Meal Record
-                          </Typography>
-                        </div>
-                        <hr className={styles.underline}></hr>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                );
-              }}
-              renderArrowNext={(clickHandler, hasNext) => {
-                return (
-                  <div
-                    className={`carousel-arrow carousel-arrow-right ${
-                      hasNext ? "" : "hidden"
-                    }`}
-                    onClick={clickHandler}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      zIndex: "999",
-                      // textDecoration: "underline",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    {hasNext ? (
-                      <>
-                        <div className={styles.graphNav}>
-                          <Typography
-                            variant="detailtext2-poppins-medium"
-                            color="dark-blue"
-                          >
-                            Weight Record
-                          </Typography>
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className={styles.marginIconArr}
-                          />
-                        </div>
 
-                        <hr className={styles.underline}></hr>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                );
-              }}
-            >
-              {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
-              <div>
-                <div className={styles.graphTitle}>
-                  <Typography variant="body2-poppins-medium">
-                    Weekly Meal Record
-                  </Typography>
-                </div>
+          <div className={styles.middleContainer}>
+            <div className={styles.middleTitle}>
+              <Typography variant="h1-poppins-semibold" color="dark-blue">
+                {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
+              </Typography>
+
+              {pets && (
+                <TotalPets
+                  pets={pets}
+                  selectedPet={selectedPet}
+                  onPetSelect={handlePetSelection}
+                />
+              )}
+            </div>
+            <div className={styles.petSummaryCards}>
+              <DashMedicineCard numOfMedicine={medication.length} />
+              <DashAptCard numOfApt={appointmentsOfSelectedPet.length} />
+            </div>
+            <div className={styles.dashboardGraph}>
+              <Carousel
+                showStatus={false}
+                showIndicators={false}
+                renderArrowPrev={(clickHandler, hasPrev) => {
+                  return (
+                    <div
+                      className={`carousel-arrow carousel-arrow-left ${
+                        hasPrev ? "" : "hidden"
+                      }`}
+                      onClick={clickHandler}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        zIndex: "99",
+                        // textDecoration: "underline",
+                      }}
+                    >
+                      {hasPrev ? (
+                        <>
+                          <div className={styles.graphNav}>
+                            <FontAwesomeIcon
+                              icon={faArrowLeft}
+                              className={styles.marginIcon}
+                            />
+                            <Typography
+                              variant="detailtext2-poppins-medium"
+                              color="dark-blue"
+                            >
+                              Meal Record
+                            </Typography>
+                          </div>
+                          <hr className={styles.underline}></hr>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  );
+                }}
+                renderArrowNext={(clickHandler, hasNext) => {
+                  return (
+                    <div
+                      className={`carousel-arrow carousel-arrow-right ${
+                        hasNext ? "" : "hidden"
+                      }`}
+                      onClick={clickHandler}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        // zIndex: "999",
+                        // textDecoration: "underline",
+                        marginBottom: "30px",
+                      }}
+                    >
+                      {hasNext ? (
+                        <>
+                          <div className={styles.graphNav}>
+                            <Typography
+                              variant="detailtext2-poppins-medium"
+                              color="dark-blue"
+                            >
+                              Weight Record
+                            </Typography>
+                            <FontAwesomeIcon
+                              icon={faArrowRight}
+                              className={styles.marginIconArr}
+                            />
+                          </div>
+
+                          <hr className={styles.underline}></hr>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  );
+                }}
+              >
+                {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
                 <div>
+                  <div className={styles.graphTitle}>
+                    <Typography variant="body2-poppins-medium">
+                      Weekly Meal Record
+                    </Typography>
+                  </div>
+                  <div>
+                    {foods.length > 0 ? (
+                      selectedPet && (
+                        <div className={styles.graphContainerMain}>
+                          <Graph
+                            names={foods.map((food) => food.QuantityPerMeal)}
+                            values={foods.map((food) => food.FoodDate)}
+                            label="Meal"
+                          />
+                        </div>
+                      )
+                    ) : (
+                      <div className={styles.graphNoRecord}>
+                        No record available
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <div className={styles.graphTitle}>
+                    <Typography variant="body2-poppins-medium">
+                      Weekly Weight Record
+                    </Typography>
+                  </div>
                   {foods.length > 0 ? (
                     selectedPet && (
                       <div className={styles.graphContainerMain}>
                         <Graph
-                          names={foods.map((food) => food.QuantityPerMeal)}
-                          values={foods.map((food) => food.FoodDate)}
-                          label="Meal"
+                          names={petLog.map((petLog) => petLog.Weight)}
+                          values={petLog.map((petLog) => petLog.LogDate)}
+                          label="Weight"
                         />
                       </div>
                     )
@@ -373,42 +390,19 @@ export default function Dashboard() {
                     </div>
                   )}
                 </div>
-              </div>
-
-              <div>
-                <div className={styles.graphTitle}>
-                  <Typography variant="body2-poppins-medium">
-                    Weekly Weight Record
-                  </Typography>
-                </div>
-                {foods.length > 0 ? (
-                  selectedPet && (
-                    <div className={styles.graphContainerMain}>
-                      <Graph
-                        names={petLog.map((petLog) => petLog.Weight)}
-                        values={petLog.map((petLog) => petLog.LogDate)}
-                        label="Weight"
-                      />
-                    </div>
-                  )
-                ) : (
-                  <div className={styles.graphNoRecord}>
-                    No record available
-                  </div>
-                )}
-              </div>
-            </Carousel>
+              </Carousel>
+            </div>
           </div>
+          {pets && userMed && appointments && (
+            <DashCalendar
+              petAppointments={appointments}
+              petMedications={userMed}
+              pets={pets}
+            />
+          )}
         </div>
-        {pets && userMed && appointments && (
-          <DashCalendar
-            petAppointments={appointments}
-            petMedications={userMed}
-            pets={pets}
-          />
-        )}
       </div>
-    </div>
+    </LoadingOverlay>
   );
 }
 

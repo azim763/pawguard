@@ -1,7 +1,6 @@
 import React from "react";
 import Typography from "../Typography/Typography";
 import styles from "./dashMedicineCard.module.css";
-import { useNavigate } from "react-router-dom";
 import PillSVG from "../SVG/PillSVG";
 
 const DashMedicineCard = ({ numOfMedicine, ...props }) => {
@@ -11,7 +10,7 @@ const DashMedicineCard = ({ numOfMedicine, ...props }) => {
         <PillSVG width="50" height="50" />
       </div>
 
-      <div>
+      <div style={{maxWidth: '120px'}}>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           {numOfMedicine}
         </Typography>

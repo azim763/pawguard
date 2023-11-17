@@ -4,27 +4,34 @@ nav {
   margin: 0 auto;
   width: 100%;
 }
+
+
 nav > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 64px;
+  padding: 12px 24px;
   box-sizing: content-box;
-  max-width: 1130px;
+  max-width: 1440px;
   margin: auto;
   max-height: 12vh;
 }
 
-nav > div > svg {
+nav > div > a {
+  display: flex;
+  align-items: center;
+}
+
+nav > div a > svg {
   width: 100%;
   height: auto;
-  max-width: 225px;
+  width: 224px;
+  height: 45px;
 }
 
 .RightNav > ul {
   display: inline;
-  /* height: 10vh; */
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -43,14 +50,13 @@ nav li a {
   color: var(--pearl-blue);
 }
 
-nav li a:active {
+nav li a:hover {
   color: var(--yellow);
   text-decoration: none;
 }
 
-nav li a:hover {
+.activeLink {
   color: var(--yellow);
-  text-decoration: none;
 }
 
 .profileIcon > div:first-of-type {
@@ -65,7 +71,7 @@ nav li a:hover {
 .profileMenu {
   background-color: #FDFDFD;
   position: absolute;
-  top: 50px;
+  top: 48px;
   right: 5px;
 }
 
@@ -82,7 +88,14 @@ nav li a:hover {
   text-decoration: none;
 }
 
-@media only screen and (max-width: 870px) {
+
+@media only screen and (max-width: 768px) {
+  nav {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+
   nav > div {
     padding: 16px 12px;
   }
@@ -94,7 +107,7 @@ nav li a:hover {
     display: none;
   }
 
-  .menuOpen ul {
+  .menuOpen > ul {
     display: flex;
     flex-flow: column nowrap;
     position: fixed;
@@ -110,8 +123,16 @@ nav li a:hover {
     z-index: 99;
   }
 
-  .profileMenu a div {
+  .profileMenu {
+    background-color: var(--dark-blue);
+    left: -75px;
+    top: 60px;
+    text-align: center;
+  }
+
+  .profileMenu a div, .profileMenu div {
     color: var(--pearl-blue);
+    text-align: center;
   }
 
   .profileMenu button {

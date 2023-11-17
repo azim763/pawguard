@@ -8,9 +8,10 @@ export default function MultipleDropDown({
   label,
   onSelect,
   selectedValues,
+  placeholder,
 }) {
   const handleSelectionChange = (selectedList) => {
-    onSelect(selectedList); // Call the callback function in the parent component
+    onSelect(selectedList);
   };
 
   return (
@@ -25,29 +26,44 @@ export default function MultipleDropDown({
         showCheckbox
         closeIcon="cancel"
         showArrow="true"
+        placeholder={placeholder}
         style={{
           placeholder: {
             display: "none", // Hide the placeholder
-            fontSize: "15px",
+            fontWeight: "400",
+            fontSize: "16px",
+            lineHeight: "19.4px",
+            // marginLeft: "5px",
           },
           chips: {
-            background: "var(--dark-blue)",
+            color: "var(--dark-blue)",
+            backgroundColor: "var(--accent-blue)",
             fontSize: "18px",
             // display: 'inline-block',
-            marginLeft: "5px",
+            margin: "0px",
+            borderRadius: '8px',
+            padding: '8px',
           },
           multiselectContainer: {
             color: "black",
             display: "inline-block",
             margin: "0",
+            marginTop: "7px",
             height: "auto",
+            // paddingLeft: "5px",
           },
           searchBox: {
-            fontSize: "20px",
+            // fontSize: "20px",
             border: "1px solid var(--almost-black) ",
             minHeight: "54px",
             borderRadius: "8px",
             backgroundColor: "white",
+            fontWeight: "400",
+            fontSize: "16px",
+            lineHeight: "19.4px",
+            display: "flex",
+            flexFlow: "wrap",
+            padding: "12px"
           },
           optionContainer: {
             maxHeight: "500px",
