@@ -27,7 +27,7 @@ const PetLogForm = ({
   // const [pets,setPets] =useState([]);
 
   const [foodData, setFoodData] = useState([]);
-  const [LogDate, setLogDate] = useState(new Date());
+  const [LogDate, setLogDate] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
   const isDisabled = true;
 
@@ -167,7 +167,7 @@ const PetLogForm = ({
       ...formData,
       [name]: resultDate,
     });
-    setLogDate(value);
+    setLogDate(resultDate);
   };
 
   return (
@@ -330,11 +330,11 @@ const PetLogForm = ({
               <Typography variant="sub-poppins-medium">Food </Typography>
             </div>
             <div className={styles.sessionContainer}>
-              {formMode === "create" && selectedLog && selectedLog.LogDate && (
+              {formMode === "create" &&  (
                 <FoodForm
                   onFoodFormSubmit={handleFoodFormSubmit}
                   SelectedPetID={SelectedPetID}
-                  logDate={selectedLog.LogDate}
+                  logDate={LogDate}
                   formMode={formMode}
                 />
               )}

@@ -30,6 +30,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 export default function Dashboard() {
   const [pets, setPets] = useState([]);
@@ -45,6 +47,8 @@ export default function Dashboard() {
   const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
     []
   );
+  const [isLoadingData, setLoadingData] = useState(false);
+
 
   const currentDate = new Date();
   const formattedCurrentDate = `${currentDate.getDate()}-${
@@ -207,6 +211,11 @@ export default function Dashboard() {
   }, []);
 
   return (
+    <LoadingOverlay
+    active={isLoadingData}
+    spinner={<LoadPage />}
+    // text="Loading your content..."
+  >
     <div>
       <Header />
       <div className={styles.dashboardContainer}>
@@ -392,6 +401,8 @@ export default function Dashboard() {
         )}
       </div>
     </div>
+    </LoadingOverlay>
+
   );
 }
 
