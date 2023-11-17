@@ -106,7 +106,6 @@ const DashCalendar = ({ petAppointments, petMedications }) => {
         event.PetName = "Unknown Pet";
       }
     });
-    console.log(matchingEvents);
     return matchingEvents;
   }
 
@@ -123,7 +122,6 @@ const DashCalendar = ({ petAppointments, petMedications }) => {
     const formattedMonth = String(selectedMonth).padStart(2, "0");
     const selectedDateStr = `${formattedDay}-${formattedMonth}-${selectedYear}`;
 
-    // console.log(selectedDate);
     const matchingAppointment = petAppointments.find(
       (event) => event.AppointmentDate === selectedDateStr
     );
@@ -133,7 +131,7 @@ const DashCalendar = ({ petAppointments, petMedications }) => {
     }
 
     const duplicateObjectWithUpdatedDate = (obj, daysToAdd) => {
-      const newObj = { ...obj }; // Create a shallow copy of the original object
+      const newObj = { ...obj };
       const originalDate = new Date(obj.MedicationDate);
       const newDate = new Date(
         originalDate.setDate(originalDate.getDate() + daysToAdd)

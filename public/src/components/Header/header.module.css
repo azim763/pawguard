@@ -4,27 +4,34 @@ nav {
   margin: 0 auto;
   width: 100%;
 }
+
+
 nav > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 64px;
+  padding: 12px 24px;
   box-sizing: content-box;
   max-width: 1130px;
   margin: auto;
   max-height: 12vh;
 }
 
-nav > div > svg {
+nav > div > a {
+  display: flex;
+  align-items: center;
+}
+
+nav > div a > svg {
   width: 100%;
   height: auto;
-  max-width: 225px;
+  width: 224px;
+  height: 45px;
 }
 
 .RightNav > ul {
   display: inline;
-  /* height: 10vh; */
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -82,7 +89,13 @@ nav li a:hover {
   text-decoration: none;
 }
 
-@media only screen and (max-width: 870px) {
+
+@media only screen and (max-width: 768px) {
+  nav {
+    position: fixed;
+    top: 0;
+  }
+
   nav > div {
     padding: 16px 12px;
   }

@@ -6,7 +6,7 @@ import Typography from "../Typography/Typography";
 import UserSVG from "../SVG/UserSVG";
 import Burger from "../Burger/Burger";
 import Logout from "../Logout";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,14 +20,11 @@ const Header = () => {
   };
 
   useEffect(() => {
-
     const checkLoggedIn = async () => {
       const storedData = localStorage.getItem(
         process.env.REACT_APP_LOCALHOST_KEY
       );
       if (!storedData) {
-        // if (!(location.pathname == '/getinsurances' || location.pathname == '/clinics'))
-        //   navigate("/login");
       } else {
         const userData = JSON.parse(storedData);
         setCurrentUser(userData);
@@ -43,10 +40,11 @@ const Header = () => {
 
   return (
     <nav className={styles.nav}>
-      <div>
-        <LogoSVG width="224" height="45" />
         {currentUser ? (
           <div>
+            <NavLink to="/">
+              <LogoSVG width="224" height="45" />
+            </NavLink>
             <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
               <ul>
                 <li>
@@ -79,14 +77,17 @@ const Header = () => {
                 </li>
                 <li className={styles.profileIcon}>
                   <div onClick={handleProfileClick}>
-                    <UserSVG width="48" height="48" />
+                    <UserSVG width="48" height="40" />
                   </div>
                   {profileMenuOpen && (
                     <div className={styles.profileMenu}>
                       <ul>
                         <li>
                           <NavLink to="/">
-                            <Typography variant="body3-poppins-regular" color="almost-black">
+                            <Typography
+                              variant="body3-poppins-regular"
+                              color="almost-black"
+                            >
                               Account Settings
                             </Typography>
                           </NavLink>
@@ -102,6 +103,9 @@ const Header = () => {
           </div>
         ) : (
           <div>
+            <NavLink to="/login">
+              <LogoSVG width="224" height="45" />
+            </NavLink>
             <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
               <ul>
                 <li>
@@ -130,7 +134,6 @@ const Header = () => {
             <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
           </div>
         )}
-      </div>
     </nav>
   );
 };

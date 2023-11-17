@@ -10,16 +10,14 @@ import CloseSVG from "../SVG/CloseSVG";
 import Dropdown from "../Dropdown/Dropdown";
 
 const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVacForm }) => {
+
   const [formData, setFormData] = useState({
     PetID: "",
     // NameOfVaccination: "",
     VaccinationDate: "",
   });
 
-  const [petVaccine, setPetVaccine] = useState({});
-
-  const vaccines = [
-    // cat
+  const catVaccines = [
     {
       value: "Feline Panleukopenia Virus",
       label: "Feline Panleukopenia Virus",
@@ -40,7 +38,9 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
       value: "Feline Leukemia Virus (FeLV)",
       label: "Feline Leukemia Virus (FeLV)",
     },
-    // dog
+  ];
+
+  const dogVaccines = [
     {
       value: "Canine Distemper Virus (CDV)",
       label: "Canine Distemper Virus (CDV)",
@@ -53,7 +53,10 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
       value: "Canine parvovirus type 2 (CPV-2)",
       label: "Canine parvovirus type 2 (CPV-2)",
     },
-    { value: "Rabies", label: "Rabies" },
+    {
+      value: "Rabies",
+      label: "Rabies"
+    },
   ];
 
   const handleDropdownChange = (fieldName, selectedValue) => {
@@ -63,13 +66,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
     });
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+
 
   const handleDateChange = (event) => {
     const value = event.target.value;
@@ -113,7 +110,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
       <div className={styles.vaccineTitle}>
         <Typography variant="h2-poppins-semibold">Add Vaccination</Typography>
         <div {...getToggleProps()}>
-          <CloseSVG width="27" height="28" onClick={closeVacForm}/>
+          <CloseSVG width="27" height="28" onClick={closeVacForm} />
         </div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -123,7 +120,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
             label="Name of Vaccination"
             defaultValue="Select Vaccination"
             id="NameOfVaccination"
-            options={vaccines}
+            options={selectedPet.Species.toLowerCase() === "cat" ? catVaccines : dogVaccines}
             value={formData.NameOfVaccination}
             onChange={(selectedValue) =>
               handleDropdownChange("NameOfVaccination", selectedValue)
