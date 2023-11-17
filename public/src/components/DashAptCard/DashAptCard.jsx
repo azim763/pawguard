@@ -1,7 +1,6 @@
 import React from "react";
 import Typography from "../Typography/Typography";
 import styles from "./dashAptCard.module.css";
-import { useNavigate } from "react-router-dom";
 import DoctorSVG from "./../SVG/DoctorSVG";
 
 const DashAptCard = ({ numOfApt, ...props }) => {
@@ -11,7 +10,7 @@ const DashAptCard = ({ numOfApt, ...props }) => {
         <DoctorSVG width="65" height="65" />
       </div>
 
-      <div>
+      <div style= {{maxWidth: '130px'}}>
         <Typography variant="h2-poppins-semibold" color="almost-black">
           {numOfApt}
         </Typography>
@@ -21,11 +20,6 @@ const DashAptCard = ({ numOfApt, ...props }) => {
         </Typography>
       </div>
 
-      {/* <div>
-        <Typography variant="detailtext1-poppins-medium" color="dark-blue">
-          <a>See Details</a>
-        </Typography>
-      </div> */}
     </div>
   );
 };

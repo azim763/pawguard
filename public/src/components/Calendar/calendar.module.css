@@ -35,16 +35,6 @@
     height: 6px;
   }  
 
-  /* @media screen and (min-width: 1001px) {
-    .calendar {
-      min-width: 300px;
-      max-width: 450px;
-      box-sizing: border-box;
-      padding: 24px 20px;
-    
-    }
-  } */
-
   .legend {
     display: flex;
     flex-flow: row nowrap;
@@ -74,11 +64,11 @@
   background-color: var(--pearl-blue);
 }
 
-@media screen and (min-width: 875px) {
+@media screen and (min-width: 768px) {
 .calendar {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 70px;
+  gap: 40px;
 }
 }
 

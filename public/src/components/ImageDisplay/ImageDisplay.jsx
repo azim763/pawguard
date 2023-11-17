@@ -7,7 +7,7 @@ function ImageDisplay({ PetImageData, defaultImage }) {
       {PetImageData ? (
         <img className={styles.imageDisplay} src={`data:image/jpeg;base64,${PetImageData}`} alt="Uploaded" />
       ) : (
-        <img className={styles.imageDisplay} src="https://www.svgrepo.com/download/36511/dog.svg" alt="Default" />
+        <img className={styles.imageDisplay} src={defaultImage} alt="Default" />
       )}
     </div>
   );

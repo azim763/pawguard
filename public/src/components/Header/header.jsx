@@ -1,20 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import LogoSVG from "../SVG/LogoSVG";
 import styles from "./header.module.css";
 import Typography from "../Typography/Typography";
 import UserSVG from "../SVG/UserSVG";
 import Burger from "../Burger/Burger";
 import Logout from "../Logout";
-import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
   const location = useLocation();
-  // Function to handle the menu toggle based on Burger click
+
+  const handleNavLinkClick = () => {
+    setIsActive(true);
+  };
+
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -40,100 +43,120 @@ const Header = () => {
 
   return (
     <nav className={styles.nav}>
-        {currentUser ? (
-          <div>
-            <NavLink to="/">
-              <LogoSVG width="224" height="45" />
-            </NavLink>
-            <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
-              <ul>
-                <li>
-                  <NavLink to="/">
-                    <Typography variant="body1-poppins-semibold">
-                      Home
-                    </Typography>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/petPage">
-                    <Typography variant="body1-poppins-semibold">
-                      My Pets
-                    </Typography>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/clinics">
-                    <Typography variant="body1-poppins-semibold">
-                      Clinics
-                    </Typography>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/getinsurances">
-                    <Typography variant="body1-poppins-semibold">
-                      Insurances
-                    </Typography>
-                  </NavLink>
-                </li>
-                <li className={styles.profileIcon}>
-                  <div onClick={handleProfileClick}>
-                    <UserSVG width="48" height="40" />
+      {currentUser ? (
+        <div>
+          <NavLink to="/">
+            <LogoSVG width="224" height="45" />
+          </NavLink>
+          <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
+            <ul>
+              <li>
+                <NavLink
+                  to="/"
+                  className={
+                    location.pathname === "/" ? styles.activeLink : ""
+                  }
+                >
+                  <Typography variant="body1-poppins-semibold">Home</Typography>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/petPage"
+                  className={
+                    location.pathname === "/petPage" ? styles.activeLink : ""
+                  }
+                >
+                  <Typography variant="body1-poppins-semibold">
+                    My Pets
+                  </Typography>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/clinics"
+                  className={
+                    location.pathname === "/clinics" ? styles.activeLink : ""
+                  }
+                >
+                  <Typography variant="body1-poppins-semibold">
+                    Clinics
+                  </Typography>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/getinsurances"
+                  className={
+                    location.pathname === "/getinsurances" ? styles.activeLink : ""
+                  }
+                >
+                  <Typography variant="body1-poppins-semibold">
+                    Insurances
+                  </Typography>
+                </NavLink>
+              </li>
+              <li className={styles.profileIcon}>
+                <div onClick={handleProfileClick}>
+                  <UserSVG width="48" height="40" />
+                </div>
+                {profileMenuOpen && (
+                  <div className={styles.profileMenu}>
+                    <ul>
+                      <li>
+                        <Typography
+                          variant="body1-poppins-semibold"
+                          color="almost-black"
+                        >
+                          {currentUser.username}
+                        </Typography>
+                      </li>
+                      <Logout />
+                    </ul>
                   </div>
-                  {profileMenuOpen && (
-                    <div className={styles.profileMenu}>
-                      <ul>
-                        <li>
-                          <NavLink to="/">
-                            <Typography
-                              variant="body3-poppins-regular"
-                              color="almost-black"
-                            >
-                              Account Settings
-                            </Typography>
-                          </NavLink>
-                        </li>
-                        <Logout />
-                      </ul>
-                    </div>
-                  )}
-                </li>
-              </ul>
-            </div>
-            <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
+                )}
+              </li>
+            </ul>
           </div>
-        ) : (
-          <div>
-            <NavLink to="/login">
-              <LogoSVG width="224" height="45" />
-            </NavLink>
-            <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
-              <ul>
-                <li>
-                  <NavLink to="/AboutUs">
-                    <Typography variant="body1-poppins-semibold">
-                      About Us
-                    </Typography>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/clinics">
-                    <Typography variant="body1-poppins-semibold">
-                      Clinics
-                    </Typography>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/login">
-                    <Typography variant="body1-poppins-semibold">
-                      Insurances
-                    </Typography>
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-            <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
+          <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
+        </div>
+      ) : (
+        <div>
+          <NavLink to="/login">
+            <LogoSVG width="224" height="45" />
+          </NavLink>
+          <div className={menuOpen ? styles.menuOpen : styles.RightNav}>
+            <ul>
+              <li>
+                <NavLink to="/AboutUs" className={
+                    location.pathname === "/AboutUs" ? styles.activeLink : ""
+                  }>
+                  <Typography variant="body1-poppins-semibold">
+                    About Us
+                  </Typography>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/clinics" className={
+                    location.pathname === "/clinics" ? styles.activeLink : ""
+                  }>
+                  <Typography variant="body1-poppins-semibold">
+                    Clinics
+                  </Typography>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/login">
+                  <Typography variant="body1-poppins-semibold">
+                    Insurances
+                  </Typography>
+                </NavLink>
+              </li>
+            </ul>
           </div>
-        )}
+          <Burger open={menuOpen} toggleMenu={handleMenuToggle} />
+        </div>
+      )}
     </nav>
   );
 };
