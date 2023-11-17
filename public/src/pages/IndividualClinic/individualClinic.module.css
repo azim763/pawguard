@@ -5,7 +5,7 @@
 }
 
 .IndividualClinicContainer {
-  padding: 60px 120px;
+  padding: 60px 120px 200px 120px;
 }
 
 .OpenHrs {
@@ -51,12 +51,12 @@
 
 @media screen and (max-width: 900px) {
   .IndividualClinicContainer {
-    padding: 40px 70px;
+    padding: 40px 70px 200px 70px;
   }
 }
 
 @media screen and (max-width: 400px) {
   .IndividualClinicContainer {
-    padding: 40px 20px;
+    padding: 40px 20px 200px 20px;
   }
 }

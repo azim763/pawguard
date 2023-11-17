@@ -318,7 +318,7 @@ const ListClinics = () => {
                 </div>
                 <MultipleDropDown
                   options={[
-                    "Arthritis XD",
+                    "Arthritis",
                     "Bloodwork",
                     "Cardiology",
                     "Cytology",
@@ -339,6 +339,10 @@ const ListClinics = () => {
                   ]}
                   selectedValues={selectedOptions}
                   onSelect={handleSelectedOptions}
+                  placeholder = {
+                    selectedOptions.length>0 ? "" : "Select Specialties"
+                  }
+                  
                 />
               </div>
 
