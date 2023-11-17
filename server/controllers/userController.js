@@ -133,69 +133,6 @@ if (!userbyemail)
        }
     }); 
  
- 
- 
- 
- 
- 
- 
- 
-    // // const email = req.params.email;
-    //   const smtpConfig = {
-    //   host: 'smtp.gmail.com',
-    //   port: 587, // Use the appropriate port for your SMTP server
-    //   secure: false, // Set to true if using SSL
-    //   auth: {
-    //     user: 'mazhan.technology@gmail.com',
-    //     pass: 'Mazhan_Tech763',
-    //   },
-    // };
-
-    //  return res.json(email);
-    // Create a transporter with the SMTP configuration
-
-    // return res.json(transporter);
-
-    //    var transporter = nodemailer.createTransport({
-    //     service: 'gmail',
-    //     auth: {
-    //       user: 'mazhan.technology@gmail.com',
-    //       pass: 'Mazhan_Tech763'
-    //     }
-    //   });
-    //   //return res.json(smtpConfig);
-    //   return transporter;
-    //     transporter.sendMail(mailOptions, function(error, info){
-    //       if (error) {
-    //         return res.json(error);
-    //         console.log(error);
-    //       } else {
-    //         return res.json(info.response);
-    //         console.log('Email sent: ' + info.response);
-    //       }
-    //     });
-
-    //   //  const transporter = nodemailer.createTransport(smtpConfig);
-    //  return res.json(transporter);
-    //     // Email content
-    //     const mailOptions = {
-    //       from: 'mazhan.technology@gmail.com',
-    //       to: email,
-    //       subject: 'Subject of the email',
-    //       text: 'Body of the email',
-    //     };
-
-    //     // Send the email
-    //     const info = await transporter.sendMail(mailOptions);
-
-    //  //   console.log('Email sent:', info);
-    //  return res.json(info);
-
-    //     // Return a success message
-    //     return res.json({ msg: 'Email sent successfully' });
-    //   } catch (error) {
-    //     console.error('Error sending email:', error.message);
-    //     return res.status(500).json({ error: 'Internal Server Error' });
   } catch (error) {
     next(error);
     return res.json(error);
