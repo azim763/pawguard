@@ -412,13 +412,13 @@ const PetLogForm = ({
               {formMode === "create" ?
                 <Button
                   variant="yellow"
-                  label="save"
+                  label="Save"
                   size="dk-md-s"
                   onClick={handleAdditionalInfoSubmit}
                 /> :
                 <Button
                   variant="yellow"
-                  label="delete"
+                  label="Delete"
                   size="dk-md-s"
                   onClick={handleAdditionalInfoSubmit}
                 />}
