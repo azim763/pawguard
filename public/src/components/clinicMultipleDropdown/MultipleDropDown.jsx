@@ -33,6 +33,7 @@ export default function MultipleDropDown({
             fontWeight: "400",
             fontSize: "16px",
             lineHeight: "19.4px",
+            // marginLeft: "5px",
           },
           chips: {
             background: "var(--dark-blue)",
@@ -45,7 +46,7 @@ export default function MultipleDropDown({
             display: "inline-block",
             margin: "0",
             height: "auto",
-            paddingLeft: "5px",
+            // paddingLeft: "5px",
           },
           searchBox: {
             // fontSize: "20px",
@@ -58,6 +59,7 @@ export default function MultipleDropDown({
             lineHeight: "19.4px",
             display: "flex",
             flexFlow: "wrap",
+            // paddingLeft: "5px",
           },
           optionContainer: {
             maxHeight: "500px",
