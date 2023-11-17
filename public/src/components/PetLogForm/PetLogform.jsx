@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef  } from "react";
 import styles from "../PetLogForm/PetLogForm.module.css";
 import TextInput from "../TextInput/TextInput";
 import Typography from "../Typography/Typography";
@@ -25,6 +25,7 @@ const PetLogForm = ({
   formMode,
 }) => {
   // const [pets,setPets] =useState([]);
+  const petLogFormRef = useRef();
 
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState();
@@ -88,6 +89,12 @@ const PetLogForm = ({
         console.log(response);
         console.log("Data submitted");
         setFormData(initialFormData);
+       
+          petLogFormRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
@@ -171,7 +178,7 @@ const PetLogForm = ({
   };
 
   return (
-    <div className={styles.petLogFormsAndFoodForm}>
+    <div className={styles.petLogFormsAndFoodForm} ref={petLogFormRef} >
       {/* <div>
         <PetLogCard />
       </div> */}

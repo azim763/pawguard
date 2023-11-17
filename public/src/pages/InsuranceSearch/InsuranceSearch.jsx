@@ -386,7 +386,7 @@ const InsuranceSearch = () => {
                 onChange={handleBreedChange}
                 placeholder="Select a breed"
                 // defaultValue="Select a breed"
-                options={selectedPetType === "cat" ? catBreeds : dogBreeds}
+                options={selectedPetType === "Cat" ? catBreeds : dogBreeds}
                 size="ml"
               />
             </div>
