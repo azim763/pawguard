@@ -28,12 +28,6 @@ const AboutUs = () => {
       [name]: value,
     });
   };
-
-  // const onClickHandler = async (e) => {
-  //   e.preventDefault();
-  //   console.log("email sent!");
-  // };
-
   const handleLoginClick = () => {
     navigate("/login");
   };
@@ -64,7 +58,7 @@ const AboutUs = () => {
           </div>
         </div>
         <div className={styles.abtUs2}>
-          <div style = {{ maxWidth: '1130px', margin: 'auto'}}>
+          <div style = {{ maxWidth: '1440px', margin: 'auto'}}>
             <Typography variant="h2-poppins-semibold" color="almost-black">
               <div className={styles.title1}>Explore Our System</div>
             </Typography>
@@ -75,7 +69,7 @@ const AboutUs = () => {
             </Typography>
             <div className={styles.abtUs2Images}>
               <div>
-                <AbtUs2SVG />
+                <AbtUs2SVG/>
                 <AboutUsFeature
                   title="Pet Health Tracking"
                   description="Track and record your pet’s health, medications and appointments"
@@ -100,7 +94,7 @@ const AboutUs = () => {
         </div>
 
         <div className={styles.abtUs3}>
-          <div style = {{ maxWidth: '1130px', margin: 'auto'}}>
+          <div style = {{ maxWidth: '1440px', margin: 'auto'}}>
             <Typography variant="h2-poppins-semibold" color="almost-black">
               <div className={styles.title1}>Our Team</div>
             </Typography>
