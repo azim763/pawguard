@@ -50,6 +50,7 @@ export default function Dashboard() {
   const [isLoadingData, setLoadingData] = useState(false);
 
 
+
   const currentDate = new Date();
   const formattedCurrentDate = `${currentDate.getDate()}-${
     currentDate.getMonth() + 1
@@ -70,6 +71,7 @@ export default function Dashboard() {
     const fetchData = async () => {
       if (currentUser) {
         try {
+          setLoadingData(true)
           const responsePets = await axios.get(searchPetsByUserIDRoute, {
             params: { userID: currentUser._id },
           });
@@ -81,6 +83,10 @@ export default function Dashboard() {
           }
         } catch (error) {
           console.error("Error fetching pets:", error);
+        }
+        finally{
+          setLoadingData(false);
+  
         }
       }
     };
@@ -206,7 +212,6 @@ export default function Dashboard() {
         setCurrentUser(userData);
       }
     };
-
     checkLoggedIn();
   }, []);
 
