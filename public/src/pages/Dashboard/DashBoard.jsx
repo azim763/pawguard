@@ -190,11 +190,11 @@ export default function Dashboard() {
 
           const targetDate = new Date(medDate);
           targetDate.setDate(medDate.getDate() + daysToAdd);
-          console.log(`med.MedicationDate: ${med.MedicationDate}`);
-          console.log(`medDate: ${medDate}`);
-          console.log(`daysToAdd: ${daysToAdd}`);
-          console.log(`targetDate: ${targetDate}`);
-          console.log(`currentDate: ${currentDate}`);
+          // console.log(`med.MedicationDate: ${med.MedicationDate}`);
+          // console.log(`medDate: ${medDate}`);
+          // console.log(`daysToAdd: ${daysToAdd}`);
+          // console.log(`targetDate: ${targetDate}`);
+          // console.log(`currentDate: ${currentDate}`);
           return targetDate >= currentDate;
         });
         setMedication(filteredMed);
