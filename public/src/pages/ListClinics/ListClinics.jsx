@@ -80,6 +80,7 @@ const ListClinics = () => {
     const fetchData = async () => {
       try {
         setLoadingData(true)
+        document.body.style.overflow = "hidden"
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -108,6 +109,8 @@ const ListClinics = () => {
       }
       finally{
         setLoadingData(false)
+        document.body.style.overflow = "unset";
+
       }
     };
 
@@ -239,6 +242,7 @@ const ListClinics = () => {
 
   return (
     <LoadingOverlay
+    className={styles.Loader}
     active={isLoadingData}
     spinner={<LoadPage />}
     // text="Loading your content..."
