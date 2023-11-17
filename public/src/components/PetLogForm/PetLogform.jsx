@@ -414,21 +414,14 @@ const PetLogForm = ({
               )}
             </div>
             <div className={styles.buttonStyle}>
-              {formMode === "create" ? (
+              {formMode === "create" &&(
                 <Button
                   variant="yellow"
                   label="Save"
                   size="dk-md-s"
                   onClick={handleAdditionalInfoSubmit}
                 />
-              ) : (
-                <Button
-                  variant="yellow"
-                  label="Delete"
-                  size="dk-md-s"
-                  onClick={handleAdditionalInfoSubmit}
-                />
-              )}
+              ) }
             </div>
           </div>
         </div>
