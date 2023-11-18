@@ -181,10 +181,6 @@ justify-content: center;
 //  align-items: center;
 // background-color: #dedfdc;
 
-@media screen and (max-width: 1000){
-
-}
-
  
   .brand {
     display: flex;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import { changepasswordRoute } from "../utils/APIRoutes";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Button from "../components/Button/Button";
 import Header from "../components/Header/header";
 import loginbackground from "../assets/images/loginback.jpeg";
+import styles from "./changePassword.module.css";
+import Typography from "../components/Typography/Typography";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const ChangePassword = () => {
     draggable: true,
     theme: "dark",
   };
- 
+
   const [values, setValues] = useState({
     password: "",
     confirmPassword: "",
@@ -34,105 +36,113 @@ const ChangePassword = () => {
 
   const handleValidation = () => {
     const { password, confirmNewPassword } = values;
-  // console.log(password);
-  //   console.log(confirmNewPassword);
-  //   console.log((password == confirmNewPassword));
-  
-   if (password !== confirmNewPassword) {
+    // console.log(password);
+    //   console.log(confirmNewPassword);
+    //   console.log((password == confirmNewPassword));
+
+    if (password !== confirmNewPassword) {
       toast.error(
         "Password and confirm password should be same.",
         toastOptions
       );
       return false;
-    }
-    else if (password.length < 8) {
+    } else if (password.length < 8) {
       toast.error(
         "Password should be equal or greater than 8 characters.",
         toastOptions
       );
       return false;
     }
-     return true;
+    return true;
   };
- // const [oldPassword, setOldPassword] = useState('');
+  // const [oldPassword, setOldPassword] = useState('');
 
   const handleChangePassword = async (event) => {
     // Check if the new password and confirm new password match
 
     event.preventDefault();
-    const {  password } = values;
+    const { password } = values;
 
-    
     try {
-   if (handleValidation()) {
-         const response = await axios.put(`${changepasswordRoute}/${userID}`, {
-          password ,rec
-       });
-     console.log( response);
-   
-   if (response.data.status === false) {
-    toast.error(response.data.msg, toastOptions);
-  }else{
-       toast.success("Password updated successfully", toastOptions);
-// navigate("/login"); 
-}
+      if (handleValidation()) {
+        const response = await axios.put(`${changepasswordRoute}/${userID}`, {
+          password,
+          rec,
+        });
+        console.log(response);
 
-  
-  }} catch (error) {
-      console.error('Error updating password:', error.message);
+        if (response.data.status === false) {
+          toast.error(response.data.msg, toastOptions);
+        } else {
+          toast.success("Password updated successfully", toastOptions);
+          // navigate("/login");
+        }
+      }
+    } catch (error) {
+      console.error("Error updating password:", error.message);
     }
-
   };
 
   return (
     <>
-<Header/>
+      <Header />
       <FormContainer>
-
-
-      <div class="parent clearfix">
-    <div class="bg-illustration">
-    </div>
-<div class="signinup">
-        <form action="" onSubmit={(event) => handleChangePassword(event)}>
-          <div className="brand">
-            <h1>Password Recovery</h1>
+        <div class="parent clearfix">
+          <div class="bg-illustration"></div>
+          <div class="signinup">
+            <form action="" onSubmit={(event) => handleChangePassword(event)}>
+              <div className="brand">
+                <Typography variant="h2-poppins-semibold">
+                  Password Recovery
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">Password</Typography>
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  name="password"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">
+                  Confirm Password
+                </Typography>
+                <input
+                  type="password"
+                  placeholder="Confirm your password"
+                  name="confirmNewPassword"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className={styles.submitBtnContainer}>
+                <Button
+                  variant="yellow"
+                  type="submit"
+                  label={"Change Password"}
+                  size="dk-md-s"
+                />
+              </div>
+            </form>
           </div>
-          <input
-            type="password"
-            placeholder="New password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-           
-          />
-          <input
-            type="password"
-            placeholder="Confirm new password"
-            name="confirmNewPassword"
-            onChange={(e) => handleChange(e)}
-            />
-          <Button variant="yellow" type="submit" label={"Change Password"} size="dk-md-s" />
-          <span>
-          Back to ? <Link to="/login">Login.</Link>
-          </span>
-        </form>
         </div>
-        </div> 
       </FormContainer>
       <ToastContainer />
     </>
   );
-}
+};
 
 const FormContainer = styled.div`
-  height: 88vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
+height: 92vh;
+width: 100vw;
+// display: grid;
+// flex-direction: column;
+grid-template-columns: 1fr 1fr;
+justify-content: center;
+// gap: 1rem;
 //  align-items: center;
- // background-color: #dedfdc;
+// background-color: #dedfdc;
  
   .brand {
     display: flex;
@@ -155,7 +165,7 @@ const FormContainer = styled.div`
     gap: 1.2rem;
     // background-color: #fff;
     // border-radius: 2rem;
-    padding: 5rem;
+    padding: 5%;
     overflow: scroll;
     scrollbar-width: none;
   }
@@ -193,12 +203,13 @@ button{
   display: flex;
   gap: 1rem;
   -moz-box-align: center;
-  align-items: center;
+  // align-items: center;
+  // padding: 10%;
  // background-color: rgb(222, 223, 220);
   flex-direction: column;
   -moz-box-pack: center;
   justify-content: center;
-  height: 88vh;
+  height: 92vh;
 }
   .parent{
     display: grid;
@@ -207,7 +218,7 @@ button{
   }
   .bg-illustration {
     position: relative;
-    height: 88vh;
+    height: 92vh;
     width: 894px;
     background: url("${loginbackground}") no-repeat center center scroll;
     background-size: cover;
@@ -224,6 +235,7 @@ button{
     height: auto;
     margin: 19px 0 0 25px;
   }
+
   @media only screen and (min-width: 960px) and (max-width: 1680px) {
     .bg-illustration {
       width: 50vw;
@@ -233,11 +245,17 @@ button{
   
     .signinup {
       width: 50vw;
+      padding: 10%;
     }
+
   }
   }
+ 
 
   @media only screen and (max-width: 960px)
+{
+  grid-template-columns: 1fr;
+
   {
     .parent {
       display: grid;
@@ -247,9 +265,26 @@ button{
       
      display: none;
     }
+
+    form{
+      padding: 0;
+    }
+
+    .signinup{
+      align-items: unset;
+      padding: 10% 20% 0px 20%;
+
+    }
+
+    @media only screen and (max-width: 500px)
+    {
+      .signinup{
+        align-items: unset;
+        padding: 10% 5% 0 5%;
+  
+      }
   }
+
 `;
 
 export default ChangePassword;
-
-
