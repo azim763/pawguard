@@ -33,6 +33,7 @@ export default function MultipleDropDown({
             fontWeight: "400",
             fontSize: "16px",
             lineHeight: "19.4px",
+            // marginLeft: "5px",
           },
           chips: {
             color: "var(--dark-blue)",
