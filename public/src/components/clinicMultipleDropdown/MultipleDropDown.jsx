@@ -41,6 +41,7 @@ export default function MultipleDropDown({
             fontSize: "18px",
             // display: 'inline-block',
             margin: "0px",
+            // marginRight: '8px',
             borderRadius: '8px',
             padding: '8px',
           },
@@ -63,7 +64,8 @@ export default function MultipleDropDown({
             lineHeight: "19.4px",
             display: "flex",
             flexFlow: "wrap",
-            padding: "12px"
+            padding: "12px",
+            gap: '8px',
           },
           optionContainer: {
             maxHeight: "500px",
