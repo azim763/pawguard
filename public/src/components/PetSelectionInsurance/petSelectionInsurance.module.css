@@ -10,6 +10,10 @@
   background-color: var(--pearl-blue);
 }
 
+.petSelection.notSelected {
+  background-color: white;
+}
+
 .imageContainer {
   display: flex;
   flex-direction: column;

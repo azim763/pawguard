@@ -32,7 +32,7 @@ export default function App() {
         {/* <Route path="/sendemail" element={<Forgetpassword />} /> */}
         {/* <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route path="/sendemail" element={<sendEmail />} />
+        {/* <Route path="/sendemail" element={<sendEmail />} /> */}
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<DashBoard />} />
         <Route path="/getinsurances" element={<InsuranceSearch />} />

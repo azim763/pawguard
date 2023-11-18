@@ -1,0 +1,36 @@
+input, select, textarea {
+margin-top: 8px;
+}
+
+.input {
+    height: 54px;
+    padding: 0px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: 1px solid var(--almost-black);    
+}
+
+.small {
+    width: 95px;
+  }
+  
+  .sm {
+    width: 210px;
+  }
+  
+  .md {
+    width: 325px;
+  }
+  
+  .ml {
+    width: 470px;
+  }
+  
+  .large {
+    width: 555px;
+  }
+
+  .full {
+    width: 100%;
+  }
+  

@@ -1,0 +1,90 @@
+.container {
+  width: 100%;
+  border: 1.5px solid var(--border-grey);
+  border-radius: 8px;
+  padding: 10px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 1rem;
+  row-gap: 14px;
+  background-color: var(--white-white);
+}
+
+.grid {
+  grid-column: 1/-1;
+}
+
+.ophrs {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 1rem;
+  margin-bottom: 14px;
+}
+
+.OperationTitle {
+  grid-column: 1/-1;
+  margin-bottom: 24px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  /* grid-column: 1/-1; */
+}
+
+.entry {
+  padding: 5px 0;
+}
+
+.entryContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day {
+  text-align: left;
+  width: 30%; /* change this value for sdjusting spacing between the hrs and days*/
+}
+
+.hours {
+  text-align: right;
+  width: 90%;
+}
+
+.viewMore {
+  text-align: right;
+}
+
+.viewMore button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.viewMoreContainer {
+  margin-right: 5px;
+}
+
+.gridMobile {
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .viewMoreButton {
+    display: block; 
+  }
+
+  .gridMobile {
+    display: block;
+    grid-column: 1/-1;
+  }
+
+  .grid {
+    display: none;
+  }
+}

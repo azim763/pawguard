@@ -1,0 +1,82 @@
+.inactive {
+  border-radius: 8px;
+  width: 230px;
+  height: 54px;
+  background-color: var(--white-white);
+  color: var(--almost-black);
+  border: 1px solid var(--almost-black);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 5px;
+}
+
+.active {
+  background-color: #d4eaee;
+  border: 1px solid var(--almost-black);
+  font-weight: 500;
+  font-size: 24px;
+  width: 230px;
+  height: 54px;
+  border-radius: 8px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 5px;
+}
+
+/* mobile */
+
+@media screen and (max-width: 700px) {
+  .buttonGroup {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .inactive,
+  .active {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .inactive,
+  .active {
+    /* border-radius: 8px; */
+    /* min-width: 150px; */
+    height: 48px;
+    /* background-color: var(--white-white);
+    color: var(--almost-black);
+    border: 1px solid var(--almost-black);
+    font-weight: 500;
+    font-size: 20px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.8px;
+    margin: 5px; */
+  }
+
+  /* .active {
+    background-color: var(--pearl-blue);
+    border-radius: 8px;
+    min-width: 150px;
+    height: 48px;
+    color: var(--almost-black);
+    border: 1px solid var(--almost-black);
+    font-weight: 500;
+    font-size: 20px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21.8px;
+    margin: 5px;
+  } */
+}
