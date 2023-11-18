@@ -20,7 +20,7 @@
 }
 
 .coverBackground {
-  background-image: url("../../assets/images/clinicImage.webp");
+  background-image: url("../../assets/images/clinicImage.jpg");
   background-size: cover;
   background-blend-mode: multiply;
   height: 50vh;

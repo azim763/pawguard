@@ -10,8 +10,7 @@ import AboutUsProfile from "../../components/AboutUsProfile/AboutUsProfile";
 import AbtUs1SVG from "../../components/SVG/AbtUs1SVG";
 import AbtUs2SVG from "../../components/SVG/AbtUs2SVG";
 import AbtUs3SVG from "../../components/SVG/AbtUs3SVG";
-import image from "./../../assets/image-03.webp";
-//import image1 from "./../../assets/image-764.webp";
+import image from "./../../assets/image-03.png";
 import image1 from "./../../assets/aboutus.png";
 
 const AboutUs = () => {
