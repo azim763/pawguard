@@ -10,7 +10,6 @@ import Button from "../../components/Button/Button";
 import Typography from "../../components/Typography/Typography";
 import DatePicker from "../../components/DatePicker/DatePicker";
 import Header from "../../components/Header/header";
-import ImageSVG from "../../components/SVG/ImageSVG";
 import MultipleDropDown from "../../components/clinicMultipleDropdown/MultipleDropDown";
 import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
 import { ToastContainer, toast } from "react-toastify";
@@ -264,9 +263,10 @@ const AddPet = () => {
       <div className={styles.addPetForm}>
         <form action="/submit" method="post" onSubmit={onClickHandler}>
           <div className={styles.addPetImage}>
-            <div className={styles.imageUpload}>
+            {/* <div className={styles.imageUpload}>
               <ImageSVG />
-            </div>
+            </div> */}
+            <ImageDisplay PetImageData={selectedImage}/>
             <SingleImageUpload
               label="Add Pet Image"
               onImageUpload={handleImageUpload}

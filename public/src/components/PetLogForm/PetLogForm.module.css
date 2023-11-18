@@ -115,6 +115,23 @@
   gap: 1rem;
 }
 
+.petLogImage > div:nth-of-type(3) > div:first-of-type {
+  width: 200px;
+  height: 200px;
+  background-color: var(--white-white);
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+}
+
+.imageUpload svg {
+  width: 30px;
+  height: 30px;
+}
+
 @media screen and (max-width: 768px) {
   /* .formSubheading {
     width: 82%;
@@ -164,10 +181,5 @@
   .petLogFormsAndFoodForm .petLogFormGeneral .petUnit input{
     width: 65px;
   }
-}
-
-.petLogImage div img {
-  width: 200px;
-  height: 200px;
 }
 
