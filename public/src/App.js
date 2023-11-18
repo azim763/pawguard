@@ -4,7 +4,7 @@ import SetAvatar from "./components/SetAvatar";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import sendEmail from "./pages/sendEmail";
+// import sendEmail from "./pages/sendEmail";
 import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
