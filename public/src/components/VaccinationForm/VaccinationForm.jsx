@@ -8,8 +8,18 @@ import { createPetVaccinationRoute } from "../../utils/APIRoutes.js";
 import axios from "axios";
 import CloseSVG from "../SVG/CloseSVG";
 import Dropdown from "../Dropdown/Dropdown";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVacForm }) => {
+
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
   const [formData, setFormData] = useState({
     PetID: "",
@@ -92,6 +102,8 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
         // ...
+        toast.success("Vaccination Added Successfully", toastOptions);
+
 
         onVaccinationSubmit(updatedFormData);
 

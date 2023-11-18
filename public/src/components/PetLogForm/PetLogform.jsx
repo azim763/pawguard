@@ -98,6 +98,8 @@ const PetLogForm = ({
             inline: 'nearest',
           });
       }
+      toast.success("Petlog Added Successfully", toastOptions);
+
 
       }
     } else {

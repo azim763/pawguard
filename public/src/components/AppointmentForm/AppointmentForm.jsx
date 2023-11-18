@@ -12,6 +12,8 @@ import {
 } from "../../utils/APIRoutes";
 import AutocompleteComponent from "../AutocompleteTextfield/AutocompleteTextfield";
 import CloseSVG from "./../SVG/CloseSVG";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppointmentForm = ({
   selectedPet,
@@ -21,6 +23,13 @@ const AppointmentForm = ({
 }) => {
   const [appointmentDate, setAppointmentDate] = useState(new Date());
   const [clinicData, setClinicData] = useState([]);
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
 
   useEffect(() => {
     axios
@@ -84,12 +93,11 @@ const AppointmentForm = ({
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-        // ...
         onAppointmentSubmit(updatedFormData);
-        // You can further handle the response here, such as displaying a success message to the user.
+        toast.success("Appointment Added Successfully", toastOptions);
+
       } catch (error) {
         console.error("Error submitting form:", error);
-        // Handle the error, e.g., display an error message to the user.
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");

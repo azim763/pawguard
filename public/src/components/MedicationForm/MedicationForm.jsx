@@ -102,6 +102,8 @@ const MedicationForm = ({
           console.log("Response from server:", response);
           // ...
           onMedicationSubmit(updatedFormData);
+          toast.success("Medication Added Successfully", toastOptions);
+
         } catch (error) {
           console.error("Error submitting form:", error);
           toast.error("Error submitting form.", toastOptions);
