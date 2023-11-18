@@ -9,6 +9,7 @@ export default function MultipleDropDown({
   onSelect,
   selectedValues,
   placeholder,
+  ...props
 }) {
   const handleSelectionChange = (selectedList) => {
     onSelect(selectedList);
@@ -71,6 +72,7 @@ export default function MultipleDropDown({
             maxHeight: "500px",
           },
         }}
+        {...props}
       />
     </div>
   );
