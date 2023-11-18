@@ -5,7 +5,7 @@
   gap: 12px;
   padding: 125px 20px 45px;
 }
-.Loader{
+.Loader {
   height: 100vh;
 }
 
@@ -87,7 +87,6 @@
   margin-top: 8px;
 }
 
-
 .graphTitle {
   margin-bottom: 30px;
   margin-top: 53px;
@@ -117,11 +116,11 @@
   background-color: var(--almost-black);
 }
 
-.marginIcon{
+.marginIcon {
   margin-right: 10px;
 }
 
-.marginIconArr{
+.marginIconArr {
   margin-left: 10px;
 }
 
@@ -132,7 +131,7 @@
 
   .dashboardContainer > div:nth-of-type(2) {
     padding: 20px 30px;
-}
+  }
 
   .dashboardContainer > div:not(.petCardList) {
     max-width: 100%;
@@ -156,12 +155,21 @@
   }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1090px) {
+  .dashboardContainer > div:not(.petCardList) {
+    max-width: none;
+    width: auto;
+  }
+
   .dashboardPetCard {
     display: flex;
     flex-flow: column nowrap;
-    max-width: 158px !important;
+    max-width: 140px !important;
     padding: 40px 20px !important;
+  }
+
+  .middleContainer {
+    max-width: 550px !important;
   }
 
   .dashboardPetCard > div:first-of-type {
@@ -200,6 +208,7 @@
     max-width: 1440px;
     margin: auto;
     box-sizing: content-box;
+    justify-content: center;
   }
 
   .dashboardContainer > div:last-of-type {
