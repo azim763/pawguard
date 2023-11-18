@@ -1,8 +1,0 @@
-.InsuranceCoverageheaderCovered{
-    color:var(--some-green)
-}
-
-.InsuranceCoverage{
-    display: grid;
-    gap: 35px;
-}
