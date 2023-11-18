@@ -182,7 +182,7 @@ const DashCalendar = ({ petAppointments, petMedications }) => {
 
       {selectedDate &&
         getSelectedEvents().length > 0 && (
-          <div style={{ padding: "12px" }}>
+          <div>
             <Typography
               variant="sub-poppins-medium"
               color="dark-blue"
