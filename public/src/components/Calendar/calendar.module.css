@@ -72,7 +72,7 @@
 }
 }
 
-@media screen and (min-width: 1220px) {
+@media screen and (min-width: 1000px) {
   .calendar {
     grid-template-columns: 1fr;
   }
