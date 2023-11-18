@@ -1,0 +1,57 @@
+
+.signUpContainer{
+    height: 100vh
+}
+
+.forgetPW a,
+.createAcContainer a {
+  color: var(--dark-blue);
+  text-decoration: underline;
+}
+
+.forgetPW a:hover,
+.createAcContainer a:hover {
+  color: var(--almost-black);
+}
+
+.pwContainer,
+.usernameContainer {
+  width: 440px;
+}
+
+.submitContainer {
+  margin: 28px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createAcContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+@media screen and (max-width: 1150px) {
+  .pwContainer,
+  .usernameContainer {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .pwContainer,
+  .usernameContainer {
+    min-width: 320px;
+  }
+
+  .submitContainer button{
+    width: 190px;
+  }
+
+  .createAcContainer{
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+}
