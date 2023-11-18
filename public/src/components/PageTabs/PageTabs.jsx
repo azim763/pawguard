@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./PageTabs.module.css";
+import Typography from "../Typography/Typography";
 
 const { active } = styles;
 
@@ -25,6 +26,7 @@ const PageTabs = ({ tabs, onTabChange }) => {
     <div className={styles.pageTabs}>
       <ul className={styles.desktopView}>
         {tabs.map((tab, index) => (
+          <Typography variant="body2-poppins-medium">
           <li
             key={index}
             className={`desktop-tab ${index === activeIndex ? active : ""}`}
@@ -32,6 +34,7 @@ const PageTabs = ({ tabs, onTabChange }) => {
           >
             {tab}
           </li>
+          </Typography>
         ))}
       </ul>
 
@@ -41,9 +44,11 @@ const PageTabs = ({ tabs, onTabChange }) => {
         )}
 
         <div className={styles.mobileTabContent}>
+          <Typography variant="body1-poppins-semibold">
           <div className={`mobile-tab ${active}`}>
             {tabs[activeIndex]}
           </div>
+          </Typography>
         </div>
 
         {tabs.length > 1 && (

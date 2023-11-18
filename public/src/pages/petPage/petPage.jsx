@@ -597,8 +597,8 @@ const PetPage = () => {
   return (
     <LoadingOverlay
       active={isLoadingData}
-      spinner={<LoadPage />}
-      // text="Loading your content..."
+      // spinner={text}
+      text="Loading your content..."
     >
       <div className={styles.petPageMain}>
         <Header> </Header>

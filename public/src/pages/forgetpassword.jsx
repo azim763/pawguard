@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import { sendmailRoute } from "../utils/APIRoutes";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -10,17 +10,18 @@ import "react-toastify/dist/ReactToastify.css";
 import Button from "../components/Button/Button";
 import Header from "../components/Header/header";
 import loginbackground from "../assets/images/loginback.jpeg";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
+import Typography from "../components/Typography/Typography";
+import styles from "./forgetPassword.module.css";
 
 //console.log("hi");
 const ForgetPassword = () => {
   const navigate = useNavigate();
- // const location = useLocation();
-// const { userID } = useParams();
+  // const location = useLocation();
+  // const { userID } = useParams();
   //const { rec } = useParams();
 
   const [loading, setLoading] = useState(false);
-
 
   const toastOptions = {
     position: "bottom-right",
@@ -31,7 +32,7 @@ const ForgetPassword = () => {
   };
   //console.log("hi2");
   const [values, setValues] = useState({
-    email: ""
+    email: "",
   });
 
   const handleChange = (event) => {
@@ -52,67 +53,58 @@ const ForgetPassword = () => {
   };
   // const [oldPassword, setOldPassword] = useState('');
 
-//   const handleChangePassword = async (event) => {
-//     // Check if the new password and confirm new password match
+  //   const handleChangePassword = async (event) => {
+  //     // Check if the new password and confirm new password match
 
-//     event.preventDefault();
-//     const { email } = values;
+  //     event.preventDefault();
+  //     const { email } = values;
 
+  //     try {
+  //       if (handleValidation()) {
 
-//     try {
-//       if (handleValidation()) {
+  // //   sendmail
 
-
-// //   sendmail
-
-
-//       }
-//     } catch (error) {
-//       console.error('Error sending Email:', error.message);
-//     }
-//   };
-
+  //       }
+  //     } catch (error) {
+  //       console.error('Error sending Email:', error.message);
+  //     }
+  //   };
 
   const sendEmail = async (event) => {
     event.preventDefault();
 
     setLoading(true);
 
- try {
-    const { email } = values;
-    // console.log(email); 
-    //  const { data } = await axios.post(`${sendmailRoute}`, {
-    //   email,
-    // });
-    // console.log(data); 
+    try {
+      const { email } = values;
+      // console.log(email);
+      //  const { data } = await axios.post(`${sendmailRoute}`, {
+      //   email,
+      // });
+      // console.log(data);
 
+      const host = window.location.origin;
+      console.log(email);
+      console.log(host);
+      if (handleValidation()) {
+        console.log(email);
+        //  console.log(userID);
+        const response = await axios.post(`${sendmailRoute}`, {
+          email,
+          host,
+        });
+        //console.log(response.data);
+        if (response.data.status === false) {
+          toast.error(response.data.msg, toastOptions);
+        } else {
+          toast.success(response.data.msg, toastOptions);
+        }
 
-const host = window.location.origin;
-    console.log(email); 
-  console.log(host);
-   if (handleValidation()) {
-    console.log(email); 
-  //  console.log(userID); 
-      const response = await axios.post(`${sendmailRoute}`, {
-        email , host
-     });
-//console.log(response.data);
-     if (response.data.status === false) {
-      toast.error(response.data.msg, toastOptions);
-    }
-    else{
-      
-     toast.success(response.data.msg, toastOptions);
-
-    }
-
-   console.log(response.data); 
-  }
-
-
+        console.log(response.data);
+      }
     } catch (error) {
       toast.error("Email is not valid.", toastOptions);
-      console.error('Error sending email:', error);
+      console.error("Error sending email:", error);
     }
     setLoading(false);
   };
@@ -122,26 +114,52 @@ const host = window.location.origin;
       <Header />
       <FormContainer>
         <div class="parent clearfix">
-          <div class="bg-illustration">
-          </div>
+          <div class="bg-illustration"></div>
           <div class="signinup">
             <form action="" onSubmit={(event) => sendEmail(event)}>
               <div className="brand">
-                <h1>Password Recovery</h1>
+                <Typography variant="h2-poppins-semibold">
+                  Password Recovery
+                </Typography>
+                <div>
+                  <Typography
+                    variant="body2-poppins-medium"
+                    color="small-text-gray"
+                  >
+                    Enter the email associated with your account and we’ll send
+                    an email with instructions to reset your password.
+                  </Typography>
+                </div>
               </div>
-              <input
-                type="email"
-                placeholder="Email"
-                name="email"
-                onChange={(e) => handleChange(e)}
-              />
+              <div className={styles.emailContainer}>
+                <Typography variant="body2-poppins-medium">Email</Typography>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  name="email"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
               {loading ? (
-          <p>Sending Email...</p>
-        ) : (
-              <Button variant="yellow" type="submit" label={"Send"} size="dk-md-s" />)}
-              <span>
-                Back to ? <Link to="/login">Login.</Link>
-              </span>
+                <p>Sending Email...</p>
+              ) : (
+                <div className={styles.submitBtnContainer}>
+                  <Button
+                    variant="yellow"
+                    type="submit"
+                    label={"Send"}
+                    size="dk-md"
+                  />
+                </div>
+              )}
+              <div className={styles.createAcContainer}>
+                <Typography variant="body2-poppins-medium">
+                  Don’t have account yet?
+                </Typography>
+                <Typography variant="body1-poppins-semibold">
+                  <Link to="/register">Create Account</Link>
+                </Typography>
+              </div>
             </form>
           </div>
         </div>
@@ -149,23 +167,28 @@ const host = window.location.origin;
       <ToastContainer />
     </>
   );
-}
+};
 
 const FormContainer = styled.div`
-  height: 88vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
+height: 92vh;
+width: 100vw;
+display: grid;
+// flex-direction: column;
+grid-template-columns: 1fr 1fr;
+justify-content: center;
+// gap: 1rem;
 //  align-items: center;
- // background-color: #dedfdc;
+// background-color: #dedfdc;
+
  
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
-    justify-content: center;
+    // justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 45px;
     img {
       height: 5rem;
     }
@@ -177,21 +200,26 @@ const FormContainer = styled.div`
   }
 
   form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+    display: grid;
+    // flex-direction: column;
+    gap: 12px;
     // background-color: #fff;
     // border-radius: 2rem;
-    padding: 5rem;
-    overflow: scroll;
-    scrollbar-width: none;
+    // padding: 5rem;
+    // overflow: scroll;
+    // scrollbar-width: none;
+    padding: 20%;
+    // justify-items: center
+    
   }
+
+
   input {
-    background-color: transparent;
+    background-color: var(--white-white);
     padding: 1rem;
-    border: 0.1rem solid #54656f;
+    border: 0.1rem solid var(--almost-black);
     border-radius: 0.4rem;
-    color: #54656f;
+    color: var(--small-text-gray);
     width: 100%;
     font-size: 1rem;
     &:focus {
@@ -234,7 +262,7 @@ button{
   }
   .bg-illustration {
     position: relative;
-    height: 88vh;
+    height: 92vh;
     width: 894px;
     background: url("${loginbackground}") no-repeat center center scroll;
     background-size: cover;
@@ -264,8 +292,14 @@ button{
   }
   }
 
+  @media only screen and (max-width: 1300px) {
+    form {
+      padding: 10%;
+    }
+
   @media only screen and (max-width: 960px)
   {
+    grid-template-columns: auto; 
     .parent {
       display: grid;
       grid-template-columns: auto ;
@@ -274,9 +308,27 @@ button{
       
      display: none;
     }
+
+    form {
+      padding: 60px 20% 0;
+    }
   }
+
+  @media only screen and (max-width: 750px) {
+    form {
+      padding: 20% 20% 0;
+    }
+
+    .brand{
+      margin-bottom: 10px;
+    }
+  }
+
+    @media only screen and (max-width: 600px) {
+      form {
+        padding: 20% 5% 0;
+      }
+
 `;
 
 export default ForgetPassword;
-
-

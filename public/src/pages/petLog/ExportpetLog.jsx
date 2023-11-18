@@ -425,7 +425,7 @@ const ExportpetLog = () => {
               </table>
             </div>
 
-            <div style={generalinfo}>
+            {/* <div style={generalinfo}>
               Meal Graph
             </div>
             <div>
@@ -447,7 +447,7 @@ const ExportpetLog = () => {
             </div>
             <div>
 
-            </div>
+            </div> */}
 
             <div>
             </div>

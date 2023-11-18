@@ -34,7 +34,7 @@ const PetLogForm = ({
 
   const initialFormData = {
     PetID: "",
-    Weight: 0,
+    Weight: 30,
     ActivityLevel: "",
     UrineAmount: "",
     StoolAmount: "",
@@ -89,11 +89,17 @@ const PetLogForm = ({
         console.log(response);
         console.log("Data submitted");
         setFormData(initialFormData);
-       
+        setLogDate("")
+        if (petLogFormRef.current) {
+
           petLogFormRef.current.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
+            inline: 'nearest',
           });
+      }
+      toast.success("Petlog Added Successfully", toastOptions);
+
 
       }
     } else {
@@ -116,10 +122,6 @@ const PetLogForm = ({
       toast.error("Stool Amount is required.", toastOptions);
       return false;
     }
-    // } else if (StoolAppearance === "") {
-    //   toast.error("Stool Appearance is required.", toastOptions);
-    //   return false;
-    // }
     return true;
   };
 
@@ -154,17 +156,7 @@ const PetLogForm = ({
     { label: "Normal ", value: "Normal" },
     { label: "Low ", value: "Low" },
   ];
-  // const handleDateChange = (e) => {
-  //   const { name, value } = e.target;
-  //   const [year, month, day] = value.split("T")[0].split("-");
-  //   const resultDate = `${day}-${month}-${year}`;
 
-  //   setFoodData({
-  //     ...foodData,
-  //     [name]: resultDate,
-  //   });
-  //   setFoodDate(value);
-  // };
   const handleLogDateChange = (e) => {
     const { name, value } = e.target;
     const [year, month, day] = value.split("T")[0].split("-");
@@ -178,11 +170,11 @@ const PetLogForm = ({
   };
 
   return (
-    <div className={styles.petLogFormsAndFoodForm} ref={petLogFormRef} >
+    <div className={styles.petLogFormsAndFoodForm}>
       {/* <div>
         <PetLogCard />
       </div> */}
-      <div className={styles.petLogContainer}>
+      <div className={styles.petLogContainer} ref={petLogFormRef}>
         <div className={styles.petLogTitle}>
           <Typography variant="h2-poppins-semibold">
             {formMode === "create"
@@ -226,6 +218,8 @@ const PetLogForm = ({
                     <TextInput
                       id="Weight"
                       name="Weight"
+                      propInputValue={formData.Weight}
+
                       // label="Pet Weight"
                       placeholder="30"
                       onChange={handleInputChange}
@@ -370,6 +364,7 @@ const PetLogForm = ({
                   id="Notes"
                   cols="30"
                   rows="10"
+                  value={formData.Notes}
                   placeholder="Enter Observations for your pet."
                   onChange={handleInputChange}
                   className={styles.petLogTextarea}
@@ -416,8 +411,10 @@ const PetLogForm = ({
                   />
                 </div>
               )}
-              {formMode === "view" && selectedLog && selectedLog.Notes && (
-                <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
+              {formMode === 'view' && selectedLog && selectedLog.Notes && (
+                <div>
+                  <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
+                </div>
               )}
             </div>
             <div className={styles.buttonStyle}>

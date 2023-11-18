@@ -213,9 +213,10 @@ export default function Dashboard() {
 
   return (
     <LoadingOverlay
+    className={styles.Loader}
       active={isLoadingData}
-      spinner={<LoadPage />}
-      // text="Loading your content..."
+      // spinner={text}
+      text="Loading your content..."
     >
       <div>
         <Header />
