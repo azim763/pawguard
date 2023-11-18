@@ -217,7 +217,7 @@
   .clinicSearch {
     grid-template-columns: unset;
     width: 100%;
-    row-gap: 20px;
+    row-gap: 40px;
   }
 
   .petSelection {
