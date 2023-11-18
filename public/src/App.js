@@ -4,7 +4,7 @@ import SetAvatar from "./components/SetAvatar";
 import DashBoard from "./pages/Dashboard/DashBoard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import sendEmail from "./pages/sendEmail";
+// import sendEmail from "./pages/sendEmail";
 import "./utils/variable.css";
 import InsuranceDetails from "./pages/InsuranceDetails/InsuranceDetails";
 import ListInsurances from "./pages/ListInsurances/ListInsurances";
@@ -32,7 +32,7 @@ export default function App() {
         {/* <Route path="/sendemail" element={<Forgetpassword />} /> */}
         {/* <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route path="/sendemail" element={<sendEmail />} />
+        {/* <Route path="/sendemail" element={<sendEmail />} /> */}
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<DashBoard />} />
         <Route path="/getinsurances" element={<InsuranceSearch />} />

@@ -1,0 +1,19 @@
+.petCard img {
+  border-radius: 50%;
+  /* max-width: 100px;
+  max-height: 100px; */
+  box-sizing: border-box;
+  object-fit: cover;
+  border: 2px solid var(--small-text-gray);
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.petCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  /* margin-bottom: 20px; */
+}

@@ -1,0 +1,42 @@
+
+.dropdown {
+  box-sizing: border-box;
+  height: 54px;
+  padding-left: 13px;
+  padding-right: 8px;
+  border-radius: 8px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.4px;
+  width: 100%;
+  border-color: var(--almost-black);
+  color: var(--small-text-gray);
+}
+
+.small {
+  width: 95px;
+}
+
+.sm {
+  width: 210px;
+}
+
+.md {
+  width: 325px;
+}
+
+.ml {
+  width: 470px;
+}
+
+.large {
+  width: 555px;
+}
+
+.round{
+  border-radius: 20px;
+  width: 280px;
+  height: 42px;
+}

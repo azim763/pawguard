@@ -6,6 +6,9 @@
   gap: 12px;
   padding: 125px 20px 45px;
 }
+.Loader{
+  height: 100vh;
+}
 
 .middleContainer {
   width: 100%;

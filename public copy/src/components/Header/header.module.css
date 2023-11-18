@@ -1,0 +1,124 @@
+nav {
+  background-color: var(--dark-blue);
+  color: var(--off-white);
+  margin: 0 auto;
+  width: 100%;
+}
+nav > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 64px;
+  box-sizing: content-box;
+  max-width: 1130px;
+  margin: auto;
+  max-height: 12vh;
+}
+
+nav > div > svg {
+  width: 100%;
+  height: auto;
+  max-width: 225px;
+}
+
+.RightNav > ul {
+  display: inline;
+  /* height: 10vh; */
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  align-content: center;
+  margin: 0;
+}
+
+nav div ul li {
+  list-style: none;
+  align-items: center;
+}
+
+nav li a {
+  color: var(--pearl-blue);
+}
+
+nav li a:active {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+nav li a:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+.profileIcon > div:first-of-type {
+  display: flex;
+  align-items: center;
+}
+
+.profileIcon {
+  position: relative;
+}
+
+.profileMenu {
+  background-color: #FDFDFD;
+  position: absolute;
+  top: 50px;
+  right: 5px;
+}
+
+.profileMenu ul{
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px;
+}
+
+.profileMenu ul li:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 870px) {
+  nav > div {
+    padding: 16px 12px;
+  }
+  nav div ul li {
+    padding-top: 16px;
+  }
+
+  .RightNav ul {
+    display: none;
+  }
+
+  .menuOpen ul {
+    display: flex;
+    flex-flow: column nowrap;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: var(--dark-blue);
+    width: 30vw;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(0); /* Slide the menu in from the right */
+    transition: all 1s ease-in-out;
+    z-index: 99;
+  }
+
+  .profileMenu a div {
+    color: var(--pearl-blue);
+  }
+
+  .profileMenu button {
+    background-color: transparent !important;
+  }
+
+  .profileMenu button div {
+    color: var(--pearl-blue) !important;
+  }
+}

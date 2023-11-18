@@ -9,7 +9,8 @@ import { registerRoute } from "../utils/APIRoutes";
 import loginbackground from "../assets/images/loginback.jpeg";
 import Button from "../components/Button/Button";
 import Header from "../components/Header/header";
-import stylle from "../assets/css/common.css"
+import styles from "./register.module.css";
+import Typography from "../components/Typography/Typography";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -21,8 +22,8 @@ export default function Register() {
     theme: "dark",
   };
   const [values, setValues] = useState({
-    firstname:"",
-    lastname:"",
+    firstname: "",
+    lastname: "",
     username: "",
     email: "",
     password: "",
@@ -40,16 +41,15 @@ export default function Register() {
   };
 
   const handleValidation = () => {
-    const {firstname, lastname,  password, confirmPassword, username, email } = values;
-     if (firstname.length <1) {
+    const { firstname, lastname, password, confirmPassword, username, email } =
+      values;
+    if (firstname.length < 1) {
       toast.error("First name is required.", toastOptions);
       return false;
-    }
-    else if (lastname .length <1) {
+    } else if (lastname.length < 1) {
       toast.error("Last name is required.", toastOptions);
       return false;
-    }
-else if (password !== confirmPassword) {
+    } else if (password !== confirmPassword) {
       toast.error(
         "Password and confirm password should be same.",
         toastOptions
@@ -71,7 +71,7 @@ else if (password !== confirmPassword) {
       toast.error("Email is required.", toastOptions);
       return false;
     }
-     return true;
+    return true;
   };
 
   const handleSubmit = async (event) => {
@@ -101,61 +101,99 @@ else if (password !== confirmPassword) {
 
   return (
     <>
-    <Header/>
+      <Header />
       <FormContainer>
-      <div class="parent clearfix">
-    <div class="bg-illustration">
-    </div>
-<div class="signinup">
+        <div class="parent clearfix">
+          <div class="bg-illustration"></div>
+          <div class="signinup">
+            <form action="" onSubmit={(event) => handleSubmit(event)}>
+              <div className="brand">
+                <Typography variant="h2-poppins-semibold">
+                  Create Account
+                </Typography>
+              </div>
+              <div className="name">
+                <div>
+                  <Typography variant="body2-poppins-medium">
+                    First Name
+                  </Typography>
+                  <input
+                    type="text"
+                    placeholder="First name"
+                    name="firstname"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+                <div>
+                  <Typography variant="body2-poppins-medium">
+                    Last Name
+                  </Typography>
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    name="lastname"
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">Username</Typography>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">Email</Typography>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  name="email"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">Password</Typography>
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  name="password"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div>
+                <Typography variant="body2-poppins-medium">
+                  Confirm Password
+                </Typography>
+                <input
+                  type="password"
+                  placeholder="Confirm your Password"
+                  name="confirmPassword"
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div className={styles.submitBtnContainer}>
+                <Button
+                  variant="yellow"
+                  type="submit"
+                  label={"Create Account"}
+                  size="dk-md"
+                />
+              </div>
 
-        <form action="" onSubmit={(event) => handleSubmit(event)}>
-          <div className="brand">
-            <h1>Create Account</h1>
+              <div className={styles.loginContainer}>
+                <Typography variant="body2-poppins-medium">
+                  Already have an account?
+                </Typography>
+                <Typography variant="body1-poppins-semibold">
+                  <Link to="/login">Sign In</Link>
+                </Typography>
+              </div>
+            </form>
           </div>
-          <div className="name">
-          <input
-            type="text"
-            placeholder="Firstname"
-            name="firstname"
-            onChange={(e) => handleChange(e)}
-          />
-         <input
-            type="text"
-            placeholder="Lastname"
-            name="lastname"
-            onChange={(e) => handleChange(e)}
-          /></div>
-         <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            onChange={(e) => handleChange(e)}
-          />
-          <Button variant="yellow" type="submit" label={"Create Account"} size="dk-md-s" />
-          <span>
-            Already have an account ? <Link to="/login">Login.</Link>
-          </span>
-        </form>
         </div>
-    </div>
       </FormContainer>
       <ToastContainer />
     </>
@@ -163,7 +201,7 @@ else if (password !== confirmPassword) {
 }
 
 const FormContainer = styled.div`
-  height: 88vh;
+  height: 92vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -177,6 +215,7 @@ const FormContainer = styled.div`
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    margin-bottom: 5px;
     img {
       height: 5rem;
     }
@@ -190,20 +229,20 @@ const FormContainer = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 8px;
     // background-color: #fff;
     // border-radius: 2rem;
-    padding: 2rem;
+    // padding: 2rem;
     max-width: 600px;
-    overflow: scroll;
+    // overflow: scroll;
     scrollbar-width: none;
   }
   input {
-    background-color: transparent;
-    padding: 1rem;
-    border: 0.1rem solid #54656f;
+    background-color: var(--white-white);
+    padding: .7rem;
+    border: 0.1rem solid var(--almost-black);
     border-radius: 0.4rem;
-    color: #54656f;
+    color: var(--small-text-gray);
     width: 100%;
     font-size: 1rem;
     &:focus {
@@ -237,7 +276,7 @@ button{
   flex-direction: column;
   -moz-box-pack: center;
   justify-content: center;
-  height: 88vh;
+  height: 92vh;
 }
   .parent{
     display: grid;
@@ -246,7 +285,7 @@ button{
   }
   .bg-illustration {
     position: relative;
-    height: 88vh;
+    height: 92vh;
     width: 894px;
     background: url("${loginbackground}") no-repeat center center scroll;
     background-size: cover;
@@ -264,7 +303,7 @@ button{
     margin: 19px 0 0 25px;
   }
 .name{
-  display:grid;
+  display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr ;
 }
@@ -278,6 +317,7 @@ button{
   
     .signinup {
       width: 50vw;
+      // padding: 7% 5% 0;
     }
   }
   }
@@ -286,7 +326,7 @@ button{
   {
     .name{
       gap: 1.2rem;
-      grid-template-columns: auto ;
+      // grid-template-columns: auto ;
     }
     .parent {
       display: grid;
@@ -296,5 +336,28 @@ button{
       
      display: none;
     }
+
+
   }
+
+  @media only screen and (max-width: 800px)
+  {
+  form{
+ padding: 3% 0px
+  } 
+  @media only screen and (max-width: 770px)
+  {
+  form{
+    padding: 25% 3% 0;
+  }
+
+  @media only screen and (max-width: 500px)
+  {
+  .name{
+    grid-template-columns: auto ;
+  }
+  form{
+    padding: 60% 4% 0;
+  }
+}
 `;

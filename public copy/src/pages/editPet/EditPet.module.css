@@ -1,0 +1,84 @@
+.editPetHeader{
+    text-align: center;
+    padding: 40px;
+}
+
+.editPetImage div img{
+    width:325px;
+}
+.editPetForm form > div:first-of-type {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.editPetForm form > div:first-of-type > div:first-of-type {
+    margin-bottom: 16px;
+}
+
+.editPetForm form {
+    max-width: 450px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.editPetForm form input, .editPetForm form select, .editPetForm button {
+    width: 100%;
+}
+
+.editPetForm form > div {
+    margin-bottom: 16px;
+}
+
+.petHeight, .petWeight {
+    display: flex;
+    align-items: end;
+}
+
+.petHeight > div:nth-child(2), .petWeight > div:nth-child(2) {
+position: relative;
+bottom: 16px;
+padding-left: 12px;
+}
+
+@media screen and (min-width: 700px) {
+    .editPetForm form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 36px;
+        max-width: 800px;
+        margin: auto;
+        margin-bottom:40px;
+        padding: 0 36px;
+    }
+
+    .editPetForm form > div:first-child, .editPetForm button {
+        grid-column: 1 / -1;
+        max-width: 300px;
+        justify-self: center;
+    }
+}
+
+
+@media screen and (min-width: 1000px) {
+    .editPetForm form {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 75px;
+        max-width: 1130PX;
+    }
+    
+    .editPetForm form div:first-child {
+        grid-column: 1/2;
+        grid-row: 1 / -7;
+    }
+    
+    .editPetForm button {
+        grid-column: 3/4;
+        justify-self: right;
+    }
+    .showImage img{
+        width: 325px;
+        height:325px;
+        object-fit:cover;
+        position: relative;
+    }
+}

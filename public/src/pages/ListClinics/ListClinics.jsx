@@ -242,11 +242,10 @@ const ListClinics = () => {
 
   return (
     <LoadingOverlay
-    className={styles.Loader}
-    active={isLoadingData}
-    spinner={<LoadPage />}
-    // text="Loading your content..."
-  >
+      active={isLoadingData}
+      // spinner={text}
+      text="Loading your content..."
+    >
     <div>
       <Header />
       <div
