@@ -130,21 +130,21 @@ export default function Login() {
 }
 
 const FormContainer = styled.div`
-  height: 100%;
+  height: 92vh;
   width: 100vw;
   display: grid;
   // flex-direction: column;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
-  gap: 1rem;
+  // gap: 1rem;
 //  align-items: center;
  // background-color: #dedfdc;
+ 
  
  @media screen and (max-width: 960px)
  {
   grid-template-columns: 1fr;
  }
-
   .brand {
     display: flex;
     align-items: center;
@@ -188,7 +188,7 @@ const FormContainer = styled.div`
   display: grid;
   grid-template-column: 1fr 1fr
   gap: 1rem;
-  padding: 0 30px;
+  padding: 150px 30px;
   -moz-box-align: center;
   align-items: center;
  // background-color: rgb(222, 223, 220);
@@ -235,14 +235,9 @@ const FormContainer = styled.div`
   
     .signinup {
       // width: 50vw;
+      height: 100%
     }
   }
-  }
-
-  @media screen and (max-width: 1150px) {
-    .signinup{
-      padding: 0 20px;
-    }
   }
 
   @media only screen and (max-width: 960px)
