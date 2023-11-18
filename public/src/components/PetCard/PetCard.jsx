@@ -78,7 +78,8 @@ const PetCard = ({
 
   const handleExportClick = () => {
     // Handle export action
-    window.open(`/exportpetLog/${id}`);
+    //window.open(`/exportpetLog/${id}`);
+    navigate(`/exportpetLog/${id}`);
     handleMoreMenuClose();
   };
 
