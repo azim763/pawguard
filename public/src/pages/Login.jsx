@@ -115,10 +115,10 @@ export default function Login() {
             </div>
             <div className={styles.createAcContainer}>
               <Typography variant="body2-poppins-medium">
-                Don't have an account ?{" "}
+                Don’t have account yet?
               </Typography>
               <Typography variant="body1-poppins-semibold">
-                <Link to="/register">Create One.</Link>
+                <Link to="/register">Create Account</Link>
               </Typography>
             </div>
           </form>
@@ -141,7 +141,9 @@ const FormContainer = styled.div`
  // background-color: #dedfdc;
  
  
- @media screen and (max-width: 960px)
+ @media screen and (max-width: 900px)
+
+
  {
   grid-template-columns: 1fr;
  }
@@ -188,7 +190,7 @@ const FormContainer = styled.div`
   display: grid;
   grid-template-column: 1fr 1fr
   gap: 1rem;
-  padding: 150px 30px;
+  padding: 30px;
   -moz-box-align: center;
   align-items: center;
  // background-color: rgb(222, 223, 220);
@@ -240,6 +242,13 @@ const FormContainer = styled.div`
   }
   }
 
+
+  @media only screen and (max-width: 900px)
+  {
+    .signinup{
+      padding: 10px 20% 0;
+  }
+
   @media only screen and (max-width: 960px)
   {
     .parent {
@@ -250,9 +259,10 @@ const FormContainer = styled.div`
      display: none;
     }
 
+  }
+  @media only screen and (max-width: 750px)
+  {
     .signinup{
-      padding: 0 20%;
-    }
-
+      padding: 100px 5% 0;
   }
 `;
