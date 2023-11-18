@@ -121,7 +121,6 @@ const ForgetPassword = () => {
                 <Typography variant="h2-poppins-semibold">
                   Password Recovery
                 </Typography>
-
                 <div>
                   <Typography
                     variant="body2-poppins-medium"
@@ -216,11 +215,11 @@ justify-content: center;
 
 
   input {
-    background-color: transparent;
+    background-color: var(--white-white);
     padding: 1rem;
-    border: 0.1rem solid #54656f;
+    border: 0.1rem solid var(--almost-black);
     border-radius: 0.4rem;
-    color: #54656f;
+    color: var(--small-text-gray);
     width: 100%;
     font-size: 1rem;
     &:focus {
@@ -317,12 +316,17 @@ button{
 
   @media only screen and (max-width: 750px) {
     form {
-      padding: 200px 20% 0;
+      padding: 20% 20% 0;
     }
+
+    .brand{
+      margin-bottom: 10px;
+    }
+  }
 
     @media only screen and (max-width: 600px) {
       form {
-        padding: 200px 5% 0;
+        padding: 20% 5% 0;
       }
 
 `;

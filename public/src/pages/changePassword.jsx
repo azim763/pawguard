@@ -121,7 +121,7 @@ const ChangePassword = () => {
                   variant="yellow"
                   type="submit"
                   label={"Change Password"}
-                  size="dk-md-s"
+                  size="dk-md"
                 />
               </div>
             </form>
@@ -170,11 +170,11 @@ justify-content: center;
     scrollbar-width: none;
   }
   input {
-    background-color: transparent;
+    background-color: var(--white-white);
     padding: 1rem;
-    border: 0.1rem solid #54656f;
+    border: 0.1rem solid var(--almost-black);
     border-radius: 0.4rem;
-    color: #54656f;
+    color: var(--small-text-gray);
     width: 100%;
     font-size: 1rem;
     &:focus {
