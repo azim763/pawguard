@@ -1,6 +1,5 @@
-
-.signUpContainer{
-    height: 100%;
+.signUpContainer {
+  height: 100%;
 }
 
 .forgetPW a,
@@ -45,13 +44,17 @@
     min-width: 320px;
   }
 
-  .submitContainer button{
+  .submitContainer button {
     width: 190px;
   }
 
-  .createAcContainer{
+  .createAcContainer {
     flex-direction: column;
     align-items: center;
     gap: 0;
+  }
+
+  .submitBtnContainer button {
+    width: 190px;
   }
 }
