@@ -405,7 +405,9 @@ const PetLogForm = ({
                 </div>
               )}
               {formMode === 'view' && selectedLog && selectedLog.Notes && (
-                <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
+                <div>
+                  <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
+                </div>
               )}
             </div>
             <div className={styles.buttonStyle}>

@@ -3,7 +3,7 @@
     padding: 100px 40px 40px;
 }
 
-.imageUpload{
+.addPetImage > div:first-of-type{
     width: 150px;
     height: 150px;
     background-color: var(--white-white);
@@ -15,7 +15,7 @@
     border-radius: 8px;
 }
 
-.imageUpload svg {
+.addPetImage svg {
     width: 30px;
     height: 30px;
 }
@@ -57,12 +57,12 @@ padding-left: 12px;
     .addPetHeader{
         padding: 40px;
     }
-    .imageUpload{
+    .addPetImage > div:first-of-type {
         width: 250px;
         height: 250px;
     }
 
-    .imageUpload svg {
+    .addPetImage > div:first-of-type svg {
         width: 45px;
         height: 45px;
     }

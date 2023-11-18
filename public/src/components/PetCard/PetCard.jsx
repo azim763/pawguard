@@ -9,7 +9,6 @@ import HeightSVG from "../SVG/HeightSVG";
 import PawSVG from "../SVG/PawSVG";
 import ArchiveSVG from "../SVG/ArchiveSVG";
 import ExportSVG from "../SVG/ExportSVG";
-import ExportLog from "../PetExport/ExportLog";
 import ImageDisplay from "../ImageDisplay/ImageDisplay";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
