@@ -178,7 +178,7 @@ const AddPet = () => {
     return true;
   };
 
-  if (petData.Species === "cat") {
+  if (petData.Species === "Cat") {
     bloodType = [
       { value: "A", label: "A" },
       { value: "B", label: "B" },
@@ -195,20 +195,43 @@ const AddPet = () => {
 
   if (petData.Species === "Cat") {
     breedType = [
-      { value: "Domestic Shorthair", label: "Domestic Shorthair" },
-      { value: "American Shorthair", label: "American Shorthair" },
-      { value: "Domestic Longhair", label: "Domestic Longhair" },
-      { value: "Ragdoll", label: "Ragdoll" },
+      { value: "Select the Breed", label: "Select the Breed" },
+      { value: "American Shorthair", label: "American ShortHair" },
+      { value: "Birman", label: "Birman" },
+      { value: "DevonRex", label: "Devon Rex" },
+      { value: "DomesticLongShortHair", label: "Domestic Long & Short Hair" },
+      { value: "ExoticShortHair", label: "Exotic ShortHair" },
+      { value: "Himalayan", label: "Himalayan" },
+      { value: "MaineCoon", label: "Maine Coon" },
+      { value: "Mixed", label: "Mixed" },
+      { value: "PersianCat", label: "Persian Cat" },
+      { value: "RagDoll", label: "RagDoll" },
+      { value: "ScottishFold", label: "Scottish Fold" },
       { value: "Siamese", label: "Siamese" },
+      { value: "Sphynx", label: "Sphynx" },
+      { value: "Unknown", label: "Unknown" },
     ];
   } else
     breedType = [
+      { value: "Select the Breed", label: "Select the Breed" },
       { value: "Beagle", label: "Beagle" },
-      { value: "Golden Retriever", label: "Golden Retriever" },
-      { value: "Poodle", label: "Poodle" },
       { value: "Rottweiler", label: "Rottweiler" },
+      { value: "BostonTerrier", label: "Boston Terrier" },
+      { value: "Chihuahua", label: "Chihuahua" },
+      { value: "Golden Retriever", label: "Golden Retriever" },
+      { value: "FrenchBulldog", label: "French Bulldog" },
+      { value: "GermanShepherdDog", label: "German Shepherd Dog" },
+      { value: "Labradoodle", label: "Labradoodle" },
+      { value: "LabradorRetriever", label: "Labrador Retriever" },
+      { value: "Maltese", label: "Maltese" },
+      { value: "Mixed", label: "Mixed" },
+      { value: "Pomeranian", label: "Pomeranian" },
+      { value: "Poodle", label: "Poodle" },
+      { value: "Pug", label: "Pug" },
+      { value: "ShihTzu", label: "Shih Tzu" },
       { value: "Siberian Husky", label: "Siberian Husky" },
-    ];
+      { value: "YorkshireTerrier", label: "Yorkshire Terrier" },
+    ];;
 
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
