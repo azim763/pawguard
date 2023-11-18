@@ -93,7 +93,14 @@ const AppointmentForm = ({
         );
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
-        onAppointmentSubmit(updatedFormData);
+        onAppointmentSubmit(response.data);
+        setFormData({ PetID: "",
+        ClinicName: "",
+        Latitude: "",
+        Longitude: "",
+        AppointmentReason: "",
+        AppointmentDate: "",
+        AppointmentTime: "",})
         toast.success("Appointment Added Successfully", toastOptions);
 
       } catch (error) {
@@ -141,6 +148,7 @@ const AppointmentForm = ({
             id="AppointmentReason"
             label="Appointment Reason"
             onChange={handleInputChange}
+            propInputValue={formData.AppointmentReason}
           />
         </div>
         <div>
@@ -157,7 +165,7 @@ const AppointmentForm = ({
             Appointment Time
           </Typography>
           <div className={styles.timepickerContainer}>
-            <TimePicker onChange={handleInputChange} id="AppointmentTime" />
+            <TimePicker onChange={handleInputChange} id="AppointmentTime" value={formData.AppointmentTime} />
           </div>
         </div>
         <div className={styles.button}>

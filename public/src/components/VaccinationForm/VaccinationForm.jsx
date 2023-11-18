@@ -23,7 +23,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
 
   const [formData, setFormData] = useState({
     PetID: "",
-    // NameOfVaccination: "",
+    NameOfVaccination: "",
     VaccinationDate: "",
   });
 
@@ -105,7 +105,10 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
         toast.success("Vaccination Added Successfully", toastOptions);
 
 
-        onVaccinationSubmit(updatedFormData);
+        onVaccinationSubmit(response.data);
+        setFormData({ PetID: "",
+        NameOfVaccination: "",
+        VaccinationDate: "",})
 
         // You can further handle the response here, such as displaying a success message to the user.
       } catch (error) {
