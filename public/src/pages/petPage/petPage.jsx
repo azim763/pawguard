@@ -141,6 +141,7 @@ const PetPage = () => {
       ...prevMedications,
       newMedicationData,
     ]);
+    setMedicationFormExpanded(false);
   };
   const handleAppointmentSubmit = (newAppointmentData) => {
     setPetAppointments((prevAppointment) => [
@@ -152,15 +153,20 @@ const PetPage = () => {
       ...validPetAppointments,
       newAppointmentData,
     ]);
+    setAppointmentFormExpanded(false);
+
   };
   const handleVaccinationSubmit = (newVaccinationData) => {
     setPetVaccines((prevVaccination) => [
       ...prevVaccination,
       newVaccinationData,
     ]);
+    setVaccinationFormExpanded(false);
+
   };
   const handlePetLogSubmit = (newPetLogData) => {
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
+    setPetLogFormExpanded(false);
   };
 
   const handlePetLogDelete = (deletedLogId) => {

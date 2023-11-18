@@ -90,14 +90,14 @@ const PetLogForm = ({
         console.log("Data submitted");
         setFormData(initialFormData);
         setLogDate("")
-        if (petLogFormRef.current) {
+      //   if (petLogFormRef.current) {
 
-          petLogFormRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'nearest',
-          });
-      }
+      //     petLogFormRef.current.scrollIntoView({
+      //       behavior: 'smooth',
+      //       block: 'start',
+      //       inline: 'nearest',
+      //     });
+      // }
       toast.success("Petlog Added Successfully", toastOptions);
 
 
