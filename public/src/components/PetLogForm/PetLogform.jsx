@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef  } from "react";
 import styles from "../PetLogForm/PetLogForm.module.css";
 import TextInput from "../TextInput/TextInput";
 import Typography from "../Typography/Typography";
@@ -25,6 +25,7 @@ const PetLogForm = ({
   formMode,
 }) => {
   // const [pets,setPets] =useState([]);
+  const petLogFormRef = useRef();
 
   const [foodData, setFoodData] = useState([]);
   const [LogDate, setLogDate] = useState();
@@ -33,7 +34,7 @@ const PetLogForm = ({
 
   const initialFormData = {
     PetID: "",
-    Weight: 0,
+    Weight: 30,
     ActivityLevel: "",
     UrineAmount: "",
     StoolAmount: "",
@@ -88,6 +89,18 @@ const PetLogForm = ({
         console.log(response);
         console.log("Data submitted");
         setFormData(initialFormData);
+        setLogDate("")
+        if (petLogFormRef.current) {
+
+          petLogFormRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          });
+      }
+      toast.success("Petlog Added Successfully", toastOptions);
+
+
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
@@ -109,10 +122,6 @@ const PetLogForm = ({
       toast.error("Stool Amount is required.", toastOptions);
       return false;
     }
-    // } else if (StoolAppearance === "") {
-    //   toast.error("Stool Appearance is required.", toastOptions);
-    //   return false;
-    // }
     return true;
   };
 
@@ -147,17 +156,7 @@ const PetLogForm = ({
     { label: "Normal ", value: "Normal" },
     { label: "Low ", value: "Low" },
   ];
-  // const handleDateChange = (e) => {
-  //   const { name, value } = e.target;
-  //   const [year, month, day] = value.split("T")[0].split("-");
-  //   const resultDate = `${day}-${month}-${year}`;
 
-  //   setFoodData({
-  //     ...foodData,
-  //     [name]: resultDate,
-  //   });
-  //   setFoodDate(value);
-  // };
   const handleLogDateChange = (e) => {
     const { name, value } = e.target;
     const [year, month, day] = value.split("T")[0].split("-");
@@ -175,7 +174,7 @@ const PetLogForm = ({
       {/* <div>
         <PetLogCard />
       </div> */}
-      <div className={styles.petLogContainer}>
+      <div className={styles.petLogContainer} ref={petLogFormRef}>
         <div className={styles.petLogTitle}>
           <Typography variant="h2-poppins-semibold">
             {formMode === "create"
@@ -219,6 +218,8 @@ const PetLogForm = ({
                     <TextInput
                       id="Weight"
                       name="Weight"
+                      propInputValue={formData.Weight}
+
                       // label="Pet Weight"
                       placeholder="30"
                       onChange={handleInputChange}
@@ -363,6 +364,7 @@ const PetLogForm = ({
                   id="Notes"
                   cols="30"
                   rows="10"
+                  value={formData.Notes}
                   placeholder="Enter Observations for your pet."
                   onChange={handleInputChange}
                   className={styles.petLogTextarea}

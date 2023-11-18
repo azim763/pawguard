@@ -89,8 +89,7 @@ const MedicationForm = ({
           UserID: storedData._id,
         };
 
-        console.log("updatedFormData");
-        console.log(updatedFormData);
+        
         setFormData(updatedFormData);
 
         try {
@@ -101,7 +100,17 @@ const MedicationForm = ({
           console.log("Form submitted with data:", updatedFormData);
           console.log("Response from server:", response);
           // ...
-          onMedicationSubmit(updatedFormData);
+          onMedicationSubmit(response.data);
+          toast.success("Medication Added Successfully", toastOptions);
+          setFormData( {
+            PetID: "",
+            MedicineName: "",
+            DosageAmount: 0,
+            MedicationPeriod: 0,
+            MedicationDate: "",
+          });
+
+
         } catch (error) {
           console.error("Error submitting form:", error);
           toast.error("Error submitting form.", toastOptions);
@@ -130,6 +139,7 @@ const MedicationForm = ({
                 Medicine Name
               </Typography>
             }
+            propInputValue={formData.MedicineName}
             placeholder="Enter Medicine Name"
             onChange={handleInputChange}
           />
@@ -137,7 +147,9 @@ const MedicationForm = ({
         <div className={styles.dosageAm}>
           <Typography variant="body2-poppins-medium">Dosage Amount</Typography>
           <div className={styles.unitContainer}>
-            <TextInput id="DosageAmount" onChange={handleInputChange} placeholder="20"/>
+            <TextInput id="DosageAmount" onChange={handleInputChange} placeholder="20" 
+                        propInputValue={formData.DosageAmount}
+                        />
             <div style={{ marginLeft: "10px" }}>
               <Typography variant="textfield-poppins-regular">ml</Typography>
             </div>
@@ -147,7 +159,7 @@ const MedicationForm = ({
           <Typography variant="body2-poppins-medium">
             Set Medication Time
           </Typography>
-          <TimePicker id="MedicineTime" onChange={handleInputChange} />
+          <TimePicker id="MedicineTime" onChange={handleInputChange}  />
         </div>
         <div>
           <Typography variant="body2-poppins-medium">
@@ -157,6 +169,7 @@ const MedicationForm = ({
             <TextInput
               size="small"
               id="MedicationPeriod"
+              propInputValue={formData.MedicationPeriod}
               onChange={handleInputChange}
               placeholder="15"
             />
@@ -169,7 +182,7 @@ const MedicationForm = ({
           <Typography variant="body2-poppins-medium">
             <label>Medication Start Date</label>
           </Typography>
-          <DatePicker id="MedicationDate" onChange={handleDateChange} />
+          <DatePicker id="MedicationDate" onChange={handleDateChange}  />
         </div>
         <div className={styles.buttonContainer}>
           <Button variant="yellow" label="Save" size="dk-md-s" />

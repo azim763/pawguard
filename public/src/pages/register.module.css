@@ -1,0 +1,33 @@
+.loginContainer a {
+  color: var(--dark-blue);
+  text-decoration: underline;
+}
+
+.loginContainer a:hover {
+  color: var(--almost-black);
+}
+
+.loginContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
+.submitBtnContainer {
+    max-width: 440px;
+  }
+  
+  .submitBtnContainer {
+    margin: 10px;
+    display: flex;
+    /* width: 100%; */
+    display: flex;
+  }
+
+  @media screen and (max-width: 500px){
+    .submitBtnContainer button{
+        width: 190px;
+  }
+  }
+  

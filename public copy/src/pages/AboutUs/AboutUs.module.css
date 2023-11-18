@@ -1,0 +1,278 @@
+.abtUs1 img {
+  width: 100%;
+  height: auto;
+}
+
+.abtUs1 {
+  background-color: var(--pearl-blue);
+}
+
+.abtUs1Description,
+.abtUs4 {
+  padding: 42px 20px;
+}
+
+.abtUs2,
+.abtUs3 {
+  padding: 42px 20px 72px;
+}
+
+.abtUs2,
+.abtUs3,
+.title1 {
+  text-align: center;
+  margin: auto;
+}
+
+.abtUs2 > div > div:nth-child(2),
+.abtUs3 > div > div:nth-child(2) {
+  padding-top: 16px;
+  max-width: 750px;
+  margin: auto;
+}
+
+.abtUs2Images > div {
+
+  margin-top: 32px;
+  padding: 0 30px;
+}
+
+.abtUs3Images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 21px;
+  max-width: 450px;
+  margin: 32px auto;
+}
+
+.abtUs1Description > * {
+  margin-bottom: 16px;
+}
+
+.abtUs4 {
+  background-color: var(--pearl-blue);
+}
+
+.abtUs4Info {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 56px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 32px;
+}
+
+.abtUs4Info > div:first-of-type {
+  order: 2;
+  text-align: center;
+}
+
+.abtUs4 img {
+  width: 100%;
+  max-width: 450px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  border: 1px solid var(--almost-black);
+  padding: 8px 12px;
+  margin-bottom: 20px;
+}
+
+.abtUs4 form {
+  display: flex;
+  flex-flow: column wrap;
+  max-width: 500px;
+  gap: 16px;
+}
+
+.abtUs4 button {
+  align-self: end;
+}
+
+@media screen and (min-width: 700px) {
+  .abtUs1 {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+  }
+
+  .abtUs1Description {
+    padding: 60px;
+  }
+
+  .abtUs1 > div:last-of-type {
+    max-width: 500px;
+  }
+
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 {
+    padding: 42px 32px 72px;
+  }
+
+
+  .abtUs2 > div:nth-child(2),
+  .abtUs3 > div:nth-child(2) {
+    max-width: 700px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 24px 0;
+    line-height: 181%;
+  }
+
+  .abtUs2Images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1130px;
+    margin: auto;
+  }
+
+  .abtUs2Images > div {
+    padding: 0;
+  }
+
+  .abtUs3 {
+    padding-bottom: 96px;
+  }
+
+  .title1 {
+    position: relative;
+  }
+
+  .title1::before,
+  .title1::after {
+    content: "";
+    display: inline-block;
+    width: 20%;
+    border-top: 2px solid var(--almost-black);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .title1::before {
+    left: 40px;
+  }
+
+  .title1::after {
+    right: 40px;
+  }
+
+  .aboutusProfile {
+    display: flex;
+    flex-flow: column;
+    gap: 5rem;
+  }
+
+  .abtUs3Images1,
+  .abtUs3Images2 {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    gap: 36px;
+  }
+
+  .abtUs3Images1 {
+    padding-bottom: 36px;
+  }
+
+  .abtUs4Info {
+    padding-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    max-width: 1130px;
+    margin: 0 auto;
+  }
+
+  .abtUs4Info > div:first-of-type {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+
+  .abtUs4Info > form {
+    grid-column: 2/3;
+  }
+
+  .abtUs4Info > div:nth-child(2) {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+  }
+
+  .abtUs4Info div:nth-child(2) div:nth-child(3) input {
+    height: 150px;
+  }
+
+  .abtUs4Info input {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 810px) {
+  .abtUs3Images {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 0 30px;
+    max-width: 100%;
+  }
+
+  .abtUs3Images > div:nth-child(n) {
+    justify-content: center;
+    flex-basis: calc(20% - 21px);
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .abtUs1 {
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: end;
+    padding-top: 60px;
+    height: 585px;
+  }
+
+  .abtUs1Description {
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-self: flex-start;
+    display: flex;
+    padding-left: 130px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 36px;
+    width: 90%;
+    max-width: 700px;
+  }
+
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 {
+    width: 100%;
+    padding: 80px 130px 29px;
+    margin: 0 auto;
+  }
+
+  /* .title1,
+  .abtUs2,
+  .abtUs3,
+  .abtUs4 form {
+    box-sizing: content-box;
+    max-width: 1130px;
+  } */
+
+  /* .title1::before {
+    left: 80px;
+  }
+
+  .title1::after {
+    right: 80px;
+  } */
+}

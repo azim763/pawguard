@@ -1,0 +1,14 @@
+.AboutUsProfile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.AboutUsProfile img {
+    width: 100%;
+    max-width: 250px;
+    aspect-ratio: 1;
+    object-fit: cover;
+}

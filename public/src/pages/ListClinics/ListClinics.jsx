@@ -21,6 +21,8 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import IndividualClinic from "./../IndividualClinic/IndividualClinic";
 import { getClinicByIdRoute } from "../../utils/APIRoutes";
 import CloseSVG from "../../components/SVG/CloseSVG";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 let originalClinicData = [];
 
@@ -38,6 +40,8 @@ const ListClinics = () => {
   const [currentUserId, setCurrentUserId] = useState();
   const [individualClinicId, setIndividualClinicId] = useState();
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoadingData, setLoadingData] = useState(false);
+
 
   const handlePetSelectClinicClick = (id, specialties) => {
     setSelectedPetId(id);
@@ -75,6 +79,8 @@ const ListClinics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoadingData(true)
+        document.body.style.overflow = "hidden"
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -100,6 +106,11 @@ const ListClinics = () => {
         setSort(true);
       } catch (error) {
         // Handle any errors here
+      }
+      finally{
+        setLoadingData(false)
+        document.body.style.overflow = "unset";
+
       }
     };
 
@@ -230,6 +241,11 @@ const ListClinics = () => {
   };
 
   return (
+    <LoadingOverlay
+      active={isLoadingData}
+      // spinner={text}
+      text="Loading your content..."
+    >
     <div>
       <Header />
       <div
@@ -447,6 +463,7 @@ const ListClinics = () => {
         </div>
       )}
     </div>
+    </LoadingOverlay>
   );
 };
 
