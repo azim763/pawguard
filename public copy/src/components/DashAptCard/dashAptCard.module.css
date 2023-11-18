@@ -1,0 +1,30 @@
+.apt-card-container {
+  display: grid;
+  /* grid-template-rows: 0.5fr .1fr; */
+  width: 100%;
+  height: auto;
+  background-color: var(--pearl-yellow);
+  grid-template-columns: 0.8fr 1fr;
+  align-items: center;
+  text-align: left;
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
+  padding: .8rem;
+}
+
+.icon-container {
+  /* grid-row: 1/-1; */
+  display: flex;
+  justify-content: center;
+}
+
+.apt-card-container div a {
+  color: var(--dark-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* 
+.apt-card-container div a:hover {
+  color: var(--almost-black);
+  text-decoration: none;
+} */

@@ -1,0 +1,21 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.input {
+  height: 54px;
+  padding: 0px 12px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  /* margin-bottom: 20px; */
+  border: 1px solid var(--almost-black);    
+  width: 210px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.4px;
+  color: var(--small-text-gray);;
+}

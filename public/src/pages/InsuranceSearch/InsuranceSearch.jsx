@@ -185,11 +185,14 @@ const InsuranceSearch = () => {
   }
 
   const handlePetSelection = async (petName) => {
+    
     const selectedPetData = pets.find((pet) => pet.PetName === petName);
-    setSelectedPet(selectedPetData);
-
+    
     await fetchPetInfo(selectedPetData);
 
+    setSelectedPet(selectedPetData);
+    setSelectedPetName(selectedPetData);
+  
     //title part /pet name
     setPageTitle(`About Pet ${selectedPetData.PetName}`);
     //pet type
@@ -247,6 +250,7 @@ const InsuranceSearch = () => {
           // setSelectedAge(selectedPetData.Birthday);
           console.log("Here is my Birth Date "+selectedAgeRange);
           // setSelectedGender("");
+      
         };
 
   const fetchPetInfo = async (selectedPetData) => {
@@ -266,6 +270,37 @@ const InsuranceSearch = () => {
     }
   };
   //to fetch pet data
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const storedData = localStorage.getItem(
+  //         process.env.REACT_APP_LOCALHOST_KEY
+  //       );
+  //       const data = JSON.parse(storedData);
+
+  //       // Fetch pet data from the backend
+  //       const response = await axios.get(searchPetsByUserIDRoute, {
+  //         params: { userID: data._id },
+  //       });
+
+  //       setPets(response.data);
+  //       if (!selectedPetName && response.data.length > 0) {
+  //         setSelectedPetName(response.data[0]);
+  //         console.log(response.data[0]);
+  //         // setSelectedOptions(response.data[0].PreExistingMedical.split(","));
+  //         //
+  //       }
+
+  //       // console.log("sort data");
+  //       // setSort(true);
+  //     } catch (error) {
+  //       console.log("Error fecthing Pet Data " + error);
+  //     }
+  //   };
+
+  //   // Fetch data when the component mounts
+  //   fetchData();
+  // }, [selectedPetName]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -273,31 +308,30 @@ const InsuranceSearch = () => {
           process.env.REACT_APP_LOCALHOST_KEY
         );
         const data = JSON.parse(storedData);
-
-        // Fetch pet data from the backend
+  
+        // Fetch all pet data from the backend
         const response = await axios.get(searchPetsByUserIDRoute, {
           params: { userID: data._id },
         });
-
+  
         setPets(response.data);
+  
+        // Initialize selectedPetName if not already set
         if (!selectedPetName && response.data.length > 0) {
           setSelectedPetName(response.data[0]);
-          console.log(response.data[0]);
-          // setSelectedOptions(response.data[0].PreExistingMedical.split(","));
-          //
         }
-
-        // console.log("sort data");
-        // setSort(true);
       } catch (error) {
-        console.log("Error fecthing Pet Data " + error);
+        console.log("Error fetching Pet Data " + error);
       }
     };
-
+  
     // Fetch data when the component mounts
     fetchData();
-  }, [selectedPetName]);
+  }, []); // Empty dependency array to fetch data only on mount
+  
 
+  
+  
   return (
     <div>
       <div>

@@ -1,0 +1,23 @@
+.checkboxLabel {
+  margin-left: 10px;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.checkboxStyle {
+  display: flex;
+  align-items: flex-end;
+}
+
+@media screen and (max-width: 400px) {
+  .checkboxStyle {
+    align-items: center;
+  }
+
+  .checkboxLabel{
+    margin-left: 15px;
+  }
+}
