@@ -1,0 +1,29 @@
+.update-profile-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 365px;
+    height: 454px
+}  
+h2 {
+    margin-bottom: 26px;
+    text-align: left;
+}
+
+.form-group-profile {
+    margin-bottom: 20px;
+}
+
+.form-group-profile label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.form-group-profile #firstName,#lastName, #email {
+    width: 325px;
+    padding: 8px;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+    height: 54px;
+}

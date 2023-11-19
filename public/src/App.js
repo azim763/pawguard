@@ -20,6 +20,7 @@ import ExportpetLog from "./pages/petLog/ExportpetLog";
 import Calendar from "./components/Calendar/calendar";
 import ChangePassword from "./pages/changePassword";
 import Forgetpassword from "./pages/forgetpassword";
+import AccountSettings from "./pages/AccountSettings/AccountSetting";
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/addPet" element={<AddPet />} />
         <Route path="/exportpetLog/:petID" element={<ExportpetLog />} />
         <Route path="/editPet/:petID" element={<EditPet />} />
+        <Route path="/accountSettings" element={<AccountSettings/>}/>
         
       </Routes>
     </BrowserRouter>

@@ -111,6 +111,18 @@ const Header = () => {
                           {currentUser.username}
                         </Typography>
                       </li>
+                      <li>
+                      <NavLink
+                  to="/AccountSettings"
+                  className={
+                    location.pathname === "/AccountSettings"
+                  }
+                >
+                  <Typography variant="body1-poppins-semibold">
+                    Account Settings
+                  </Typography>
+                </NavLink>
+                      </li>
                       <Logout />
                     </ul>
                   </div>
