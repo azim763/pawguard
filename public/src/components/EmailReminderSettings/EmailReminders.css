@@ -9,9 +9,7 @@
   height: 151px;
 }
 
-h2 {
-  margin-bottom: 26px;
-}
+
 
 .label-and-toggle {
   display: flex;
@@ -28,6 +26,7 @@ label {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: 28px;
 }
 
 .toggle-container {

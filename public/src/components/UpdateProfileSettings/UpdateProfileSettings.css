@@ -5,13 +5,10 @@
     width: 365px;
     height: 454px
 }  
-h2 {
-    margin-bottom: 26px;
-    text-align: left;
-}
 
 .form-group-profile {
     margin-bottom: 20px;
+    margin-top: 28px;
 }
 
 .form-group-profile label {

@@ -13,6 +13,16 @@ import AbtUs3SVG from "../../components/SVG/AbtUs3SVG";
 import image from "./../../assets/image-03.webp";
 //import image1 from "./../../assets/image-764.webp";
 import image1 from "./../../assets/aboutus.png";
+import member1 from "./../../assets/images/MemberImages/Sanika.png";
+import member2 from "./../../assets/images/MemberImages/Cassie.png";
+import member3 from "./../../assets/images/MemberImages/Gillian.png";
+import member4 from "./../../assets/images/MemberImages/Akhil.png";
+import member5 from "./../../assets/images/MemberImages/Thalha.png";
+// import member6 from "./../../assets/images/MemberImages/Azim.png";
+import member7 from "./../../assets/images/MemberImages/Yuki.png";
+import member8 from "./../../assets/images/MemberImages/Cylvia.png";
+import member9 from "./../../assets/images/MemberImages/Harnoor.png";
+
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -124,31 +134,31 @@ const AboutUs = () => {
             </Typography>
             <div className={styles.abtUs3Images}>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member1}
                 alt="Sanika Coutinho"
                 title="Sanika Coutinho"
                 description="Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member2}
                 alt="Cassie Hsieh"
                 title="Cassie Hsieh"
                 description="Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member3}
                 alt="image"
                 title="Gillian Kwok"
                 description="PM / Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member4}
                 alt="Akhil Jayakumar"
                 title="Akhil Jayakumar"
                 description="Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member5}
                 alt="image"
                 title="Thalha Uzair"
                 description="FS Developer"
@@ -160,19 +170,19 @@ const AboutUs = () => {
                 description="BE Developer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member7}
                 alt="image"
                 title="Yuki Cheng"
                 description="PM / FS Developer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member8}
                 alt="image"
                 title="Cylvia Lian"
                 description="FS Developer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member9}
                 alt="image"
                 title="Harnoor Kaur"
                 description="FS Developer"
