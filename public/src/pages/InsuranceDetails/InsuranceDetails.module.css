@@ -21,7 +21,7 @@
 }
 
 .InsuranceDetailsSimilarPlans {
-  background-color: var(--pearl-blue);
+  background-color: var(--light-blue);
   box-sizing: border-box;
   padding: 8% 8%;
   display: grid;
@@ -131,81 +131,3 @@
     padding: 8% 20px;
   }
 }
-
-/* @media screen and (max-width: 500px) {
-  .InsuranceCoverageCenterDiv {
-    flex-direction: column;  */
-/* Display in a single column for small view */
-/* align-items: center;  */
-/* Center-align items in the vertical layout */
-/* }
-  .InsuranceCoverageStyle {
-    flex-direction: column; */
-/* align-items: left; */
-/* }
-}
-@media screen and (max-width: 700px) {
-  .InsuranceDetailsSimilarPlansBody {
-    grid-template-columns: 1fr;
-  }
-  .InsuranceCoverageCenterDiv {
-    flex-direction: column;
-  }
-  .InsuranceCoverageStyle {
-    display: flex;
-    gap: 20px;
-    flex-direction: column; */
-/* align-items: center; */
-/* }
-}
-
-@media screen and (min-width: 700px) and (max-width: 944px) {
-  .InsuranceDetailsSimilarPlansBody {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .InsuranceCoverageCenterDiv {
-    flex-direction: column;
-    align-items: center;
-  }
-  .InsuranceCoverageStyle {
-    width: 100%;
-    max-width: none; */
-/* align-items: center;  */
-/* }
-}
-
-@media screen and (min-width: 945px) {
-  .InsuranceDetailsSimilarPlansBody {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .InsuranceCoverageStyle {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .InsuranceDetailsSimilarPlansBody {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-
-  .sm-plan-detail-card-wrapper {
-    width: calc(25% - 10px);
-    margin: 0 5px 10px;
-    box-sizing: border-box;
-  }
-
-  .sm-plan-detail-card-wrapper:nth-child(4n) {
-    margin-right: 0;
-  }
-  .InsuranceCoverageCenterDiv {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .InsuranceCoverageStyle { */
-/* flex: 1; */
-/* gap: 20px;
-  }
-} */

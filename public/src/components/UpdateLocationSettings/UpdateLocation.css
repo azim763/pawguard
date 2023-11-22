@@ -1,0 +1,48 @@
+.update-location-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 365px;
+    height: 210px;
+}
+  
+h2 {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+h3 {
+    text-align: left;
+}
+
+.content-box {
+    margin-top: 28px;
+    width: 296px;
+    height: 70px;
+    display: grid;
+    gap: 26px;
+}
+
+.location-input-container {
+    display: flex;
+    align-items: center;
+    width: 325px;
+    height: 54px;
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+  
+.location-icon {
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 17px; /* Adjust the width as needed */
+    height: 26px; /* Adjust the height as needed */
+}
+  
+#loc-input{
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 248px;
+    height: 24px;
+}  

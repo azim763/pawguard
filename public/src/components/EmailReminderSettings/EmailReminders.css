@@ -1,0 +1,60 @@
+.email-reminders-box {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 365px;
+  height: 151px;
+}
+
+
+
+.label-and-toggle {
+  display: flex;
+  align-items: space-between;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.content-part {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 28px;
+}
+
+.toggle-container {
+  width: 49px;
+  height: 26px;
+  background-color: #ddd;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-container.on {
+  background-color: blue;
+  color: white;
+}
+
+.toggle-container.off {
+  background-color: #ddd;
+  color: black;
+}
+
+.hidden-checkbox {
+  display: none;
+}
+
+.spacer {
+  flex-grow: 1;
+}

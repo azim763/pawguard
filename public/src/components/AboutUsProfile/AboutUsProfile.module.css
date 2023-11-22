@@ -11,5 +11,5 @@
     width: 100%;
     max-width: 220px;
     aspect-ratio: 1;
-    object-fit: cover;
+    object-fit: contain;
 }

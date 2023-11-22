@@ -1,0 +1,46 @@
+h1 {
+    text-align: center;
+}
+
+.body {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: grid;
+    justify-content: space-between;
+    color: black;
+}
+
+.body-part {
+    display: grid;
+    grid-template-columns: 1fr; /* Change to a single column layout */
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.column-three {
+    width: 100%; /* Make the third column full width */
+    display: grid;
+    gap: 13px;
+}
+
+#SaveButton {
+    display: grid;
+    grid-column: 3;
+    align-content: center;
+    margin-left: 20%; 
+    width: 210px;
+    height: 50px;
+}
+
+@media screen and (max-width: 600px) {
+    .column-three {
+        width: 100%;
+    }
+
+    #SaveButton {
+        margin-left: 20%;
+        grid-column: span 1; 
+    }
+}

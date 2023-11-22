@@ -12,6 +12,16 @@ import AbtUs2SVG from "../../components/SVG/AbtUs2SVG";
 import AbtUs3SVG from "../../components/SVG/AbtUs3SVG";
 import image from "./../../assets/image-03.png";
 import image1 from "./../../assets/aboutus.png";
+import member1 from "./../../assets/images/MemberImages/Sanika.png";
+import member2 from "./../../assets/images/MemberImages/Cassie.png";
+import member3 from "./../../assets/images/MemberImages/Gillian.png";
+import member4 from "./../../assets/images/MemberImages/Akhil.png";
+import member5 from "./../../assets/images/MemberImages/Thalha.png";
+// import member6 from "./../../assets/images/MemberImages/Azim.png";
+import member7 from "./../../assets/images/MemberImages/Yuki.png";
+import member8 from "./../../assets/images/MemberImages/Cylvia.png";
+import member9 from "./../../assets/images/MemberImages/Harnoor.png";
+
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -37,31 +47,37 @@ const AboutUs = () => {
       <Header />
       <div className={styles.abtUsBody}>
         <div className={styles.abtUs1}>
-          <div className={styles.abtUs1Description}>
-            <Typography variant="large-h1-poppins-bold" color="almost-black">
-              Safeguarding Pets, Simplifying Care
-            </Typography>
-            <Typography variant="body2-poppins-medium" color="almost-black">
-              Elevate your pet's care journey with PetGuard and effortlessly
-              manage their well-being, from food and medicine tracking to
-              finding vet clinics nearby
-            </Typography>
-            <Button
-              onClick={handleLoginClick}
-              variant="blue-yellow"
-              label="Get Started"
-              size="dk-md"
-            />
-          </div>
-          <div>
-            <img src={image1} alt="" />
+          <div style={{ maxWidth: "1800px", margin: "auto" }}>
+            <div className={styles.abtUs1Description}>
+              <Typography variant="large-h1-poppins-bold" color="almost-black">
+                Safeguarding Pets, Simplifying Care
+              </Typography>
+              <Typography variant="body2-poppins-medium" color="almost-black">
+                Elevate your pet's care journey with PetGuard and effortlessly
+                manage their well-being, from food and medicine tracking to
+                finding vet clinics nearby
+              </Typography>
+              <Button
+                onClick={handleLoginClick}
+                variant="blue-yellow"
+                label="Get Started"
+                size="dk-md"
+              />
+            </div>
+
+            <div>
+              <img src={image1} alt="" />
+            </div>
           </div>
         </div>
         <div className={styles.abtUs2}>
-          <div style={{ maxWidth: "1440px", margin: "auto" }}>
+          <div style={{ maxWidth: "1220px", margin: "auto" }}>
             <Typography variant="h2-poppins-semibold" color="almost-black">
               <hr />
-              <span className={styles.title1} style={{ backgroundColor: "var(--off-white)" }}>
+              <span
+                className={styles.title1}
+                style={{ backgroundColor: "var(--off-white)" }}
+              >
                 Explore Our System
               </span>
             </Typography>
@@ -97,10 +113,13 @@ const AboutUs = () => {
         </div>
 
         <div className={styles.abtUs3}>
-          <div style={{ maxWidth: "1440px", margin: "auto" }}>
-          <Typography variant="h2-poppins-semibold" color="almost-black">
+          <div style={{ maxWidth: "1220px", margin: "auto" }}>
+            <Typography variant="h2-poppins-semibold" color="almost-black">
               <hr />
-              <span className={styles.title1} style={{ backgroundColor: "var(--off-white)" }}>
+              <span
+                className={styles.title1}
+                style={{ backgroundColor: "var(--off-white)" }}
+              >
                 Our Team
               </span>
             </Typography>
@@ -114,31 +133,31 @@ const AboutUs = () => {
             </Typography>
             <div className={styles.abtUs3Images}>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member1}
                 alt="Sanika Coutinho"
                 title="Sanika Coutinho"
                 description="Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member2}
                 alt="Cassie Hsieh"
                 title="Cassie Hsieh"
                 description="Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member3}
                 alt="image"
                 title="Gillian Kwok"
                 description="PM / Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member4}
                 alt="Akhil Jayakumar"
                 title="Akhil Jayakumar"
                 description="Designer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member5}
                 alt="image"
                 title="Thalha Uzair"
                 description="FS Developer"
@@ -150,19 +169,19 @@ const AboutUs = () => {
                 description="BE Developer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member7}
                 alt="image"
                 title="Yuki Cheng"
                 description="PM / FS Developer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member8}
                 alt="image"
                 title="Cylvia Lian"
                 description="FS Developer"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member9}
                 alt="image"
                 title="Harnoor Kaur"
                 description="FS Developer"
@@ -171,12 +190,16 @@ const AboutUs = () => {
           </div>
         </div>
         <div className={styles.abtUs4}>
-        <Typography variant="h2-poppins-semibold" color="almost-black" style= {{textAlign: 'center', maxWidth: '1440px', margin: 'auto'}}>
-              <hr />
-              <span style={{ backgroundColor: "var(--pearl-blue)" }}>
-                Contact Us
-              </span>
-            </Typography>
+          <Typography
+            variant="h2-poppins-semibold"
+            color="almost-black"
+            style={{ textAlign: "center", maxWidth: "1220px", margin: "auto" }}
+          >
+            <hr />
+            <span style={{ backgroundColor: "var(--pearl-blue)" }}>
+              Contact Us
+            </span>
+          </Typography>
 
           <div className={styles.abtUs4Info}>
             <div>

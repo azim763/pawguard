@@ -343,7 +343,6 @@ export default function Dashboard() {
                   );
                 }}
               >
-                {/* {pets && <TotalPets pets={pets} onPetSelect={handlePetSelection} />} */}
                 <div>
                   <div className={styles.graphTitle}>
                     <Typography variant="body2-poppins-medium">
@@ -392,7 +391,7 @@ export default function Dashboard() {
                   )}
                 </div>
               </Carousel>
-            </div>
+            </div> 
           </div>
           {pets && userMed && appointments && (
             <DashCalendar
