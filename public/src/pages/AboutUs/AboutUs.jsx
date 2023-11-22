@@ -38,31 +38,37 @@ const AboutUs = () => {
       <Header />
       <div className={styles.abtUsBody}>
         <div className={styles.abtUs1}>
-          <div className={styles.abtUs1Description}>
-            <Typography variant="large-h1-poppins-bold" color="almost-black">
-              Safeguarding Pets, Simplifying Care
-            </Typography>
-            <Typography variant="body2-poppins-medium" color="almost-black">
-              Elevate your pet's care journey with PetGuard and effortlessly
-              manage their well-being, from food and medicine tracking to
-              finding vet clinics nearby
-            </Typography>
-            <Button
-              onClick={handleLoginClick}
-              variant="blue-yellow"
-              label="Get Started"
-              size="dk-md"
-            />
-          </div>
-          <div>
-            <img src={image1} alt="" />
+          <div style={{ maxWidth: "1800px", margin: "auto" }}>
+            <div className={styles.abtUs1Description}>
+              <Typography variant="large-h1-poppins-bold" color="almost-black">
+                Safeguarding Pets, Simplifying Care
+              </Typography>
+              <Typography variant="body2-poppins-medium" color="almost-black">
+                Elevate your pet's care journey with PetGuard and effortlessly
+                manage their well-being, from food and medicine tracking to
+                finding vet clinics nearby
+              </Typography>
+              <Button
+                onClick={handleLoginClick}
+                variant="blue-yellow"
+                label="Get Started"
+                size="dk-md"
+              />
+            </div>
+
+            <div>
+              <img src={image1} alt="" />
+            </div>
           </div>
         </div>
         <div className={styles.abtUs2}>
-          <div style={{ maxWidth: "1440px", margin: "auto" }}>
+          <div style={{ maxWidth: "1220px", margin: "auto" }}>
             <Typography variant="h2-poppins-semibold" color="almost-black">
               <hr />
-              <span className={styles.title1} style={{ backgroundColor: "var(--off-white)" }}>
+              <span
+                className={styles.title1}
+                style={{ backgroundColor: "var(--off-white)" }}
+              >
                 Explore Our System
               </span>
             </Typography>
@@ -98,10 +104,13 @@ const AboutUs = () => {
         </div>
 
         <div className={styles.abtUs3}>
-          <div style={{ maxWidth: "1440px", margin: "auto" }}>
-          <Typography variant="h2-poppins-semibold" color="almost-black">
+          <div style={{ maxWidth: "1220px", margin: "auto" }}>
+            <Typography variant="h2-poppins-semibold" color="almost-black">
               <hr />
-              <span className={styles.title1} style={{ backgroundColor: "var(--off-white)" }}>
+              <span
+                className={styles.title1}
+                style={{ backgroundColor: "var(--off-white)" }}
+              >
                 Our Team
               </span>
             </Typography>
@@ -172,12 +181,16 @@ const AboutUs = () => {
           </div>
         </div>
         <div className={styles.abtUs4}>
-        <Typography variant="h2-poppins-semibold" color="almost-black" style= {{textAlign: 'center', maxWidth: '1440px', margin: 'auto'}}>
-              <hr />
-              <span style={{ backgroundColor: "var(--pearl-blue)" }}>
-                Contact Us
-              </span>
-            </Typography>
+          <Typography
+            variant="h2-poppins-semibold"
+            color="almost-black"
+            style={{ textAlign: "center", maxWidth: "1220px", margin: "auto" }}
+          >
+            <hr />
+            <span style={{ backgroundColor: "var(--pearl-blue)" }}>
+              Contact Us
+            </span>
+          </Typography>
 
           <div className={styles.abtUs4Info}>
             <div>

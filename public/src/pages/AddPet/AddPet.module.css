@@ -90,7 +90,7 @@ padding-left: 12px;
     .addPetForm form {
         grid-template-columns: repeat(3, 1fr);
         column-gap: 75px;
-        max-width: 1440PX;
+        max-width: 1220PX;
     }
     
     .addPetForm form div:first-child {

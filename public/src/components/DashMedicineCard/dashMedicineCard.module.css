@@ -1,6 +1,5 @@
 .medicine-card-container {
   display: flex;
-  width: 100%;
   height: auto;
   background-color: var(--pearl-blue);
   align-items: center;
@@ -9,8 +8,8 @@
   gap: 26px;
   border: 1px solid var(--border-grey);
   border-radius: 8px;
-  padding: 1rem .8rem;
-  min-width: 233px;
+  padding: 1rem 20px;
+  /* min-width: 263px; */
 }
 
 .icon-container {

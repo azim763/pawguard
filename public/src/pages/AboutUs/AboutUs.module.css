@@ -244,22 +244,23 @@ textarea {
 
 @media screen and (min-width: 1000px) {
   .abtUs1 {
+    display: block;
+  }
+  .abtUs1 > div {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    flex-flow: row nowrap;
-    padding-top: 60px;
     height: 585px;
   }
 
-  .abtUs1 > div:last-of-type {
-    justify-self: end;
+  .abtUs1 > div > div:last-of-type {
+    align-self: end;
   }
 
   .abtUs1Description {
+    text-align: left;
     padding: 0;
     align-self: start;
-    justify-self: right;
-    padding-right: 10vw;
+    padding-left: 7vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -267,6 +268,8 @@ textarea {
     gap: 24px;
     width: 90%;
     max-width: 700px;
+    align-self: center;
+
   }
 
   .abtUs2,
