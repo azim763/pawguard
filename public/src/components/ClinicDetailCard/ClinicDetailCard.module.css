@@ -9,6 +9,7 @@
   /* margin: auto; */
   margin-top: 8px;
   gap: 24px;
+  max-width: 1220px;
 
   /* @media (max-width: 500px) {
     display: flex;

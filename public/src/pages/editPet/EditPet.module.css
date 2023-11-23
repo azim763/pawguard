@@ -1,6 +1,9 @@
+.editPetContainer {
+    padding: 45px 40px;
+}
 .editPetHeader{
     text-align: center;
-    padding: 40px;
+    padding-bottom: 48px;
 }
 
 .editPetImage div img{
