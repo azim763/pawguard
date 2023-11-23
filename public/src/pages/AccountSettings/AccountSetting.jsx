@@ -17,7 +17,7 @@ const AccountSetting = () => {
         <Header />
         <div className="body">
           <Typography varient="h1-poppins-semibold">
-            <h1>Account Settings</h1>
+              <h1>Account Settings</h1>
             </Typography>
             <div className="body-part">
               <UpdateProfileSettings></UpdateProfileSettings>

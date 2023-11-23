@@ -11,11 +11,11 @@ const EmailReminders = () => {
 
   return (
     <div className="email-reminders-box">
-      <Typography variant="body2-poppins-medium">
-      <h2>Email Reminders</h2>
+      <Typography variant="sub-poppins-medium">
+      Email Reminders
       </Typography>
       <div className="content-part">
-      <Typography  varient="body3-poppins-regular">
+      <Typography  varient="body2-poppins-medium">
         <label htmlFor="appointments">Appointments</label>
         </Typography>
         <div className="spacer"></div>

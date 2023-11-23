@@ -7,6 +7,8 @@ import InsuranceCard from "../../components/InsuranceCard/InsuranceCard";
 import PlanDetailCard from "../../components/PlanDetailCard/PlanDetailCard";
 import SmPlanDetailCard from "../../components/SmPlanDetailCard/SmPlanDetailCard";
 import Typography from "../../components/Typography/Typography";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 import { getAllInsurancePlansRoute } from "../../utils/APIRoutes";
 import axios from "axios";
@@ -24,18 +26,26 @@ const InsuranceDetails = () => {
   });
   const [planData, setPlanData] = useState([]);
   const navigate = useNavigate();
+  const [isLoadingData, setLoadingData] = useState(false);
 
   const [currentCompanyID, setCurrentCompanyID] = useState(null);
   // const [insurancePlans, setInsurancePlans] = useState([]);
 
-//For Small Cards 
+  //For Small Cards
   const fetchCompanyData = async (companyID) => {
     try {
-      const response = await axios.get(`${getInsuranceCompanyByIdRoute}/${companyID}`);
+      setLoadingData(true);
+      document.body.style.overflow = "hidden";
+      const response = await axios.get(
+        `${getInsuranceCompanyByIdRoute}/${companyID}`
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching company data:", error);
       return null;
+    } finally {
+      setLoadingData(false);
+      document.body.style.overflow = "unset";
     }
   };
   const [insurancePlans, setInsurancePlans] = useState([]);
@@ -72,13 +82,17 @@ const InsuranceDetails = () => {
     }
   }, [currentCompanyID]);
 
-//For main part above   
+  //For main part above
   useEffect(() => {
+    setLoadingData(true);
+    document.body.style.overflow = "hidden";
+
     axios
       .get(`${getInsurancePlanByIdRoute}/${_id}`)
       .then((response) => {
         setCompanyData(response.data);
         setCurrentCompanyID(response.data.CompanyID);
+
         axios
           .get(`${getInsuranceCompanyByIdRoute}/${response.data.CompanyID}`)
           .then((responsecompany) => {
@@ -86,13 +100,18 @@ const InsuranceDetails = () => {
           })
           .catch((error) => {
             console.error("Error fetching Company data:", error);
+          })
+          .finally(() => {
+            setLoadingData(false);
+            document.body.style.overflow = "unset";
           });
       })
       .catch((error) => {
         console.error("Error fetching Plan data:", error);
+        setLoadingData(false);
+        document.body.style.overflow = "unset";
       });
   }, [_id, CompanyID]);
-
 
   const handleViewDetailsClick = (_id) => {
     navigate(`/insurance/details/${_id}`);
@@ -160,21 +179,20 @@ const InsuranceDetails = () => {
           </Typography>
         </div>
         <div className={styles.InsuranceDetailsSimilarPlansBody}>
-            {insurancePlans
-              .map((plan, index) => (
-                <SmPlanDetailCard
-                  smSource={plan.companyData?.CompanyLogo}
-                  planName={plan.PlanName}
-                  key={index}
-                  smAlt={plan.companyData?.CompanyName}
-                  smDeductibleNum={plan.AnnualDeductible}
-                  smReimbursementNum={plan.Reimbursement * 100}
-                  smCoverageNum={plan.AnnualCoverage}
-                  smPrice={plan.InsurancePrice}
-                  CompanyID={plan.CompanyID}
-                  onClick={() => handleViewDetailsClick(plan._id)}
-                />
-              ))}
+          {insurancePlans.map((plan, index) => (
+            <SmPlanDetailCard
+              smSource={plan.companyData?.CompanyLogo}
+              planName={plan.PlanName}
+              key={index}
+              smAlt={plan.companyData?.CompanyName}
+              smDeductibleNum={plan.AnnualDeductible}
+              smReimbursementNum={plan.Reimbursement * 100}
+              smCoverageNum={plan.AnnualCoverage}
+              smPrice={plan.InsurancePrice}
+              CompanyID={plan.CompanyID}
+              onClick={() => handleViewDetailsClick(plan._id)}
+            />
+          ))}
         </div>
       </div>
     </div>

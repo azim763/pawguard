@@ -12,6 +12,7 @@
   row-gap: 0;
   justify-self: center;
   column-gap: 3rem;
+  max-width: 1220px;
   padding: 45px 40px;
   margin: auto;
 }

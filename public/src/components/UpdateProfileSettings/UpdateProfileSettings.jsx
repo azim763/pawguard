@@ -21,11 +21,11 @@ const UpdateProfileSettings = () => {
 
   return (
     <div className="update-profile-box">
-      <Typography variant="body2-poppins-medium">
-        <h2>Update Profile</h2>
+      <Typography variant="sub-poppins-medium">
+        Update Profile
       </Typography>
       <div className="form-group-profile">
-        <Typography  varient="body3-poppins-regular">
+        <Typography  varient="body2-poppins-medium">
           <label htmlFor="firstName">First Name</label>
         </Typography>
         <input
@@ -37,7 +37,7 @@ const UpdateProfileSettings = () => {
         />
       </div>
       <div className="form-group-profile">
-      <Typography  varient="body3-poppins-regular">
+      <Typography  varient="body2-poppins-medium">
         <label htmlFor="lastName">Last Name</label>
       </Typography>
         <input
@@ -49,7 +49,7 @@ const UpdateProfileSettings = () => {
         />
       </div>
       <div className="form-group-profile">
-      <Typography  varient="body3-poppins-regular">
+      <Typography  varient="body2-poppins-medium">
         <label htmlFor="email">Email Address</label>
       </Typography>
         <input

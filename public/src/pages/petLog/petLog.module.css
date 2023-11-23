@@ -4,15 +4,30 @@
   gap: 1rem;
   justify-content: center;
 }
+
 .petLogContainer {
-  /* width: 80vw;
-  display: grid;
-  grid-template-columns: 1fr 1fr; */
-margin: 2rem;
+  margin: 2rem;
   padding: 2rem;
   border: 1px solid gray;
 }
+
 .petPagePetCard {
   text-align: center;
   align-items: center;
+}
+
+.petinfo img {
+  border-radius: 50%;
+  box-sizing: border-box;
+  object-fit: cover;
+  border: 1px solid var(--small-text-gray);
+  max-width: 100%;
+  margin-bottom: 10px;
+  height: 100px;
+  float: right;
+}
+
+.petinfo{
+  display: grid;
+  grid-template-columns: auto 185px;
 }

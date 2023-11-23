@@ -115,15 +115,6 @@ const ListClinics = () => {
     fetchData();
   }, []);
 
-  // const options = ["Dentistry", "Allergies"];
-
-  // const navigate = useNavigate();
-  // const petData = [
-  //   { imgUrl: "https://picsum.photos/200", petName: "Pet 1", index: 1 },
-  //   { imgUrl: "https://picsum.photos/200", petName: "Pet 2", index: 2 },
-  //   // Add more pet data as needed
-  // ];
-
   useEffect(() => {
     axios
       .get(getAllClinicsRoute)
@@ -240,8 +231,8 @@ const ListClinics = () => {
   return (
     <LoadingOverlay
       active={isLoadingData}
-      // spinner={text}
-      text="Loading your content..."
+      spinner={<LoadPage />}
+      // text="Loading your content..."
     >
       <div>
         <Header />

@@ -6,12 +6,12 @@ import Typography from '../Typography/Typography';
 const UpdateLocation = () => {
   return (
     <div className="update-location-box">
-      <Typography variant="body2-poppins-medium">
-      <h2>Update Location</h2>
+      <Typography variant="sub-poppins-medium">
+      Update Location
       </Typography>
       <div className='content-box'>
-        <Typography varient="body3-poppins-regular">
-          <label>Location</label>
+        <Typography varient="body2-poppins-medium">
+          Location
         </Typography>
       <div className="location-input-container">
         <img src={image} alt="Location Icon" className="location-icon" />

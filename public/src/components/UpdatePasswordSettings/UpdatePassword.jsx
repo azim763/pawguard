@@ -16,11 +16,11 @@ const UpdatePassword = () => {
 
   return (
     <div className="update-password-box">
-      <Typography variant="body2-poppins-medium">
-      <h2>Update Password</h2>
+      <Typography variant="sub-poppins-medium">
+      Update Password
       </Typography>
       <div className="form-group-pwd">
-      <Typography  varient="body3-poppins-regular">
+      <Typography  varient="body2-poppins-medium">
         <label htmlFor="newPassword">New Password</label>
       </Typography>
         <input
@@ -32,7 +32,7 @@ const UpdatePassword = () => {
         />
       </div>
       <div className="form-group-pwd">
-      <Typography  varient="body3-poppins-regular">
+      <Typography  varient="body2-poppins-medium">
         <label htmlFor="confirmPassword">Confirm New Password</label>
       </Typography>
         <input

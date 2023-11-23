@@ -4,15 +4,31 @@ import axios from 'axios';
 import Typography from "../../components/Typography/Typography";
 import styles from "./petLog.module.css";
 //import jsPDF from "jspdf";
-import jsPDF, { Text, AddPage, Line, Image, Table, Html } from 'jspdf'
+// import jsPDF, { Text, AddPage, Line, Image, Table, Html } from 'jspdf'
 import Header from "../../components/Header/header";
 import Button from "../../components/Button/Button";
 //import LogoSVG from '../../components/SVG/LogoSVG';
 import { useParams } from "react-router-dom";
 import { searchPetLogsByPetIDRoute, searchPetMedicationsByPetIDRoute, searchPetVaccinationsByPetIDRoute, searchPetFoodByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
-import { Cell } from 'recharts';
+// import { Cell } from 'recharts';
+import Graph from "../../components/Graph/Graph";
+import { useNavigate, NavLink, Link } from "react-router-dom";
+// import generatePDF, { Resolution, Margin, Options } from "react-to-pdf";
+import { Margin, usePDF } from "react-to-pdf";
+import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
+
+// 
+
 
 const ExportpetLog = () => {
+
+
+
+const { toPDF, targetRef } = usePDF({
+  filename: "petlog.pdf",
+  page: { margin: Margin.MEDIUM }
+});
+
 
 
   const [petLog, setPetLog] = useState([]);
@@ -22,6 +38,9 @@ const ExportpetLog = () => {
 
   const [petMedications, setPetMedications] = useState([]);
   const [petVaccines, setPetVaccines] = useState([]);
+  const [foods, setFoods] = useState([]);
+
+  const navigate = useNavigate();
 
 
   //  console.log(PetID);
@@ -74,6 +93,21 @@ const ExportpetLog = () => {
       });
   }, [petID]);
 
+
+  useEffect(() => {
+    axios
+      .get(searchPetFoodByPetIDRoute, {
+        params: { PetID: petID },
+      })
+      .then((response) => {
+        setFoods(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("Error fetching data: ", error);
+      });
+  }, [petID]);
+
   useEffect(() => {
     axios
       .get(searchPetVaccinationsByPetIDRoute, {
@@ -87,8 +121,6 @@ const ExportpetLog = () => {
         console.log("Error fetching data: ", error);
       });
   }, [petID]);
-
-
 
 
   function userfrDateTime(isoString) {
@@ -117,7 +149,7 @@ const ExportpetLog = () => {
 
   const contentContainer = {
     borderCollapse: 'collapse',
-    margin: '25px 0',
+    margin: '12px 0',
     fontSize: '0.9em',
     fontFamily: 'sans-serif',
     minWidth: '400px',
@@ -129,7 +161,7 @@ const ExportpetLog = () => {
   const myComponentStyle = {
     color: 'black',
     lineHeight: 1.8,
-    padding: '1.5em',
+    padding: '0 1.5em',
     innerWidth: '100%',
     width: '846px',
     fontSize:'12px',
@@ -145,17 +177,18 @@ const ExportpetLog = () => {
   const generalinfo = {
     backgroundColor: 'var(--pearl-blue)',
     padding: '8px',
-    margin: '18px 0',
+    margin: '8px 0',
     textAlign: 'center',
     fontSize:'14px'
   }
 
    const preview = {
-    fontSize:'24px', 
+    fontSize:'32px', 
     margin:'Auto',
     textAlign: 'center',
     backgroundColor: '#ffe88d',
-
+    display: 'grid',
+    gridTemplateColumns: '1fr auto'
    }
   const exportbutton = {
     textAlign: 'center',  paddingBottom: '2rem',
@@ -178,20 +211,63 @@ const ExportpetLog = () => {
     fontWeight: '400',
     fontSize:'11px'
   }
+  const btnback = {
+   padding: '0 16px'
+  } 
+  
+  const graphleft = {
+    padding: '8px',
+    border: 'solid 1px lightgray',
+  borderRadius: '8px',
+  backgroundColor: 'white',
+  margin: '4px'
+   } 
+   const graphright = {
+    padding: '8px',
+    border: 'solid 1px lightgray',
+  borderRadius: '8px',
+  backgroundColor: 'white',
+margin: '4px'
+   } 
+    
+  const graphcontainer = {
+    display: 'grid',
+   // gridTemplateColumns: '1fr 1fr'
+   } 
+
+ const  petimage = {
+  width: '180px' ,
+  borderRadius: '50%'
+  
+ } 
+ 
+ const  petimageDisplay = {
+ 
+  borderRadius: '50%',
+  textAlign: 'end'
+ }
+//  const  petinfo = {
+//   display: 'grid',
+//     gridTemplateColumns: 'auto 185px'
+//  }
+
   /******************************************************* */
-  const generatePDF = () => {
+  // const generatePDFjs = () => {
 
-    // var element = document.getElementById("export");
-    var element = document.querySelector(".export");
+  //   // var element = document.getElementById("export");
+  //   var element = document.querySelector(".export");
 
-    var doc = new jsPDF("p", "pt", "A3");
+  //   var doc = new jsPDF("p", "pt", "A3");
 
-    doc.html(element, {
-      async callback(doc) {
-        doc.save("petlog");
-      }
-    });
+  //   doc.html(element, {
+  //     async callback(doc) {
+  //       doc.save("petlog");
+  //     }
+  //   });
 
+  // };
+  const goback = () => {
+    navigate(-1);
   };
 
 
@@ -205,19 +281,29 @@ const ExportpetLog = () => {
       <Header />
 
 
+
+           
 <div style={preview}>
-  Preview
+ <div>Preview</div>
+ <Button
+       style={btnback}
+            label={"X"}
+            onClickHandler={goback} 
+          />
+   {/* <Button onClick={downloadPdf}>Download PDF</Button> */}
+   {/* <Button onClick={toPDF}>Download PDF</Button> */}
 </div>
-      <div className={styles.petLogContainer} class="export" style={myComponentStyle}>
+          
+     <div className={styles.petLogContainer} class="export" style={myComponentStyle} id="container" ref={targetRef} >
         {/* <div className={styles.petLogContainer}   style={myComponentStyle}> */}
-
+{/* 
         <div style={logheaderStyle}>
-
-        </div>
-
-        <div className={styles.petLogHeader}>
+  <div className={styles.petLogHeader}>
           Pet Logs
         </div>
+        </div> */}
+
+      
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -226,7 +312,10 @@ const ExportpetLog = () => {
               General Information
             </div>
             <div>
-              <table style={contentContainer}>
+       
+<div className={styles.petinfo}>
+
+      <table style={contentContainer}>
                 <tr>
                   <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Name:</div>
@@ -296,6 +385,13 @@ const ExportpetLog = () => {
 
                 </tr>
               </table>
+          <div  style={petimage}>
+        <ImageDisplay   style={petimageDisplay} PetImageData={pet.PetImageName} />
+      </div>   
+
+  </div>
+
+ 
             </div>
 
             <div style={generalinfo}>
@@ -425,31 +521,28 @@ const ExportpetLog = () => {
               </table>
             </div>
 
-            {/* <div style={generalinfo}>
-              Meal Graph
+           <div style={generalinfo}>
+              Meal & Weight Graphs
             </div>
+       <div  style={graphcontainer}>    
+            <div style={graphleft}>
+                          <Graph
+                            names={foods.map((food) => food.QuantityPerMeal)}
+                            values={foods.map((food) => food.FoodDate)}
+                            label="Meal"
+                          />
+                      
+            </div>
+            <div  style={graphright}>
+ <Graph
+                          names={petLog.map((petLog) => petLog.Weight)}
+                          values={petLog.map((petLog) => petLog.LogDate)}
+                          label="Weight"
+                        />
+            </div> 
+   
             <div>
-
             </div>
-
-            <div style={generalinfo}>
-              Weight Graph
-            </div>
-            <div>
-
-            </div>
-
-
-
-
-            <div style={generalinfo}>
-              Health
-            </div>
-            <div>
-
-            </div> */}
-
-            <div>
             </div>
            
           </div>
@@ -458,7 +551,7 @@ const ExportpetLog = () => {
 
       </div>
       <div style={exportbutton}>
-      <Button onClickHandler={generatePDF} variant="yellow" type="submit" label={"Export"} size="dk-md-s"  />
+      <Button onClickHandler={toPDF} variant="yellow" type="submit" label={"Export"} size="dk-md-s"  />
 </div>
     </div>
 
