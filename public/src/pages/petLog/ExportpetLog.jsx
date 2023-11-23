@@ -300,7 +300,7 @@ margin: '4px'
         <div style={logheaderStyle}>
   <div className={styles.petLogHeader}>
   <LogoSVG  className={styles.headersvgStyle} />
-  <div>  {pet.PetName} Report</div>
+  <div className={styles.petnameheader}>  {pet.PetName} Report</div>
  
         </div>
         </div>

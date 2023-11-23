@@ -7,7 +7,7 @@
   background-color: var(--dark-blue);
 
   color: white;
-  padding: 1rem;
+  padding: 0.5rem 0 .4rem 1rem;
   font-size: large;
 }
 .petnameheader{
@@ -41,5 +41,5 @@
 }
 .petLogHeader svg
 {
-  width: 100px;
+  width: 140px;
 }
