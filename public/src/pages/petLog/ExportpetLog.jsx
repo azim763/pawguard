@@ -107,24 +107,6 @@ const { toPDF, targetRef } = usePDF({
       });
   }, [petID]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const responseFood = await axios.get(searchPetFoodByPetIDRoute, {
-  //         params: { PetID: selectedPet._id },
-  //       });
-  //       setFoods(responseFood.data);
-  //     } catch (error) {
-  //       console.error("Error fetching pet foods:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [selectedPet]);
-
-
-
-
   useEffect(() => {
     axios
       .get(searchPetVaccinationsByPetIDRoute, {
@@ -138,8 +120,6 @@ const { toPDF, targetRef } = usePDF({
         console.log("Error fetching data: ", error);
       });
   }, [petID]);
-
-
 
 
   function userfrDateTime(isoString) {
