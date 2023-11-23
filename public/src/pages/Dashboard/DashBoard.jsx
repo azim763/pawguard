@@ -40,10 +40,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [appointments, setAppointment] = useState([]);
   const [medication, setMedication] = useState([]);
   const [petLog, setPetLog] = useState([]);
-  const [userMed, setUserMed] = useState([]);
   const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
     []
   );
@@ -138,38 +136,6 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responseApt = await axios.get(
-          searchPetAppointmentsByUserIDRoute,
-          {
-            params: { UserID: currentUser._id },
-          }
-        );
-        setAppointment(responseApt.data);
-      } catch (error) {
-        console.error("Error fetching pet appointment:", error);
-      }
-    };
-
-    fetchData();
-  }, [selectedPet]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
-          params: { UserID: currentUser._id },
-        });
-        setUserMed(userMed.data);
-      } catch (error) {
-        console.error("Error fetching medication by user:", error);
-      }
-    };
-
-    fetchData();
-  }, [selectedPet]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -393,10 +359,10 @@ export default function Dashboard() {
               </Carousel>
             </div> 
           </div>
-          {pets && userMed && appointments && (
+          {pets && medication && appointmentsOfSelectedPet && (
             <DashCalendar
-              petAppointments={appointments}
-              petMedications={userMed}
+              petAppointments={appointmentsOfSelectedPet}
+              petMedications={medication}
               pets={pets}
             />
           )}
