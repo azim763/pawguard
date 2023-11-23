@@ -4,7 +4,7 @@ import axios from 'axios';
 import Typography from "../../components/Typography/Typography";
 import styles from "./petLog.module.css";
 //import jsPDF from "jspdf";
-import jsPDF, { Text, AddPage, Line, Image, Table, Html } from 'jspdf'
+// import jsPDF, { Text, AddPage, Line, Image, Table, Html } from 'jspdf'
 import Header from "../../components/Header/header";
 import Button from "../../components/Button/Button";
 //import LogoSVG from '../../components/SVG/LogoSVG';
@@ -15,6 +15,7 @@ import Graph from "../../components/Graph/Graph";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 // import generatePDF, { Resolution, Margin, Options } from "react-to-pdf";
 import { Margin, usePDF } from "react-to-pdf";
+import ImageDisplay from "../../components/ImageDisplay/ImageDisplay";
 
 // 
 
@@ -233,21 +234,38 @@ margin: '4px'
     display: 'grid',
    // gridTemplateColumns: '1fr 1fr'
    } 
+
+ const  petimage = {
+  width: '180px' ,
+  borderRadius: '50%'
+  
+ } 
+ 
+ const  petimageDisplay = {
+ 
+  borderRadius: '50%',
+  textAlign: 'end'
+ }
+//  const  petinfo = {
+//   display: 'grid',
+//     gridTemplateColumns: 'auto 185px'
+//  }
+
   /******************************************************* */
-  const generatePDFjs = () => {
+  // const generatePDFjs = () => {
 
-    // var element = document.getElementById("export");
-    var element = document.querySelector(".export");
+  //   // var element = document.getElementById("export");
+  //   var element = document.querySelector(".export");
 
-    var doc = new jsPDF("p", "pt", "A3");
+  //   var doc = new jsPDF("p", "pt", "A3");
 
-    doc.html(element, {
-      async callback(doc) {
-        doc.save("petlog");
-      }
-    });
+  //   doc.html(element, {
+  //     async callback(doc) {
+  //       doc.save("petlog");
+  //     }
+  //   });
 
-  };
+  // };
   const goback = () => {
     navigate(-1);
   };
@@ -294,7 +312,10 @@ margin: '4px'
               General Information
             </div>
             <div>
-              <table style={contentContainer}>
+       
+<div className={styles.petinfo}>
+
+      <table style={contentContainer}>
                 <tr>
                   <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Name:</div>
@@ -364,6 +385,13 @@ margin: '4px'
 
                 </tr>
               </table>
+          <div  style={petimage}>
+        <ImageDisplay   style={petimageDisplay} PetImageData={pet.PetImageName} />
+      </div>   
+
+  </div>
+
+ 
             </div>
 
             <div style={generalinfo}>
