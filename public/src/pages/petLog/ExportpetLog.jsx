@@ -7,7 +7,7 @@ import styles from "./petLog.module.css";
 // import jsPDF, { Text, AddPage, Line, Image, Table, Html } from 'jspdf'
 import Header from "../../components/Header/header";
 import Button from "../../components/Button/Button";
-//import LogoSVG from '../../components/SVG/LogoSVG';
+import LogoSVG from '../../components/SVG/LogoSVG';
 import { useParams } from "react-router-dom";
 import { searchPetLogsByPetIDRoute, searchPetMedicationsByPetIDRoute, searchPetVaccinationsByPetIDRoute, searchPetFoodByPetIDRoute, getPetByIdRoute } from "../../utils/APIRoutes";
 // import { Cell } from 'recharts';
@@ -169,9 +169,9 @@ const { toPDF, targetRef } = usePDF({
     margin: 'auto',
   }
   const logheaderStyle = {
-    height: '20px',
-    width: '100%',
-    backgroundColor: '#efefef'
+    // height: '20px',
+    // width: '100%',
+    // backgroundColor: '#efefef'
   }
 
   const generalinfo = {
@@ -299,7 +299,9 @@ margin: '4px'
 
         <div style={logheaderStyle}>
   <div className={styles.petLogHeader}>
-  {pet.PetName} Report
+  <LogoSVG  className={styles.headersvgStyle} />
+  <div>  {pet.PetName} Report</div>
+ 
         </div>
         </div>
 

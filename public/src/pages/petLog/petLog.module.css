@@ -1,10 +1,18 @@
 .petLogHeader {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+  /* flex-direction: row; */
   gap: 1rem;
   justify-content: center;
-}
+  background-color: var(--dark-blue);
 
+  color: white;
+  padding: 1rem;
+  font-size: large;
+}
+.petnameheader{
+  grid-column-start: 3;
+}
 .petLogContainer {
   margin: 2rem;
   padding: 2rem;
@@ -30,4 +38,8 @@
 .petinfo{
   display: grid;
   grid-template-columns: auto 185px;
+}
+.petLogHeader svg
+{
+  width: 100px;
 }
