@@ -278,127 +278,124 @@ const AddPet = () => {
   return (
     <div>
       <Header />
-      <div className={styles.addPetHeader}>
-        <Typography variant="large-h1-poppins-bold" color="almost-black">
-          Add Pet
-        </Typography>
-      </div>
-      <div className={styles.addPetForm}>
-        <form action="/submit" method="post" onSubmit={onClickHandler}>
-          <div className={styles.addPetImage}>
-            {/* <div className={styles.imageUpload}>
-              <ImageSVG />
-            </div> */}
-            <ImageDisplay PetImageData={selectedImage}/>
-            <SingleImageUpload
-              label="Add Pet Image"
-              onImageUpload={handleImageUpload}
-            />
-          </div>
-
-          <TextInput
-            size="md"
-            id="PetName"
-            label="Name *"
-            onChange={handleInputChange}
-          />
-          <Dropdown
-            size="md"
-            label="Type of pet *"
-            id="petType"
-            options={petType}
-            onChange={(selectedValue) =>
-              handleDropdownChange("Species", selectedValue)
-            }
-            required={true}
-          />
-          <Dropdown
-            size="md"
-            label="Breed *"
-            id="Breed"
-            options={breedType}
-            onChange={(selectedValue) =>
-              handleDropdownChange("Breed", selectedValue)
-            }
-            required={true}
-          />
-          <Dropdown
-            size="md"
-            label="Gender *"
-            id="Gender"
-            options={gender}
-            onChange={(selectedValue) =>
-              handleDropdownChange("Gender", selectedValue)
-            }
-            required={true}
-          />
-          <div>
-            <Typography variant="body2-poppins-medium">Birthday</Typography>
-            <DatePicker id="birthday" onChange={handleDateChange} />
-          </div>
-
-          <Dropdown
-            size="md"
-            label="Blood type"
-            id="BloodType"
-            options={bloodType}
-            onChange={(selectedValue) =>
-              handleDropdownChange("BloodType", selectedValue)
-            }
-          />
-          <div className={styles.petHeight}>
+      <div className={styles.addPetContainer}>
+        <div className={styles.addPetHeader}>
+          <Typography variant="large-h1-poppins-bold" color="almost-black">
+            Add Pet
+          </Typography>
+        </div>
+        <div className={styles.addPetForm}>
+          <form action="/submit" method="post" onSubmit={onClickHandler}>
+            <div className={styles.addPetImage}>g
+              <ImageDisplay PetImageData={selectedImage}/>
+              <SingleImageUpload
+                label="Add Pet Image"
+                onImageUpload={handleImageUpload}
+              />
+            </div>
             <TextInput
-              size="sm"
-              id="Height"
-              label="Pet Height *"
-              placeholder="Eg: 11"
+              size="md"
+              id="PetName"
+              label="Name *"
               onChange={handleInputChange}
+            />
+            <Dropdown
+              size="md"
+              label="Type of pet *"
+              id="petType"
+              options={petType}
+              onChange={(selectedValue) =>
+                handleDropdownChange("Species", selectedValue)
+              }
               required={true}
             />
-            <Typography variant="textfield-poppins-regular">in</Typography>
-          </div>
-          <div className={styles.petWeight}>
-            <TextInput
-              size="sm"
-              id="Weight"
-              label="Pet Weight *"
-              placeholder="Eg: 7"
-              type="Number"
-              onChange={handleInputChange}
+            <Dropdown
+              size="md"
+              label="Breed *"
+              id="Breed"
+              options={breedType}
+              onChange={(selectedValue) =>
+                handleDropdownChange("Breed", selectedValue)
+              }
               required={true}
             />
-            <Typography variant="textfield-poppins-regular">lbs</Typography>
-          </div>
-          <MultipleDropDown
-            label="Medical Necessities"
-            options={preExistingMedical}
-            selectedValues={selectedPreExistingMedical}
-            onSelect={handleMultipleDropdownChange}
-          />
-          <div>
-            <Typography variant="body2-poppins-medium">
-              <label htmlFor="Description">Pet Notes</label>
-            </Typography>
-            <Typography variant="textfield-poppins-regular">
-              <textarea
-                name="Description"
-                id="Description"
-                cols="30"
-                rows="10"
-                placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
+            <Dropdown
+              size="md"
+              label="Gender *"
+              id="Gender"
+              options={gender}
+              onChange={(selectedValue) =>
+                handleDropdownChange("Gender", selectedValue)
+              }
+              required={true}
+            />
+            <div>
+              <Typography variant="body2-poppins-medium">Birthday</Typography>
+              <DatePicker id="birthday" onChange={handleDateChange} />
+            </div>
+            <Dropdown
+              size="md"
+              label="Blood type"
+              id="BloodType"
+              options={bloodType}
+              onChange={(selectedValue) =>
+                handleDropdownChange("BloodType", selectedValue)
+              }
+            />
+            <div className={styles.petHeight}>
+              <TextInput
+                size="sm"
+                id="Height"
+                label="Pet Height *"
+                placeholder="Eg: 11"
                 onChange={handleInputChange}
-              ></textarea>
-            </Typography>
-          </div>
-          <Button
-            type="submit"
-            variant="yellow"
-            label="Add Pet"
-            size="dk-md-s"
-          />
-        </form>
+                required={true}
+              />
+              <Typography variant="textfield-poppins-regular">in</Typography>
+            </div>
+            <div className={styles.petWeight}>
+              <TextInput
+                size="sm"
+                id="Weight"
+                label="Pet Weight *"
+                placeholder="Eg: 7"
+                type="Number"
+                onChange={handleInputChange}
+                required={true}
+              />
+              <Typography variant="textfield-poppins-regular">lbs</Typography>
+            </div>
+            <MultipleDropDown
+              label="Medical Necessities"
+              options={preExistingMedical}
+              selectedValues={selectedPreExistingMedical}
+              onSelect={handleMultipleDropdownChange}
+            />
+            <div>
+              <Typography variant="body2-poppins-medium">
+                <label htmlFor="Description">Pet Notes</label>
+              </Typography>
+              <Typography variant="textfield-poppins-regular">
+                <textarea
+                  name="Description"
+                  id="Description"
+                  cols="30"
+                  rows="10"
+                  placeholder="Add your pets Pet preferences, special needs, favourite food or favourite toys."
+                  onChange={handleInputChange}
+                ></textarea>
+              </Typography>
+            </div>
+            <Button
+              type="submit"
+              variant="yellow"
+              label="Add Pet"
+              size="dk-md-s"
+            />
+          </form>
+        </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 };

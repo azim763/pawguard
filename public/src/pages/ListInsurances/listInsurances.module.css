@@ -1,6 +1,9 @@
 .ListInsurances {
-  padding: 122px 7%;
+  padding: 45px 40px;
   background-color: var(--off-white);
+  max-width: 1220px;
+  box-sizing: content-box;
+  margin: auto;
 }
 
 .ListInsurancesBody {

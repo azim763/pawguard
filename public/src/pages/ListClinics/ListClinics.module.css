@@ -1,21 +1,22 @@
 .clinicsContainer {
-  padding: 15% 120px;
+  padding: 64px 120px;
   border: 1px solid var(--off-white);
   border-radius: 50px 50px 0 0;
   background-color: var(--off-white);
   margin: auto;
   margin-top: -100px;
   display: grid;
-  /* gap: 2rem; */
+  justify-items: center;
 }
-.Loader{
-  height: 100vh
+
+.Loader {
+  height: 100vh;
 }
 .multiplePetSelection {
   margin-bottom: 2rem;
 }
 
-.dropDownClinics input{
+.dropDownClinics input {
   padding-left: 5px;
 }
 
@@ -71,7 +72,13 @@
   justify-content: center;
   margin-left: 5rem;
   height: 50vh;
-  align-content: center;
+  max-width: 1200px;
+}
+
+@media screen and (min-width: 1300px) {
+  .titleCenter {
+    margin: auto;
+  }
 }
 
 .clinicTag {
