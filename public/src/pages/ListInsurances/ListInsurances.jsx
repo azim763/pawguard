@@ -4,26 +4,41 @@ import Typography from "../../components/Typography/Typography";
 import PlanDetailCard from "../../components/PlanDetailCard/PlanDetailCard";
 import styles from "./listInsurances.module.css";
 import { getInsuranceCompanyByIdRoute } from "../../utils/APIRoutes";
-import axios from "axios"; 
+import axios from "axios";
 //for functioning of the button
 import { useNavigate, useLocation } from "react-router-dom";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 const ListInsurances = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const filteredPlans = location.state?.filteredPlans || [];
   const [companyDetailsMap, setCompanyDetailsMap] = useState({});
+  const [isLoadingData, setLoadingData] = useState(false);
 
   useEffect(() => {
     const fetchCompanyDetailsPromises = filteredPlans.map((plan) => {
+      // Fetch details for each company
       return axios
         .get(`${getInsuranceCompanyByIdRoute}/${plan.CompanyID}`)
         .then((response) => ({
           CompanyID: plan.CompanyID,
           CompanyLogo: response.data.CompanyLogo,
           CompanyName: response.data.CompanyName,
-        }));
+        }))
+        .catch((error) => {
+          console.error("Error fetching company details:", error);
+          // Return a default value in case of an error
+          return {
+            CompanyID: plan.CompanyID,
+            CompanyLogo: null,
+            CompanyName: "Error fetching details",
+          };
+        });
     });
+    setLoadingData(true);
+    document.body.style.overflow = "hidden";
 
     Promise.all(fetchCompanyDetailsPromises)
       .then((detailsArray) => {
@@ -34,11 +49,17 @@ const ListInsurances = () => {
         setCompanyDetailsMap(updatedDetailsMap);
       })
       .catch((error) => {
-        console.error("Error fetching company details:", error);
+        console.error("Error processing company details:", error);
+      })
+      .finally(() => {
+        setLoadingData(false);
+        document.body.style.overflow = "unset";
       });
   }, [filteredPlans]);
-  
-  const sortedPlans = [...filteredPlans].sort((a, b) => a.InsurancePrice - b.InsurancePrice);
+
+  const sortedPlans = [...filteredPlans].sort(
+    (a, b) => a.InsurancePrice - b.InsurancePrice
+  );
 
   const handleViewDetailsClick = (_id) => {
     console.log("This is provided to or next page" + _id);
