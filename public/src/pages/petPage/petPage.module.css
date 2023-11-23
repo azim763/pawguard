@@ -4,7 +4,8 @@
 
 .petPageGrid {
   display: grid;
-  width: 100%;
+  max-width: 1220px;
+  box-sizing: content-box;
   grid-template-columns: 1fr 5fr;
   grid-template-rows: 0.1fr 1fr;
   gap: 3rem;
@@ -12,7 +13,8 @@
   justify-self: center;
   column-gap: 3rem;
   max-width: 1220px;
-  padding: 0 5%;
+  padding: 45px 40px;
+  margin: auto;
 }
 
 .petCard {
@@ -31,13 +33,6 @@
 .allTabs {
   grid-column: 2/2;
   width: 100%;
-}
-
-.petPageMain {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 2.5rem;
-  align-items: center;
 }
 
 .petPage {
@@ -134,7 +129,7 @@
 
 @media screen and (max-width: 900px) {
   .petPageGrid {
-    width: 100% !important;
+    /* width: 100% !important; */
     padding: 0 20px;
     column-gap: 1.5rem;
     grid-template-columns: 0.5fr 4fr;
