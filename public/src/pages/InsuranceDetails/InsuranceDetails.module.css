@@ -21,7 +21,7 @@
 }
 
 .InsuranceDetailsSimilarPlans {
-  background-color: var(--light-blue);
+  background-color: var(--pearl-blue);
   box-sizing: border-box;
   padding: 8% 8%;
   display: grid;
@@ -71,6 +71,7 @@
 
   .InsuranceCoverageCenterDiv {
     margin-bottom: 0;
+    justify-content: left;
   }
 
   .InsuranceDetailsSimilarPlans {
@@ -94,6 +95,16 @@
   .InsuranceCoverageCenterDiv {
     padding: 0;
     justify-content: flex-start;
+  }
+
+  .planDetailCard div:first-child{
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .insuranceDetailContainer {
+    padding-top: 100px;
   }
 }
 
@@ -124,7 +135,7 @@
   }
 
   .insuranceDetailContainer {
-    padding: 80px 20px;
+    padding: 100px 20px;
   }
 
   .InsuranceDetailsSimilarPlans {

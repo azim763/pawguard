@@ -17,6 +17,8 @@ import "react-toastify/dist/ReactToastify.css";
 import PetSelectionInsurance from "../../components/PetSelectionInsurance/PetSelectionInsurance";
 import { Link } from "react-router-dom";
 import PlusSVG from "../../components/SVG/PlusSVG";
+import LoadPage from "../loadPage";
+import LoadingOverlay from "react-loading-overlay-ts";
 
 const InsuranceSearch = () => {
   const [pets, setPets] = useState([]);
@@ -30,6 +32,7 @@ const InsuranceSearch = () => {
   const [petInfo, setPetInfo] = useState(null);
   // const [userId, setUserId] = useState(null);
   const [pageTitle, setPageTitle] = useState("Tell us about your pet");
+  const [isLoadingData, setLoadingData] = useState(false);
 
   const navigate = useNavigate();
   toast.configure({
@@ -258,6 +261,8 @@ const InsuranceSearch = () => {
 
   const fetchPetInfo = async (selectedPetData) => {
     try {
+      setLoadingData(true);
+      document.body.style.overflow = "hidden";
       const response = await axios.get(
         `${getPetByIdRoute}/${selectedPetData._id}`
       );
@@ -265,48 +270,22 @@ const InsuranceSearch = () => {
       setPetInfo(petInfoData);
 
       handlePetTypeChange(petInfoData.Species);
-      console.log("This is selcetd " + petInfoData.Species);
+      console.log("This is selected " + petInfoData.Species);
 
       handlePetGenderChange(petInfoData.Gender);
     } catch (error) {
       console.error("Error fetching pet info:", error);
+    } finally {
+      setLoadingData(false);
+      document.body.style.overflow = "unset";
     }
   };
-  //to fetch pet data
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const storedData = localStorage.getItem(
-  //         process.env.REACT_APP_LOCALHOST_KEY
-  //       );
-  //       const data = JSON.parse(storedData);
 
-  //       // Fetch pet data from the backend
-  //       const response = await axios.get(searchPetsByUserIDRoute, {
-  //         params: { userID: data._id },
-  //       });
-
-  //       setPets(response.data);
-  //       if (!selectedPetName && response.data.length > 0) {
-  //         setSelectedPetName(response.data[0]);
-  //         console.log(response.data[0]);
-  //         // setSelectedOptions(response.data[0].PreExistingMedical.split(","));
-  //         //
-  //       }
-
-  //       // console.log("sort data");
-  //       // setSort(true);
-  //     } catch (error) {
-  //       console.log("Error fecthing Pet Data " + error);
-  //     }
-  //   };
-
-  //   // Fetch data when the component mounts
-  //   fetchData();
-  // }, [selectedPetName]);
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoadingData(true);
+        document.body.style.overflow = "hidden";
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -325,6 +304,9 @@ const InsuranceSearch = () => {
         }
       } catch (error) {
         console.log("Error fetching Pet Data " + error);
+      } finally {
+        setLoadingData(false);
+        document.body.style.overflow = "unset";
       }
     };
 
@@ -333,109 +315,113 @@ const InsuranceSearch = () => {
   }, []); // Empty dependency array to fetch data only on mount
 
   return (
-    <div>
+    <LoadingOverlay active={isLoadingData} spinner={<LoadPage />}>
       <div>
-        <Header id="top"></Header>
-      </div>
+        <div>
+          <Header id="top"></Header>
+        </div>
 
-      <div className={styles.insuranceSearchContainer}>
-        <div className={styles.searchTitle}>
-          <Typography variant="h1-poppins-semibold" color="almost-black">
-            Select the pet you would like to get quotes
+        <div className={styles.insuranceSearchContainer}>
+          <div className={styles.searchTitle}>
+            <Typography variant="h1-poppins-semibold" color="almost-black">
+              Select the pet you would like to get quotes
+            </Typography>
+          </div>
+          <div className={styles.petSelectionContainer}>
+            {pets &&
+              Array.isArray(pets) &&
+              pets.map((pet) => (
+                <div key={pet._id} className={styles.petItem}>
+                  <PetSelectionInsurance
+                    imgUrl={pet.PetImageName}
+                    PetName={pet.PetName}
+                    onClick={handlePetSelection}
+                    selected={pet === selectedPet}
+                  />
+                </div>
+              ))}
+            <div className={styles.addPetLinkContainer}>
+              <Link to="/addPet" className={styles.addPetLink}>
+                <PlusSVG width="60" height="60" />
+              </Link>
+            </div>
+          </div>
+
+          <Typography variant="h2-poppins-semibold" color="almost-black">
+            <div className={styles.insuranceFromTitle}>{pageTitle}</div>
           </Typography>
-        </div>
-        <div className={styles.petSelectionContainer}>
-          {pets &&
-            Array.isArray(pets) &&
-            pets.map((pet) => (
-              <div key={pet._id} className={styles.petItem}>
-                <PetSelectionInsurance
-                  imgUrl={pet.PetImageName}
-                  PetName={pet.PetName}
-                  onClick={handlePetSelection}
-                  selected={pet === selectedPet}
-                />
-              </div>
-            ))}
-          <div className={styles.addPetLinkContainer}>
-            <Link to="/addPet" className={styles.addPetLink}>
-              <PlusSVG width="60" height="60" />
-            </Link>
-          </div>
-        </div>
 
-        <Typography variant="h2-poppins-semibold" color="almost-black">
-          <div className={styles.insuranceFromTitle}>{pageTitle}</div>
-        </Typography>
-
-        <div className={styles.formContainer}>
-          <div className={styles.insuranceDropdown}>
-            <Typography variant="body2-poppins-medium" color="almost black">
-              Type of Pet
-            </Typography>
-            <ButtonGroup
-              groupId="group1"
-              buttons={["Cat", "Dog"]}
-              onClick={handlePetTypeChange}
-              // selected={selectedPetType}
-              selected={selectedPetType.charAt(0).toUpperCase() + selectedPetType.slice(1)}
-            />
-          </div>
-          <div className={styles.insuranceDropdown}>
-            <Typography variant="body2-poppins-medium" color="almost black">
-              Pet's gender
-            </Typography>
-            <ButtonGroup
-              groupId="group2"
-              buttons={["Male", "Female"]}
-              onClick={handlePetGenderChange}
-              selected={selectedGender}
-            />
-          </div>
-
-          <div className={styles.insuranceDropdown}>
-            <Typography variant="body2-poppins-medium" color="almost black">
-              Pet's age
-            </Typography>
-            <Dropdown
-              key="ageDropdown"
-              value={selectedAge}
-              onChange={handlePetAgeChange}
-              // defaultValue="Select an Age"
-              options={petAge}
-              placeholder="Select an Age"
-              required={true}
-              size="ml"
-            />
-          </div>
-          <div className={styles.insuranceDropdown}>
-            <div>
+          <div className={styles.formContainer}>
+            <div className={styles.insuranceDropdown}>
               <Typography variant="body2-poppins-medium" color="almost black">
-                Select Breed
+                Type of Pet
+              </Typography>
+              <ButtonGroup
+                groupId="group1"
+                buttons={["Cat", "Dog"]}
+                onClick={handlePetTypeChange}
+                // selected={selectedPetType}
+                selected={
+                  selectedPetType.charAt(0).toUpperCase() +
+                  selectedPetType.slice(1)
+                }
+              />
+            </div>
+            <div className={styles.insuranceDropdown}>
+              <Typography variant="body2-poppins-medium" color="almost black">
+                Pet's gender
+              </Typography>
+              <ButtonGroup
+                groupId="group2"
+                buttons={["Male", "Female"]}
+                onClick={handlePetGenderChange}
+                selected={selectedGender}
+              />
+            </div>
+
+            <div className={styles.insuranceDropdown}>
+              <Typography variant="body2-poppins-medium" color="almost black">
+                Pet's age
               </Typography>
               <Dropdown
-                key="breedDropdown"
-                value={selectedBreed}
-                onChange={handleBreedChange}
-                placeholder="Select a breed"
-                // defaultValue="Select a breed"
-                options={selectedPetType === "cat" ? catBreeds : dogBreeds}
+                key="ageDropdown"
+                value={selectedAge}
+                onChange={handlePetAgeChange}
+                // defaultValue="Select an Age"
+                options={petAge}
+                placeholder="Select an Age"
+                required={true}
                 size="ml"
               />
             </div>
-          </div>
-          <div className={styles.quoteButton}>
-            <Button
-              variant="yellow"
-              size="dk-md"
-              label="Get Quotes"
-              onClick={handleGetQuotesClick}
-            />
+            <div className={styles.insuranceDropdown}>
+              <div>
+                <Typography variant="body2-poppins-medium" color="almost black">
+                  Select Breed
+                </Typography>
+                <Dropdown
+                  key="breedDropdown"
+                  value={selectedBreed}
+                  onChange={handleBreedChange}
+                  placeholder="Select a breed"
+                  // defaultValue="Select a breed"
+                  options={selectedPetType === "cat" ? catBreeds : dogBreeds}
+                  size="ml"
+                />
+              </div>
+            </div>
+            <div className={styles.quoteButton}>
+              <Button
+                variant="yellow"
+                size="dk-md"
+                label="Get Quotes"
+                onClick={handleGetQuotesClick}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </LoadingOverlay>
   );
 };
-
 export default InsuranceSearch;
