@@ -1,5 +1,5 @@
 .ListInsurances {
-  padding: 122px 7%;
+  padding: 80px 7%;
   background-color: var(--off-white);
 }
 
@@ -29,7 +29,7 @@
   }
 
   .ListInsurances {
-    padding: 122px 4%;
+    padding: 80px 4%;
   }
 
   .heading {
@@ -41,6 +41,13 @@
   .ListInsurancesBody {
     padding: 0 10%;
     grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 770px){
+
+  .ListInsurances {
+    padding: 100px 4%;
   }
 }
 
@@ -69,6 +76,6 @@
   }
 
   .ListInsurances {
-    padding: 27px 20px;
+    padding: 100px 20px;
   }
 }
