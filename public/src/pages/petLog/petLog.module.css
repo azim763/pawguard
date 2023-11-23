@@ -18,8 +18,6 @@
 
 .petinfo img {
   border-radius: 50%;
-  /* max-width: 100px;
-  max-height: 100px; */
   box-sizing: border-box;
   object-fit: cover;
   border: 1px solid var(--small-text-gray);
