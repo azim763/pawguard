@@ -177,7 +177,7 @@ const { toPDF, targetRef } = usePDF({
   const generalinfo = {
     backgroundColor: 'var(--pearl-blue)',
     padding: '8px',
-    margin: '8px 0',
+    margin: '0 0 8px 0',
     textAlign: 'center',
     fontSize:'14px'
   }
@@ -296,12 +296,12 @@ margin: '4px'
           
      <div className={styles.petLogContainer} class="export" style={myComponentStyle} id="container" ref={targetRef} >
         {/* <div className={styles.petLogContainer}   style={myComponentStyle}> */}
-{/* 
+
         <div style={logheaderStyle}>
   <div className={styles.petLogHeader}>
-          Pet Logs
+  {pet.PetName} Report
         </div>
-        </div> */}
+        </div>
 
       
         {loading ? (
