@@ -112,38 +112,6 @@ const AddPet = () => {
     });
   };
 
-  if (petData.Species === "Cat") {
-    bloodType = [
-      { value: "A", label: "A" },
-      { value: "B", label: "B" },
-      { value: "AB", label: "AB" },
-    ];
-
-    breedType = [
-      { value: "Domestic Shorthair", label: "Domestic Shorthair" },
-      { value: "American Shorthair", label: "American Shorthair" },
-      { value: "Domestic Longhair", label: "Domestic Longhair" },
-      { value: "Ragdoll", label: "Ragdoll" },
-      { value: "Siamese", label: "Siamese" },
-    ];
-  } else {
-    bloodType = [
-      { value: "DEA1", label: "DEA 1" },
-      { value: "DEA3", label: "DEA 3" },
-      { value: "DEA4", label: "DEA 4" },
-      { value: "DEA5", label: "DEA 5" },
-      { value: "DEA7", label: "DEA 7" },
-    ];
-
-    breedType = [
-      { value: "Beagle", label: "Beagle" },
-      { value: "Golden Retriever", label: "Golden Retriever" },
-      { value: "Poodle", label: "Poodle" },
-      { value: "Rottweiler", label: "Rottweiler" },
-      { value: "Siberian Husky", label: "Siberian Husky" },
-    ];
-  }
-
   const handleDropdownChange = (name, value) => {
     console.log("dropdown is dropping");
     setPetData({
@@ -231,7 +199,7 @@ const AddPet = () => {
       { value: "ShihTzu", label: "Shih Tzu" },
       { value: "Siberian Husky", label: "Siberian Husky" },
       { value: "YorkshireTerrier", label: "Yorkshire Terrier" },
-    ];;
+    ];
 
   const handleImageUpload = (data) => {
     // Handle the image data in the parent component
