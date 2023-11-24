@@ -210,8 +210,8 @@ const PetLogForm = ({
                     <TextInput
                       id="Weight"
                       name="Weight"
+                      label="Weight"
                       propInputValue={formData.Weight}
-                      label="Pet Weight"
                       placeholder="30"
                       onChange={handleInputChange}
                       key="createMode"
@@ -221,7 +221,7 @@ const PetLogForm = ({
                     <TextInput
                       id="Weight"
                       name="Weight"
-                      label="Pet Weight"
+                      label="Weight"
                       placeholder="30"
                       disabled={isDisabled}
                       propInputValue={selectedLog.Weight}

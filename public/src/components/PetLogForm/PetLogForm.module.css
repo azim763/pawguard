@@ -4,8 +4,6 @@
   border-radius: 8px;
 }
 
-
-
 .petLogTitle {
   display: flex;
   justify-content: space-between;
@@ -20,8 +18,10 @@
   gap: 2rem;
 }
 
-.petUnit > div:first-child > div:first-child{
-  display: none;
+@media screen and (min-width: 821px) {
+  .petLogFormLine1 {
+    gap: 70px;
+  }
 }
 
 .petUnit {
@@ -123,7 +123,7 @@
   height: 30px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 820px) {
   .petLogFormLine1 {
     flex-flow: column;
   }
@@ -156,12 +156,11 @@
     width: 100% !important;
   }
 
-  .sessionContainer{
+  .sessionContainer {
     gap: 2rem;
   }
 
-  .petLogFormsAndFoodForm .petLogFormGeneral .petUnit input{
+  .petLogFormsAndFoodForm .petLogFormGeneral .petUnit input {
     width: 65px;
   }
 }
-
