@@ -249,11 +249,7 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={
-                        <Typography variant="body3-poppins-regular">
-                          {option.label}
-                        </Typography>
-                      }
+                      label={option.label}
                       checked={formData.ActivityLevel === option.value}
                       onChange={() =>
                         handleRadioChange(option.value, "ActivityLevel")
@@ -275,11 +271,7 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={
-                        <Typography variant="body3-poppins-regular">
-                          {option.label}
-                        </Typography>
-                      }
+                      label={option.label}
                       checked={formData.UrineAmount === option.value}
                       onChange={() =>
                         handleRadioChange(option.value, "UrineAmount")
@@ -301,11 +293,7 @@ const PetLogForm = ({
                   {options.map((option) => (
                     <RadioButton
                       key={option.value}
-                      label={
-                        <Typography variant="body3-poppins-regular">
-                          {option.label}
-                        </Typography>
-                      }
+                      label={option.label}
                       checked={formData.StoolAmount === option.value}
                       onChange={() =>
                         handleRadioChange(option.value, "StoolAmount")
@@ -322,7 +310,7 @@ const PetLogForm = ({
           </div>
           <div>
             <div className={styles.formSubheading}>
-              <Typography variant="sub-poppins-medium">Food </Typography>
+              <Typography variant="sub-poppins-medium">Food</Typography>
             </div>
             <div className={styles.sessionContainer}>
               {formMode === "create" && (

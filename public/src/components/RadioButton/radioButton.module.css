@@ -1,4 +1,4 @@
-.label {
+.RadioButton label {
   margin-left: 10px;
 }
 
@@ -8,6 +8,7 @@ input[type=radio] {
     align-self: center;
     margin-top: 0;
 }
+
 .RadioButton{
   display: flex;
   gap:1rem;

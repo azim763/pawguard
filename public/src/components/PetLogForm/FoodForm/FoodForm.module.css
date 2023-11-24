@@ -7,7 +7,6 @@
 .petLogFood :first-child {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
 }
 
 .foodFromStyle form {
@@ -23,21 +22,22 @@
 
 .petLogFoodAndQuantity {
   display: flex;
-  gap: .5rem;
+  gap: 40px;
 }
 
 .petLogCheckBox {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 12px;
 }
 
 .checkboxGap {
   display: flex;
   flex-flow: row wrap;
   justify-content: start;
-  column-gap: 2rem;
-  row-gap: 1rem;
+  column-gap: 66px;
+  row-gap: 36px;
+  padding-left: 16px;
 }
 
 .scrollableDiv {
