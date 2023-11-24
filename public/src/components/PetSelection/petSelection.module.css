@@ -7,6 +7,7 @@
   border: 2px solid var(--small-text-gray);
   max-width: 100%;
   margin-bottom: 10px;
+  height: 78px;
 }
 
 .petCard {
