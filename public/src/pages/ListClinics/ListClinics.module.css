@@ -1,8 +1,12 @@
 .clinicsContainer {
-  padding: 64px 120px;
+  max-width: 1220px;
+}
+
+.clinicOuterWrapper {
   border: 1px solid var(--off-white);
   border-radius: 50px 50px 0 0;
   background-color: var(--off-white);
+  padding: 64px 120px;
   margin: auto;
   margin-top: -100px;
   display: grid;
@@ -12,6 +16,7 @@
 .Loader {
   height: 100vh;
 }
+
 .multiplePetSelection {
   margin-bottom: 2rem;
 }
@@ -34,7 +39,6 @@
   row-gap: 1rem;
   margin-bottom: 0;
   text-align: center;
-  /* word-break: break-all; */
 }
 
 .dropDownClinics {
@@ -46,7 +50,6 @@
 
 .clinicCheckbox {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -71,7 +74,7 @@
   align-items: flex-start;
   justify-content: center;
   margin-left: 5rem;
-  height: 50vh;
+  height: 45vh;
   max-width: 1200px;
 }
 
@@ -89,6 +92,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 1rem;
+  width: 100%;
 }
 
 .multiplePetSelection {
@@ -131,10 +135,6 @@
   margin: 50px auto;
 }
 
-.specialtiesContainer {
-  /* margin-bottom: 0.5rem; */
-}
-
 .individualClinicContainer {
   /* border: 1px solid var(--border-grey); */
   border-radius: 8px;
@@ -163,19 +163,6 @@
     transform: translateY(0);
   }
 }
-
-/* @keyframes slideOut {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-.overlay-invisible .individualClinicContainer {
-  animation: slideOut 1s ease-out;
-} */
 
 .overlay-visible {
   top: 0;
@@ -211,7 +198,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  .clinicsContainer {
+  .clinicOuterWrapper {
     padding: 50px;
     grid-template-columns: 1fr;
   }
@@ -251,6 +238,17 @@
   }
 }
 
+@media screen and (max-width: 780px) {
+  .coverBackground, .opaqueStyle {
+    height: 60vh;
+  }
+
+  .titleCenter {
+    height: 70vh;
+  }
+
+}
+
 @media screen and (max-width: 600px) {
   .petSelection {
     justify-content: left;
@@ -266,7 +264,7 @@
     display: none;
   }
 
-  .clinicsContainer {
+  .clinicOuterWrapper {
     margin-top: unset;
   }
 
@@ -284,7 +282,7 @@
     background-color: var(--off-white);
   }
 
-  .clinicsContainer {
+  .clinicOuterWrapper {
     padding: 20px;
   }
 
@@ -301,7 +299,7 @@
     align-items: flex-start;
   }
 
-  .clinicsContainer {
+  .clinicOuterWrapper {
     display: block;
   }
 
@@ -313,16 +311,4 @@
   .opaqueStyle {
     margin-bottom: 1rem;
   }
-
-  /* .clinicTitle {
-    width: 80vw;
-  }
-  
-  .clinicSearch {
-    width: 80vw;
-  }
-  
-  .clinicButton{
-    width: 80vw;
-  } */
 }

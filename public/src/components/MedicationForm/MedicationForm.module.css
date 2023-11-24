@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.unitContainer > div:first-child > div:first-child{
+  display: none;
+}
+
 .medicineContainer form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -18,6 +22,10 @@
   justify-content: space-between;
   margin-bottom: 28px;
 }
+
+/* .medName > div:first-child > div:first-child label{
+  display: none;
+} */
 
 .unitContainer {
   display: flex;

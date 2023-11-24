@@ -4,6 +4,8 @@
   border-radius: 8px;
 }
 
+
+
 .petLogTitle {
   display: flex;
   justify-content: space-between;
@@ -16,6 +18,10 @@
 .petLogFormLine1 {
   display: flex;
   gap: 2rem;
+}
+
+.petUnit > div:first-child > div:first-child{
+  display: none;
 }
 
 .petUnit {

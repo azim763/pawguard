@@ -23,7 +23,7 @@
 
 .petLogFoodAndQuantity {
   display: flex;
-  gap: .5rem;
+  gap: 2rem;
 }
 
 .petLogCheckBox {
@@ -38,6 +38,7 @@
   justify-content: start;
   column-gap: 2rem;
   row-gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .scrollableDiv {
@@ -110,7 +111,7 @@
 .petUnit {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .foodFromStyle {
