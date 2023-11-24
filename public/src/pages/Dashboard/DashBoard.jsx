@@ -188,7 +188,7 @@ export default function Dashboard() {
         <Header />
         <div className={styles.dashboardContainer}>
           <div className={styles.dashboardPetCard}>
-            <Typography variant="sub-poppins-medium" color="dark-blue">
+            <Typography variant="body1-poppins-semibold" color="dark-blue">
               My Pets
             </Typography>
             <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
