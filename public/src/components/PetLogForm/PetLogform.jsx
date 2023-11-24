@@ -1,4 +1,4 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef } from "react";
 import styles from "../PetLogForm/PetLogForm.module.css";
 import TextInput from "../TextInput/TextInput";
 import Typography from "../Typography/Typography";
@@ -89,18 +89,16 @@ const PetLogForm = ({
         console.log(response);
         console.log("Data submitted");
         setFormData(initialFormData);
-        setLogDate("")
-      //   if (petLogFormRef.current) {
+        setLogDate("");
+        //   if (petLogFormRef.current) {
 
-      //     petLogFormRef.current.scrollIntoView({
-      //       behavior: 'smooth',
-      //       block: 'start',
-      //       inline: 'nearest',
-      //     });
-      // }
-      toast.success("Petlog Added Successfully", toastOptions);
-
-
+        //     petLogFormRef.current.scrollIntoView({
+        //       behavior: 'smooth',
+        //       block: 'start',
+        //       inline: 'nearest',
+        //     });
+        // }
+        toast.success("Petlog Added Successfully", toastOptions);
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
@@ -210,17 +208,13 @@ const PetLogForm = ({
                 ) : null}
               </div>
               <div>
-                <Typography variant="body2-poppins-medium">
-                  Pet Weight
-                </Typography>
                 <div className={styles.petUnit}>
                   {formMode === "create" ? (
                     <TextInput
                       id="Weight"
                       name="Weight"
                       propInputValue={formData.Weight}
-
-                      // label="Pet Weight"
+                      label="Pet Weight"
                       placeholder="30"
                       onChange={handleInputChange}
                       key="createMode"
@@ -229,7 +223,7 @@ const PetLogForm = ({
                     <TextInput
                       id="Weight"
                       name="Weight"
-                      // label="Pet Weight"
+                      label="Pet Weight"
                       placeholder="30"
                       disabled={isDisabled}
                       propInputValue={selectedLog.Weight}
@@ -238,7 +232,7 @@ const PetLogForm = ({
                     />
                   ) : null}
 
-                  <div className={styles.unitGap}>
+                  <div style={{ position: "relative", bottom: "16px" }}>
                     <Typography variant="textfield-poppins-regular">
                       lbs
                     </Typography>
@@ -331,7 +325,7 @@ const PetLogForm = ({
               <Typography variant="sub-poppins-medium">Food </Typography>
             </div>
             <div className={styles.sessionContainer}>
-              {formMode === "create" &&  (
+              {formMode === "create" && (
                 <FoodForm
                   onFoodFormSubmit={handleFoodFormSubmit}
                   SelectedPetID={SelectedPetID}
@@ -411,21 +405,21 @@ const PetLogForm = ({
                   />
                 </div>
               )}
-              {formMode === 'view' && selectedLog && selectedLog.Notes && (
+              {formMode === "view" && selectedLog && selectedLog.Notes && (
                 <div>
                   <ImageDisplay PetImageData={selectedLog.PetImages[0]} />
                 </div>
               )}
             </div>
             <div className={styles.buttonStyle}>
-              {formMode === "create" &&(
+              {formMode === "create" && (
                 <Button
                   variant="yellow"
                   label="Save"
                   size="dk-md-s"
                   onClick={handleAdditionalInfoSubmit}
                 />
-              ) }
+              )}
             </div>
           </div>
         </div>

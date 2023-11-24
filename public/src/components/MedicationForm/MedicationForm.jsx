@@ -161,7 +161,6 @@ const MedicationForm = ({
         <div>
           <div className={styles.unitContainer}>
             <TextInput
-              
               label="Medication Period"
               id="MedicationPeriod"
               propInputValue={formData.MedicationPeriod}
