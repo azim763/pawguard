@@ -452,7 +452,7 @@ const ListClinics = () => {
                   />
                 </div>
 
-                <div style={{ marginBottom: "10px", marginTop: "6px" }}>
+                <div className={styles.clinicDropDown}>
                   <Dropdown
                     id="sortBy"
                     name="sortBy"
@@ -467,7 +467,7 @@ const ListClinics = () => {
 
               {clinicData.length === 0 ? (
                 <div className={styles.noResultContainer}>
-                  <Typography variant="body2-poppins-medium">
+                  <Typography variant="body3-poppins-regular">
                     No results found.
                   </Typography>
                 </div>

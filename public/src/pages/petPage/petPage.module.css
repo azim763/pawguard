@@ -41,10 +41,6 @@
   gap: 2rem;
 }
 
-/* .allTabs {
-  width: 80vw;
-} */
-
 .petPageTabs {
   width: 100%;
   text-align: center;
@@ -55,8 +51,6 @@
   max-height: 100vh;
   overflow-y: auto;
   margin-bottom: 1rem;
-  /* border: 1px solid var(--border-grey); */
-  /* border-radius: 8px; */
 }
 
 .tabTitle {

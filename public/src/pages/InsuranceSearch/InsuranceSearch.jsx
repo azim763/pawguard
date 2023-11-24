@@ -264,7 +264,7 @@ const InsuranceSearch = () => {
       setLoadingData(true);
       document.body.style.overflow = "hidden";
       document.body.style.height = "100vh";
-      
+
       const response = await axios.get(
         `${getPetByIdRoute}/${selectedPetData._id}`
       );

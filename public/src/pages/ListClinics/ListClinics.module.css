@@ -197,6 +197,15 @@
   background-color: unset;
 }
 
+.clinicDropDown {
+  margin-bottom: 10px;
+  margin-top: 6px;
+}
+
+.clinicDropDown label{
+  display: none;
+}
+
 @media screen and (max-width: 900px) {
   .clinicOuterWrapper {
     padding: 50px;
@@ -211,7 +220,7 @@
   .clinicSearch {
     grid-template-columns: unset;
     width: 100%;
-    row-gap: 40px;
+    row-gap: 20px;
   }
 
   .petSelection {
@@ -239,14 +248,14 @@
 }
 
 @media screen and (max-width: 780px) {
-  .coverBackground, .opaqueStyle {
+  .coverBackground,
+  .opaqueStyle {
     height: 60vh;
   }
 
   .titleCenter {
     height: 70vh;
   }
-
 }
 
 @media screen and (max-width: 600px) {
