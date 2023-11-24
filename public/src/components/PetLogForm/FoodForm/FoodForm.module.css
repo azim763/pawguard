@@ -67,16 +67,6 @@
     gap: 0;
   }
 
-  /* .petLogFood :first-child{
-    display: flex;
-    flex-direction: column;
-    gap:1rem;
-} */
-
-  /* .TextInput_md__njcBb {
-    width: 303px !important;
-  } */
-
   .petUnit {
     display: flex;
     gap: 10px !important;
@@ -110,7 +100,7 @@
 .petUnit {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .foodFromStyle {

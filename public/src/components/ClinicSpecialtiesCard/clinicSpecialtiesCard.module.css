@@ -20,10 +20,3 @@
   row-gap: 12px;
 }
 
-@media screen and (max-width: 400){
-  .specialtyList{
-    /* grid-template-columns: 3fr 1fr; */
-    /* column-gap: 50px; */
-  }
-}
-

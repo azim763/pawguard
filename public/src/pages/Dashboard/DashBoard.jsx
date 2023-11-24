@@ -72,6 +72,8 @@ export default function Dashboard() {
       if (currentUser) {
         try {
           setLoadingData(true);
+          document.body.style.overflow = "hidden";
+          document.body.style.height = "100vh";
           const responsePets = await axios.get(searchPetsByUserIDRoute, {
             params: { userID: currentUser._id },
           });
@@ -85,6 +87,8 @@ export default function Dashboard() {
           console.error("Error fetching pets:", error);
         } finally {
           setLoadingData(false);
+          document.body.style.overflow = "unset";
+          document.body.style.height = "auto";
         }
       }
     };

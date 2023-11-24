@@ -13,7 +13,7 @@ import FoodCard from "../../FoodCard/FoodCard.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
+const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode, displayDeleteBtn }) => {
   const [foodForm, setFoodForm] = useState([]);
   const MealPerDay = [
     { value: 1, label: "1" },
@@ -233,15 +233,6 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
               </div>
             </div>
           </div>
-
-          {/* <div className={styles.foodDate}>
-          <Typography variant="body2-poppins-medium">Food Date</Typography>
-
-          <DatePicker
-            onChange={handleDateChange}
-            id="FoodDate"
-          />
-        </div> */}
 
           <div className={styles.buttonStyle}>
             <Button

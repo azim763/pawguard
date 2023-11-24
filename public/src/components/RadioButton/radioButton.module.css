@@ -1,26 +1,25 @@
 .RadioButton label {
   margin-left: 10px;
-}
-
-input[type=radio] {
-    width: 20px;
-    height: 20px;
-    align-self: center;
-    margin-top: 0;
-}
-
-.RadioButton{
   display: flex;
-  gap:1rem;
+  align-items: center;
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  /* align-self: center; */
+  margin-top: 0;
+}
+.RadioButton {
+  display: flex;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
   align-items: center;
 }
 
-@media only screen and (max-width:768px ) {
-.RadioButton{
-
-  flex-flow: row;
-
-}
+@media only screen and (max-width: 768px) {
+  .RadioButton {
+    flex-flow: row;
+  }
 }

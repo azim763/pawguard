@@ -1,5 +1,11 @@
 .insuranceDetailContainer {
   padding: 60px 8%;
+  display: flex;
+  justify-content: center;
+}
+
+.insuranceContentWrapper {
+  max-width: 1220px;
 }
 
 .InsuranceDetails {
@@ -20,10 +26,16 @@
   margin-top: 5px;
 }
 
-.InsuranceDetailsSimilarPlans {
+.SmilarPlanOuterWrapper {
   background-color: var(--pearl-blue);
   box-sizing: border-box;
   padding: 8% 8%;
+  display: grid;
+  justify-items: center;
+}
+
+.InsuranceDetailsSimilarPlans {
+  max-width: 1220px;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 20px;
@@ -97,7 +109,7 @@
     justify-content: flex-start;
   }
 
-  .planDetailCard div:first-child{
+  .planDetailCard div:first-child {
     margin-bottom: 10px;
   }
 }

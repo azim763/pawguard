@@ -263,6 +263,8 @@ const InsuranceSearch = () => {
     try {
       setLoadingData(true);
       document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+
       const response = await axios.get(
         `${getPetByIdRoute}/${selectedPetData._id}`
       );
@@ -278,6 +280,7 @@ const InsuranceSearch = () => {
     } finally {
       setLoadingData(false);
       document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
     }
   };
 
@@ -286,6 +289,7 @@ const InsuranceSearch = () => {
       try {
         setLoadingData(true);
         document.body.style.overflow = "hidden";
+        document.body.style.height = "100vh";
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -307,6 +311,7 @@ const InsuranceSearch = () => {
       } finally {
         setLoadingData(false);
         document.body.style.overflow = "unset";
+        document.body.style.height = "auto";
       }
     };
 

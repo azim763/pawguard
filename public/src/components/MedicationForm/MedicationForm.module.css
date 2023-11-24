@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.unitContainer > div:first-child > div:first-child{
+  display: none;
+}
+
 .medicineContainer form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

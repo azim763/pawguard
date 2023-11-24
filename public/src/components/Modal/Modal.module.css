@@ -12,18 +12,6 @@
   border-radius: 8px;
 }
 
-/* .modal button {
-    background: var(--yellow);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .modal button:hover {
-    background: var(--dark-blue);
-  } */
-
 .CardButtonGroup {
   display: grid;
   gap: 2rem;

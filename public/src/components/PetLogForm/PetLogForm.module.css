@@ -4,6 +4,8 @@
   border-radius: 8px;
 }
 
+
+
 .petLogTitle {
   display: flex;
   justify-content: space-between;
@@ -16,6 +18,10 @@
 .petLogFormLine1 {
   display: flex;
   gap: 2rem;
+}
+
+.petUnit > div:first-child > div:first-child{
+  display: none;
 }
 
 .petUnit {
@@ -46,22 +52,6 @@
   flex-flow: column;
   align-items: flex-start;
 }
-
-/* .petLogRadioButtons div {
-  display: flex;
-  flex-flow: column;
-} */
-
-/* .sessionGap {
-  margin-bottom: 36px;
-} */
-
-/* .petLogRadioButtons div div {
-  display: flex;
-  flex-direction: row;
-  margin-right: 30px;
-  align-items: flex-end;
-} */
 
 .sessionContainer {
   display: grid;
@@ -134,10 +124,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  /* .formSubheading {
-    width: 82%;
-  } */
-
   .petLogFormLine1 {
     flex-flow: column;
   }
@@ -158,11 +144,6 @@
     align-items: flex-start;
   }
 
-  /* .petLogRadioButtons div div{
-  flex-direction: column;
-  align-items: flex-start;
-  margin:0;
-} */
   .buttonStyle {
     justify-content: start;
   }

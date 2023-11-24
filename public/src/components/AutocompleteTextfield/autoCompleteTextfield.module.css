@@ -4,6 +4,7 @@
   border-radius: 8px;
   border: 1px solid var(--almost-black);
   padding: 0 12px;
+  border: 1px solid var(--almost-black)
 }
 
 @media screen and (max-width: 768px) {

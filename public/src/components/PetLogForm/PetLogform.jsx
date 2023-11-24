@@ -169,9 +169,6 @@ const PetLogForm = ({
 
   return (
     <div className={styles.petLogFormsAndFoodForm}>
-      {/* <div>
-        <PetLogCard />
-      </div> */}
       <div className={styles.petLogContainer} ref={petLogFormRef}>
         <div className={styles.petLogTitle}>
           <Typography variant="h2-poppins-semibold">
@@ -218,6 +215,7 @@ const PetLogForm = ({
                       placeholder="30"
                       onChange={handleInputChange}
                       key="createMode"
+        
                     />
                   ) : selectedLog && selectedLog.Weight ? (
                     <TextInput
@@ -319,6 +317,7 @@ const PetLogForm = ({
                   SelectedPetID={SelectedPetID}
                   logDate={LogDate}
                   formMode={formMode}
+                  displayDeleteBtn={true}
                 />
               )}
               {formMode === "view" && selectedLog && selectedLog.LogDate && (
@@ -326,6 +325,7 @@ const PetLogForm = ({
                   onFoodFormSubmit={handleFoodFormSubmit}
                   SelectedPetID={SelectedPetID}
                   logDate={selectedLog.LogDate}
+                  displayDeleteBtn={false}
                 />
               )}
             </div>
@@ -366,14 +366,6 @@ const PetLogForm = ({
                 />
               )}
             </div>
-            {/* <TextInput
-              id="Notes"
-              name="Notes"
-              label="other Notes"
-              placeholder="Enter Observations for your pet"
-              value={formData.Notes}
-              onChange={handleInputChange}
-            /> */}
             <div className={styles.petLogImage}>
               <Typography variant="body2-poppins-medium">
                 Upload Images

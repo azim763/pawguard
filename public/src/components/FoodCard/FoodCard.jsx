@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Typography from "../Typography/Typography";
 import styles from "./FoodCard.module.css";
 import DeleteSVG from "../SVG/DeleteSVG";
@@ -9,20 +9,31 @@ import modalStyles from "../Modal/Modal.module.css";
 import Button from "../Button/Button.jsx";
 Modal.setAppElement("#root");
 
-
-
-const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, KibbleDry,FoodDate,logId,onDelete,Canned,SemiMoist,Raw,HomeCooked}) => {
+const FoodCard = ({
+  FoodName,
+  MealPerDay,
+  QuantityPerMeal,
+  KibbleDry,
+  FoodDate,
+  logId,
+  onDelete,
+  Canned,
+  SemiMoist,
+  Raw,
+  HomeCooked,
+  displayDeleteBtn,
+}) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const foodTypes = [];
-  
+
   if (KibbleDry) foodTypes.push("Kibble-Dry");
   if (Canned) foodTypes.push("Canned");
   if (SemiMoist) foodTypes.push("Semi-Moist");
   if (HomeCooked) foodTypes.push("Home-Cooked");
   if (Raw) foodTypes.push("Raw");
 
-  const foodType = foodTypes.join(', ');
+  const foodType = foodTypes.join(", ");
 
   const handleDeleteClick = () => {
     // Open the delete confirmation modal
@@ -52,7 +63,9 @@ const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, KibbleDry,FoodDate,lo
           <Typography variant="body1-poppins-semibold">Food Name</Typography>
           <Typography variant="body3-poppins-regular">{FoodName}</Typography>
         </div>
-        <DeleteSVG width="30px" height="30px" onClick={handleDeleteClick} />
+        {displayDeleteBtn && (
+          <DeleteSVG width="30px" height="30px" onClick={handleDeleteClick} />
+        )}
       </div>
 
       <div className={styles.secondRow}>
@@ -71,10 +84,6 @@ const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, KibbleDry,FoodDate,lo
         <Typography variant="body1-poppins-semibold">Type</Typography>
         <Typography variant="body3-poppins-regular">{foodType}</Typography>
       </div>
-      {/* <div>
-        <Typography variant="body1-poppins-semibold">Date</Typography>
-        <Typography variant="body3-poppins-regular">{FoodDate}</Typography>
-      </div> */}
       <Modal
         isOpen={isDeleteModalOpen}
         contentLabel="Delete Confirmation"
@@ -101,7 +110,6 @@ const FoodCard = ({ FoodName, MealPerDay, QuantityPerMeal, KibbleDry,FoodDate,lo
         </div>
       </Modal>
     </div>
-    
   );
 };
 
