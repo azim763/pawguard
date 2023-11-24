@@ -245,7 +245,7 @@ const EditPet = () => {
       .patch(`${patchPetRoute}/${selectedPet._id}`, petData)
       .then((response) => {
         console.log(`Pet with ID ${selectedPet._id} has been updated!`);
-        navigate('/');
+        navigate('/petPage');
       })
       .catch((error) => {
         console.error(`Error editing pet with ID ${selectedPet._id}:`, error);

@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import styles from "./graph.module.css";
 
-const Graph = ({ names, values,label}) => {
+const Graph = ({ names, values, label }) => {
   const data = names.map((name, index) => ({
     name,
     value: values[index],
@@ -20,9 +20,16 @@ const Graph = ({ names, values,label}) => {
     <div className={styles.graphContainer}>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
-          <Line type="monotone" dataKey="name" name ={label} stroke="var(--salmon-pink)" />
-          <XAxis dataKey="value" />
-          <YAxis />
+          <Line
+            type="linear"
+            dataKey="name"
+            name={label}
+            stroke="var(--salmon-pink)"
+            fill="var(--salmon-pink)"
+            dot={{ strokeWidth: 7 }}
+          />
+          <XAxis tickLine={false} padding={{ left: 20 }}  dataKey="value" />
+          <YAxis tickLine={false} type="number" domain={[0, 800]} padding={{ bottom: 20 }}/>
           <Tooltip />
           <Legend />
         </LineChart>

@@ -138,15 +138,16 @@ const MedicationForm = ({
           />
         </div>
         <div className={styles.dosageAm}>
-          <Typography variant="body2-poppins-medium">Dosage Amount</Typography>
           <div className={styles.unitContainer}>
             <TextInput
+              
               id="DosageAmount"
+              label="Dosage Amount"
               onChange={handleInputChange}
               placeholder="20"
               propInputValue={formData.DosageAmount}
             />
-            <div style={{ marginLeft: "10px" }}>
+            <div style={{ position: "relative", bottom: "16px" }}>
               <Typography variant="textfield-poppins-regular">ml</Typography>
             </div>
           </div>
@@ -158,18 +159,15 @@ const MedicationForm = ({
           <TimePicker id="MedicineTime" onChange={handleInputChange} />
         </div>
         <div>
-          <Typography variant="body2-poppins-medium">
-            MedicationPeriod
-          </Typography>
           <div className={styles.unitContainer}>
             <TextInput
-              size="small"
+              label="Medication Period"
               id="MedicationPeriod"
               propInputValue={formData.MedicationPeriod}
               onChange={handleInputChange}
               placeholder="15"
             />
-            <div style={{ marginLeft: "10px" }}>
+            <div style={{ position: "relative", bottom: "16px" }}>
               <Typography variant="textfield-poppins-regular">days</Typography>
             </div>
           </div>

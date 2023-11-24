@@ -29,6 +29,7 @@ const Dropdown = ({
         value={value}
         onChange={handleOnChange}
         required={required}
+        style={{ color: "var(--black)" }}
       >
         {defaultValue && (
           <option value="defaultValue" selected>

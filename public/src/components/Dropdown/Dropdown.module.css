@@ -15,6 +15,10 @@
   color: var(--small-text-gray);
 }
 
+.dropdown select option:checked {
+  color: var(--dark-blue);
+}
+
 .small {
   width: 95px;
 }

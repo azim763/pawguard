@@ -28,7 +28,8 @@
   display: flex;
   margin-bottom: 36px;
   margin-right: 10px;
-  align-items: center;
+  align-items: end;
+  gap: 10px;
 }
 
 .unitGap {
