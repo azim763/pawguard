@@ -36,6 +36,7 @@ import LoadingOverlay from "react-loading-overlay-ts";
 export default function Dashboard() {
   const [pets, setPets] = useState([]);
   const [foods, setFoods] = useState([]);
+
   const [selectedPet, setSelectedPet] = useState("");
   const navigate = useNavigate();
   const socket = useRef();
@@ -46,6 +47,9 @@ export default function Dashboard() {
     []
   );
   const [isLoadingData, setLoadingData] = useState(false);
+  // FOR CALENDAR
+  const [appointments, setAppointment] = useState([]);
+  const [userMed, setUserMed] = useState([]);
 
   const currentDate = new Date();
   const formattedCurrentDate = `${currentDate.getDate()}-${
@@ -87,6 +91,39 @@ export default function Dashboard() {
 
     fetchData();
   }, [currentUser]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseApt = await axios.get(
+          searchPetAppointmentsByUserIDRoute,
+          {
+            params: { UserID: currentUser._id },
+          }
+        );
+        setAppointment(responseApt.data);
+      } catch (error) {
+        console.error("Error fetching pet appointment:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
+          params: { UserID: currentUser._id },
+        });
+        setUserMed(userMed.data);
+      } catch (error) {
+        console.error("Error fetching medication by user:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedPet]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,7 +173,6 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -179,7 +215,7 @@ export default function Dashboard() {
 
   return (
     <LoadingOverlay
-    className={styles.Loader}
+      className={styles.Loader}
       active={isLoadingData}
       spinner={<LoadPage />}
       // text="Loading your content..."
@@ -357,12 +393,12 @@ export default function Dashboard() {
                   )}
                 </div>
               </Carousel>
-            </div> 
+            </div>
           </div>
-          {pets && medication && appointmentsOfSelectedPet && (
+          {pets && userMed && appointments && (
             <DashCalendar
-              petAppointments={appointmentsOfSelectedPet}
-              petMedications={medication}
+              petAppointments={appointments}
+              petMedications={userMed}
               pets={pets}
             />
           )}
