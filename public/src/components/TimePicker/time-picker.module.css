@@ -10,7 +10,7 @@
   box-sizing: border-box;
   /* border: 2px var(--black) solid; */
   border-radius: 8px;
-  border-color: var(--almost-black);
+  border: 1px solid var(--almost-black);
   background-color: var(--white);
   height: 54px;
 }

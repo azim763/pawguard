@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import  "./UpdateProfileSettings.css";
+import  "./UpdateProfileSettings.module.css";
 import Typography from '../Typography/Typography';
 
 const UpdateProfileSettings = () => {
