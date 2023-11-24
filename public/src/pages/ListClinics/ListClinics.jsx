@@ -64,7 +64,7 @@ const ListClinics = () => {
       if (sort) {
         return b.Rating - a.Rating;
       } else {
-        return a.Rating - b.Rating; 
+        return a.Rating - b.Rating;
       }
     });
     setClinicData(sortedClinicData);
@@ -417,9 +417,6 @@ const ListClinics = () => {
                           } else {
                             setselectedClinicName(selectedClinic.City);
                           }
-                          // console.log("Selected Clinic:", selectedClinic);
-                          // console.log(selectedClinic.City);
-                          // setselectedClinicName(selectedClinic.City);
                         }}
                       />
                     )}

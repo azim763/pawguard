@@ -46,6 +46,7 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 2rem;
   grid-column: 1/-1;
+  margin-top: 30px;
 }
 
 .clinicCheckbox {
@@ -78,9 +79,9 @@
   max-width: 1200px;
 }
 
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1250px) {
   .titleCenter {
-    margin: auto;
+    margin: auto !important;
   }
 }
 
@@ -91,7 +92,7 @@
 .clinicSearch {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 1rem;
+  row-gap: 1.5rem;
   width: 100%;
 }
 
@@ -104,6 +105,7 @@
 .petSelection {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .dropDown {
@@ -136,9 +138,7 @@
 }
 
 .individualClinicContainer {
-  /* border: 1px solid var(--border-grey); */
   border-radius: 8px;
-  /* position: fixed; */
   z-index: 99;
   position: fixed;
   bottom: 0;
@@ -152,7 +152,6 @@
   right: 0;
   border-radius: 50px 50px 0 0;
   padding-top: 30px;
-  /* padding-bottom: 50px; */
 }
 
 @keyframes slide-up {
@@ -199,10 +198,10 @@
 
 .clinicDropDown {
   margin-bottom: 10px;
-  margin-top: 6px;
+  margin-top: 30px;
 }
 
-.clinicDropDown label{
+.clinicDropDown label {
   display: none;
 }
 
@@ -210,6 +209,11 @@
   .clinicOuterWrapper {
     padding: 50px;
     grid-template-columns: 1fr;
+  }
+
+  .clinicDropDown {
+    margin-bottom: 10px;
+    margin-top: 0;
   }
 
   .noResultContainer {
@@ -220,7 +224,7 @@
   .clinicSearch {
     grid-template-columns: unset;
     width: 100%;
-    row-gap: 20px;
+    row-gap: 30px;
   }
 
   .petSelection {
@@ -255,6 +259,14 @@
 
   .titleCenter {
     height: 70vh;
+  }
+
+  .clinicSearch {
+    margin-top: 10px;
+  }
+
+  .dropDownClinics{
+    margin-top: 0;
   }
 }
 

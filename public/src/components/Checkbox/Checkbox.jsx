@@ -4,11 +4,6 @@ import Typography from "../Typography/Typography";
 
 const Checkbox = ( { id, value, label, placeholder, disabled, required, onChange, variant, size } ) => {
 
-  // const onChangeHandler = (event) => {
-  //   onChange(event.target.value);
-  // };
-
-
   return (
     <div className= {styles.checkboxStyle}>
       <input
