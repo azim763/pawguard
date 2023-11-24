@@ -163,7 +163,7 @@ const PetCard = ({
           aria-controls="more-menu"
           aria-haspopup="true"
           onClick={handleMoreMenuClick}
-          style={{ padding: "3px" }}
+          style={{ padding: "3px 0" }}
         >
           <MoreVertIcon />
         </IconButton>

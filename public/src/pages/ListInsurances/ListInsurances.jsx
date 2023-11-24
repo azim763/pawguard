@@ -29,7 +29,6 @@ const ListInsurances = () => {
         }))
         .catch((error) => {
           console.error("Error fetching company details:", error);
-          // Return a default value in case of an error
           return {
             CompanyID: plan.CompanyID,
             CompanyLogo: null,
@@ -39,6 +38,7 @@ const ListInsurances = () => {
     });
     setLoadingData(true);
     document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
 
     Promise.all(fetchCompanyDetailsPromises)
       .then((detailsArray) => {
@@ -54,6 +54,7 @@ const ListInsurances = () => {
       .finally(() => {
         setLoadingData(false);
         document.body.style.overflow = "unset";
+        document.body.style.height = "auto";
       });
   }, [filteredPlans]);
 

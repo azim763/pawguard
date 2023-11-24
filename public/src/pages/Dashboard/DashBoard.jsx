@@ -68,6 +68,8 @@ export default function Dashboard() {
       if (currentUser) {
         try {
           setLoadingData(true);
+          document.body.style.overflow = "hidden";
+          document.body.style.height = "100vh";
           const responsePets = await axios.get(searchPetsByUserIDRoute, {
             params: { userID: currentUser._id },
           });
@@ -81,6 +83,8 @@ export default function Dashboard() {
           console.error("Error fetching pets:", error);
         } finally {
           setLoadingData(false);
+          document.body.style.overflow = "unset";
+          document.body.style.height = "auto";
         }
       }
     };
@@ -136,7 +140,6 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -179,7 +182,7 @@ export default function Dashboard() {
 
   return (
     <LoadingOverlay
-    className={styles.Loader}
+      className={styles.Loader}
       active={isLoadingData}
       spinner={<LoadPage />}
       // text="Loading your content..."
@@ -357,7 +360,7 @@ export default function Dashboard() {
                   )}
                 </div>
               </Carousel>
-            </div> 
+            </div>
           </div>
           {pets && medication && appointmentsOfSelectedPet && (
             <DashCalendar

@@ -154,7 +154,6 @@ const PetPage = () => {
       newAppointmentData,
     ]);
     setAppointmentFormExpanded(false);
-
   };
   const handleVaccinationSubmit = (newVaccinationData) => {
     setPetVaccines((prevVaccination) => [
@@ -162,7 +161,6 @@ const PetPage = () => {
       newVaccinationData,
     ]);
     setVaccinationFormExpanded(false);
-
   };
   const handlePetLogSubmit = (newPetLogData) => {
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
@@ -264,6 +262,9 @@ const PetPage = () => {
     const fetchData = async () => {
       try {
         setLoadingData(true);
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100vh";
+      
         const petId = selectedPet._id;
         const response = await axios.get(searchPetLogsByPetIDRoute, {
           params: { PetID: petId },
@@ -274,6 +275,9 @@ const PetPage = () => {
         console.log("Error fetching data: ", error);
       } finally {
         setLoadingData(false);
+        document.body.style.overflow = "unset";
+        document.body.style.height = "auto";
+      
       }
     };
 
@@ -371,13 +375,15 @@ const PetPage = () => {
               ))}
             </div>
           ) : (
-            <div className={styles.noLogImage}>
-              <div className={styles.noLogText}>
-                <Typography variant="sub-poppins-medium" color="white">
-                  Add New Pet Log
-                </Typography>
+            !isPetLogFormExpanded && (
+              <div className={styles.noLogImage}>
+                <div className={styles.noLogText}>
+                  <Typography variant="sub-poppins-medium" color="white">
+                    Add New Pet Log
+                  </Typography>
+                </div>
               </div>
-            </div>
+            )
           )}
         </div>
         <div className={styles.postPetPage}>
@@ -608,7 +614,6 @@ const PetPage = () => {
     >
       <div className={styles.petPageMain}>
         <Header> </Header>
-
         <div className={styles.petPageGrid}>
           <div className={styles.tabTitle}>
             <Typography variant="large-h1-poppins-bold">
