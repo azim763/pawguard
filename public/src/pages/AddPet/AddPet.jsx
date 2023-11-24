@@ -167,12 +167,15 @@ const AddPet = () => {
     if (PetName.length < 1) {
       console.log(PetName);
       toast.error("Pet name is required.", toastOptions);
+      document.getElementById("PetName").focus();
       return false;
     } else if (isNaN(Height) || Height.length < 1 || Height.trim() == "") {
       toast.error("Height is required and must be number.", toastOptions);
+      document.getElementById("Height").focus();
       return false;
     } else if (isNaN(Weight) || Weight.length < 1 || Weight.trim() == " ") {
       toast.error("Weight is required and must be number.", toastOptions);
+      document.getElementById("Weight").focus();
       return false;
     }
     return true;
@@ -349,7 +352,6 @@ const AddPet = () => {
                 label="Pet Height *"
                 placeholder="Eg: 11"
                 onChange={handleInputChange}
-                required={true}
               />
               <Typography variant="textfield-poppins-regular">in</Typography>
             </div>
@@ -361,7 +363,6 @@ const AddPet = () => {
                 placeholder="Eg: 7"
                 type="Number"
                 onChange={handleInputChange}
-                required={true}
               />
               <Typography variant="textfield-poppins-regular">lbs</Typography>
             </div>
