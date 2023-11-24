@@ -1,13 +1,28 @@
 .addPetContainer {
-    padding: 45px 40px;
+    padding: 125px 20px 45px;
 }
+
 .addPetHeader{
     text-align: center;
     padding-bottom: 48px;
 }
 
 .addPetImage div img{
-    width:325px;
+    width: 100%;
+    max-width: 325px;
+}
+
+.addPetImage > div:first-of-type {
+    width: 100%;
+    max-width: 325px;
+    margin: auto;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white-white);
+    border: 1px solid var(--border-grey);
+    border-radius: 8px;
 }
 .addPetForm form > div:first-of-type {
     text-align: center;
@@ -43,7 +58,11 @@ bottom: 16px;
 padding-left: 12px;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 768px) {
+    .addPetContainer {
+        padding: 45px 40px;
+    }
+
     .addPetForm form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -63,10 +82,16 @@ padding-left: 12px;
 
 
 @media screen and (min-width: 1000px) {
+    .addPetImage > div:first-of-type {
+        width: 300px;
+        height: 300px;
+    }
+
     .addPetForm form {
         grid-template-columns: repeat(3, 1fr);
         column-gap: 75px;
-        max-width: 1130PX;
+        max-width: 1220PX;
+        box-sizing: content-box;
     }
     
     .addPetForm form div:first-child {

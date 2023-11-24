@@ -51,11 +51,24 @@ const EditPet = () => {
   ];
 
   let breedType = [
+    { value: "Select the Breed", label: "Select the Breed" },
     { value: "Beagle", label: "Beagle" },
-    { value: "Golden Retriever", label: "Golden Retriever" },
-    { value: "Poodle", label: "Poodle" },
     { value: "Rottweiler", label: "Rottweiler" },
+    { value: "BostonTerrier", label: "Boston Terrier" },
+    { value: "Chihuahua", label: "Chihuahua" },
+    { value: "Golden Retriever", label: "Golden Retriever" },
+    { value: "FrenchBulldog", label: "French Bulldog" },
+    { value: "GermanShepherdDog", label: "German Shepherd Dog" },
+    { value: "Labradoodle", label: "Labradoodle" },
+    { value: "LabradorRetriever", label: "Labrador Retriever" },
+    { value: "Maltese", label: "Maltese" },
+    { value: "Mixed", label: "Mixed" },
+    { value: "Pomeranian", label: "Pomeranian" },
+    { value: "Poodle", label: "Poodle" },
+    { value: "Pug", label: "Pug" },
+    { value: "ShihTzu", label: "Shih Tzu" },
     { value: "Siberian Husky", label: "Siberian Husky" },
+    { value: "YorkshireTerrier", label: "Yorkshire Terrier" },
   ];
 
   const gender = [
@@ -145,15 +158,7 @@ const EditPet = () => {
       { value: "B", label: "B" },
       { value: "AB", label: "AB" },
     ];
-
-    breedType = [
-      { value: "Domestic Shorthair", label: "Domestic Shorthair" },
-      { value: "American Shorthair", label: "American Shorthair" },
-      { value: "Domestic Longhair", label: "Domestic Longhair" },
-      { value: "Ragdoll", label: "Ragdoll" },
-      { value: "Siamese", label: "Siamese" },
-    ];
-  } else {
+  } else
     bloodType = [
       { value: "DEA1", label: "DEA 1" },
       { value: "DEA3", label: "DEA 3" },
@@ -162,14 +167,45 @@ const EditPet = () => {
       { value: "DEA7", label: "DEA 7" },
     ];
 
+  if (petData.Species === "Cat") {
     breedType = [
-      { value: "Beagle", label: "Beagle" },
-      { value: "Golden Retriever", label: "Golden Retriever" },
-      { value: "Poodle", label: "Poodle" },
-      { value: "Rottweiler", label: "Rottweiler" },
-      { value: "Siberian Husky", label: "Siberian Husky" },
+      { value: "Select the Breed", label: "Select the Breed" },
+      { value: "American Shorthair", label: "American ShortHair" },
+      { value: "Birman", label: "Birman" },
+      { value: "DevonRex", label: "Devon Rex" },
+      { value: "DomesticLongShortHair", label: "Domestic Long & Short Hair" },
+      { value: "ExoticShortHair", label: "Exotic ShortHair" },
+      { value: "Himalayan", label: "Himalayan" },
+      { value: "MaineCoon", label: "Maine Coon" },
+      { value: "Mixed", label: "Mixed" },
+      { value: "PersianCat", label: "Persian Cat" },
+      { value: "RagDoll", label: "RagDoll" },
+      { value: "ScottishFold", label: "Scottish Fold" },
+      { value: "Siamese", label: "Siamese" },
+      { value: "Sphynx", label: "Sphynx" },
+      { value: "Unknown", label: "Unknown" },
     ];
-  }
+  } else
+    breedType = [
+      { value: "Select the Breed", label: "Select the Breed" },
+      { value: "Beagle", label: "Beagle" },
+      { value: "Rottweiler", label: "Rottweiler" },
+      { value: "BostonTerrier", label: "Boston Terrier" },
+      { value: "Chihuahua", label: "Chihuahua" },
+      { value: "Golden Retriever", label: "Golden Retriever" },
+      { value: "FrenchBulldog", label: "French Bulldog" },
+      { value: "GermanShepherdDog", label: "German Shepherd Dog" },
+      { value: "Labradoodle", label: "Labradoodle" },
+      { value: "LabradorRetriever", label: "Labrador Retriever" },
+      { value: "Maltese", label: "Maltese" },
+      { value: "Mixed", label: "Mixed" },
+      { value: "Pomeranian", label: "Pomeranian" },
+      { value: "Poodle", label: "Poodle" },
+      { value: "Pug", label: "Pug" },
+      { value: "ShihTzu", label: "Shih Tzu" },
+      { value: "Siberian Husky", label: "Siberian Husky" },
+      { value: "YorkshireTerrier", label: "Yorkshire Terrier" },
+    ];
 
   const handleDropdownChange = (name, value) => {
     setPetData({
@@ -209,6 +245,7 @@ const EditPet = () => {
       .patch(`${patchPetRoute}/${selectedPet._id}`, petData)
       .then((response) => {
         console.log(`Pet with ID ${selectedPet._id} has been updated!`);
+        navigate('/');
       })
       .catch((error) => {
         console.error(`Error editing pet with ID ${selectedPet._id}:`, error);
@@ -257,7 +294,7 @@ const EditPet = () => {
               label="Breed *"
               id="Breed"
               options={breedType}
-              setSelectedOption={selectedPet.Breed}
+              defaultValue={selectedPet.Breed}
               onChange={(selectedValue) =>
                 handleDropdownChange("Breed", selectedValue)
               }

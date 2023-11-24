@@ -161,7 +161,7 @@ textarea {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    max-width: 1130px;
+    max-width: 1220px;
     margin: 46px auto;
   }
 
@@ -214,7 +214,7 @@ textarea {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
-    max-width: 1130px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
