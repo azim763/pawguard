@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { io } from "socket.io-client";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -16,6 +17,7 @@ import {
   searchPetMedicationsByPetIDRoute,
   searchPetAppointmentsByPetIDRoute,
   searchPetLogsByPetIDRoute,
+  host,
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
@@ -33,6 +35,7 @@ const PetPage = () => {
   const location = useLocation();
   const { selectedPetID } = location.state || {};
   const [pets, setPets] = useState([]);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
@@ -46,6 +49,8 @@ const PetPage = () => {
   const [isLoadingData, setLoadingData] = useState(false);
 
   const petLogFormRef = useRef(null);
+  const navigate = useNavigate();
+  const socket = useRef();
 
   const {
     getCollapseProps: getPetLogCollapseProps,
@@ -218,7 +223,7 @@ const PetPage = () => {
             setPets(petArray);
 
             if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]); // Set the first pet by default
+              setSelectedPet(petArray[0]);
             }
 
             if (selectedPetID) {
@@ -249,6 +254,7 @@ const PetPage = () => {
     // Fetch data when the component mounts or when selectedPetID changes
     fetchData();
   }, [selectedPetID]);
+
 
   const handlePetSelection = (pet) => {
     if (selectedPet != pet) {
