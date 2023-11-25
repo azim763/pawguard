@@ -20,10 +20,6 @@
   gap: 2rem;
 }
 
-.petUnit > div:first-child > div:first-child{
-  display: none;
-}
-
 .petUnit {
   display: flex;
   margin-bottom: 36px;
