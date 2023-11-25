@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { io } from "socket.io-client";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -16,6 +17,7 @@ import {
   searchPetMedicationsByPetIDRoute,
   searchPetAppointmentsByPetIDRoute,
   searchPetLogsByPetIDRoute,
+  host,
 } from "../../utils/APIRoutes.js";
 import VaccinationCard from "../../components/VaccinationCard/VaccinationCard";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
@@ -33,6 +35,7 @@ const PetPage = () => {
   const location = useLocation();
   const { selectedPetID } = location.state || {};
   const [pets, setPets] = useState([]);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   const [petLog, setPetLog] = useState([]);
   const [petAppointments, setPetAppointments] = useState([]);
@@ -46,6 +49,8 @@ const PetPage = () => {
   const [isLoadingData, setLoadingData] = useState(false);
 
   const petLogFormRef = useRef(null);
+  const navigate = useNavigate();
+  const socket = useRef();
 
   const {
     getCollapseProps: getPetLogCollapseProps,
@@ -154,7 +159,6 @@ const PetPage = () => {
       newAppointmentData,
     ]);
     setAppointmentFormExpanded(false);
-
   };
   const handleVaccinationSubmit = (newVaccinationData) => {
     setPetVaccines((prevVaccination) => [
@@ -162,7 +166,6 @@ const PetPage = () => {
       newVaccinationData,
     ]);
     setVaccinationFormExpanded(false);
-
   };
   const handlePetLogSubmit = (newPetLogData) => {
     setPetLog((prevPetLog) => [...prevPetLog, newPetLogData]);
@@ -218,7 +221,7 @@ const PetPage = () => {
             setPets(petArray);
 
             if (!selectedPet && petArray.length > 0) {
-              setSelectedPet(petArray[0]); // Set the first pet by default
+              setSelectedPet(petArray[0]);
             }
 
             if (selectedPetID) {
@@ -250,6 +253,7 @@ const PetPage = () => {
     fetchData();
   }, [selectedPetID]);
 
+
   const handlePetSelection = (pet) => {
     if (selectedPet != pet) {
       setPetLogFormExpanded(false);
@@ -264,6 +268,9 @@ const PetPage = () => {
     const fetchData = async () => {
       try {
         setLoadingData(true);
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100vh";
+      
         const petId = selectedPet._id;
         const response = await axios.get(searchPetLogsByPetIDRoute, {
           params: { PetID: petId },
@@ -274,6 +281,9 @@ const PetPage = () => {
         console.log("Error fetching data: ", error);
       } finally {
         setLoadingData(false);
+        document.body.style.overflow = "unset";
+        document.body.style.height = "auto";
+      
       }
     };
 
@@ -371,13 +381,15 @@ const PetPage = () => {
               ))}
             </div>
           ) : (
-            <div className={styles.noLogImage}>
-              <div className={styles.noLogText}>
-                <Typography variant="sub-poppins-medium" color="white">
-                  Add New Pet Log
-                </Typography>
+            !isPetLogFormExpanded && (
+              <div className={styles.noLogImage}>
+                <div className={styles.noLogText}>
+                  <Typography variant="sub-poppins-medium" color="white">
+                    Add New Pet Log
+                  </Typography>
+                </div>
               </div>
-            </div>
+            )
           )}
         </div>
         <div className={styles.postPetPage}>
@@ -608,7 +620,6 @@ const PetPage = () => {
     >
       <div className={styles.petPageMain}>
         <Header> </Header>
-
         <div className={styles.petPageGrid}>
           <div className={styles.tabTitle}>
             <Typography variant="large-h1-poppins-bold">

@@ -19,11 +19,10 @@ const RadioButton = ({ label, checked, onChange, readOnly, readOnlyValue }) => {
         onChange={handleRadioChange}
         disabled={readOnly}
       />
-      <div className={styles.label}>
-        <label>
-          <Typography variant="body3-poppins-regular ">{label}</Typography>
-        </label>
-      </div>
+
+      <label>
+        <Typography variant="body3-poppins-regular">{label}</Typography>
+      </label>
     </div>
   );
 };

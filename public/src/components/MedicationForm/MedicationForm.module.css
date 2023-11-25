@@ -21,7 +21,12 @@
 
 .unitContainer {
   display: flex;
-  align-items: center;
+  align-items: end;
+  gap: 10px;
+}
+
+.unitContainer > div input{
+  width: 70%;
 }
 
 .medDatePicker,
@@ -38,7 +43,7 @@
   width: 240px;
 }
 
-.dosageAm input, .medName input{
+.medName input{
   width: 100%;
 }
 

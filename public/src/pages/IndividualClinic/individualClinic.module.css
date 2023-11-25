@@ -4,6 +4,11 @@
   gap: 60px;
 }
 
+.IndividualClinicInnerWrapper{
+  max-width: 1220px;
+  margin: auto;
+}
+
 .IndividualClinicContainer {
   padding: 60px 120px 200px 120px;
 }

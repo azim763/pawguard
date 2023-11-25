@@ -7,22 +7,22 @@
   text-align: right;
 }
 
-
 .abtUs1 img {
   width: 100%;
   max-width: 450px;
   height: auto;
+  flex-basis: 100%;
 }
 
-.abtUs2 span, 
-.abtUs3 span, 
+.abtUs2 span,
+.abtUs3 span,
 .abtUs4 span {
   padding: 0 25px;
   position: relative;
 }
 
 .abtUs2 > div > div:first-of-type,
-.abtUs3 > div > div:first-of-type, 
+.abtUs3 > div > div:first-of-type,
 .abtUs4 > div:first-of-type {
   position: relative;
 }
@@ -31,7 +31,7 @@
 .abtUs3 > div > div:first-of-type > hr,
 .abtUs4 > div:first-of-type > hr {
   border: 1.5px solid var(--almost-black) !important;
-  position:absolute;
+  position: absolute;
   top: -4px;
   width: 60%;
   left: 50%;
@@ -126,6 +126,7 @@ textarea {
   align-self: end;
 }
 
+
 @media screen and (min-width: 768px) {
   .abtUs1 {
     display: flex;
@@ -137,7 +138,7 @@ textarea {
   .abtUs2,
   .abtUs3,
   .abtUs4 {
-    padding: 130px 20px 0; 
+    padding: 130px 20px 0;
   }
 
   .abtUs1Description {
@@ -190,6 +191,10 @@ textarea {
   .abtUs4 {
     padding-bottom: 40px;
   }
+
+  .abtUs3Images {
+    padding: 0 30px;;
+  }
 }
 
 @media screen and (min-width: 810px) {
@@ -199,7 +204,7 @@ textarea {
     justify-content: center;
     column-gap: 32px;
     row-gap: 35px;
-    padding: 0 30px;
+    padding: 0;
     max-width: 100%;
     margin: 70px auto 100px;
   }
@@ -269,7 +274,6 @@ textarea {
     width: 90%;
     max-width: 700px;
     align-self: center;
-
   }
 
   .abtUs2,
@@ -283,6 +287,4 @@ textarea {
   .abtUs4 {
     padding: 130px 130px 70px;
   }
-
-
 }

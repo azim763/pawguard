@@ -1,10 +1,14 @@
 .clinicsContainer {
-  padding: 64px 120px;
+  max-width: 1220px;
+}
+
+.clinicOuterWrapper {
   border: 1px solid var(--off-white);
   border-radius: 50px 50px 0 0;
   background-color: var(--off-white);
+  padding: 64px 120px;
   margin: auto;
-  margin-top: -100px;
+  margin-top: -70px;
   display: grid;
   justify-items: center;
 }
@@ -12,6 +16,7 @@
 .Loader {
   height: 100vh;
 }
+
 .multiplePetSelection {
   margin-bottom: 2rem;
 }
@@ -34,7 +39,6 @@
   row-gap: 1rem;
   margin-bottom: 0;
   text-align: center;
-  /* word-break: break-all; */
 }
 
 .dropDownClinics {
@@ -42,11 +46,11 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 2rem;
   grid-column: 1/-1;
+  margin-top: 30px;
 }
 
 .clinicCheckbox {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -71,13 +75,13 @@
   align-items: flex-start;
   justify-content: center;
   margin-left: 5rem;
-  height: 50vh;
+  height: 45vh;
   max-width: 1200px;
 }
 
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1250px) {
   .titleCenter {
-    margin: auto;
+    margin: auto !important;
   }
 }
 
@@ -88,7 +92,8 @@
 .clinicSearch {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 1rem;
+  row-gap: 1.5rem;
+  width: 100%;
 }
 
 .multiplePetSelection {
@@ -100,6 +105,7 @@
 .petSelection {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .dropDown {
@@ -131,14 +137,8 @@
   margin: 50px auto;
 }
 
-.specialtiesContainer {
-  /* margin-bottom: 0.5rem; */
-}
-
 .individualClinicContainer {
-  /* border: 1px solid var(--border-grey); */
   border-radius: 8px;
-  /* position: fixed; */
   z-index: 99;
   position: fixed;
   bottom: 0;
@@ -152,7 +152,6 @@
   right: 0;
   border-radius: 50px 50px 0 0;
   padding-top: 30px;
-  /* padding-bottom: 50px; */
 }
 
 @keyframes slide-up {
@@ -163,19 +162,6 @@
     transform: translateY(0);
   }
 }
-
-/* @keyframes slideOut {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-.overlay-invisible .individualClinicContainer {
-  animation: slideOut 1s ease-out;
-} */
 
 .overlay-visible {
   top: 0;
@@ -210,10 +196,24 @@
   background-color: unset;
 }
 
+.clinicDropDown {
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+
+.clinicDropDown label {
+  display: none;
+}
+
 @media screen and (max-width: 900px) {
-  .clinicsContainer {
+  .clinicOuterWrapper {
     padding: 50px;
     grid-template-columns: 1fr;
+  }
+
+  .clinicDropDown {
+    margin-bottom: 10px;
+    margin-top: 0;
   }
 
   .noResultContainer {
@@ -224,7 +224,7 @@
   .clinicSearch {
     grid-template-columns: unset;
     width: 100%;
-    row-gap: 40px;
+    row-gap: 30px;
   }
 
   .petSelection {
@@ -251,6 +251,25 @@
   }
 }
 
+@media screen and (max-width: 780px) {
+  .coverBackground,
+  .opaqueStyle {
+    height: 60vh;
+  }
+
+  .titleCenter {
+    height: 70vh;
+  }
+
+  .clinicSearch {
+    margin-top: 10px;
+  }
+
+  .dropDownClinics{
+    margin-top: 0;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .petSelection {
     justify-content: left;
@@ -266,7 +285,7 @@
     display: none;
   }
 
-  .clinicsContainer {
+  .clinicOuterWrapper {
     margin-top: unset;
   }
 
@@ -284,7 +303,7 @@
     background-color: var(--off-white);
   }
 
-  .clinicsContainer {
+  .clinicOuterWrapper {
     padding: 20px;
   }
 
@@ -301,7 +320,7 @@
     align-items: flex-start;
   }
 
-  .clinicsContainer {
+  .clinicOuterWrapper {
     display: block;
   }
 
@@ -313,16 +332,4 @@
   .opaqueStyle {
     margin-bottom: 1rem;
   }
-
-  /* .clinicTitle {
-    width: 80vw;
-  }
-  
-  .clinicSearch {
-    width: 80vw;
-  }
-  
-  .clinicButton{
-    width: 80vw;
-  } */
 }

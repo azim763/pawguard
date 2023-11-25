@@ -86,32 +86,29 @@ const InsuranceDetails = () => {
   useEffect(() => {
     setLoadingData(true);
     document.body.style.overflow = "hidden";
-
+    document.body.style.height = "100vh";
+  
     axios
       .get(`${getInsurancePlanByIdRoute}/${_id}`)
       .then((response) => {
         setCompanyData(response.data);
         setCurrentCompanyID(response.data.CompanyID);
-
-        axios
-          .get(`${getInsuranceCompanyByIdRoute}/${response.data.CompanyID}`)
-          .then((responsecompany) => {
-            setPlanData(responsecompany.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching Company data:", error);
-          })
-          .finally(() => {
-            setLoadingData(false);
-            document.body.style.overflow = "unset";
-          });
+  
+        return axios.get(`${getInsuranceCompanyByIdRoute}/${response.data.CompanyID}`);
+      })
+      .then((responsecompany) => {
+        setPlanData(responsecompany.data);
       })
       .catch((error) => {
-        console.error("Error fetching Plan data:", error);
+        console.error("Error fetching data:", error);
+      })
+      .finally(() => {
         setLoadingData(false);
         document.body.style.overflow = "unset";
+        document.body.style.height = "auto"; 
       });
   }, [_id, CompanyID]);
+  
 
   const handleViewDetailsClick = (_id) => {
     navigate(`/insurance/details/${_id}`);
@@ -122,77 +119,81 @@ const InsuranceDetails = () => {
     <div>
       <Header id="top" />
       <div className={styles.insuranceDetailContainer}>
-        <div className={styles.InsuranceDetailsHeading}>
-          <Typography variant="h1-poppins-semibold">
-            Coverage Details
-          </Typography>
-          <Typography className={styles.subheadDetailTypo}>
-            Information may vary from the actual insurance policy provided by
-            each company
-          </Typography>
-        </div>
-        <div className={styles.InsuranceDetails}>
-          <div className={styles.planDetailCard}>
-            {companyData.CompanyID && (
-              <PlanDetailCard
-                source={planData.CompanyLogo}
-                alt={planData.CompanyName}
-                key={companyData._id}
-                deductibleNum={companyData.AnnualDeductible}
-                reimbursementNum={companyData.Reimbursement * 100}
-                coverageNum={companyData.AnnualCoverage}
-                price={companyData.InsurancePrice}
-                CompanyID={companyData.CompanyID}
-                // showButton={false}
-              />
-            )}
-
-            {/* {companyData.CompanyID &&( */}
-            <InsuranceCard
-              title="Why Recommended"
-              text={planData.Recommend}
-              subtitle="Highlight of plan"
-              body={planData.Highlights}
-            ></InsuranceCard>
-            {/* )} */}
+        <div className={styles.insuranceContentWrapper}>
+          <div className={styles.InsuranceDetailsHeading}>
+            <Typography variant="h1-poppins-semibold">
+              Coverage Details
+            </Typography>
+            <Typography className={styles.subheadDetailTypo}>
+              Information may vary from the actual insurance policy provided by
+              each company
+            </Typography>
           </div>
-
-          <div className={styles.InsuranceCoverageCenterDiv}>
-            <div>
-              <InsuranceCoverage descriptions={companyData.CoveredItems} />
+          <div className={styles.InsuranceDetails}>
+            <div className={styles.planDetailCard}>
+              {companyData.CompanyID && (
+                <PlanDetailCard
+                  source={planData.CompanyLogo}
+                  alt={planData.CompanyName}
+                  key={companyData._id}
+                  deductibleNum={companyData.AnnualDeductible}
+                  reimbursementNum={companyData.Reimbursement * 100}
+                  coverageNum={companyData.AnnualCoverage}
+                  price={companyData.InsurancePrice}
+                  CompanyID={companyData.CompanyID}
+                  // showButton={false}
+                />
+              )}
+              {/* {companyData.CompanyID &&( */}
+              <InsuranceCard
+                title="Why Recommended"
+                text={planData.Recommend}
+                subtitle="Highlight of plan"
+                body={planData.Highlights}
+              ></InsuranceCard>
+              {/* )} */}
             </div>
-            <div>
-              <InsuranceNotCovered descriptions={companyData.NotCoveredItems} />
+            <div className={styles.InsuranceCoverageCenterDiv}>
+              <div>
+                <InsuranceCoverage descriptions={companyData.CoveredItems} />
+              </div>
+              <div>
+                <InsuranceNotCovered
+                  descriptions={companyData.NotCoveredItems}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Similar Plans Section */}
-      <div className={styles.InsuranceDetailsSimilarPlans}>
-        <div className={styles.InsuranceDetailsSimilarPlansHeading}>
-          <Typography
-            variant="h2-poppins-semibold"
-            // style={{ gridColumn: "1/-1" }}
-          >
-            Compare to Similar Plans
-          </Typography>
-        </div>
-        <div className={styles.InsuranceDetailsSimilarPlansBody}>
-          {insurancePlans.map((plan, index) => (
-            <SmPlanDetailCard
-              smSource={plan.companyData?.CompanyLogo}
-              planName={plan.PlanName}
-              key={index}
-              smAlt={plan.companyData?.CompanyName}
-              smDeductibleNum={plan.AnnualDeductible}
-              smReimbursementNum={plan.Reimbursement * 100}
-              smCoverageNum={plan.AnnualCoverage}
-              smPrice={plan.InsurancePrice}
-              CompanyID={plan.CompanyID}
-              onClick={() => handleViewDetailsClick(plan._id)}
-            />
-          ))}
+      <div className={styles.SmilarPlanOuterWrapper}>
+        <div className={styles.InsuranceDetailsSimilarPlans}>
+          <div className={styles.InsuranceDetailsSimilarPlansHeading}>
+            <Typography
+              variant="h2-poppins-semibold"
+              // style={{ gridColumn: "1/-1" }}
+            >
+              Compare to Similar Plans
+            </Typography>
+          </div>
+          <div className={styles.InsuranceDetailsSimilarPlansBody}>
+            {insurancePlans.map((plan, index) => (
+              <SmPlanDetailCard
+                smSource={plan.companyData?.CompanyLogo}
+                planName={plan.PlanName}
+                key={index}
+                smAlt={plan.companyData?.CompanyName}
+                smDeductibleNum={plan.AnnualDeductible}
+                smReimbursementNum={plan.Reimbursement * 100}
+                smCoverageNum={plan.AnnualCoverage}
+                smPrice={plan.InsurancePrice}
+                CompanyID={plan.CompanyID}
+                onClick={() => handleViewDetailsClick(plan._id)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

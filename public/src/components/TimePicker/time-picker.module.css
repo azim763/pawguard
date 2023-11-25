@@ -1,5 +1,5 @@
 .wrapper {
-  width: 100%;
+  width: 210px;
   display: flex;
 }
 
@@ -8,9 +8,9 @@
   font-size: 16px;
   padding: 4px 12px;
   box-sizing: border-box;
-  /* border: 2px var(--black) solid; */
   border-radius: 8px;
-  border-color: var(--almost-black);
+  border: 1px solid var(--almost-black);
   background-color: var(--white);
   height: 54px;
+  border: 1px solid var(--almost-black);
 }

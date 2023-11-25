@@ -104,19 +104,19 @@ const Header = () => {
                   <div className={styles.profileMenu}>
                     <ul>
                       <li>
-                          <NavLink
+                          {/* <NavLink
                             to="/AccountSettings"
                             className={
                               location.pathname === "/AccountSettings"
                             }
-                          >
+                          > */}
                         <Typography
                           variant="body1-poppins-semibold"
                           color="almost-black"
                         >
                           {currentUser.username}
                         </Typography>
-                        </NavLink>
+                        {/* </NavLink> */}
                       </li>
                       <Logout />
                     </ul>

@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center; /* Vertically center items */
+  align-items: center;
 }
 
 .addPetLinkContainer {
@@ -50,9 +50,19 @@
   text-align: center;
 }
 
+@media screen and (max-width: 900px) {
+  .insuranceFromTitle{
+    margin-top: 20px ;
+  }
+}
+
 @media screen and (max-width: 760px) {
   .insuranceSearchContainer {
-    padding: 80px 25px;
+    padding: 100px 25px;
+  }
+
+  .searchTitle{
+    margin-bottom: 30px;
   }
 }
 
@@ -71,7 +81,7 @@
   }
 
   .insuranceFromTitle {
-    margin: 80px 0 50px 0;
+    margin: 30px 0 40px 0 !important;
     text-align: center;
   }
 }
@@ -79,7 +89,7 @@
 @media screen and (max-width: 500px) {
 
   .insuranceSearchContainer {
-    padding: 40px 15px 40px 15px;
+    padding: 40px 10px 40px 10px;
   }
 
   .quoteButton {
@@ -97,7 +107,7 @@
   }
 
   .insuranceSearchContainer {
-    padding: 100px 25px;
+    padding: 100px 15px;
   }
 }
 

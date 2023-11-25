@@ -1,16 +1,25 @@
 .dashboardContainer {
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   align-items: center;
   gap: 12px;
-  padding: 125px 20px 45px;
+  padding: 45px 0;
 }
 
 .Loader {
   height: 100vh;
 }
 
-.dashboardContainer > div {
+.midCalendarContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.middleContainer div:nth-of-type(3) > div {
+  max-width: 600px;
+}
+
+.middleContainer {
   border-radius: 8px;
   border: solid 1px var(--border-grey);
   background-color: white;
@@ -23,14 +32,20 @@
   flex-flow: row wrap;
   align-items: center;
   gap: 25px;
+  flex-basis: 158px;
+  padding: 30px 12px;
+  border-radius: 8px;
 }
 
-.dashboardPetCard > div:first-of-type {
-  order: 1;
+.middleContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-basis: 55%;
 }
-.dashboardPetCard > div:last-of-type {
+
+.calendarContainer {
   order: 3;
-  flex-basis: 100%;
+  flex-basis: 45%;
 }
 
 .dashboardPetCard > a {
@@ -56,20 +71,9 @@
   height: 24px;
 }
 
-.dashboardPetCard > a {
-  grid-column: 2/3;
-  grid-row: 1/2;
-}
-
 .dashboardPetCard > div:first-of-type,
 .dashboardPetCard > a {
   justify-self: baseline;
-}
-
-.middleContainer {
-  display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
 }
 
 .middleTitle {
@@ -82,8 +86,8 @@
   margin-top: 24px;
   margin-bottom: 46px;
   display: flex;
-  column-gap: 24px;
-  flex-flow: row wrap;
+  column-gap: 12px;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
 }
@@ -129,17 +133,124 @@
   margin-left: 10px;
 }
 
-@media screen and (max-width: 500px) {
-  .graphNoRecord {
-    width: 200px;
-  }
+.graphContainerMain ul li {
+  margin-left: 80px;
+  margin-right: 0;
 }
 
-@media screen and (min-width: 768px) {
+.calendarContainer div div:nth-last-of-type(2){
+  padding: 0;
+}
+
+/* max-width */
+
+@media screen and (max-width: 1250px) {
+  .petSummaryCards {
+    flex-wrap: wrap;
+  }
+
   .dashboardContainer {
     padding: 45px 40px;
   }
 
+  .middleContainer div:nth-of-type(3) > div {
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .dashboardPetCard {
+    display: grid;
+    padding: 12px 30px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .dashboardPetCard > div:first-of-type {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .dashboardPetCard svg {
+    margin-left: 100px;
+  }
+
+  .dashboardPetCard > a {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .dashboardContainer {
+    flex-direction: column;
+  }
+
+  .petSummaryCards {
+    flex-wrap: wrap !important;
+    row-gap: 0 !important;
+  }
+
+  .middleTitle {
+    flex-wrap: wrap;
+  }
+
+  .middleContainer div:nth-of-type(3) > div {
+    max-width: 550px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .middleContainer,
+  .calendarContainer {
+    flex-basis: 50%;
+  }
+
+  .middleContainer div:nth-of-type(3) > div {
+    max-width: 450px;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .midCalendarContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .middleContainer div:nth-of-type(3) > div {
+    max-width: 900px;
+  }
+
+  .dashboardContainer {
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .dashboardContainer {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .graphNoRecord {
+    width: 200px;
+  }
+
+  .petCardList > a {
+    flex-basis: 28%;
+  }
+
+  .dashboardContainer {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+}
+
+/* min-width */
+
+@media screen and (min-width: 768px) {
   .dashboardPetCard {
     width: 100%;
   }
@@ -156,8 +267,8 @@
 
   .petSummaryCards {
     justify-content: start;
-    gap: 28px;
-    flex-flow: row nowrap;
+    column-gap: 12px;
+    /* flex-flow: row nowrap; */
   }
 }
 
@@ -166,7 +277,7 @@
     flex-flow: row nowrap;
     align-items: flex-start;
     max-width: 1220px;
-    box-sizing: content-box;
+    /* box-sizing: content-box; */
     margin: auto;
   }
 
@@ -180,66 +291,4 @@
     width: 40px;
     height: 40px;
   }
-
-  .dashboardPetCard > div:first-of-type {
-    order: 1;
-  }
-  .dashboardPetCard > div:last-of-type {
-    order: 2;
-  }
-  .dashboardPetCard > a {
-    order: 3;
-  }
-
-  .middleContainer,
-  .dashboardContainer > div:last-of-type {
-    flex-grow: 1;
-  }
-  .middleContainer {
-    flex-shrink: 5;
-  }
 }
-
-/* 
-
-
-  .dashboardContainer > div:not(.petCardList) {
-    max-width: none;
-    width: auto;
-  }
-
-
-
-
-
-
-
-  .petCardList {
-    padding-top: 42px;
-    display: flex;
-    flex-flow: column wrap;
-  }
-
-  .petCardList > a {
-    max-width: 100px;
-  }
-
-
-  .dashboardContainer {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
-    max-width: 1440px;
-    margin: auto;
-    
-    justify-content: center;
-  }
-
-  .dashboardContainer > div:last-of-type {
-    min-width: 265px;
-    max-width: 450px;
-  }
-}
-
-
-} */

@@ -138,16 +138,22 @@ const InsuranceSearch = () => {
     }
 
     try {
+      setLoadingData(true);
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+
       const response = await axios.get(
         `${getAllInsurancePlansRoute}?age=${selectedAge}`
       );
+
       const plans = response.data;
 
       if (Array.isArray(plans) && plans.length > 0) {
         const groupedPlans = groupPlansByCompany(plans);
         const selectedPlans = extractSixResults(groupedPlans);
-        console.log("Selected Plans: ", selectedPlans);
+
         navigate("/insurances", { state: { filteredPlans: selectedPlans } });
+
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         toast.warning("No insurance plans found for the selected age.");
@@ -155,6 +161,10 @@ const InsuranceSearch = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
       toast.error("Error fetching data.");
+    } finally {
+      setLoadingData(false);
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
     }
   };
 
@@ -263,6 +273,8 @@ const InsuranceSearch = () => {
     try {
       setLoadingData(true);
       document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+
       const response = await axios.get(
         `${getPetByIdRoute}/${selectedPetData._id}`
       );
@@ -278,6 +290,7 @@ const InsuranceSearch = () => {
     } finally {
       setLoadingData(false);
       document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
     }
   };
 
@@ -286,6 +299,7 @@ const InsuranceSearch = () => {
       try {
         setLoadingData(true);
         document.body.style.overflow = "hidden";
+        document.body.style.height = "100vh";
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -307,6 +321,7 @@ const InsuranceSearch = () => {
       } finally {
         setLoadingData(false);
         document.body.style.overflow = "unset";
+        document.body.style.height = "auto";
       }
     };
 

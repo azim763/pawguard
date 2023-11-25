@@ -1,5 +1,5 @@
-._loading_overlay_wrapper {
-  height: 100% !important;
+* > div:first-child > div:first-child.loading {
+  height: 100vh !important;
 }
 
 .petPageGrid {
@@ -40,10 +40,6 @@
   gap: 2rem;
 }
 
-/* .allTabs {
-  width: 80vw;
-} */
-
 .petPageTabs {
   width: 100%;
   text-align: center;
@@ -54,8 +50,6 @@
   max-height: 100vh;
   overflow-y: auto;
   margin-bottom: 1rem;
-  /* border: 1px solid var(--border-grey); */
-  /* border-radius: 8px; */
 }
 
 .tabTitle {
@@ -130,7 +124,7 @@
 @media screen and (max-width: 900px) {
   .petPageGrid {
     /* width: 100% !important; */
-    padding: 0 20px;
+    padding: 45px 45px;
     column-gap: 1.5rem;
     grid-template-columns: 0.5fr 4fr;
   }
@@ -150,10 +144,21 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 850px) {
   .cardStyle {
     grid-template-columns: 1fr;
     width: 100%;
+  }
+
+  .petPageGrid {
+    /* width: 100% !important; */
+    padding: 45px 45px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .petPageGrid {
+    padding: 110px 40px;
   }
 }
 
@@ -170,7 +175,7 @@
 
   .petPageGrid {
     display: flex;
-    padding: 0 10%;
+    padding: 110px 10%;
     flex-flow: column nowrap;
     gap: 20px;
     align-self: center;
@@ -195,8 +200,9 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 500px) {
   .petPageGrid {
     padding: 110px 20px;
   }
 }
+

@@ -13,7 +13,7 @@ import FoodCard from "../../FoodCard/FoodCard.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
+const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode, displayDeleteBtn }) => {
   const [foodForm, setFoodForm] = useState([]);
   const MealPerDay = [
     { value: 1, label: "1" },
@@ -97,11 +97,14 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
     });
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const today = new Date();
-    const formattedToday = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+    const formattedToday = `${today.getDate().toString().padStart(2, "0")}-${(
+      today.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${today.getFullYear()}`;
 
     const updatedLogDate = logDate ? logDate : formattedToday;
     const updatedFoodData = {
@@ -122,10 +125,9 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
     );
   };
 
-
   return (
     <div className={styles.foodFromStyle}>
-      {formMode === 'create' && (
+      {formMode === "create" && (
         <form onSubmit={handleSubmit}>
           <div className={styles.petLogFood}>
             <div className={styles.petLogFoodName}>
@@ -167,7 +169,9 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
                     onChange={handleChange}
                   />
                   <div className={styles.unitGap}>
-                    <Typography variant="textfield-poppins-regular">g</Typography>
+                    <Typography variant="textfield-poppins-regular">
+                      g
+                    </Typography>
                   </div>
                 </div>
               </div>
@@ -181,11 +185,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
                 <Checkbox
                   id="KibbleDry"
                   name="KibbleDry"
-                  label={
-                    <Typography variant="body3-poppins-regular">
-                      Kibble-Dry
-                    </Typography>
-                  }
+                  label="Kibble-Dry"
                   value="KibbleDry"
                   checked={foodData.KibbleDry}
                   onChange={handleChange}
@@ -195,11 +195,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
                 <Checkbox
                   id="Canned"
                   name="Canned"
-                  label={
-                    <Typography variant="body3-poppins-regular">
-                      Canned
-                    </Typography>
-                  }
+                  label="Canned"
                   value="Canned"
                   checked={foodData.Canned}
                   onChange={handleChange}
@@ -209,11 +205,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
                 <Checkbox
                   id="SemiMoist"
                   name="SemiMoist"
-                  label={
-                    <Typography variant="body3-poppins-regular">
-                      Semi-Moist
-                    </Typography>
-                  }
+                  label="Semi-Moist"
                   value="SemiMoist"
                   checked={foodData.SemiMoist}
                   onChange={handleChange}
@@ -223,11 +215,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
                 <Checkbox
                   id="HomeCooked"
                   name="HomeCooked"
-                  label={
-                    <Typography variant="body3-poppins-regular">
-                      Home-Cooked
-                    </Typography>
-                  }
+                  label="Home-Cooked"
                   value="HomeCooked"
                   checked={foodData.HomeCooked}
                   onChange={handleChange}
@@ -237,9 +225,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
                 <Checkbox
                   id="Raw"
                   name="Raw"
-                  label={
-                    <Typography variant="body3-poppins-regular">Raw</Typography>
-                  }
+                  label="Raw"
                   value="Raw"
                   checked={foodData.Raw}
                   onChange={handleChange}
@@ -248,67 +234,70 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode }) => {
             </div>
           </div>
 
-          {/* <div className={styles.foodDate}>
-          <Typography variant="body2-poppins-medium">Food Date</Typography>
-
-          <DatePicker
-            onChange={handleDateChange}
-            id="FoodDate"
-          />
-        </div> */}
-
           <div className={styles.buttonStyle}>
             <Button
               variant="dark-blue"
               label="Add Food"
               size="dk-md-s"
               type="submit"
-            // className={styles.buttonWidth}
+              // className={styles.buttonWidth}
             />
           </div>
         </form>
       )}
       {foodForm.some((foodEntry) => {
-  const today = new Date();
-  const isToday = today.toLocaleDateString("en-GB") === new Date(foodEntry.FoodDate).toLocaleDateString("en-GB");
-  const matchesLogDate = foodEntry.FoodDate === logDate;
+        const today = new Date();
+        const isToday =
+          today.toLocaleDateString("en-GB") ===
+          new Date(foodEntry.FoodDate).toLocaleDateString("en-GB");
+        const matchesLogDate = foodEntry.FoodDate === logDate;
 
-  return (matchesLogDate || isToday);
-}) ? (
-  <div className={foodCardStyles.cardStyle}>
-    {foodForm.map((foodEntry) => {
-      const today = new Date();
-      const formattedToday = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
-      const formattedFoodDate = `${new Date(foodEntry.FoodDate).getDate().toString().padStart(2, '0')}-${(new Date(foodEntry.FoodDate).getMonth() + 1).toString().padStart(2, '0')}-${new Date(foodEntry.FoodDate).getFullYear()}`;
-      const isToday = formattedToday === formattedFoodDate;
-      const matchesLogDate = foodEntry.FoodDate === logDate;
-      
-      if (matchesLogDate || isToday) {
-        return (
-          <FoodCard
-            key={foodEntry._id}
-            logId={foodEntry._id}
-            FoodName={foodEntry.FoodName}
-            MealPerDay={foodEntry.MealPerDay}
-            QuantityPerMeal={foodEntry.QuantityPerMeal}
-            TypeOfFood={foodEntry.TypeOfFood}
-            KibbleDry={foodEntry.KibbleDry}
-            Canned={foodEntry.Canned}
-            SemiMoist={foodEntry.SemiMoist}
-            Raw={foodEntry.Raw}
-            HomeCooked={foodEntry.HomeCooked}
-            FoodDate={foodEntry.FoodDate}
-            onDelete={() => handleFoodDelete(foodEntry._id)}
-          />
-        );
-      }
-      return null;
-    })}
-  </div>
-) : (
-  <div>Food Not Found</div>
-)}
-          
+        return matchesLogDate || isToday;
+      }) ? (
+        <div className={foodCardStyles.cardStyle}>
+          {foodForm.map((foodEntry) => {
+            const today = new Date();
+            const formattedToday = `${today
+              .getDate()
+              .toString()
+              .padStart(2, "0")}-${(today.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}-${today.getFullYear()}`;
+            const formattedFoodDate = `${new Date(foodEntry.FoodDate)
+              .getDate()
+              .toString()
+              .padStart(2, "0")}-${(new Date(foodEntry.FoodDate).getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}-${new Date(foodEntry.FoodDate).getFullYear()}`;
+            const isToday = formattedToday === formattedFoodDate;
+            const matchesLogDate = foodEntry.FoodDate === logDate;
+
+            if (matchesLogDate || isToday) {
+              return (
+                <FoodCard
+                  key={foodEntry._id}
+                  logId={foodEntry._id}
+                  FoodName={foodEntry.FoodName}
+                  MealPerDay={foodEntry.MealPerDay}
+                  QuantityPerMeal={foodEntry.QuantityPerMeal}
+                  TypeOfFood={foodEntry.TypeOfFood}
+                  KibbleDry={foodEntry.KibbleDry}
+                  Canned={foodEntry.Canned}
+                  SemiMoist={foodEntry.SemiMoist}
+                  Raw={foodEntry.Raw}
+                  HomeCooked={foodEntry.HomeCooked}
+                  FoodDate={foodEntry.FoodDate}
+                  onDelete={() => handleFoodDelete(foodEntry._id)}
+                />
+              );
+            }
+            return null;
+          })}
+        </div>
+      ) : (
+        <div style={{textAlign: "center"}}>Food Not Found</div>
+      )}
+
       <ToastContainer />
     </div>
   );

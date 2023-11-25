@@ -19,7 +19,7 @@ const TextInput = ({
         <label htmlFor={id}>{label}</label>
       </Typography>
 
-      <Typography variant="textfield-poppins-regular" color="small-text-gray">
+      <Typography variant="textfield-poppins-regular" color="almost-black">
         <input
           className={`${styles[variant]} ${styles[size]} ${styles["input"]}`}
           type="text"

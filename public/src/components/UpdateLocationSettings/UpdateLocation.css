@@ -4,6 +4,7 @@
     padding: 20px;
     width: 365px;
     height: 210px;
+    background-color: white;
 }
   
 h2 {
@@ -46,3 +47,13 @@ h3 {
     width: 248px;
     height: 24px;
 }  
+
+
+@media screen and (min-width: 400px) {  
+    .update-location-box{ 
+        width:330px
+    }
+    .location-input-container{   
+        width:290px;
+    }
+} 

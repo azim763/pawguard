@@ -36,16 +36,21 @@ import LoadingOverlay from "react-loading-overlay-ts";
 export default function Dashboard() {
   const [pets, setPets] = useState([]);
   const [foods, setFoods] = useState([]);
+
   const [selectedPet, setSelectedPet] = useState("");
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [isUserData, setIsUserData] = useState(false);
   const [medication, setMedication] = useState([]);
   const [petLog, setPetLog] = useState([]);
   const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
     []
   );
   const [isLoadingData, setLoadingData] = useState(false);
+  // FOR CALENDAR
+  const [appointments, setAppointment] = useState([]);
+  const [userMed, setUserMed] = useState([]);
 
   const currentDate = new Date();
   const formattedCurrentDate = `${currentDate.getDate()}-${
@@ -63,11 +68,31 @@ export default function Dashboard() {
     }
   }, [currentUser]);
 
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const storedData = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
+
+      if (!storedData) {
+        navigate("/login");
+      } else {
+        const userData = JSON.parse(storedData);
+        setCurrentUser(userData);
+        setIsUserData(true);
+      }
+    };
+    checkLoggedIn();
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       if (currentUser) {
         try {
           setLoadingData(true);
+          document.body.style.overflow = "hidden";
+          document.body.style.height = "100vh";
           const responsePets = await axios.get(searchPetsByUserIDRoute, {
             params: { userID: currentUser._id },
           });
@@ -81,12 +106,51 @@ export default function Dashboard() {
           console.error("Error fetching pets:", error);
         } finally {
           setLoadingData(false);
+          document.body.style.overflow = "unset";
+          document.body.style.height = "auto";
         }
       }
     };
 
     fetchData();
   }, [currentUser]);
+
+  useEffect(() => {
+    if(isUserData){
+    const fetchData = async () => {
+      try {
+        const responseApt = await axios.get(
+          searchPetAppointmentsByUserIDRoute,
+          {
+            params: { UserID: currentUser._id },
+          }
+        );
+        setAppointment(responseApt.data);
+      } catch (error) {
+        console.error("Error fetching pet appointment:", error);
+      }
+    };
+
+    fetchData();
+  }
+  }, [isUserData,selectedPet]);
+
+  useEffect(() => {
+    if(isUserData){
+    const fetchData = async () => {
+      try {
+        const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
+          params: { UserID: currentUser._id },
+        });
+        setUserMed(userMed.data);
+      } catch (error) {
+        console.error("Error fetching medication by user:", error);
+      }
+    };
+
+    fetchData();
+  }
+  }, [isUserData,currentUser]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,7 +200,6 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -161,25 +224,11 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      const storedData = localStorage.getItem(
-        process.env.REACT_APP_LOCALHOST_KEY
-      );
 
-      if (!storedData) {
-        navigate("/login");
-      } else {
-        const userData = JSON.parse(storedData);
-        setCurrentUser(userData);
-      }
-    };
-    checkLoggedIn();
-  }, []);
 
   return (
     <LoadingOverlay
-    className={styles.Loader}
+      className={styles.Loader}
       active={isLoadingData}
       spinner={<LoadPage />}
       // text="Loading your content..."
@@ -194,7 +243,7 @@ export default function Dashboard() {
             <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
               {pets &&
                 pets.map((pet) => (
-                  // Use a Link to navigate to individual profile PetPage
+
                   <Link to="/petPage" state={{ selectedPetID: pet._id }}>
                     <PetSelection
                       styles={{ marginBottom: "20px" }}
@@ -210,119 +259,145 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className={styles.middleContainer}>
-            <div className={styles.middleTitle}>
-              <Typography variant="h1-poppins-semibold" color="dark-blue">
-                {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
-              </Typography>
-
-              {pets && (
-                <TotalPets
-                  pets={pets}
-                  selectedPet={selectedPet}
-                  onPetSelect={handlePetSelection}
-                />
-              )}
-            </div>
-            <div className={styles.petSummaryCards}>
-              <DashMedicineCard numOfMedicine={medication.length} />
-              <DashAptCard numOfApt={appointmentsOfSelectedPet.length} />
-            </div>
-            <div className={styles.dashboardGraph}>
-              <Carousel
-                showStatus={false}
-                showIndicators={false}
-                renderArrowPrev={(clickHandler, hasPrev) => {
-                  return (
-                    <div
-                      className={`carousel-arrow carousel-arrow-left ${
-                        hasPrev ? "" : "hidden"
-                      }`}
-                      onClick={clickHandler}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        zIndex: "99",
-                        // textDecoration: "underline",
-                      }}
-                    >
-                      {hasPrev ? (
-                        <>
-                          <div className={styles.graphNav}>
-                            <FontAwesomeIcon
-                              icon={faArrowLeft}
-                              className={styles.marginIcon}
+          <div className={styles.midCalendarContainer}>
+            <div className={styles.middleContainer}>
+              <div className={styles.middleTitle}>
+                <Typography variant="h1-poppins-semibold" color="dark-blue">
+                  {selectedPet && <div>{selectedPet.PetName}'s Overview</div>}
+                </Typography>
+                {pets && (
+                  <TotalPets
+                    pets={pets}
+                    selectedPet={selectedPet}
+                    onPetSelect={handlePetSelection}
+                  />
+                )}
+              </div>
+              <div className={styles.petSummaryCards}>
+                <DashMedicineCard numOfMedicine={medication.length} />
+                <DashAptCard numOfApt={appointmentsOfSelectedPet.length} />
+              </div>
+              <div className={styles.dashboardGraph}>
+                <Carousel
+                  showStatus={false}
+                  showIndicators={false}
+                  renderArrowPrev={(clickHandler, hasPrev) => {
+                    return (
+                      <div
+                        className={`carousel-arrow carousel-arrow-left ${
+                          hasPrev ? "" : "hidden"
+                        }`}
+                        onClick={clickHandler}
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: 0,
+                          zIndex: "99",
+                          // textDecoration: "underline",
+                        }}
+                      >
+                        {hasPrev ? (
+                          <>
+                            <div className={styles.graphNav}>
+                              <FontAwesomeIcon
+                                icon={faArrowLeft}
+                                className={styles.marginIcon}
+                              />
+                              <Typography
+                                variant="detailtext2-poppins-medium"
+                                color="dark-blue"
+                              >
+                                Meal Record
+                              </Typography>
+                            </div>
+                            <hr className={styles.underline}></hr>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    );
+                  }}
+                  renderArrowNext={(clickHandler, hasNext) => {
+                    return (
+                      <div
+                        className={`carousel-arrow carousel-arrow-right ${
+                          hasNext ? "" : "hidden"
+                        }`}
+                        onClick={clickHandler}
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: 0,
+                          // zIndex: "999",
+                          // textDecoration: "underline",
+                          marginBottom: "30px",
+                        }}
+                      >
+                        {hasNext ? (
+                          <>
+                            <div className={styles.graphNav}>
+                              <Typography
+                                variant="detailtext2-poppins-medium"
+                                color="dark-blue"
+                              >
+                                Weight Record
+                              </Typography>
+                              <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className={styles.marginIconArr}
+                              />
+                            </div>
+                            <hr className={styles.underline}></hr>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    );
+                  }}
+                >
+                  <div>
+                    <div className={styles.graphTitle}>
+                      <Typography variant="body2-poppins-medium">
+                        Weekly Meal Record
+                      </Typography>
+                    </div>
+                    <div>
+                      {foods.length > 0 ? (
+                        selectedPet && (
+                          <div className={styles.graphContainerMain}>
+                            <Graph
+                              names={foods.map((food) => food.QuantityPerMeal)}
+                              values={foods.map((food) => food.FoodDate)}
+                              label="Meal"
+                              startRange={100}
+                            endRange ="auto"
                             />
-                            <Typography
-                              variant="detailtext2-poppins-medium"
-                              color="dark-blue"
-                            >
-                              Meal Record
-                            </Typography>
                           </div>
-                          <hr className={styles.underline}></hr>
-                        </>
+                        )
                       ) : (
-                        ""
+                        <div className={styles.graphNoRecord}>
+                          No record available
+                        </div>
                       )}
                     </div>
-                  );
-                }}
-                renderArrowNext={(clickHandler, hasNext) => {
-                  return (
-                    <div
-                      className={`carousel-arrow carousel-arrow-right ${
-                        hasNext ? "" : "hidden"
-                      }`}
-                      onClick={clickHandler}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        // zIndex: "999",
-                        // textDecoration: "underline",
-                        marginBottom: "30px",
-                      }}
-                    >
-                      {hasNext ? (
-                        <>
-                          <div className={styles.graphNav}>
-                            <Typography
-                              variant="detailtext2-poppins-medium"
-                              color="dark-blue"
-                            >
-                              Weight Record
-                            </Typography>
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className={styles.marginIconArr}
-                            />
-                          </div>
-
-                          <hr className={styles.underline}></hr>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  );
-                }}
-              >
-                <div>
-                  <div className={styles.graphTitle}>
-                    <Typography variant="body2-poppins-medium">
-                      Weekly Meal Record
-                    </Typography>
                   </div>
                   <div>
+                    <div className={styles.graphTitle}>
+                      <Typography variant="body2-poppins-medium">
+                        Weekly Weight Record
+                      </Typography>
+                    </div>
                     {foods.length > 0 ? (
                       selectedPet && (
                         <div className={styles.graphContainerMain}>
                           <Graph
-                            names={foods.map((food) => food.QuantityPerMeal)}
-                            values={foods.map((food) => food.FoodDate)}
-                            label="Meal"
+                            names={petLog.map((petLog) => petLog.Weight)}
+                            values={petLog.map((petLog) => petLog.LogDate)}
+                            label="Weight"
+                            startRange={10}
+                            endRange ="auto"
                           />
                         </div>
                       )
@@ -332,40 +407,19 @@ export default function Dashboard() {
                       </div>
                     )}
                   </div>
-                </div>
-
-                <div>
-                  <div className={styles.graphTitle}>
-                    <Typography variant="body2-poppins-medium">
-                      Weekly Weight Record
-                    </Typography>
-                  </div>
-                  {foods.length > 0 ? (
-                    selectedPet && (
-                      <div className={styles.graphContainerMain}>
-                        <Graph
-                          names={petLog.map((petLog) => petLog.Weight)}
-                          values={petLog.map((petLog) => petLog.LogDate)}
-                          label="Weight"
-                        />
-                      </div>
-                    )
-                  ) : (
-                    <div className={styles.graphNoRecord}>
-                      No record available
-                    </div>
-                  )}
-                </div>
-              </Carousel>
-            </div> 
+                </Carousel>
+              </div>
+            </div>
+            <div className={styles.calendarContainer}>
+              {pets && userMed && appointments && (
+                <DashCalendar
+                  petAppointments={appointments}
+                  petMedications={userMed}
+                  pets={pets}
+                />
+              )}
+            </div>
           </div>
-          {pets && medication && appointmentsOfSelectedPet && (
-            <DashCalendar
-              petAppointments={appointmentsOfSelectedPet}
-              petMedications={medication}
-              pets={pets}
-            />
-          )}
         </div>
       </div>
     </LoadingOverlay>

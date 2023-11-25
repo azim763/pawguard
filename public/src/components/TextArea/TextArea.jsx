@@ -17,7 +17,7 @@ const TextArea = ({
 }) => {
   return (
     <div>
-      <Typography variant="textfield-poppins-regular">
+      <Typography variant="textfield-poppins-regular" color="almost-black">
         <textarea
           className={`${styles[value]} ${styles[defaultValue]} ${
             styles["textArea"]
