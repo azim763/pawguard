@@ -144,7 +144,7 @@
 
 /* max-width */
 
-@media screen and (max-width: 1230px) {
+@media screen and (max-width: 1250px) {
   .petSummaryCards {
     flex-wrap: wrap;
   }
