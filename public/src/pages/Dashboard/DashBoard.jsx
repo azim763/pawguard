@@ -41,6 +41,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const socket = useRef();
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [isUserData, setIsUserData] = useState(false);
   const [medication, setMedication] = useState([]);
   const [petLog, setPetLog] = useState([]);
   const [appointmentsOfSelectedPet, setAppointmentsOfSelectedPet] = useState(
@@ -66,6 +67,24 @@ export default function Dashboard() {
       socket.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
+
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const storedData = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
+
+      if (!storedData) {
+        navigate("/login");
+      } else {
+        const userData = JSON.parse(storedData);
+        setCurrentUser(userData);
+        setIsUserData(true);
+      }
+    };
+    checkLoggedIn();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +116,7 @@ export default function Dashboard() {
   }, [currentUser]);
 
   useEffect(() => {
+    if(isUserData){
     const fetchData = async () => {
       try {
         const responseApt = await axios.get(
@@ -112,9 +132,11 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, [selectedPet]);
+  }
+  }, [isUserData,selectedPet]);
 
   useEffect(() => {
+    if(isUserData){
     const fetchData = async () => {
       try {
         const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
@@ -127,7 +149,8 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, [selectedPet]);
+  }
+  }, [isUserData,currentUser]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -201,21 +224,7 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      const storedData = localStorage.getItem(
-        process.env.REACT_APP_LOCALHOST_KEY
-      );
 
-      if (!storedData) {
-        navigate("/login");
-      } else {
-        const userData = JSON.parse(storedData);
-        setCurrentUser(userData);
-      }
-    };
-    checkLoggedIn();
-  }, []);
 
   return (
     <LoadingOverlay
@@ -362,6 +371,8 @@ export default function Dashboard() {
                               names={foods.map((food) => food.QuantityPerMeal)}
                               values={foods.map((food) => food.FoodDate)}
                               label="Meal"
+                              startRange={100}
+                            endRange ="auto"
                             />
                           </div>
                         )
@@ -385,6 +396,8 @@ export default function Dashboard() {
                             names={petLog.map((petLog) => petLog.Weight)}
                             values={petLog.map((petLog) => petLog.LogDate)}
                             label="Weight"
+                            startRange={10}
+                            endRange ="auto"
                           />
                         </div>
                       )

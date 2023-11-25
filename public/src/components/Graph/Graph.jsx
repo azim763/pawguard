@@ -7,10 +7,11 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+
 } from "recharts";
 import styles from "./graph.module.css";
 
-const Graph = ({ names, values, label }) => {
+const Graph = ({ names, values, label,startRange,endRange }) => {
   const data = names.map((name, index) => ({
     name,
     value: values[index],
@@ -29,7 +30,7 @@ const Graph = ({ names, values, label }) => {
             dot={{ strokeWidth: 7 }}
           />
           <XAxis tickLine={false} padding={{ left: 20 }}  dataKey="value" />
-          <YAxis tickLine={false} type="number" domain={[0, 800]} padding={{ bottom: 20 }}/>
+          <YAxis tickLine={false} type="number" domain={[startRange, endRange]} padding={{ bottom: 20 }}/>
           <Tooltip />
           <Legend />
         </LineChart>
