@@ -3,13 +3,13 @@
   height: auto;
   background-color: var(--pearl-blue);
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: left;
-  gap: 26px;
+  gap: 50px;
   border: 1px solid var(--border-grey);
   border-radius: 8px;
-  padding: 1rem 20px;
-  /* min-width: 263px; */
+  padding: 1rem 50px;
+  min-width: 280px;
 }
 
 .icon-container {
@@ -23,8 +23,3 @@
   text-decoration: underline;
   cursor: pointer;
 }
-/* 
-.medicine-card-container div a:hover {
-  color: var(--almost-black);
-  text-decoration: none;
-} */

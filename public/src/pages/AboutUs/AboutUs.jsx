@@ -17,7 +17,7 @@ import member2 from "./../../assets/images/MemberImages/Cassie.png";
 import member3 from "./../../assets/images/MemberImages/Gillian.png";
 import member4 from "./../../assets/images/MemberImages/Akhil.png";
 import member5 from "./../../assets/images/MemberImages/Thalha.png";
-// import member6 from "./../../assets/images/MemberImages/Azim.png";
+import member6 from "./../../assets/images/MemberImages/Azim.png";
 import member7 from "./../../assets/images/MemberImages/Yuki.png";
 import member8 from "./../../assets/images/MemberImages/Cylvia.png";
 import member9 from "./../../assets/images/MemberImages/Harnoor.png";
@@ -137,54 +137,63 @@ const AboutUs = () => {
                 alt="Sanika Coutinho"
                 title="Sanika Coutinho"
                 description="Designer"
+                linkedinProfile="https://www.linkedin.com/in/sanika-coutinho/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member2}
                 alt="Cassie Hsieh"
                 title="Cassie Hsieh"
                 description="Designer"
+                linkedinProfile="https://www.linkedin.com/in/chia-lin-hsieh/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member3}
                 alt="image"
                 title="Gillian Kwok"
                 description="PM / Designer"
+                linkedinProfile="https://www.linkedin.com/in/gillian-kwok/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member4}
                 alt="Akhil Jayakumar"
                 title="Akhil Jayakumar"
                 description="Designer"
+                linkedinProfile="https://www.linkedin.com/in/akhil-jayakumar285/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member5}
                 alt="image"
                 title="Thalha Uzair"
                 description="FS Developer"
+                linkedinProfile="https://www.linkedin.com/in/thalha-uzair-122b59169/"
               ></AboutUsProfile>
               <AboutUsProfile
-                src="https://picsum.photos/200"
+                src={member6}
                 alt="image"
                 title="Azim Mohammadi"
                 description="BE Developer"
+                linkedinProfile="https://www.linkedin.com/in/azim763/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member7}
                 alt="image"
                 title="Yuki Cheng"
                 description="PM / FS Developer"
+                linkedinProfile="https://www.linkedin.com/in/hoi-yan-cheng-a0a886293/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member8}
                 alt="image"
                 title="Cylvia Lian"
                 description="FS Developer"
+                linkedinProfile="https://www.linkedin.com/in/cylvialian/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member9}
                 alt="image"
                 title="Harnoor Kaur"
                 description="FS Developer"
+                linkedinProfile="https://www.linkedin.com/in/harnoorkaur1009/"
               ></AboutUsProfile>
             </div>
           </div>

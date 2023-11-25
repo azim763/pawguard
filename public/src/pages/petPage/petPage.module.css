@@ -1,5 +1,4 @@
-
-* > div:first-child > div:first-child.loading{
+* > div:first-child > div:first-child.loading {
   height: 100vh !important;
 }
 
@@ -125,7 +124,7 @@
 @media screen and (max-width: 900px) {
   .petPageGrid {
     /* width: 100% !important; */
-    padding: 45px 20px;
+    padding: 45px 45px;
     column-gap: 1.5rem;
     grid-template-columns: 0.5fr 4fr;
   }
@@ -145,10 +144,21 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 850px) {
   .cardStyle {
     grid-template-columns: 1fr;
     width: 100%;
+  }
+
+  .petPageGrid {
+    /* width: 100% !important; */
+    padding: 45px 45px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .petPageGrid {
+    padding: 110px 40px;
   }
 }
 
@@ -165,7 +175,7 @@
 
   .petPageGrid {
     display: flex;
-    padding: 0 10%;
+    padding: 110px 10%;
     flex-flow: column nowrap;
     gap: 20px;
     align-self: center;
@@ -190,8 +200,9 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 500px) {
   .petPageGrid {
     padding: 110px 20px;
   }
 }
+
