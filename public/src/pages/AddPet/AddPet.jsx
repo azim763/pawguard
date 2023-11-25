@@ -232,10 +232,15 @@ const AddPet = () => {
       if (handleValidation()) {
         const response = await axios.post(createPetRoute, updatedPetData);
         // Handle successful submission
-        toast.success("Pet profile created successfully.", toastOptionsSuccess);
+      //  toast.success("Pet profile created successfully.", toastOptionsSuccess);
         //   console.log("Data submitted successfully:", response.data);
 
         navigate("/");
+        setTimeout(() => {
+          toast.success("Pet profile created successfully.", toastOptionsSuccess);
+        }, 1);
+
+
       } else {
         //  console.error("tttttttt");
       }
