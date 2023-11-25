@@ -105,7 +105,7 @@ const EditPet = () => {
   ).padStart(2, "0")}-${originalDate.getFullYear()}`;
 
   console.log(formattedDate);
-  
+
   const [petData, setPetData] = useState({});
 
   useEffect(() => {
@@ -212,7 +212,7 @@ const EditPet = () => {
       ...petData,
       [name]: value,
     });
-    
+
   };
 
   const handleMultipleDropdownChange = (e) => {
@@ -245,6 +245,13 @@ const EditPet = () => {
       .patch(`${patchPetRoute}/${selectedPet._id}`, petData)
       .then((response) => {
         console.log(`Pet with ID ${selectedPet._id} has been updated!`);
+        const petsData = JSON.parse(localStorage.getItem("petsData"));
+
+        const updatedPetData = petsData.map((pet) =>
+          pet._id === selectedPet._id ? { ...pet, ...petData } : pet
+        );
+        localStorage.setItem("petsData", JSON.stringify(updatedPetData));
+
         navigate('/petPage');
       })
       .catch((error) => {
