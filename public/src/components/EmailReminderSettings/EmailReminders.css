@@ -7,9 +7,8 @@
   align-items: flex-start;
   width: 365px;
   height: 151px;
+  background-color: white;
 }
-
-
 
 .label-and-toggle {
   display: flex;

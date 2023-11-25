@@ -3,7 +3,8 @@
     border-radius: 10px;
     padding: 20px;
     width: 365px;
-    height: 454px
+    height: 454px;
+    background-color: white;
 }  
 
 .form-group-profile {
