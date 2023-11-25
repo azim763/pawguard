@@ -25,3 +25,13 @@
     border-radius: 4px;
     height: 54px;
 }
+
+
+@media screen and (min-width: 400px) {  
+    .update-profile-box{ 
+        width:330px
+    }
+    .form-group-profile #firstName,#lastName, #email {   
+        width:290px;
+    }
+} 

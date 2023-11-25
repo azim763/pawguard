@@ -3,10 +3,9 @@ h1 {
 }
 
 .body {
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 10%;
-    margin-right: 10%;
+    padding: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
     display: grid;
     justify-content: space-between;
     color: black;
@@ -14,33 +13,67 @@ h1 {
 
 .body-part {
     display: grid;
-    grid-template-columns: 1fr; /* Change to a single column layout */
+    grid-template-columns: repeat(3,1fr);
     margin-top: 50px;
     gap: 20px;
 }
 
-.column-three {
-    width: 100%; /* Make the third column full width */
-    display: grid;
-    gap: 13px;
-}
 
 #SaveButton {
     display: grid;
     grid-column: 3;
     align-content: center;
-    margin-left: 20%; 
+    margin-left: 40%; 
     width: 210px;
     height: 50px;
 }
 
-@media screen and (max-width: 600px) {
-    .column-three {
-        width: 100%;
+
+
+@media screen and (max-width: 750px) {
+    .body{
+        padding-top: 20%;
+        padding: 5%;
+        display: grid;
+        color: black;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 12%;
     }
 
     #SaveButton {
         margin-left: 20%;
         grid-column: span 1; 
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    
+    .body-part{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    #SaveButton {
+        margin-left: 145%;
+        grid-column: 1; 
+    }
+} 
+
+@media screen and (max-width: 500px) {
+    .body {
+        padding-top: 20%;
+    }
+
+    .body-part {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: 1fr;
+    }
+
+    #SaveButton {
+        margin-left: 20%;
+        grid-column: span 1;
     }
 }

@@ -22,10 +22,7 @@ const AccountSetting = () => {
             <div className="body-part">
               <UpdateProfileSettings></UpdateProfileSettings>
               <UpdatePasswordSettings></UpdatePasswordSettings>
-              <div className="column-three">
               <UpdateLocationSettings></UpdateLocationSettings>
-              <EmailReminderSettings></EmailReminderSettings>
-              </div>
               <Button id="SaveButton"
               variant="yellow"
               size="dk-md"
