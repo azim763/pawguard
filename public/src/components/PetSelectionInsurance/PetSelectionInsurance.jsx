@@ -3,6 +3,7 @@ import styles from "./petSelectionInsurance.module.css";
 import Typography from "../Typography/Typography";
 
 const PetSelectionInsurance = ({
+  pet,
   imgUrl,
   alt,
   PetName,
@@ -10,7 +11,7 @@ const PetSelectionInsurance = ({
   selected,
 }) => {
   const handleSelectionClick = () => {
-    onClick(PetName);
+    onClick(pet);
   };
 
   return (

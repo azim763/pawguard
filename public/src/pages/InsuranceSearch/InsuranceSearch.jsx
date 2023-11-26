@@ -82,18 +82,18 @@ const InsuranceSearch = () => {
     { value: "Select the Pet Age", label: "Select the Pet Age" },
     { value: "8 weeks - 11 months", label: "8 weeks - 11 months" },
     { value: "1 year", label: "1 year" },
-    { value: "2 year", label: "2 year" },
-    { value: "3 year", label: "3 year" },
-    { value: "4 year", label: "4 year" },
-    { value: "5 year", label: "5 year" },
-    { value: "6 year", label: "6 year" },
-    { value: "7 year", label: "7 year" },
-    { value: "8 year", label: "8 year" },
-    { value: "9 year", label: "9 year" },
-    { value: "10 year", label: "10 year" },
-    { value: "11 year", label: "11 year" },
-    { value: "12 year", label: "12 year" },
-    { value: "12 year+", label: "12 year+" },
+    { value: "2 years", label: "2 years" },
+    { value: "3 years", label: "3 years" },
+    { value: "4 years", label: "4 years" },
+    { value: "5 years", label: "5 years" },
+    { value: "6 years", label: "6 years" },
+    { value: "7 years", label: "7 years" },
+    { value: "8 years", label: "8 years" },
+    { value: "9 years", label: "9 years" },
+    { value: "10 years", label: "10 years" },
+    { value: "11 years", label: "11 years" },
+    { value: "12 years", label: "12 years" },
+    { value: "12 years+", label: "12 years+" },
   ];
 
   const handlePetAgeChange = (age) => {
@@ -199,69 +199,36 @@ const InsuranceSearch = () => {
     return groupedPlans;
   }
 
-  const handlePetSelection = async (petName) => {
-    const selectedPetData = pets.find((pet) => pet.PetName === petName);
+  const handlePetSelection = async (pet) => {
+    console.log(pet);
+    
 
-    await fetchPetInfo(selectedPetData);
+     setSelectedPet(pet);
+     setSelectedPetName(pet.PetName);
 
-    setSelectedPet(selectedPetData);
-    setSelectedPetName(selectedPetData);
-
-    //title part /pet name
-    setPageTitle(`About ${selectedPetData.PetName}`);
-    //pet type
-    setSelectedPetType(selectedPetData.Species);
-    handlePetTypeChange(selectedPetData.Species);
-    console.log(selectedPetType);
-    console.log(selectedPetData.Gender);
-    console.log(selectedPetData.Breed);
-    //pet gender
-    setSelectedGender(selectedPetData.Gender);
-    handlePetGenderChange(selectedPetData.Gender);
-    //pet breed
-    setSelectedBreed(selectedPetData.Breed);
-    handleBreedChange(selectedPetData.Breed);
-    //pet Age
-    // Calculate age based on birthday
-    const birthdayDate = new Date(selectedPetData.Birthday);
+    // //title part /pet name
+     setPageTitle(`About ${pet.PetName}`);
+    // //pet type
+    setSelectedPetType(pet.Species);
+     handlePetTypeChange(pet.Species);
+ 
+    // //pet gender
+     setSelectedGender(pet.Gender);
+     handlePetGenderChange(pet.Gender);
+    // //pet breed
+     setSelectedBreed(pet.Breed);
+     handleBreedChange(pet.Breed);
+    // //pet Age
+    // // Calculate age based on birthday
+    const birthdayDate = new Date(pet.Birthday);
     const currentDate = new Date();
     const ageInMilliseconds = currentDate - birthdayDate;
-    const ageInYears = Math.floor(
+    const ageInYears = Math.round(
       ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000)
     );
 
-    // Find the corresponding age range
-    let selectedAgeRange = "";
-    if (ageInYears <= 11 / 365.25) {
-      selectedAgeRange = "8 weeks - 11 months";
-    } else if (ageInYears <= 1) {
-      selectedAgeRange = "1 year";
-    } else if (ageInYears <= 2) {
-      selectedAgeRange = "2 year";
-    } else if (ageInYears <= 3) {
-      selectedAgeRange = "3 year";
-    } else if (ageInYears <= 4) {
-      selectedAgeRange = "4 year";
-    } else if (ageInYears <= 5) {
-      selectedAgeRange = "5 year";
-    } else if (ageInYears <= 6) {
-      selectedAgeRange = "6 year";
-    } else if (ageInYears <= 7) {
-      selectedAgeRange = "7 year";
-    } else if (ageInYears <= 8) {
-      selectedAgeRange = "8 year";
-    } else if (ageInYears <= 9) {
-      selectedAgeRange = "9 year";
-    } else if (ageInYears <= 10) {
-      selectedAgeRange = "10 year";
-    } else if (ageInYears <= 11) {
-      selectedAgeRange = "11 year";
-    } else if (ageInYears <= 12) {
-      selectedAgeRange = "12 year";
-    } else {
-      selectedAgeRange = "12 year+";
-    }
-
+    // // Find the corresponding age range
+    const selectedAgeRange = calculateAgeRange(ageInYears);
     setSelectedAge(selectedAgeRange);
 
     // setSelectedAge(selectedPetData.Birthday);
@@ -269,30 +236,20 @@ const InsuranceSearch = () => {
     // setSelectedGender("");
   };
 
-  const fetchPetInfo = async (selectedPetData) => {
-    try {
-      setLoadingData(true);
-      document.body.style.overflow = "hidden";
-      document.body.style.height = "100vh";
+  function calculateAgeRange(ageInYears) {
+    const ageRanges = [
+      "8 weeks - 11 months",
+      "1 year", "2 years", "3 years", "4 years", "5 years",
+      "6 years", "7 years", "8 years", "9 years", "10 years",
+      "11 years", "12 years", "12 years+"
+    ];
+  
+    const index = Math.min(Math.floor(ageInYears), ageRanges.length - 1);
+  
+    return ageRanges[index];
+  }
 
-      const response = await axios.get(
-        `${getPetByIdRoute}/${selectedPetData._id}`
-      );
-      const petInfoData = response.data;
-      setPetInfo(petInfoData);
-
-      handlePetTypeChange(petInfoData.Species);
-      console.log("This is selected " + petInfoData.Species);
-
-      handlePetGenderChange(petInfoData.Gender);
-    } catch (error) {
-      console.error("Error fetching pet info:", error);
-    } finally {
-      setLoadingData(false);
-      document.body.style.overflow = "unset";
-      document.body.style.height = "auto";
-    }
-  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -348,6 +305,7 @@ const InsuranceSearch = () => {
               pets.map((pet) => (
                 <div key={pet._id} className={styles.petItem}>
                   <PetSelectionInsurance
+                    pet={pet}
                     imgUrl={pet.PetImageName}
                     PetName={pet.PetName}
                     onClick={handlePetSelection}
