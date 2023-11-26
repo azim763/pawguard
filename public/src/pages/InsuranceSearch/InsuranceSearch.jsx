@@ -27,9 +27,8 @@ const InsuranceSearch = () => {
   const [selectedAge, setSelectedAge] = useState("");
   const [selectedGender, setSelectedGender] = useState("");
   // const [insurancePlans, setInsurancePlans] = useState([]);
-  const [selectedPetName, setSelectedPetName] = useState({});
+  // const [selectedPetName, setSelectedPetName] = useState({});
   const [selectedPet, setSelectedPet] = useState(null);
-  const [petInfo, setPetInfo] = useState(null);
   // const [userId, setUserId] = useState(null);
   const [pageTitle, setPageTitle] = useState("Tell us about your pet");
   const [isLoadingData, setLoadingData] = useState(false);
@@ -201,42 +200,15 @@ const InsuranceSearch = () => {
 
   const handlePetSelection = async (pet) => {
     console.log(pet);
-    
-
      setSelectedPet(pet);
-     setSelectedPetName(pet.PetName);
-
-    // //title part /pet name
-     setPageTitle(`About ${pet.PetName}`);
-    // //pet type
-    setSelectedPetType(pet.Species);
-     handlePetTypeChange(pet.Species);
- 
-    // //pet gender
-     setSelectedGender(pet.Gender);
-     handlePetGenderChange(pet.Gender);
-    // //pet breed
-     setSelectedBreed(pet.Breed);
-     handleBreedChange(pet.Breed);
-    // //pet Age
-    // // Calculate age based on birthday
-    const birthdayDate = new Date(pet.Birthday);
-    const currentDate = new Date();
-    const ageInMilliseconds = currentDate - birthdayDate;
-    const ageInYears = Math.round(
-      ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000)
-    );
-
-    // // Find the corresponding age range
-    const selectedAgeRange = calculateAgeRange(ageInYears);
-    setSelectedAge(selectedAgeRange);
-
-    // setSelectedAge(selectedPetData.Birthday);
-    console.log("Here is my Birth Date " + selectedAgeRange);
-    // setSelectedGender("");
+     setSelectedPetInfo(pet)
   };
 
-  function calculateAgeRange(ageInYears) {
+  const calculateAgeRange = (birthdayDate) => {
+    const currentDate = new Date();
+    const ageInMilliseconds = currentDate - birthdayDate;
+    const ageInYears = Math.round(ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000));
+  
     const ageRanges = [
       "8 weeks - 11 months",
       "1 year", "2 years", "3 years", "4 years", "5 years",
@@ -247,8 +219,17 @@ const InsuranceSearch = () => {
     const index = Math.min(Math.floor(ageInYears), ageRanges.length - 1);
   
     return ageRanges[index];
-  }
-
+  };
+  const setSelectedPetInfo = (pet) => {
+    // setSelectedPetName(pet.PetName);
+    setPageTitle(`About ${pet.PetName}`);
+    setSelectedPetType(pet.Species);
+    setSelectedGender(pet.Gender);
+    setSelectedBreed(pet.Breed);
+  
+    const selectedAgeRange = calculateAgeRange(new Date(pet.Birthday));
+    setSelectedAge(selectedAgeRange);
+  };
   
 
   useEffect(() => {
@@ -260,19 +241,31 @@ const InsuranceSearch = () => {
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
-        const data = JSON.parse(storedData);
+        if(storedData){
+          const petData = localStorage.getItem("petsData");
+          if (petData) {
+            const petArray = JSON.parse(petData);
+            setPets(petArray);
+            
+            if (!selectedPet && petArray.length > 0) {
+              setSelectedPet(petArray[0]);
+              setSelectedPetInfo(petArray[0])
+              
+            }
 
-        // Fetch all pet data from the backend
+          }else{
+        const data = JSON.parse(storedData);
         const response = await axios.get(searchPetsByUserIDRoute, {
           params: { userID: data._id },
         });
 
         setPets(response.data);
-
-        // Initialize selectedPetName if not already set
-        if (!selectedPetName && response.data.length > 0) {
-          setSelectedPetName(response.data[0]);
+        if (!selectedPet && response.data.length > 0) {
+          setSelectedPet(response.data[0]);
+          setSelectedPetInfo(response.data[0])
         }
+      }
+    }
       } catch (error) {
         console.log("Error fetching Pet Data " + error);
       } finally {
@@ -378,7 +371,7 @@ const InsuranceSearch = () => {
                   onChange={handleBreedChange}
                   placeholder="Select a breed"
                   // defaultValue="Select a breed"
-                  options={selectedPetType === "cat" ? catBreeds : dogBreeds}
+                  options={selectedPetType === "Cat" ? catBreeds : dogBreeds}
                   size="ml"
                 />
               </div>
