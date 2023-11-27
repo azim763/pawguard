@@ -102,7 +102,6 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
         console.log("Form submitted with data:", updatedFormData);
         console.log("Response from server:", response);
         // ...
-        toast.success("Vaccination Added Successfully", toastOptions);
 
 
         onVaccinationSubmit(response.data);

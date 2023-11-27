@@ -101,8 +101,6 @@ const AppointmentForm = ({
         AppointmentReason: "",
         AppointmentDate: "",
         AppointmentTime: "",})
-        toast.success("Appointment Added Successfully", toastOptions);
-
       } catch (error) {
         console.error("Error submitting form:", error);
       }
