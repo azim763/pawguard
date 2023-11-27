@@ -98,7 +98,6 @@ const PetLogForm = ({
         //       inline: 'nearest',
         //     });
         // }
-        toast.success("Petlog Added Successfully", toastOptions);
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
