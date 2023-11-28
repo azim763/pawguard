@@ -200,24 +200,36 @@ const InsuranceSearch = () => {
 
   const handlePetSelection = async (pet) => {
     console.log(pet);
-     setSelectedPet(pet);
-     setSelectedPetInfo(pet)
+    setSelectedPet(pet);
+    setSelectedPetInfo(pet);
   };
 
   const calculateAgeRange = (birthdayDate) => {
     const currentDate = new Date();
     const ageInMilliseconds = currentDate - birthdayDate;
-    const ageInYears = Math.round(ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000));
-  
+    const ageInYears = Math.round(
+      ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000)
+    );
+
     const ageRanges = [
       "8 weeks - 11 months",
-      "1 year", "2 years", "3 years", "4 years", "5 years",
-      "6 years", "7 years", "8 years", "9 years", "10 years",
-      "11 years", "12 years", "12 years+"
+      "1 year",
+      "2 years",
+      "3 years",
+      "4 years",
+      "5 years",
+      "6 years",
+      "7 years",
+      "8 years",
+      "9 years",
+      "10 years",
+      "11 years",
+      "12 years",
+      "12 years+",
     ];
-  
+
     const index = Math.min(Math.floor(ageInYears), ageRanges.length - 1);
-  
+
     return ageRanges[index];
   };
   const setSelectedPetInfo = (pet) => {
@@ -226,11 +238,10 @@ const InsuranceSearch = () => {
     setSelectedPetType(pet.Species);
     setSelectedGender(pet.Gender);
     setSelectedBreed(pet.Breed);
-  
+
     const selectedAgeRange = calculateAgeRange(new Date(pet.Birthday));
     setSelectedAge(selectedAgeRange);
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -241,31 +252,29 @@ const InsuranceSearch = () => {
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
-        if(storedData){
+        if (storedData) {
           const petData = localStorage.getItem("petsData");
           if (petData) {
             const petArray = JSON.parse(petData);
             setPets(petArray);
-            
+
             if (!selectedPet && petArray.length > 0) {
               setSelectedPet(petArray[0]);
-              setSelectedPetInfo(petArray[0])
-              
+              setSelectedPetInfo(petArray[0]);
             }
+          } else {
+            const data = JSON.parse(storedData);
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
 
-          }else{
-        const data = JSON.parse(storedData);
-        const response = await axios.get(searchPetsByUserIDRoute, {
-          params: { userID: data._id },
-        });
-
-        setPets(response.data);
-        if (!selectedPet && response.data.length > 0) {
-          setSelectedPet(response.data[0]);
-          setSelectedPetInfo(response.data[0])
+            setPets(response.data);
+            if (!selectedPet && response.data.length > 0) {
+              setSelectedPet(response.data[0]);
+              setSelectedPetInfo(response.data[0]);
+            }
+          }
         }
-      }
-    }
       } catch (error) {
         console.log("Error fetching Pet Data " + error);
       } finally {
@@ -346,14 +355,14 @@ const InsuranceSearch = () => {
             </div>
 
             <div className={styles.insuranceDropdown}>
-              <Typography variant="body2-poppins-medium" color="almost black">
+              {/* <Typography variant="body2-poppins-medium" color="almost black">
                 Pet's age
-              </Typography>
+              </Typography> */}
               <Dropdown
                 key="ageDropdown"
                 value={selectedAge}
                 onChange={handlePetAgeChange}
-                // defaultValue="Select an Age"
+                label="Pet's age"
                 options={petAge}
                 placeholder="Select an Age"
                 required={true}
@@ -362,15 +371,15 @@ const InsuranceSearch = () => {
             </div>
             <div className={styles.insuranceDropdown}>
               <div>
-                <Typography variant="body2-poppins-medium" color="almost black">
+                {/* <Typography variant="body2-poppins-medium" color="almost black">
                   Select Breed
-                </Typography>
+                </Typography> */}
                 <Dropdown
                   key="breedDropdown"
                   value={selectedBreed}
                   onChange={handleBreedChange}
                   placeholder="Select a breed"
-                  // defaultValue="Select a breed"
+                  label="Select Breed"
                   options={selectedPetType === "Cat" ? catBreeds : dogBreeds}
                   size="ml"
                 />
