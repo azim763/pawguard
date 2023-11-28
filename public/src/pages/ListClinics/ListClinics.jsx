@@ -422,7 +422,7 @@ const ListClinics = () => {
                 </div>
 
                 <div className={styles.clinicCheckbox}>
-                  <div style={{ marginRight: "50px" }}>
+                  <div className={styles.checkboxGap}>
                     <Checkbox
                       id="urgCare"
                       label="Urgent Care"
