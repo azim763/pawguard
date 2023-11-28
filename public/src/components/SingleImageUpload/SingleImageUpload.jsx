@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import styles from "../SingleImageUpload/SingleImageUpload.module.css";
 
-function SingleImageUpload({ label, onImageUpload }) {
+function SingleImageUpload({ label, onImageUpload, maxSizeInBytes }) {
   const [image, setImage] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+
+      if (file.size > maxSizeInBytes) {
+        alert(`Image size exceeds the limit of ${maxSizeInBytes / 1024} KB`);
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = () => {
         setImage(URL.createObjectURL(file));

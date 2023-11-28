@@ -275,6 +275,7 @@ const EditPet = () => {
               <SingleImageUpload
                 label="Change Pet Image"
                 onImageUpload={handleImageUpload}
+                maxSizeInBytes={1024 * 1024} 
               />
             </div>
             <TextInput

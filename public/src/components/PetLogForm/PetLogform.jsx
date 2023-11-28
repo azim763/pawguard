@@ -381,6 +381,7 @@ const PetLogForm = ({
                   <SingleImageUpload
                     label="Add Pet Log Image"
                     onImageUpload={handleImageUpload}
+                    maxSizeInBytes={1024 * 1024} 
                   />
                 </div>
               )}
