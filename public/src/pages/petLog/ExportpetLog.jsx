@@ -516,16 +516,10 @@ margin: '4px',
                   <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Stool Amount:</div>
                   </td>
-                  <td style={tdlabelsStyle}>
-                    <div style={labelsStyle}>Stool Appearance:</div>
-                  </td>
-                  <td style={tdlabelsStyle}>
+                     <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Activity Level:</div>
                   </td>
-                  <td style={tdlabelsStyle}>
-                    <div style={labelsStyle}>Wheight:</div>
-                  </td>
-                  <td style={tdlabelsStyle}>
+                   <td style={tdlabelsStyle}>
                     <div style={labelsStyle}>Notes:</div>
                   </td>
                </tr>
