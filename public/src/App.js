@@ -28,18 +28,24 @@ export default function App() {
       <Routes>
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} />
+        <Route
+          path="/changepassword/:userID/:rec"
+          element={<ChangePassword />}
+        />
         <Route path="/forgetpassword" element={<Forgetpassword />} />
         {/* <Route path="/sendemail" element={<Forgetpassword />} /> */}
         {/* <Route path="/changepassword/:userID/:rec" element={<ChangePassword />} /> */}
         <Route path="/login" element={<Login />} />
         {/* <Route path="/sendemail" element={<sendEmail />} /> */}
         <Route path="/setAvatar" element={<SetAvatar />} />
-        <Route path="/" element={<DashBoard />} />
+        <Route path="/" element={<AboutUs />} />
         <Route path="/getinsurances" element={<InsuranceSearch />} />
         <Route path="/insurances" element={<ListInsurances />} />
         <Route path="/insurance/details/:_id" element={<InsuranceDetails />} />
-        <Route path="/clinic/details/:clinicId" element={<IndividualClinic />} />
+        <Route
+          path="/clinic/details/:clinicId"
+          element={<IndividualClinic />}
+        />
         <Route path="/home" element={<Home />} />
         <Route path="/clinics" element={<ListClinics />} />
         <Route path="/aboutUs" element={<AboutUs />} />
@@ -47,8 +53,7 @@ export default function App() {
         <Route path="/addPet" element={<AddPet />} />
         <Route path="/exportpetLog/:petID" element={<ExportpetLog />} />
         <Route path="/editPet/:petID" element={<EditPet />} />
-        <Route path="/accountSettings" element={<AccountSettings/>}/>
-        
+        <Route path="/accountSettings" element={<AccountSettings />} />
       </Routes>
     </BrowserRouter>
   );
