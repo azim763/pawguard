@@ -22,7 +22,6 @@ import member7 from "./../../assets/images/MemberImages/Yuki.png";
 import member8 from "./../../assets/images/MemberImages/Cylvia.png";
 import member9 from "./../../assets/images/MemberImages/Harnoor.png";
 
-
 const AboutUs = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -150,7 +149,7 @@ const AboutUs = () => {
                 src={member3}
                 alt="image"
                 title="Gillian Kwok"
-                description="PM / Designer"
+                description="Designer/ PM"
                 linkedinProfile="https://www.linkedin.com/in/gillian-kwok/"
               ></AboutUsProfile>
               <AboutUsProfile
@@ -171,28 +170,28 @@ const AboutUs = () => {
                 src={member6}
                 alt="image"
                 title="Azim Mohammadi"
-                description="BE Developer"
+                description="FS Developer"
                 linkedinProfile="https://www.linkedin.com/in/azim763/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member7}
                 alt="image"
                 title="Yuki Cheng"
-                description="PM / FS Developer"
+                description="FE Developer/ PM"
                 linkedinProfile="https://www.linkedin.com/in/hoi-yan-cheng-a0a886293/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member8}
                 alt="image"
                 title="Cylvia Lian"
-                description="FS Developer"
+                description="FE Developer"
                 linkedinProfile="https://www.linkedin.com/in/cylvialian/"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member9}
                 alt="image"
                 title="Harnoor Kaur"
-                description="FS Developer"
+                description="FE Developer"
                 linkedinProfile="https://www.linkedin.com/in/harnoorkaur1009/"
               ></AboutUsProfile>
             </div>
