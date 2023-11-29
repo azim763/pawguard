@@ -80,26 +80,37 @@ const ListClinics = () => {
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
-        const data = JSON.parse(storedData);
+        if (storedData) {
+          const storedId = JSON.parse(storedData)
+          const petData = localStorage.getItem("petsData");
+          if (petData) {
+            const petArray = JSON.parse(petData);
+            setPets(petArray);
+            if (!selectedPetId && petArray.length > 0) {
+              setSelectedPetId(petArray[0]._id);
+              setSelectedOptions(petArray[0].PreExistingMedical.split(","));
+              setCurrentUserId(storedId._id)
+              console.log(storedId._id)
+            }
+          }
+          else {
+            const data = JSON.parse(storedData);
+            console.log("getPetData");
+            const response = await axios.get(searchPetsByUserIDRoute, {
+              params: { userID: data._id },
+            });
 
-        console.log("getPetData");
-        // Fetch pet data from the backend
-        const response = await axios.get(searchPetsByUserIDRoute, {
-          params: { userID: data._id },
-        });
+            setPets(response.data);
+            setCurrentUserId(data._id);
+            if (!selectedPetId && response.data.length > 0) {
+              setSelectedPetId(response.data[0]._id);
+              setSelectedOptions(response.data[0].PreExistingMedical.split(","));
+            }
 
-        setPets(response.data);
-        console.log(response.data);
-        setCurrentUserId(data._id);
-        console.log(data._id);
-
-        if (!selectedPetId && response.data.length > 0) {
-          setSelectedPetId(response.data[0]._id);
-          setSelectedOptions(response.data[0].PreExistingMedical.split(","));
+            console.log("sort data");
+            setSort(true);
+          }
         }
-
-        console.log("sort data");
-        setSort(true);
       } catch (error) {
       } finally {
         setLoadingData(false);
