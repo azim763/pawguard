@@ -26,7 +26,7 @@ const ExportpetLog = () => {
 
 const { toPDF, targetRef } = usePDF({
   filename: "petlog.pdf",
-  page: { margin: Margin.MEDIUM }
+  page: { margin: Margin.MEDIUM, wrap:false}
 });
 
 
@@ -62,7 +62,28 @@ const { toPDF, targetRef } = usePDF({
   }, [petID]);
 
 
+  function calculateAge(birthDate) {
+    if (!birthDate) {
+      return "-";
+    }
 
+    const currentDate = new Date();
+    const dateOfBirth = new Date(birthDate);
+
+    let age = currentDate.getFullYear() - dateOfBirth.getFullYear();
+
+    if (
+      currentDate.getMonth() < dateOfBirth.getMonth() ||
+      (currentDate.getMonth() === dateOfBirth.getMonth() &&
+        currentDate.getDate() < dateOfBirth.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  }
+
+  //const petAge = calculateAge(selectedPet.Birthday);
 
   useEffect(() => {
     axios
@@ -149,7 +170,7 @@ const { toPDF, targetRef } = usePDF({
 
   const contentContainer = {
     borderCollapse: 'collapse',
-    margin: '12px 0',
+    margin: '12px 0 18px 0',
     fontSize: '0.9em',
     fontFamily: 'sans-serif',
     minWidth: '400px',
@@ -161,25 +182,29 @@ const { toPDF, targetRef } = usePDF({
   const myComponentStyle = {
     color: 'black',
     lineHeight: 1.8,
-    padding: '0 1.5em',
+   // padding: '0 1.5em',
     innerWidth: '100%',
     width: '846px',
     fontSize:'12px',
     fontFamily: 'sans-serif',
     margin: 'auto',
+   // border: 'solid 1px lightgray'
   }
   const logheaderStyle = {
     // height: '20px',
     // width: '100%',
     // backgroundColor: '#efefef'
   }
+  const pagebreak =  {
+     height: '20px',
+  }
 
   const generalinfo = {
     backgroundColor: 'var(--pearl-blue)',
-    padding: '8px',
-    margin: '0 0 8px 0',
+    padding: '10px',
+    margin: '32px 0 8px 0',
     textAlign: 'center',
-    fontSize:'14px'
+    fontSize:'16px'
   }
 
    const preview = {
@@ -205,11 +230,11 @@ const { toPDF, targetRef } = usePDF({
     }
   const labelsStyle = {
     fontWeight: '500',
-    fontSize:'10px'
+    fontSize:'12px'
   }
   const valuesStyle = {
     fontWeight: '400',
-    fontSize:'11px'
+    fontSize:'13px'
   }
   const btnback = {
    padding: '0 16px'
@@ -220,19 +245,21 @@ const { toPDF, targetRef } = usePDF({
     border: 'solid 1px lightgray',
   borderRadius: '8px',
   backgroundColor: 'white',
-  margin: '4px'
+  margin: '4px',
+  // width: '400px'
    } 
    const graphright = {
     padding: '8px',
     border: 'solid 1px lightgray',
   borderRadius: '8px',
   backgroundColor: 'white',
-margin: '4px'
+margin: '4px',
+// width: '400px'
    } 
     
   const graphcontainer = {
-    display: 'grid',
-   // gridTemplateColumns: '1fr 1fr'
+   // display: 'grid',
+    // gridTemplateColumns: '1fr 1fr'
    } 
 
  const  petimage = {
@@ -331,7 +358,7 @@ margin: '4px'
 
                   </td>
                   <td>
-                    <div style={valuesStyle}>{pet.Height}</div>
+                    <div style={valuesStyle}>{pet.Height} in</div>
                   </td>
 
                 </tr>
@@ -349,7 +376,7 @@ margin: '4px'
 
                   </td>
                   <td>
-                    <div style={valuesStyle}>{pet.Weight}</div>
+                    <div style={valuesStyle}>{pet.Weight} lb</div>
                   </td>
 
                 </tr>
@@ -359,7 +386,7 @@ margin: '4px'
                     Age:
                   </td>
                   <td>
-                    <div style={valuesStyle}>{pet.Age}</div>
+                    <div style={valuesStyle}>{calculateAge(pet.Birthday)} Years</div>
                   </td>
                   <td style={tdlabelsStyle}>
                     Blood Group:
@@ -379,10 +406,10 @@ margin: '4px'
                     <div style={valuesStyle}>{pet.Gender}</div>
                   </td>
                   <td style={tdlabelsStyle}>
-                    DOB:
+                  Birthday:
                   </td>
                   <td>
-
+ <div style={valuesStyle}>{userfrDateTime(pet.Birthday)}</div>
                   </td>
 
                 </tr>
@@ -412,10 +439,14 @@ margin: '4px'
                   </td>
 
                   <td style={tdlabelsStyle}>
-                    <div style={labelsStyle}>Date:</div>
+                    <div style={labelsStyle}>Start Date:</div>
 
                   </td>
 
+                  <td style={tdlabelsStyle}>
+                    <div style={labelsStyle}>Period:</div>
+
+                  </td>
 
                 </tr>
 
@@ -425,13 +456,16 @@ margin: '4px'
                       <div style={valuesStyle}>{log.MedicineName}</div>
                     </td> 
                    <td style={tdvaluesStyle}>
-                      <div style={valuesStyle}>{log.DosageAmount}</div>
+                      <div style={valuesStyle}>{log.DosageAmount} ml</div>
                     </td>
 
                     <td style={tdvaluesStyle}>
                       <div style={valuesStyle}>{userfrDateTime(log.MedicationDate)}</div>
                     </td>
 
+                    <td style={tdvaluesStyle}>
+                      <div style={valuesStyle}>{log.MedicationPeriod} days</div>
+                    </td>
                   </tr>
                 ))}
 
@@ -470,7 +504,7 @@ margin: '4px'
             <div style={generalinfo}>
               Log History
             </div>
-            <div>
+            <div  style={{ pageBreakAfter: "always" }}>
               <table style={contentContainer}>
                 <tr>
                   <td style={tdlabelsStyle}>
@@ -506,14 +540,8 @@ margin: '4px'
                     <td style={tdvaluesStyle}>
                       <div style={valuesStyle}>{log.StoolAmount}</div>
                     </td>
-                    <td style={tdvaluesStyle}>
-                      <div style={valuesStyle}>{log.StoolAppearance}</div>
-                    </td>
-                    <td style={tdvaluesStyle}>
+                     <td style={tdvaluesStyle}>
                       <div style={valuesStyle}>{log.ActivityLevel}</div>
-                    </td>
-                    <td style={tdvaluesStyle}>
-                      <div style={valuesStyle}>{log.Wheight}</div>
                     </td>
                     <td style={tdvaluesStyle}>
                       <div style={valuesStyle}>{log.Notes}</div>
@@ -522,9 +550,9 @@ margin: '4px'
                 ))}
               </table>
             </div>
-
+<div style={pagebreak} ></div>
            <div style={generalinfo}>
-              Meal & Weight Graphs
+              Meal Graphs
             </div>
        <div  style={graphcontainer}>    
             <div style={graphleft}>
@@ -535,17 +563,22 @@ margin: '4px'
                           />
                       
             </div>
+
+   </div>
+   <div style={generalinfo}>
+              Weight Graphs
+            </div>
+   <div  style={graphcontainer}>    
             <div  style={graphright}>
  <Graph
                           names={petLog.map((petLog) => petLog.Weight)}
                           values={petLog.map((petLog) => petLog.LogDate)}
                           label="Weight"
                         />
-            </div> 
+            </div>   </div> 
    
-            <div>
-            </div>
-            </div>
+           
+         
            
           </div>
 

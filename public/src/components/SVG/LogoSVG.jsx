@@ -5,7 +5,7 @@ const LogoSVG = () => {
     <svg
       id="Layer_2"
       dataname="Layer 2"
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns="https://www.w3.org/2000/svg"
       viewBox="0 0 450.28 90.23"
     >
       <defs>

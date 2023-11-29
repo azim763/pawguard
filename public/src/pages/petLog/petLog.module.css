@@ -1,6 +1,6 @@
 .petLogHeader {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   /* flex-direction: row; */
   gap: 1rem;
   justify-content: center;
@@ -10,9 +10,11 @@
   padding: 0.5rem 0 .4rem 1rem;
   font-size: large;
 }
-.petnameheader{
+
+.petnameheader {
   grid-column-start: 3;
 }
+
 .petLogContainer {
   margin: 2rem;
   padding: 2rem;
@@ -31,15 +33,27 @@
   border: 1px solid var(--small-text-gray);
   max-width: 100%;
   margin-bottom: 10px;
-  height: 100px;
+  height: 170px;
   float: right;
 }
 
-.petinfo{
+.petinfo {
   display: grid;
   grid-template-columns: auto 185px;
 }
-.petLogHeader svg
-{
+
+.petLogHeader svg {
   width: 140px;
+}
+
+th {
+  padding: 12px;
+}
+
+td {
+  padding: 7px;
+}
+
+tr {
+  border-bottom: solid 1px rgb(224, 224, 224);
 }

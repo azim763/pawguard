@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import Header from "../../components/Header/header";
 import PageTabs from "../../components/PageTabs/PageTabs";
 import styles from "./petPage.module.css";
@@ -50,7 +50,7 @@ const PetPage = () => {
 
   const petLogFormRef = useRef(null);
   const navigate = useNavigate();
-  const socket = useRef();
+  // const socket = useRef();
 
   const {
     getCollapseProps: getPetLogCollapseProps,
