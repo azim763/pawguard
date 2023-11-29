@@ -246,9 +246,8 @@ const InsuranceSearch = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoadingData(true);
         document.body.style.overflow = "hidden";
-        document.body.style.height = "100vh";
+        setLoadingData(true);
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -280,7 +279,6 @@ const InsuranceSearch = () => {
       } finally {
         setLoadingData(false);
         document.body.style.overflow = "unset";
-        document.body.style.height = "auto";
       }
     };
 
@@ -289,7 +287,18 @@ const InsuranceSearch = () => {
   }, []); // Empty dependency array to fetch data only on mount
 
   return (
-    <LoadingOverlay active={isLoadingData} spinner={<LoadPage />}>
+    <LoadingOverlay
+      active={isLoadingData}
+      spinner={<LoadPage />}
+      fadeSpeed={300}
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          height: "100vh",
+          overflow: "hidden",
+        }),
+      }}
+    >
       <div>
         <div>
           <Header id="top"></Header>

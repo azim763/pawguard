@@ -75,9 +75,8 @@ const ListClinics = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoadingData(true);
         document.body.style.overflow = "hidden";
-        document.body.style.height = "100vh";
+        setLoadingData(true);
         const storedData = localStorage.getItem(
           process.env.REACT_APP_LOCALHOST_KEY
         );
@@ -111,9 +110,8 @@ const ListClinics = () => {
   }, []);
 
   useEffect(() => {
-    setLoadingData(true);
     document.body.style.overflow = "hidden";
-    document.body.style.height = "100vh";
+    setLoadingData(true);
 
     axios
       .get(getAllClinicsRoute)
@@ -135,7 +133,6 @@ const ListClinics = () => {
       .finally(() => {
         setLoadingData(false);
         document.body.style.overflow = "unset";
-        document.body.style.height = "auto";
       });
   }, []);
 
@@ -240,8 +237,14 @@ const ListClinics = () => {
   return (
     <LoadingOverlay
       active={isLoadingData}
+      fadeSpeed={300}
       spinner={<LoadPage />}
-      // text="Loading your content..."
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          height: "100vh",
+        }),
+      }}
     >
       <div>
         <Header />

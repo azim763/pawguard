@@ -88,9 +88,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoadingData(true);
         document.body.style.overflow = "hidden";
-        document.body.style.height = "100vh";
+        setLoadingData(true);
         const responsePets = await axios.get(searchPetsByUserIDRoute, {
           params: { userID: currentUser._id },
         });
@@ -105,7 +104,6 @@ export default function Dashboard() {
       } finally {
         setLoadingData(false);
         document.body.style.overflow = "unset";
-        document.body.style.height = "auto";
       }
     };
 
@@ -223,10 +221,16 @@ export default function Dashboard() {
 
   return (
     <LoadingOverlay
-      className={styles.Loader}
       active={isLoadingData}
       spinner={<LoadPage />}
-      // text="Loading your content..."
+      fadeSpeed={300}
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          height: "100vh",
+          overflow: "hidden",
+        }),
+      }}
     >
       <div>
         <Header />
