@@ -100,7 +100,6 @@ const MedicationForm = ({
           console.log("Response from server:", response);
           // ...
           onMedicationSubmit(response.data);
-          toast.success("Medication Added Successfully", toastOptions);
           setFormData({
             PetID: "",
             MedicineName: "",

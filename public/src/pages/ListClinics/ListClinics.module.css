@@ -1,5 +1,6 @@
 .clinicsContainer {
   max-width: 1220px;
+  width: 100%;
 }
 
 .clinicOuterWrapper {
@@ -52,6 +53,10 @@
 .clinicCheckbox {
   display: flex;
   align-items: center;
+}
+
+.checkboxGap {
+  margin-right: 30px;
 }
 
 .clinicButton {
@@ -205,6 +210,12 @@
   display: none;
 }
 
+@media screen and (max-width: 950px) {
+  .checkboxGap {
+    margin-right: 0;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .clinicOuterWrapper {
     padding: 50px;
@@ -241,6 +252,10 @@
     row-gap: 1rem;
   }
 
+  .checkboxGap {
+    margin-right: 30px;
+  }
+
   .clinicTitle {
     width: 100%;
   }
@@ -265,7 +280,7 @@
     margin-top: 10px;
   }
 
-  .dropDownClinics{
+  .dropDownClinics {
     margin-top: 0;
   }
 }

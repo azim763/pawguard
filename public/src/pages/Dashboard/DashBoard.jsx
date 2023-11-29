@@ -68,7 +68,6 @@ export default function Dashboard() {
   //   }
   // }, [currentUser]);
 
-
   useEffect(() => {
     const checkLoggedIn = async () => {
       const storedData = localStorage.getItem(
@@ -88,27 +87,23 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (currentUser) {
-        try {
-          setLoadingData(true);
-          document.body.style.overflow = "hidden";
-          document.body.style.height = "100vh";
-          const responsePets = await axios.get(searchPetsByUserIDRoute, {
-            params: { userID: currentUser._id },
-          });
-          setPets(responsePets.data);
-          localStorage.setItem("petsData", JSON.stringify(responsePets.data));
+      try {
+        document.body.style.overflow = "hidden";
+        setLoadingData(true);
+        const responsePets = await axios.get(searchPetsByUserIDRoute, {
+          params: { userID: currentUser._id },
+        });
+        setPets(responsePets.data);
+        localStorage.setItem("petsData", JSON.stringify(responsePets.data));
 
-          if (responsePets.data.length > 0) {
-            setSelectedPet(responsePets.data[0]);
-          }
-        } catch (error) {
-          console.error("Error fetching pets:", error);
-        } finally {
-          setLoadingData(false);
-          document.body.style.overflow = "unset";
-          document.body.style.height = "auto";
+        if (responsePets.data.length > 0) {
+          setSelectedPet(responsePets.data[0]);
         }
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      } finally {
+        setLoadingData(false);
+        document.body.style.overflow = "unset";
       }
     };
 
@@ -116,41 +111,41 @@ export default function Dashboard() {
   }, [currentUser]);
 
   useEffect(() => {
-    if(isUserData){
-    const fetchData = async () => {
-      try {
-        const responseApt = await axios.get(
-          searchPetAppointmentsByUserIDRoute,
-          {
-            params: { UserID: currentUser._id },
-          }
-        );
-        setAppointment(responseApt.data);
-      } catch (error) {
-        console.error("Error fetching pet appointment:", error);
-      }
-    };
+    if (isUserData) {
+      const fetchData = async () => {
+        try {
+          const responseApt = await axios.get(
+            searchPetAppointmentsByUserIDRoute,
+            {
+              params: { UserID: currentUser._id },
+            }
+          );
+          setAppointment(responseApt.data);
+        } catch (error) {
+          console.error("Error fetching pet appointment:", error);
+        }
+      };
 
-    fetchData();
-  }
-  }, [isUserData,selectedPet]);
+      fetchData();
+    }
+  }, [isUserData, selectedPet]);
 
   useEffect(() => {
-    if(isUserData){
-    const fetchData = async () => {
-      try {
-        const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
-          params: { UserID: currentUser._id },
-        });
-        setUserMed(userMed.data);
-      } catch (error) {
-        console.error("Error fetching medication by user:", error);
-      }
-    };
+    if (isUserData) {
+      const fetchData = async () => {
+        try {
+          const userMed = await axios.get(searchPetMedicationsByUserIDRoute, {
+            params: { UserID: currentUser._id },
+          });
+          setUserMed(userMed.data);
+        } catch (error) {
+          console.error("Error fetching medication by user:", error);
+        }
+      };
 
-    fetchData();
-  }
-  }, [isUserData,currentUser]);
+      fetchData();
+    }
+  }, [isUserData, currentUser]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -224,14 +219,18 @@ export default function Dashboard() {
     fetchData();
   }, [selectedPet]);
 
-
-
   return (
     <LoadingOverlay
-      className={styles.Loader}
       active={isLoadingData}
       spinner={<LoadPage />}
-      // text="Loading your content..."
+      fadeSpeed={300}
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          height: "100vh",
+          overflow: "hidden",
+        }),
+      }}
     >
       <div>
         <Header />
@@ -243,7 +242,6 @@ export default function Dashboard() {
             <div className={styles.petCardList} styles={{ marginTop: "50px" }}>
               {pets &&
                 pets.map((pet) => (
-
                   <Link to="/petPage" state={{ selectedPetID: pet._id }}>
                     <PetSelection
                       styles={{ marginBottom: "20px" }}
@@ -372,7 +370,7 @@ export default function Dashboard() {
                               values={foods.map((food) => food.FoodDate)}
                               label="Meal"
                               startRange={100}
-                            endRange ="auto"
+                              endRange="auto"
                             />
                           </div>
                         )
@@ -397,7 +395,7 @@ export default function Dashboard() {
                             values={petLog.map((petLog) => petLog.LogDate)}
                             label="Weight"
                             startRange={10}
-                            endRange ="auto"
+                            endRange="auto"
                           />
                         </div>
                       )

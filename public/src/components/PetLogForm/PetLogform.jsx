@@ -98,7 +98,6 @@ const PetLogForm = ({
         //       inline: 'nearest',
         //     });
         // }
-        toast.success("Petlog Added Successfully", toastOptions);
       }
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
@@ -382,6 +381,7 @@ const PetLogForm = ({
                   <SingleImageUpload
                     label="Add Pet Log Image"
                     onImageUpload={handleImageUpload}
+                    maxSizeInBytes={1024 * 1024} 
                   />
                 </div>
               )}

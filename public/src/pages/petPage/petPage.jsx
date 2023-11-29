@@ -253,7 +253,6 @@ const PetPage = () => {
     fetchData();
   }, [selectedPetID]);
 
-
   const handlePetSelection = (pet) => {
     if (selectedPet != pet) {
       setPetLogFormExpanded(false);
@@ -270,7 +269,7 @@ const PetPage = () => {
         setLoadingData(true);
         document.body.style.overflow = "hidden";
         document.body.style.height = "100vh";
-      
+
         const petId = selectedPet._id;
         const response = await axios.get(searchPetLogsByPetIDRoute, {
           params: { PetID: petId },
@@ -283,7 +282,6 @@ const PetPage = () => {
         setLoadingData(false);
         document.body.style.overflow = "unset";
         document.body.style.height = "auto";
-      
       }
     };
 
@@ -616,7 +614,14 @@ const PetPage = () => {
     <LoadingOverlay
       active={isLoadingData}
       spinner={<LoadPage />}
-      // text="Loading your content..."
+      fadeSpeed={300}
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          height: "100vh",
+          overflow: "hidden",
+        }),
+      }}
     >
       <div className={styles.petPageMain}>
         <Header> </Header>
