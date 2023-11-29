@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/header";
 import styles from "../AboutUs/AboutUs.module.css";
@@ -40,6 +40,19 @@ const AboutUs = () => {
   const handleLoginClick = () => {
     navigate("/login");
   };
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const storedData = localStorage.getItem(
+        process.env.REACT_APP_LOCALHOST_KEY
+      );
+
+      if (storedData) {
+        navigate("/dashboard");
+      }
+    };
+    checkLoggedIn();
+  }, []);
 
   return (
     <div className={styles.AboutUsPage}>

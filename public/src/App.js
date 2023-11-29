@@ -39,6 +39,7 @@ export default function App() {
         {/* <Route path="/sendemail" element={<sendEmail />} /> */}
         <Route path="/setAvatar" element={<SetAvatar />} />
         <Route path="/" element={<AboutUs />} />
+        <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/getinsurances" element={<InsuranceSearch />} />
         <Route path="/insurances" element={<ListInsurances />} />
         <Route path="/insurance/details/:_id" element={<InsuranceDetails />} />
