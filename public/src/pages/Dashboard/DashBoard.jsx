@@ -252,7 +252,7 @@ export default function Dashboard() {
                   </Link>
                 ))}
             </div>
-            <Link to="addPet">
+            <Link to="../addPet">
               <PlusSVG width="60" height="60" />
             </Link>
           </div>
