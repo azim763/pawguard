@@ -150,6 +150,7 @@ const AboutUs = () => {
                 title="Sanika Coutinho"
                 description="Designer"
                 linkedinProfile="https://www.linkedin.com/in/sanika-coutinho/"
+                linkedinText="/sanika-coutinho"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member2}
@@ -157,6 +158,7 @@ const AboutUs = () => {
                 title="Cassie Hsieh"
                 description="Designer"
                 linkedinProfile="https://www.linkedin.com/in/chia-lin-hsieh/"
+                linkedinText="/chia-lin-hsieh"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member3}
@@ -164,6 +166,7 @@ const AboutUs = () => {
                 title="Gillian Kwok"
                 description="Designer/ PM"
                 linkedinProfile="https://www.linkedin.com/in/gillian-kwok/"
+                linkedinText="/gillian-kwok"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member4}
@@ -171,6 +174,7 @@ const AboutUs = () => {
                 title="Akhil Jayakumar"
                 description="Designer"
                 linkedinProfile="https://www.linkedin.com/in/akhil-jayakumar285/"
+                linkedinText="/akhil-jayakumar285"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member5}
@@ -178,6 +182,7 @@ const AboutUs = () => {
                 title="Thalha Uzair"
                 description="FS Developer"
                 linkedinProfile="https://www.linkedin.com/in/thalha-uzair-122b59169/"
+                linkedinText="/thalha-uzair"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member6}
@@ -185,6 +190,7 @@ const AboutUs = () => {
                 title="Azim Mohammadi"
                 description="FS Developer"
                 linkedinProfile="https://www.linkedin.com/in/azim763/"
+                linkedinText="/azim763"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member7}
@@ -192,6 +198,7 @@ const AboutUs = () => {
                 title="Yuki Cheng"
                 description="FE Developer/ PM"
                 linkedinProfile="https://www.linkedin.com/in/hoi-yan-cheng-a0a886293/"
+                linkedinText="/hoi-yan-cheng"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member8}
@@ -199,6 +206,7 @@ const AboutUs = () => {
                 title="Cylvia Lian"
                 description="FE Developer"
                 linkedinProfile="https://www.linkedin.com/in/cylvialian/"
+                linkedinText="/cylvialian"
               ></AboutUsProfile>
               <AboutUsProfile
                 src={member9}
@@ -206,6 +214,7 @@ const AboutUs = () => {
                 title="Harnoor Kaur"
                 description="FE Developer"
                 linkedinProfile="https://www.linkedin.com/in/harnoorkaur1009/"
+                linkedinText="/harnoorkaur1009"
               ></AboutUsProfile>
             </div>
           </div>

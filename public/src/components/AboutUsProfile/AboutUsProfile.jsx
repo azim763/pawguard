@@ -3,7 +3,7 @@ import styles from "./AboutUsProfile.module.css";
 import Typography from "../Typography/Typography";
 import LinkedInIcon from "../SVG/LinkedInSVG";
 
-const AboutUsProfile = ({ src, alt, title, description, linkedinProfile }) => {
+const AboutUsProfile = ({ src, alt, title, description, linkedinProfile,linkedinText }) => {
   return (
     <div className={styles.AboutUsProfile}>
       <img src={src} alt={alt} />
@@ -11,13 +11,21 @@ const AboutUsProfile = ({ src, alt, title, description, linkedinProfile }) => {
         <Typography variant="body2-poppins-medium" color="almost-black">
           {title}
         </Typography>
-        <div className={styles.descriptionContainer}>
+        
           <Typography variant="body3-poppins-regular" color="almost-black">
             {description}
           </Typography>
-          <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">
+        
+          <div className={styles.descriptionContainer}>
+              <a href={linkedinProfile} target="_blank" rel="noopener noreferrer">
             <LinkedInIcon />
-          </a>
+            </a>
+            <Typography variant="body3-poppins-regular" color="almost-black" className={styles.linkedinText}>
+              <a id="linkedInTxt" href={linkedinProfile} target="_blank" rel="noopener noreferrer">
+                {linkedinText}
+              </a>
+            </Typography>
+          
         </div>
       </div>
     </div>
