@@ -288,6 +288,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode, displayD
                   HomeCooked={foodEntry.HomeCooked}
                   FoodDate={foodEntry.FoodDate}
                   onDelete={() => handleFoodDelete(foodEntry._id)}
+                  displayDeleteBtn={displayDeleteBtn}
                 />
               );
             }

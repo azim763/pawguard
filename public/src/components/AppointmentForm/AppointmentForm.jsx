@@ -145,6 +145,7 @@ const AppointmentForm = ({
           <TextInput
             id="AppointmentReason"
             label="Appointment Reason"
+            placeholder="Enter Reason"
             onChange={handleInputChange}
             propInputValue={formData.AppointmentReason}
           />
