@@ -35,6 +35,8 @@
   margin-bottom: 10px;
   height: 170px;
   float: right;
+  object-fit: contain;
+  object-fit: cover;
 }
 
 .petinfo {
