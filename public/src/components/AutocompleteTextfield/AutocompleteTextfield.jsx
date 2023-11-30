@@ -1,7 +1,7 @@
- import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Downshift from "downshift";
 import Typography from "../Typography/Typography";
-import styles from "./autoCompleteTextfield.module.css"
+import styles from "./autoCompleteTextfield.module.css";
 
 const AutocompleteComponent = ({ clinicData, handleSelection }) => {
   return (
@@ -23,7 +23,9 @@ const AutocompleteComponent = ({ clinicData, handleSelection }) => {
           <div {...getRootProps({}, { suppressRefError: true })}>
             <Typography variant="textfield-poppins-regular">
               <input
-                {...getInputProps()}
+                {...getInputProps({
+                  placeholder: "Enter Clinic Name",
+                })}
                 className={styles.autocompleteComponent}
                 // style={{
                 //   width: "325px",
@@ -35,7 +37,7 @@ const AutocompleteComponent = ({ clinicData, handleSelection }) => {
               />
             </Typography>
           </div>
-          <ul style={{marginBottom: "0"}}{...getMenuProps()}>
+          <ul style={{ marginBottom: "0" }} {...getMenuProps()}>
             {isOpen &&
               clinicData
                 .filter(

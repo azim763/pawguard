@@ -62,7 +62,7 @@ const AddPet = () => {
   ];
 
   const preExistingMedical = [
-    "Arthritis XD",
+    "Arthritis",
     "Bloodwork",
     "Cardiology",
     "Cytology",
