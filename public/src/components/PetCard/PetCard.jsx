@@ -60,7 +60,7 @@ const PetCard = ({
     axios
       .patch(`${archivePetRoute}/${id}`)
       .then((response) => {
-        console.log(`Pet with ID ${id} has been archived successfully.`);
+        //console.log(`Pet with ID ${id} has been archived successfully.`);
         onArchive();
       })
       .catch((error) => {

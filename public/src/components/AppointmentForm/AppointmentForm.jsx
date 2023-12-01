@@ -35,9 +35,9 @@ const AppointmentForm = ({
     axios
       .get(getAllClinicsRoute)
       .then((response) => {
-        console.log(response.data);
+      //  console.log(response.data);
         setClinicData(response.data);
-        console.log(clinicData);
+      //  console.log(clinicData);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -91,8 +91,8 @@ const AppointmentForm = ({
           createPetAppointmentRoute,
           updatedFormData
         );
-        console.log("Form submitted with data:", updatedFormData);
-        console.log("Response from server:", response);
+     //   console.log("Form submitted with data:", updatedFormData);
+     //   console.log("Response from server:", response);
         onAppointmentSubmit(response.data);
         setFormData({ PetID: "",
         ClinicName: "",
@@ -124,19 +124,19 @@ const AppointmentForm = ({
             <AutocompleteComponent
               clinicData={clinicData}
               handleSelection={(selectedClinic) => {
-                console.log("Selected Clinic:", selectedClinic);
+       //         console.log("Selected Clinic:", selectedClinic);
 
                 const { Latitude, Longitude } = selectedClinic;
-                console.log("Latitude:", selectedClinic.Latitude);
-                console.log("Longitude:", selectedClinic.Longitude);
-                console.log("Clinic Name", selectedClinic.Name);
+      //          console.log("Latitude:", selectedClinic.Latitude);
+      //          console.log("Longitude:", selectedClinic.Longitude);
+      //          console.log("Clinic Name", selectedClinic.Name);
                 setFormData({
                   ...formData,
                   Latitude: selectedClinic.Latitude,
                   Longitude: selectedClinic.Longitude,
                   ClinicName: selectedClinic.Name,
                 });
-                console.log(selectedClinic);
+          //      console.log(selectedClinic);
               }}
             />
           )}

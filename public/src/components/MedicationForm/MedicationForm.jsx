@@ -60,20 +60,20 @@ const MedicationForm = ({
 
   const handleDateChange = (event) => {
     const value = event.target.value;
-    console.log("handleDateChange");
+    //console.log("handleDateChange");
 
     const date = new Date(value);
     const now = new Date();
     const timezoneOffset = now.getTimezoneOffset();
-    console.log(timezoneOffset);
+    //console.log(timezoneOffset);
     date.setMinutes(date.getMinutes() + timezoneOffset);
-    console.log(date);
+   // console.log(date);
 
     setFormData({
       ...formData,
       MedicationDate: date.toString(),
     });
-    console.log("date is changing");
+  //  console.log("date is changing");
   };
 
   const handleSubmit = async (e) => {
@@ -96,8 +96,8 @@ const MedicationForm = ({
             createPetMedicationRoute,
             updatedFormData
           );
-          console.log("Form submitted with data:", updatedFormData);
-          console.log("Response from server:", response);
+          //console.log("Form submitted with data:", updatedFormData);
+          //console.log("Response from server:", response);
           // ...
           onMedicationSubmit(response.data);
           setFormData({

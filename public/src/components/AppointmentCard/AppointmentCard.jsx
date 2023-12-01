@@ -28,7 +28,7 @@ const AppointmentCard = ({
     axios
       .delete(`${deletePetAppointmentByIdRoute}/${AppointmentId}`)
       .then((response) => {
-        console.log(`Log entry with ID ${AppointmentId} deleted successfully.`);
+        //console.log(`Log entry with ID ${AppointmentId} deleted successfully.`);
         onDelete();
       })
       .catch((error) => {

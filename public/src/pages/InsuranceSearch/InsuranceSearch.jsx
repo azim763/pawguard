@@ -38,6 +38,14 @@ const InsuranceSearch = () => {
     position: "top-right",
   });
 
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 5000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+
   const catBreeds = [
     { value: "Select the Breed", label: "Select the Breed" },
     { value: "American Shorthair", label: "American ShortHair" },
@@ -97,12 +105,12 @@ const InsuranceSearch = () => {
 
   const handlePetAgeChange = (age) => {
     setSelectedAge(age);
-    console.log("Here is my Age " + age);
+    //console.log("Here is my Age " + age);
   };
 
   const handlePetTypeChange = (type) => {
     setSelectedPetType(type.toLowerCase());
-    console.log("In handle function" + type);
+    //console.log("In handle function" + type);
     setSelectedBreed("");
   };
 
@@ -112,7 +120,7 @@ const InsuranceSearch = () => {
 
   const handleBreedChange = (breed) => {
     setSelectedBreed(breed);
-    console.log("Here is the Breed" + breed);
+    //console.log("Here is the Breed" + breed);
   };
 
   const handleGetQuotesClick = async () => {
@@ -122,17 +130,17 @@ const InsuranceSearch = () => {
       !selectedGender ||
       selectedBreed === "Select the Breed"
     ) {
-      console.log(
-        "Missing field: Age -",
-        !selectedAge,
-        " PetType -",
-        !selectedPetType,
-        " Gender -",
-        !selectedGender,
-        " Breed -",
-        !selectedBreed
-      );
-      toast.error("Please select all the values before getting a quote.");
+      // console.log(
+      //   "Missing field: Age -",
+      //   !selectedAge,
+      //   " PetType -",
+      //   !selectedPetType,
+      //   " Gender -",
+      //   !selectedGender,
+      //   " Breed -",
+      //   !selectedBreed
+      // );
+      toast.error("Please select all the values before getting a quote.",toastOptions);
       return;
     }
 
@@ -199,7 +207,7 @@ const InsuranceSearch = () => {
   }
 
   const handlePetSelection = async (pet) => {
-    console.log(pet);
+    //console.log(pet);
     setSelectedPet(pet);
     setSelectedPetInfo(pet);
   };
@@ -403,6 +411,7 @@ const InsuranceSearch = () => {
               />
             </div>
           </div>
+          <ToastContainer />
         </div>
       </div>
     </LoadingOverlay>

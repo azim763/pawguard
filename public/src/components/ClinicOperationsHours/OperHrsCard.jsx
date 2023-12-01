@@ -9,7 +9,7 @@ export function Aws({ operationHrsString }) {
   const [showAll, setShowAll] = useState(false);
   const [operationHrsArray, setOperationHrsArray] = useState([]);
   const hrsArray = operationHrsString.split("\n");
-  console.log(hrsArray);
+ // console.log(hrsArray);
 
   useEffect(() => {
     const separatedData = operationHrsString.split("\n").map((entry) => {

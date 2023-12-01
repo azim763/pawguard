@@ -52,8 +52,8 @@ const { toPDF, targetRef } = usePDF({
       .then((response) => {
         //  console.log(response.data);
         setPet(response.data);
-        console.log(pet);
-        console.log(response.data.PetName);
+        //console.log(pet);
+        //console.log(response.data.PetName);
         // console.log(clinicDetails);
       })
       .catch((error) => {
@@ -92,7 +92,7 @@ const { toPDF, targetRef } = usePDF({
       })
       .then((response) => {
         setPetLog(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -107,7 +107,7 @@ const { toPDF, targetRef } = usePDF({
       })
       .then((response) => {
         setPetMedications(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);
@@ -122,7 +122,7 @@ const { toPDF, targetRef } = usePDF({
       })
       .then((response) => {
         setFoods(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
         console.log("Error fetching data: ", error);

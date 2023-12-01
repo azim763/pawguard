@@ -105,7 +105,7 @@ const AddPet = () => {
   };
 
   const handleInputChange = (event) => {
-    console.log("change is changing okrrr");
+    //console.log("change is changing okrrr");
     setPetData({
       ...petData,
       [event.target.name]: event.target.value,
@@ -113,17 +113,17 @@ const AddPet = () => {
   };
 
   const handleDropdownChange = (name, value) => {
-    console.log("dropdown is dropping");
+    //console.log("dropdown is dropping");
     setPetData({
       ...petData,
       [name]: value,
     });
-    console.log(petData);
+    //console.log(petData);
   };
 
   const handleMultipleDropdownChange = (e) => {
     setSelectedPreExistingMedical(e);
-    console.log(e.join(","));
+    //console.log(e.join(","));
     setPetData({
       ...petData,
       PreExistingMedical: e.join(","),
@@ -133,7 +133,7 @@ const AddPet = () => {
   const handleValidation = () => {
     const { PetName, Height, Weight } = petData;
     if (PetName.length < 1) {
-      console.log(PetName);
+      //console.log(PetName);
       toast.error("Pet name is required.", toastOptions);
       document.getElementById("PetName").focus();
       return false;
@@ -211,8 +211,8 @@ const AddPet = () => {
       PetImageName: data, // Use the 'data' parameter instead of 'imageData'
     });
     setSelectedImage(data);
-    console.log(data); // This logs the image data
-    console.log(petData); // This logs the petData with the updated PetImageName
+    //console.log(data); // This logs the image data
+    //console.log(petData); // This logs the petData with the updated PetImageName
   };
 
   const onClickHandler = async (event) => {

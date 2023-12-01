@@ -26,7 +26,7 @@ const PetLogCard = ({ PetLogDate, PetLogTime, logId, onDelete, onClick  }) => {
     axios
       .delete(`${deletePetLogByIdRoute}/${logId}`)
       .then((response) => {
-        console.log(`Log entry with ID ${logId} deleted successfully.`);
+        //console.log(`Log entry with ID ${logId} deleted successfully.`);
         onDelete();
       })
       .catch((error) => {

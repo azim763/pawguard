@@ -104,7 +104,7 @@ const EditPet = () => {
     originalDate.getMonth() + 1
   ).padStart(2, "0")}-${originalDate.getFullYear()}`;
 
-  console.log(formattedDate);
+  //console.log(formattedDate);
 
   const [petData, setPetData] = useState({});
 
@@ -140,7 +140,7 @@ const EditPet = () => {
   };
 
   const handleInputChange = (event) => {
-    console.log("Input changed:", event.target.value);
+    //console.log("Input changed:", event.target.value);
     setPetData({
       ...petData,
       [event.target.name]: event.target.value,
@@ -217,7 +217,7 @@ const EditPet = () => {
 
   const handleMultipleDropdownChange = (e) => {
     setSelectedPreExistingMedical(e);
-    console.log(e.join(","));
+    //console.log(e.join(","));
     setPetData({
       ...petData,
       PreExistingMedical: e.join(","),
@@ -239,12 +239,12 @@ const EditPet = () => {
 
   const onClickHandler = async (event) => {
     event.preventDefault();
-    console.log(petData);
+    //console.log(petData);
 
     axios
       .patch(`${patchPetRoute}/${selectedPet._id}`, petData)
       .then((response) => {
-        console.log(`Pet with ID ${selectedPet._id} has been updated!`);
+        //console.log(`Pet with ID ${selectedPet._id} has been updated!`);
         const petsData = JSON.parse(localStorage.getItem("petsData"));
 
         const updatedPetData = petsData.map((pet) =>

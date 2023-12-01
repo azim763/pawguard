@@ -30,7 +30,7 @@ const MedicineCard = ({
     axios
       .delete(`${deletePetMedicationByIdRoute}/${MedicationId}`)
       .then((response) => {
-        console.log(`Log entry with ID ${MedicationId} deleted successfully.`);
+        //console.log(`Log entry with ID ${MedicationId} deleted successfully.`);
         onDelete();
       })
       .catch((error) => {
