@@ -12,13 +12,14 @@ import {
   searchPetsByUserIDRoute,
   getPetByIdRoute,
 } from "../../utils/APIRoutes";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PetSelectionInsurance from "../../components/PetSelectionInsurance/PetSelectionInsurance";
 import { Link } from "react-router-dom";
 import PlusSVG from "../../components/SVG/PlusSVG";
 import LoadPage from "../loadPage";
 import LoadingOverlay from "react-loading-overlay-ts";
+import { ToastContainer, toast } from "react-toastify";
 
 const InsuranceSearch = () => {
   const [pets, setPets] = useState([]);
