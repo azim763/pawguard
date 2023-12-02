@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/static/css/main.bde2ba67.css",
+    "main.js": "/static/js/main.53d3d4f4.js",
+    "static/js/703.c79e88e8.chunk.js": "/static/js/703.c79e88e8.chunk.js",
+    "static/js/198.04418c2e.chunk.js": "/static/js/198.04418c2e.chunk.js",
+    "static/media/loading.gif": "/static/media/loading.f73fd70c63799fb4c77d.gif",
+    "static/media/aboutus.png": "/static/media/aboutus.348b1025fa3ca014907f.png",
+    "static/media/Gillian.png": "/static/media/Gillian.3178772932a22c02bb47.png",
+    "static/media/pet-log.jpg": "/static/media/pet-log.ddd5c7d39056625cd028.jpg",
+    "static/media/Sanika.png": "/static/media/Sanika.5ea0f5aa38cd06cd04d2.png",
+    "static/media/Thalha.png": "/static/media/Thalha.6cde574f6297ad7ae51b.png",
+    "static/media/Yuki.png": "/static/media/Yuki.9a1851bb5584908a1047.png",
+    "static/media/clinicImage.jpg": "/static/media/clinicImage.cb313fb3cba6a191ec99.jpg",
+    "static/media/appointment.jpg": "/static/media/appointment.2716e035ef567b2edac8.jpg",
+    "static/media/loader.gif": "/static/media/loader.56466186e0ed62a61e80.gif",
+    "static/media/Akhil.png": "/static/media/Akhil.6a1a92df92c6f24960c0.png",
+    "static/media/Harnoor.png": "/static/media/Harnoor.7e195abae0ce585b5a8d.png",
+    "static/media/medication.jpg": "/static/media/medication.e514f5ad09acc7cebc8f.jpg",
+    "static/media/image-03.png": "/static/media/image-03.97c8abd4f96bbd302923.png",
+    "static/media/Cylvia.png": "/static/media/Cylvia.6670d427e0e908151666.png",
+    "static/media/Cassie.png": "/static/media/Cassie.f07c00d2c28929e8c9fa.png",
+    "static/media/vaccination.jpg": "/static/media/vaccination.feb31bd1b6af6d8eed74.jpg",
+    "static/media/Azim.png": "/static/media/Azim.2ce19ec217b19f233c38.png",
+    "static/media/Poppins-SemiBold.otf": "/static/media/Poppins-SemiBold.daed8dfe825ca62d84b8.otf",
+    "static/media/Poppins-Bold.otf": "/static/media/Poppins-Bold.b5c5cbad4c3e1e9f4fec.otf",
+    "static/media/Poppins-Regular.otf": "/static/media/Poppins-Regular.1421a94e04ced16b1ffc.otf",
+    "static/media/Poppins-Medium.otf": "/static/media/Poppins-Medium.2175351766d1d5e18c15.otf",
+    "static/media/loginback.jpeg": "/static/media/loginback.9534e91fc22195c013a5.jpeg",
+    "static/media/logo.svg": "/static/media/logo.4dfabf49540555c0ec2015d8e4f68a4f.svg",
+    "index.html": "/index.html",
+    "main.bde2ba67.css.map": "/static/css/main.bde2ba67.css.map",
+    "main.53d3d4f4.js.map": "/static/js/main.53d3d4f4.js.map",
+    "703.c79e88e8.chunk.js.map": "/static/js/703.c79e88e8.chunk.js.map",
+    "198.04418c2e.chunk.js.map": "/static/js/198.04418c2e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bde2ba67.css",
+    "static/js/main.53d3d4f4.js"
+  ]
+}
