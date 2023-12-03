@@ -84,10 +84,10 @@ const ForgetPassword = () => {
       // console.log(data);
 
       const host = window.location.origin;
-      console.log(email);
-      console.log(host);
+      //console.log(email);
+      //console.log(host);
       if (handleValidation()) {
-        console.log(email);
+        //console.log(email);
         //  console.log(userID);
         const response = await axios.post(`${sendmailRoute}`, {
           email,
@@ -100,7 +100,7 @@ const ForgetPassword = () => {
           toast.success(response.data.msg, toastOptions);
         }
 
-        console.log(response.data);
+        //console.log(response.data);
       }
     } catch (error) {
       toast.error("Email is not valid.", toastOptions);

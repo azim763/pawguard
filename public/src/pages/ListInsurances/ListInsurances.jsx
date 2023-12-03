@@ -63,7 +63,7 @@ const ListInsurances = () => {
   );
 
   const handleViewDetailsClick = (_id) => {
-    console.log("This is provided to or next page" + _id);
+    //console.log("This is provided to or next page" + _id);
     navigate(`/insurance/details/${_id}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

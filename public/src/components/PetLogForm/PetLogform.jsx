@@ -58,16 +58,16 @@ const PetLogForm = ({
 
   const handleFoodFormSubmit = async (foodData) => {
     // Handle food form submission
-    console.log("Food data before update:", foodData);
+    //console.log("Food data before update:", foodData);
 
     if (selectedPet && selectedPet._id) {
       const updatedFoodData = { ...foodData, PetID: selectedPet._id };
-      console.log("Updated food data:", updatedFoodData);
+      //console.log("Updated food data:", updatedFoodData);
 
       setFoodData(updatedFoodData);
       const response = await axios.post(createPetFoodRoute, updatedFoodData);
-      console.log(response);
-      console.log("Data submitted");
+      //console.log(response);
+      //console.log("Data submitted");
       setFoodData("");
     } else {
       console.error("selectedPet or selectedPet._id is undefined.");
@@ -76,18 +76,18 @@ const PetLogForm = ({
 
   const handleAdditionalInfoSubmit = async () => {
     // Handle additional information form submission
-    console.log("Additional information data before update:", formData);
+    //console.log("Additional information data before update:", formData);
 
     if (selectedPet && selectedPet._id) {
       if (validateForm()) {
         const updatedFormData = { ...formData, PetID: selectedPet._id };
-        console.log("Updated additional information data:", updatedFormData);
+        //console.log("Updated additional information data:", updatedFormData);
 
         setFormData(updatedFormData);
         const response = await axios.post(createPetLogRoute, updatedFormData);
         onPetLogSubmit(response.data);
-        console.log(response);
-        console.log("Data submitted");
+        //console.log(response);
+        //console.log("Data submitted");
         setFormData(initialFormData);
         setLogDate("");
         //   if (petLogFormRef.current) {
@@ -133,12 +133,12 @@ const PetLogForm = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target);
+    //console.log(e.target);
     setFormData({
       ...formData,
       [name]: value,
     });
-    console.log(value);
+    //console.log(value);
   };
 
   const handleRadioChange = (option, category) => {

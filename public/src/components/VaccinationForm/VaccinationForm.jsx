@@ -86,7 +86,7 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
       ...formData,
       VaccinationDate: resultDate,
     });
-    console.log("date is changing");
+    //console.log("date is changing");
   };
 
   const handleSubmit = async (e) => {
@@ -99,8 +99,8 @@ const Vaccination = ({ selectedPet, onVaccinationSubmit, getToggleProps, closeVa
           createPetVaccinationRoute,
           updatedFormData
         );
-        console.log("Form submitted with data:", updatedFormData);
-        console.log("Response from server:", response);
+        //console.log("Form submitted with data:", updatedFormData);
+        //console.log("Response from server:", response);
         // ...
 
 

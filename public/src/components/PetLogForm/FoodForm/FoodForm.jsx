@@ -47,7 +47,7 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode, displayD
           params: { PetID: SelectedPetID },
         });
         setFoodForm(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
@@ -111,10 +111,10 @@ const FoodForm = ({ onFoodFormSubmit, SelectedPetID, logDate, formMode, displayD
       ...foodData,
       FoodDate: updatedLogDate,
     };
-    console.log("foodData before submission:", updatedFoodData);
+    //console.log("foodData before submission:", updatedFoodData);
     if (validateForm()) {
       onFoodFormSubmit(updatedFoodData);
-      console.log("foodData after submission:", updatedFoodData);
+      //console.log("foodData after submission:", updatedFoodData);
       setFoodForm((prevFoodForm) => [...prevFoodForm, updatedFoodData]);
     }
   };

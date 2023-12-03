@@ -90,12 +90,12 @@ const ListClinics = () => {
               setSelectedPetId(petArray[0]._id);
               setSelectedOptions(petArray[0].PreExistingMedical.split(","));
               setCurrentUserId(storedId._id)
-              console.log(storedId._id)
+              //console.log(storedId._id)
             }
           }
           else {
             const data = JSON.parse(storedData);
-            console.log("getPetData");
+            //console.log("getPetData");
             const response = await axios.get(searchPetsByUserIDRoute, {
               params: { userID: data._id },
             });
@@ -107,7 +107,7 @@ const ListClinics = () => {
               setSelectedOptions(response.data[0].PreExistingMedical.split(","));
             }
 
-            console.log("sort data");
+            //console.log("sort data");
             setSort(true);
           }
         }
@@ -202,7 +202,7 @@ const ListClinics = () => {
 
   const handleUrgCheckboxChange = (event) => {
     const { checked } = event.target;
-    console.log("Open Urgent care checked", checked);
+    //console.log("Open Urgent care checked", checked);
 
     setUrgentCareChecked(event.target.checked);
   };
@@ -210,8 +210,8 @@ const ListClinics = () => {
   const handle24CheckboxChange = (event) => {
     setOpen24hrsChecked(event.target.checked);
     const { checked } = event.target;
-    console.log("Open 24 Hours checked", checked);
-    console.log(originalClinicData);
+    //console.log("Open 24 Hours checked", checked);
+    //console.log(originalClinicData);
   };
 
   const sortBy = [

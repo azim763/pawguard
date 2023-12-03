@@ -21,7 +21,7 @@ const VaccinationCard = ({ VaccineName, VaccineDate, VaccineId, onDelete }) => {
     axios
       .delete(`${deletePetVaccinationByIdRoute}/${VaccineId}`)
       .then((response) => {
-        console.log(`Log entry with ID ${VaccineId} deleted successfully.`);
+       //console.log(`Log entry with ID ${VaccineId} deleted successfully.`);
         onDelete();
       })
       .catch((error) => {
