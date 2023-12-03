@@ -85,6 +85,11 @@
   line-height: 50.8px;
 }
 
+@media screen and (max-width: 1000px) {
+  .plan-detail-card-wrapper {
+    margin: 0;
+  }
+}
 
 @media screen and (max-width: 1250px) {
   .plan-detail-card-wrapper {
@@ -108,11 +113,10 @@
 
   .plan-detail-card-wrapper {
     width: 100%;
+    margin: 0;
   }
 
-  .button-container button{
+  .button-container button {
     width: 100%;
   }
-
-  
 }

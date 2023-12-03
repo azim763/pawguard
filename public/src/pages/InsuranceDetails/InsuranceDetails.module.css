@@ -112,6 +112,10 @@
   .planDetailCard div:first-child {
     margin-bottom: 10px;
   }
+
+  .InsuranceDetailsSimilarPlansBody{
+    gap: 10px;
+  }
 }
 
 @media screen and (max-width: 780px) {
@@ -133,6 +137,7 @@
 
   .InsuranceDetailsSimilarPlans {
     padding: 8% 8%;
+    row-gap: 10px;
   }
 }
 
@@ -153,4 +158,6 @@
   .InsuranceDetailsSimilarPlans {
     padding: 8% 20px;
   }
+
+ 
 }
