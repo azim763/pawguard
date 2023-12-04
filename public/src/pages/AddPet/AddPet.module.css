@@ -1,112 +1,116 @@
 .addPetContainer {
-    padding: 125px 20px 45px;
+  padding: 125px 20px 45px;
 }
 
-.addPetHeader{
-    text-align: center;
-    padding-bottom: 48px;
+.addPetHeader {
+  text-align: center;
+  padding-bottom: 48px;
 }
 
-.addPetImage div img{
-    width: 100%;
-    max-width: 325px;
+.addPetImage div img {
+  width: 100%;
+  max-width: 325px;
 }
 
 .addPetImage > div:first-of-type {
-    width: 100%;
-    max-width: 325px;
-    margin: auto;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--white-white);
-    border: 1px solid var(--border-grey);
-    border-radius: 8px;
+  width: 100%;
+  max-width: 325px;
+  margin: auto;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white-white);
+  border: 1px solid var(--border-grey);
+  border-radius: 8px;
 }
 .addPetForm form > div:first-of-type {
-    text-align: center;
-    margin-bottom: 25px;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .addPetForm form > div:first-of-type > div:first-of-type {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .addPetForm form {
-    max-width: 450px;
-    margin: auto;
-    padding: 0 20px;
+  max-width: 450px;
+  margin: auto;
+  padding: 0 20px;
 }
 
-.addPetForm form input, .addPetForm form select, .addPetForm button {
-    width: 100%;
+.AddPet_addPetForm__pMEKW button,
+.AddPet_addPetForm__pMEKW form input:not([type="checkbox"]),
+.AddPet_addPetForm__pMEKW form select {
+  width: 100%;
 }
 
 .addPetForm form > div {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
-.petHeight, .petWeight {
-    display: flex;
-    align-items: end;
+.petHeight,
+.petWeight {
+  display: flex;
+  align-items: end;
 }
 
-.petHeight > div:nth-child(2), .petWeight > div:nth-child(2) {
-position: relative;
-bottom: 16px;
-padding-left: 12px;
+.petHeight > div:nth-child(2),
+.petWeight > div:nth-child(2) {
+  position: relative;
+  bottom: 16px;
+  padding-left: 12px;
 }
 
 @media screen and (min-width: 768px) {
-    .addPetContainer {
-        padding: 45px 40px;
-    }
+  .addPetContainer {
+    padding: 45px 40px;
+  }
 
-    .addPetForm form {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 36px;
-        max-width: 800px;
-        margin: auto;
-        margin-bottom:40px;
-        padding: 0 36px;
-    }
+  .addPetForm form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 40px;
+    padding: 0 36px;
+  }
 
-    .addPetForm form > div:first-child, .addPetForm button {
-        grid-column: 1 / -1;
-        max-width: 300px;
-        justify-self: center;
-    }
+  .addPetForm form > div:first-child,
+  .addPetForm button {
+    grid-column: 1 / -1;
+    max-width: 300px;
+    justify-self: center;
+  }
 }
 
-
 @media screen and (min-width: 1000px) {
-    .addPetImage > div:first-of-type {
-        width: 300px;
-        height: 300px;
-    }
+  .addPetImage > div:first-of-type {
+    width: 300px;
+    height: 300px;
+  }
 
-    .addPetForm form {
-        grid-template-columns: repeat(3, 1fr);
-        column-gap: 75px;
-        max-width: 1220PX;
-        box-sizing: content-box;
-    }
-    
-    .addPetForm form div:first-child {
-        grid-column: 1/2;
-        grid-row: 1 / -7;
-    }
-    
-    .addPetForm button {
-        grid-column: 3/4;
-        justify-self: right;
-    }
-    .showImage img{
-        width: 325px;
-        height:325px;
-        object-fit:cover;
-        position: relative;
-    }
+  .addPetForm form {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 75px;
+    max-width: 1220px;
+    box-sizing: content-box;
+  }
+
+  .addPetForm form div:first-child {
+    grid-column: 1/2;
+    grid-row: 1 / -7;
+  }
+
+  .addPetForm button {
+    grid-column: 3/4;
+    justify-self: right;
+  }
+  .showImage img {
+    width: 325px;
+    height: 325px;
+    object-fit: cover;
+    position: relative;
+  }
 }
