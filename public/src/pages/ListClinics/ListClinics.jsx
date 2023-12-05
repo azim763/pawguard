@@ -380,6 +380,7 @@ const ListClinics = () => {
                           borderRadius: "8px",
                           padding: "8px",
                           fontSize: "16px",
+                          margin: "0 2px"
                         },
                         multiselectContainer: {
                           color: "black",
@@ -400,8 +401,9 @@ const ListClinics = () => {
                           lineHeight: "19.4px",
                           display: "flex",
                           flexFlow: "wrap",
-                          padding: "12px",
-                          gap: "8px",
+                          // padding: "12px",
+                          // gap: "8px",
+                          rowGap: "2px",
                         },
                         optionContainer: {
                           maxHeight: "500px",
