@@ -44,6 +44,7 @@
 .InsuranceDetailsSimilarPlansHeading {
   display: grid;
   grid-template-columns: 1fr;
+  margin-bottom: 1rem;
 }
 
 .InsuranceDetailsSimilarPlansBody {
@@ -156,7 +157,7 @@
   }
 
   .InsuranceDetailsSimilarPlans {
-    padding: 8% 20px;
+    /* padding: 8% 20px; */
   }
 
  
