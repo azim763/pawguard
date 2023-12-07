@@ -69,12 +69,12 @@
 
 @media screen and (max-width: 400px) {
   .location-card-container {
-    width: 320px;
+    width: 100%;
     height: auto;
   }
 
   .heading-container {
-    width: 320px;
+    width: 100%;
   }
 
   .map-container {
