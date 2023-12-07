@@ -124,7 +124,7 @@
 @media screen and (max-width: 400px) {
   .clinicCard {
     /* grid-template-columns: unset; */
-    width: 320px;
+    /* width: 320px; */
     height: auto;
     padding: 12px;
   }
