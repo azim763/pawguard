@@ -8,15 +8,18 @@
   background-color: var(--pearl-blue);
   grid-column: 1/-1;
   padding: 8px 12px;
-  margin-bottom: 12px
+  margin-bottom: 12px;
 }
 
 .specialtyList {
   padding-left: 5%;
   list-style-type: disc;
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  column-gap: 50px;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
   row-gap: 12px;
 }
 
+.specialties-container {
+  width: 320px;
+}
