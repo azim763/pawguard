@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Downshift from "downshift";
 import Typography from "../Typography/Typography";
-import LocationSVG from "../SVG/LocationSVG";
 
 const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
   // Use a Set to keep track of unique clinic cities
   const uniqueCities = [...new Set(clinicInfo.map((item) => item.City))];
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <Downshift
-      onChange={(selection) => handleSelection(selection)} // Set the onChange handler here
+      onChange={(selection) => handleSelection(selection)}
+      onInputValueChange={(input) => {
+        setInputValue(input);
+        if (input === "") {
+          handleSelection(null);
+        }
+      }}
       itemToString={(item) => (item ? item.City : "")}
+      inputValue={inputValue}
     >
       {({
         getInputProps,
         getItemProps,
         getMenuProps,
         isOpen,
-        inputValue,
+        inputValue: downshiftInputValue,
         selectedItem,
         highlightedIndex,
         getRootProps,
+        clearSelection,
       }) => (
         <div>
           <div {...getRootProps({}, { suppressRefError: true })}>
@@ -28,13 +36,21 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
               <input
                 {...getInputProps({
                   placeholder: "E.g. Vancouver",
+                  value: downshiftInputValue,
+                  onChange: (e) => {
+                    const newInputValue = e.target.value;
+                    setInputValue(newInputValue);
+                    if (newInputValue === "") {
+                      clearSelection();
+                    }
+                  },
                 })}
                 style={{
                   width: "100%",
                   height: "54px",
                   borderRadius: "8px",
                   padding: "0 12px",
-                  border: "1px solid var(--almost-black)"
+                  border: "1px solid var(--almost-black)",
                 }}
               />
             </Typography>
@@ -44,14 +60,16 @@ const AutocompleteClinic = ({ clinicInfo, handleSelection }) => {
               uniqueCities
                 .filter(
                   (city) =>
-                    !inputValue ||
-                    city.toLowerCase().includes(inputValue.toLowerCase())
+                    !downshiftInputValue ||
+                    city
+                      .toLowerCase()
+                      .includes(downshiftInputValue.toLowerCase())
                 )
                 .map((city, index) => (
                   <li
                     {...getItemProps({
                       index,
-                      item: { City: city }, // Create an object with the City property
+                      item: { City: city },
                       style: {
                         backgroundColor:
                           highlightedIndex === index ? "lightgray" : "white",
