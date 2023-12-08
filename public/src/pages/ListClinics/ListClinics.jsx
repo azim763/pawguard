@@ -241,7 +241,7 @@ const ListClinics = () => {
       );
     });
     console.log("filteredResult", filteredResults);
-
+    
     setClinicData(filteredResults);
   };
 
@@ -426,8 +426,7 @@ const ListClinics = () => {
                         clinicInfo={clinicInfo}
                         handleSelection={(selectedClinic) => {
                           if (!selectedClinic) {
-                            // If selection is empty, call handleSelection with null or empty value
-                            setselectedClinicName(null); // You can also pass an empty string if that's what you prefer
+                            setselectedClinicName(""); 
                           } else {
                             setselectedClinicName(selectedClinic.City);
                           }
