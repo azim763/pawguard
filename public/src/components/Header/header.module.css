@@ -123,10 +123,20 @@ nav li a:hover {
     z-index: 99;
   }
 
+  .profileIcon > div:first-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .profileMenu ul{
+    width: 30vw;
+  }
+
   .profileMenu {
     background-color: var(--dark-blue);
     left: -75px;
     top: 60px;
+    position: static;
     text-align: center;
   }
 
