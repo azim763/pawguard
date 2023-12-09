@@ -21,5 +21,13 @@
 }
 
 .specialties-container {
-  width: 300px;
+  width: 500px;
 }
+
+
+@media screen and (max-width: 768px){
+  .specialties-container {
+    width: 300px;
+  }
+}
+
